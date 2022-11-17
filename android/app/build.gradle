@@ -37,13 +37,6 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    
-    lintOptions {
-        disable 'InvalidPackage'
-        disable "Instantiatable"
-        checkReleaseBuilds false
-        abortOnError false
-    }
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -56,8 +49,8 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         manifestPlaceholders = [
-            VIVO_APPID:"105558479",
-            VIVO_APPKEY:"c702255c2379fdcc28c381d7986d338b",
+            VIVO_APPID:"",
+            VIVO_APPKEY:"",
             applicationName : "timuikit"
         ]
     }

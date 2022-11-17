@@ -1,63 +1,52 @@
-// ignore_for_file: avoid_relative_lib_imports, avoid_print, unused_import
+// ignore_for_file: unused_import, avoid_print
+
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tim_ui_kit_push_plugin/tim_ui_kit_push_plugin.dart';
 import 'package:tim_ui_kit/tim_ui_kit.dart';
 import 'package:tim_ui_kit/ui/utils/color.dart';
-import 'package:timuikit/country_list_pick-1.0.1+5/lib/country_list_pick.dart';
-import 'package:timuikit/country_list_pick-1.0.1+5/lib/country_selection_theme.dart';
-import 'package:timuikit/country_list_pick-1.0.1+5/lib/support/code_country.dart';
 import 'package:timuikit/src/config.dart';
 import 'package:timuikit/src/pages/home_page.dart';
 import 'package:timuikit/src/pages/privacy/privacy_webview.dart';
 import 'package:timuikit/src/provider/theme.dart';
 import 'package:timuikit/src/routes.dart';
-import 'package:timuikit/src/widgets/login_captcha.dart';
+import 'package:timuikit/utils/GenerateUserSig.dart';
 import 'package:timuikit/utils/commonUtils.dart';
 import 'package:timuikit/utils/push/channel/channel_push.dart';
 import 'package:timuikit/utils/push/push_constant.dart';
-import 'package:timuikit/utils/smsLogin.dart';
 import 'package:timuikit/utils/toast.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:timuikit/i18n/i18n_utils.dart';
 
-class LoginPage extends StatelessWidget {
-  final Function? initIMSDK;
-  const LoginPage({Key? key, this.initIMSDK}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
-  removeLocalSetting() async {
-    Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-    SharedPreferences prefs = await _prefs;
-    prefs.remove("smsLoginToken");
-    prefs.remove("smsLoginPhone");
-    prefs.remove("smsLoginUserID");
-    prefs.remove("channelListMain");
-    prefs.remove("discussListMain");
-  }
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
 
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
         onWillPop: () async {
           return false;
         },
-        child: Scaffold(
-          body: AppLayout(initIMSDK: initIMSDK),
+        child: const Scaffold(
+          body: AppLayout(),
           resizeToAvoidBottomInset: false,
         ));
   }
 }
 
 class AppLayout extends StatelessWidget {
-  final Function? initIMSDK;
-  const AppLayout({Key? key, this.initIMSDK}) : super(key: key);
+  const AppLayout({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -66,11 +55,9 @@ class AppLayout extends StatelessWidget {
         SystemChannels.textInput.invokeMethod('TextInput.hide');
       },
       child: Stack(
-        children: [
-          const AppLogo(),
-          LoginForm(
-            initIMSDK: initIMSDK,
-          ),
+        children: const [
+          AppLogo(),
+          LoginForm(),
         ],
       ),
     );
@@ -114,29 +101,29 @@ class AppLogo extends StatelessWidget {
                 ),
                 Expanded(
                     child: Container(
-                  margin: const EdgeInsets.only(right: 5),
-                  height: CommonUtils.adaptHeight(180),
-                  padding: const EdgeInsets.only(top: 10, left: 12, right: 15),
-                  child: Column(
-                    children: <Widget>[
-                      Text(
-                        imt("腾讯云即时通信IM"),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: CommonUtils.adaptFontSize(58),
-                        ),
+                      margin: const EdgeInsets.only(right: 5),
+                      height: CommonUtils.adaptHeight(180),
+                      padding: const EdgeInsets.only(top: 10, left: 12, right: 15),
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            imt("腾讯云即时通信IM"),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: CommonUtils.adaptFontSize(58),
+                            ),
+                          ),
+                          Text(
+                            imt("欢迎使用本 APP 体验腾讯云 IM 产品服务"),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: CommonUtils.adaptFontSize(26),
+                            ),
+                          ),
+                        ],
+                        crossAxisAlignment: CrossAxisAlignment.start,
                       ),
-                      Text(
-                        imt("欢迎使用本 APP 体验腾讯云 IM 产品服务"),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: CommonUtils.adaptFontSize(26),
-                        ),
-                      ),
-                    ],
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                  ),
-                )),
+                    )),
               ],
             ),
           ),
@@ -147,8 +134,7 @@ class AppLogo extends StatelessWidget {
 }
 
 class LoginForm extends StatefulWidget {
-  final Function? initIMSDK;
-  const LoginForm({Key? key, required this.initIMSDK}) : super(key: key);
+  const LoginForm({Key? key}) : super(key: key);
 
   @override
   _LoginFormState createState() => _LoginFormState();
@@ -157,84 +143,12 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   final CoreServicesImpl coreInstance = TIMUIKitCore.getInstance();
 
+  String userID = '';
+
   @override
-  void initState() {
+  initState() {
     super.initState();
-
-    Future.delayed(const Duration(milliseconds: 100), checkFirstEnter);
-  }
-
-  @override
-  void dispose() {
-    userSigEtController.dispose();
-    telEtController.dispose();
-    super.dispose();
-  }
-
-  bool isGeted = false;
-  String tel = '';
-  int timer = 60;
-  String sessionId = '';
-  String code = '';
-  bool isValid = false;
-  TextEditingController userSigEtController = TextEditingController();
-  TextEditingController telEtController = TextEditingController();
-  String dialCode = "+86";
-  String countryName = imt("中国大陆");
-
-  initService() {
-    if (widget.initIMSDK != null) {
-      widget.initIMSDK!();
-    }
-    userSigEtController.addListener(checkIsValidForm);
-    telEtController.addListener(checkIsValidForm);
-    SmsLogin.initLoginService();
-    setTel();
-  }
-
-  checkIsValidForm() {
-    if (userSigEtController.text.isNotEmpty &&
-        telEtController.text.isNotEmpty) {
-      setState(() {
-        isValid = true;
-      });
-    } else if (isValid) {
-      setState(() {
-        isValid = false;
-      });
-    }
-  }
-
-  setTel() async {
-    Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-    SharedPreferences prefs = await _prefs;
-    String? phone = prefs.getString("smsLoginPhone");
-    if (phone != null) {
-      telEtController.value = TextEditingValue(
-        text: phone,
-      );
-      setState(() {
-        tel = phone;
-      });
-    }
-  }
-
-  timeDown() {
-    Future.delayed(const Duration(milliseconds: 1000), () {
-      if (mounted) {
-        if (timer == 0) {
-          setState(() {
-            timer = 60;
-            isGeted = false;
-          });
-          return;
-        }
-        setState(() {
-          timer = timer - 1;
-        });
-        timeDown();
-      }
-    });
+    checkFirstEnter();
   }
 
   TextSpan webViewLink(String title, String url) {
@@ -255,7 +169,12 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void checkFirstEnter() async {
-    // 不再检查是否首次登录，每次切换账号均提示
+    Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    SharedPreferences prefs = await _prefs;
+    String? firstTime = prefs.getString("firstTime");
+    if (firstTime != null && firstTime == "true") {
+      return;
+    }
     showDialog<bool>(
       context: context,
       barrierDismissible: false,
@@ -283,12 +202,7 @@ class _LoginFormState extends State<LoginForm> {
                   TextSpan(
                     text: imt(", "),
                   ),
-                  webViewLink("《隐私政策摘要》",
-                      'https://privacy.qq.com/document/preview/c63a48325d0e4a35b93f675205a65a77'),
-                  TextSpan(
-                    text: imt(", "),
-                  ),
-                  webViewLink("《隐私政策》",
+                  webViewLink("《隐私协议》",
                       'https://privacy.qq.com/document/preview/1cfe904fb7004b8ab1193a55857f7272'),
                   TextSpan(
                     text: imt(", "),
@@ -309,7 +223,7 @@ class _LoginFormState extends State<LoginForm> {
             CupertinoDialogAction(
               child: Container(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 100, vertical: 10),
+                  const EdgeInsets.symmetric(horizontal: 100, vertical: 10),
                   decoration: const BoxDecoration(
                     color: Color.fromRGBO(0, 110, 253, 1),
                     borderRadius: BorderRadius.all(
@@ -318,9 +232,9 @@ class _LoginFormState extends State<LoginForm> {
                   ),
                   child: Text(imt("同意并继续"),
                       style:
-                          const TextStyle(color: Colors.white, fontSize: 16))),
+                      const TextStyle(color: Colors.white, fontSize: 16))),
               onPressed: () {
-                initService();
+                prefs.setString("firstTime", "true");
                 Navigator.of(context).pop(true);
               },
             ),
@@ -338,159 +252,41 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-  // 获取验证码
-  getLoginCode(context) async {
-    if (tel.isEmpty) {
-      Utils.toast(imt("请输入手机号"));
-      return;
-    } else if (!RegExp(r"1[0-9]\d{9}$").hasMatch(tel)) {
-      Utils.toast(imt("手机号格式错误"));
-      return;
-    } else {
-      await _showMyDialog();
-    }
-  }
-
-  // 验证验证码后台下发短信
-  vervifyPicture(messageObj) async {
-    // String captchaWebAppid =
-    //     Provider.of<AppConfig>(context, listen: false).appid;
-    String phoneNum = "$dialCode$tel";
-    final sdkAppid = IMDemoConfig.sdkappid.toString();
-    print("sdkAppID$sdkAppid");
-    Map<String, dynamic> response = await SmsLogin.vervifyPicture(
-      phone: phoneNum,
-      ticket: messageObj['ticket'],
-      randstr: messageObj['randstr'],
-      appId: sdkAppid,
-    );
-    int errorCode = response['errorCode'];
-    String errorMessage = response['errorMessage'];
-    if (errorCode == 0) {
-      Map<String, dynamic> res = response['data'];
-      String sid = res['sessionId'];
-      setState(() {
-        isGeted = true;
-        sessionId = sid;
-      });
-      timeDown();
-      Utils.toast(imt("验证码发送成功"));
-    } else {
-      Utils.toast(errorMessage);
-    }
-  }
-
-  Future<void> _showMyDialog() async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: Colors.transparent,
-          contentPadding: EdgeInsets.zero,
-          elevation: 0,
-          content: SingleChildScrollView(
-              child: LoginCaptcha(
-                  onSuccess: vervifyPicture,
-                  onClose: () {
-                    Navigator.pop(context);
-                  })),
-        );
-      },
-    );
-  }
-
   directToHomePage() {
     Routes().directToHomePage();
   }
 
-  smsFristLogin() async {
-    if (tel == '' && IMDemoConfig.productEnv) {
-      Utils.toast(imt("请输入手机号"));
-    }
-    if (sessionId == '' || code == '') {
-      Utils.toast(imt("验证码异常"));
+  userLogin() async {
+    if (userID.trim() == '') {
+      Utils.toast(imt("请输入用户名"));
       return;
     }
-    String phoneNum = "$dialCode$tel";
-    Map<String, dynamic> response = await SmsLogin.smsFirstLogin(
-      sessionId: sessionId,
-      phone: phoneNum,
-      code: code,
+
+    String key = IMDemoConfig.key;
+    int sdkAppId = IMDemoConfig.sdkappid;
+    if (key == "") {
+      Utils.toast(imt("请在环境变量中写入key"));
+      return;
+    }
+    GenerateTestUserSig generateTestUserSig = GenerateTestUserSig(
+      sdkappid: sdkAppId,
+      key: key,
     );
-    int errorCode = response['errorCode'];
-    String errorMessage = response['errorMessage'];
 
-    if (errorCode == 0) {
-      Map<String, dynamic> datas = response['data'];
-      // userId, sdkAppId, sdkUserSig, token, phone:tel
-      String userId = datas['userId'];
-      String userSig = datas['sdkUserSig'];
-      String token = datas['token'];
-      String phone = datas['phone'];
-      String avatar = datas['avatar'];
-      int sdkAppId = datas['sdkAppId'];
+    String userSig =
+    generateTestUserSig.genSig(identifier: userID, expire: 99999);
 
-      var data = await coreInstance.login(
-        userID: userId,
-        userSig: userSig,
-      );
-      if (data.code != 0) {
-        final option1 = data.desc;
-        Utils.toast(
-            imt_para("登录失败{{option1}}", "登录失败$option1")(option1: option1));
-        return;
-      }
-
-      final userInfos = coreInstance.loginUserInfo;
-      if (userInfos != null) {
-        await coreInstance.setSelfInfo(
-          userFullInfo: V2TimUserFullInfo.fromJson(
-            {
-              "nickName": userId,
-              "faceUrl": avatar,
-            },
-          ),
-        );
-      }
-
-      Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-      SharedPreferences prefs = await _prefs;
-      prefs.setString("smsLoginToken", token);
-      prefs.setString("smsLoginPhone", phone.replaceFirst(dialCode, ""));
-      prefs.setString("smsLoginUserID", userId);
-      prefs.setString("sdkAppId", sdkAppId.toString());
-      setState(() {
-        tel = '';
-        code = '';
-        timer = 60;
-        isGeted = false;
-      });
-      userSigEtController.clear();
-      telEtController.clear();
-      // await getIMData();
-      // TIMUIKitConversationController().loadData();
-      // Navigator.pop(context);
-      directToHomePage();
-    } else {
-      Utils.toast(errorMessage);
+    var data = await coreInstance.login(
+      userID: userID,
+      userSig: userSig,
+    );
+    if (data.code != 0) {
+      final option1 = data.desc;
+      Utils.toast(
+          imt_para("登录失败{{option1}}", "登录失败$option1")(option1: option1));
+      return;
     }
-  }
-
-  getIMData() async {
-    await Future.wait([
-      setOfflinePushInfo(),
-    ]);
-  }
-
-  Future<void> setOfflinePushInfo() async {
-    // 这里先请求权限再上报token
-    ChannelPush.requestPermission();
-    final bool isUploadSuccess =
-        await ChannelPush.uploadToken(PushConfig.appInfo);
-    if (isUploadSuccess) {
-      print("upload sueecss");
-    }
+    directToHomePage();
   }
 
   @override
@@ -500,8 +296,6 @@ class _LoginFormState extends State<LoginForm> {
       designSize: const Size(750, 1624),
       minTextAdapt: true,
     );
-
-    final theme = Provider.of<DefaultThemeData>(context).theme;
     return Stack(
       children: [
         Positioned(
@@ -511,6 +305,7 @@ class _LoginFormState extends State<LoginForm> {
               decoration: const BoxDecoration(
                 //背景
                 color: Colors.white,
+
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30.0),
                     topRight: Radius.circular(30.0),
@@ -527,82 +322,11 @@ class _LoginFormState extends State<LoginForm> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      imt("国家/地区"),
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: CommonUtils.adaptFontSize(34)),
-                    ),
-                    CountryListPick(
-                      appBar: AppBar(
-                        // backgroundColor: Colors.blue,
-                        title: Text(imt("选择你的国家区号"),
-                            style: const TextStyle(fontSize: 17)),
-                        flexibleSpace: Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(colors: [
-                              theme.lightPrimaryColor ??
-                                  CommonColor.lightPrimaryColor,
-                              theme.primaryColor ?? CommonColor.primaryColor
-                            ]),
-                          ),
-                        ),
-                      ),
-
-                      // if you need custome picker use this
-                      pickerBuilder: (context, CountryCode? countryCode) {
-                        return Row(
-                          children: [
-                            // 屏蔽伊朗 98
-                            // 朝鲜 82 850
-                            // 叙利亚 963
-                            // 古巴 53
-                            Text(
-                                "${countryName == "China" ? "中国大陆" : countryName}(${countryCode?.dialCode})",
-                                style: TextStyle(
-                                    color: const Color.fromRGBO(17, 17, 17, 1),
-                                    fontSize: CommonUtils.adaptFontSize(32))),
-                            const Spacer(),
-                            const Icon(
-                              Icons.arrow_drop_down,
-                              color: Color.fromRGBO(17, 17, 17, 0.8),
-                            ),
-                          ],
-                        );
-                      },
-
-                      // To disable option set to false
-                      theme: CountryTheme(
-                          isShowFlag: false,
-                          isShowTitle: true,
-                          isShowCode: true,
-                          isDownIcon: true,
-                          showEnglishName: true,
-                          searchHintText: imt("请使用英文搜索"),
-                          searchText: imt("搜索")),
-                      // Set default value
-                      initialSelection: '+86',
-                      onChanged: (code) {
-                        setState(() {
-                          dialCode = code?.dialCode ?? "+86";
-                          countryName = code?.name ?? imt("中国大陆");
-                        });
-                      },
-                      useUiOverlay: false,
-                      // Whether the country list should be wrapped in a SafeArea
-                      useSafeArea: false,
-                    ),
-                    Container(
-                      decoration: const BoxDecoration(
-                          border: Border(
-                              bottom:
-                                  BorderSide(width: 1, color: Colors.grey))),
-                    ),
                     Padding(
                       padding:
-                          EdgeInsets.only(top: CommonUtils.adaptFontSize(34)),
+                      EdgeInsets.only(top: CommonUtils.adaptFontSize(34)),
                       child: Text(
-                        imt("手机号"),
+                        imt("用户名"),
                         style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: CommonUtils.adaptFontSize(34),
@@ -610,97 +334,21 @@ class _LoginFormState extends State<LoginForm> {
                       ),
                     ),
                     TextField(
-                      controller: telEtController,
+                      autofocus: false,
                       decoration: InputDecoration(
                         contentPadding:
-                            EdgeInsets.only(left: CommonUtils.adaptWidth(14)),
-                        hintText: imt("请输入手机号"),
+                        EdgeInsets.only(left: CommonUtils.adaptWidth(14)),
+                        hintText: imt("请输入用户名"),
                         hintStyle:
-                            TextStyle(fontSize: CommonUtils.adaptFontSize(32)),
+                        TextStyle(fontSize: CommonUtils.adaptFontSize(32)),
                         //
                       ),
-                      keyboardType: TextInputType.phone,
+                      keyboardType: TextInputType.number,
                       onChanged: (v) {
                         setState(() {
-                          tel = v;
+                          userID = v;
                         });
                       },
-                    ),
-                    Padding(
-                        child: Text(
-                          imt("验证码"),
-                          style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: CommonUtils.adaptFontSize(34)),
-                        ),
-                        padding: EdgeInsets.only(
-                          top: CommonUtils.adaptHeight(35),
-                        )),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextField(
-                            controller: userSigEtController,
-                            decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.only(left: 5),
-                              hintText: imt("请输入验证码"),
-                              hintStyle: TextStyle(
-                                  fontSize: CommonUtils.adaptFontSize(32)),
-                            ),
-                            keyboardType: TextInputType.number,
-                            //校验密码
-                            onChanged: (value) {
-                              if ('$code$code' == value && value.length > 5) {
-                                //键入重复的情况
-                                setState(() {
-                                  userSigEtController.value = TextEditingValue(
-                                    text: code, //不赋值新的 用旧的;
-                                    selection: TextSelection.fromPosition(
-                                      TextPosition(
-                                          affinity: TextAffinity.downstream,
-                                          offset: code.length),
-                                    ), //  此处是将光标移动到最后,
-                                  );
-                                });
-                              } else {
-                                //第一次输入验证码
-                                setState(() {
-                                  userSigEtController.value = TextEditingValue(
-                                    text: value,
-                                    selection: TextSelection.fromPosition(
-                                      TextPosition(
-                                          affinity: TextAffinity.downstream,
-                                          offset: value.length),
-                                    ), //  此处是将光标移动到最后,
-                                  );
-                                  code = value;
-                                });
-                              }
-                            },
-                          ),
-                        ),
-                        SizedBox(
-                          width: CommonUtils.adaptWidth(200),
-                          child: ElevatedButton(
-                            child: isGeted
-                                ? Text(timer.toString())
-                                : Text(
-                                    imt("获取验证码"),
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: CommonUtils.adaptFontSize(24),
-                                    ),
-                                  ),
-                            onPressed: isGeted
-                                ? null
-                                : () {
-                                    //获取验证码
-                                    FocusScope.of(context).unfocus();
-                                    getLoginCode(context);
-                                  },
-                          ),
-                        )
-                      ],
                     ),
                     Container(
                       margin: EdgeInsets.only(
@@ -710,8 +358,8 @@ class _LoginFormState extends State<LoginForm> {
                         children: [
                           Expanded(
                             child: ElevatedButton(
-                              child: Text(imt("登录")),
-                              onPressed: isValid ? smsFristLogin : null,
+                              child: Text(imt("登陆")),
+                              onPressed: userLogin,
                             ),
                           )
                         ],

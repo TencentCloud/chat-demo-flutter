@@ -1,10 +1,11 @@
-// ignore_for_file: unused_element
+// ignore_for_file: unused_import
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tim_ui_kit/tim_ui_kit.dart';
 import 'package:tim_ui_kit/ui/controller/tim_uikit_conversation_controller.dart';
 import 'package:tim_ui_kit/ui/utils/color.dart';
-import 'package:tim_ui_kit/ui/utils/platform.dart';
+import 'package:tim_ui_kit/ui/views/TIMUIKitSearch/tim_uikit_search.dart';
 import 'package:timuikit/src/chat.dart';
 import 'package:timuikit/i18n/i18n_utils.dart';
 import 'package:provider/provider.dart';
@@ -38,16 +39,17 @@ class _ConversationState extends State<Conversation> {
             selectedConversation: selectedConv!,
           ),
         ));
+    _controller.reloadData();
   }
 
   void _handleOnConvItemTapedWithPlace(V2TimConversation? selectedConv,
-      [V2TimMessage? toMessage]) async {
+      [V2TimMessage? targetMsg]) async {
     await Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => Chat(
             selectedConversation: selectedConv!,
-            initFindingMsg: toMessage,
+            initFindingMsg: targetMsg,
           ),
         ));
     _controller.reloadData();
@@ -67,10 +69,11 @@ class _ConversationState extends State<Conversation> {
     _controller.deleteConversation(conversationID: conversation.conversationID);
   }
 
+
   List<ConversationItemSlidablePanel> _itemSlidableBuilder(
       V2TimConversation conversationItem) {
     return [
-      if(!PlatformUtils().isWeb)  ConversationItemSlidablePanel(
+      if(!kIsWeb) ConversationItemSlidablePanel(
         onPressed: (context) {
           _clearHistory(conversationItem);
         },
@@ -163,24 +166,20 @@ class _ConversationState extends State<Conversation> {
       children: [
         searchEntry(theme),
         Expanded(
-          child: TIMUIKitConversation(
-            onTapItem: _handleOnConvItemTaped,
-            isShowOnlineStatus: localSetting.isShowOnlineStatus,
-            controller: _controller,
-            // conversationCollector: (conversation) {
-            //   final groupID = conversation?.groupID ?? "";
-            //   return !groupID.contains("im_discuss_");
-            // },
-            emptyBuilder: () {
-              return Container(
-                padding: const EdgeInsets.only(top:100),
-                child: Center(
-                  child: Text(imt("暂无会话")),
-                ),
-              );
-            },
-          ),
-        )
+            child: TIMUIKitConversation(
+          onTapItem: _handleOnConvItemTaped,
+          isShowOnlineStatus: localSetting.isShowOnlineStatus,
+          itemSlidableBuilder: _itemSlidableBuilder,
+          controller: _controller,
+              emptyBuilder: () {
+                return Container(
+                  padding: const EdgeInsets.only(top:100),
+                  child: Center(
+                    child: Text(imt("暂无会话")),
+                  ),
+                );
+              },
+        ))
       ],
     );
   }

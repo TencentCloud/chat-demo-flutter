@@ -1,7 +1,8 @@
-// ignore_for_file: prefer_typing_uninitialized_variables, avoid_print
+// ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:super_tooltip/super_tooltip.dart';
@@ -23,10 +24,8 @@ import 'package:timuikit/i18n/i18n_utils.dart';
 import 'package:timuikit/src/provider/local_setting.dart';
 import 'package:timuikit/src/provider/login_user_Info.dart';
 import 'package:timuikit/src/provider/theme.dart';
-import 'package:timuikit/utils/platform.dart';
 import 'package:timuikit/utils/push/channel/channel_push.dart';
 import 'package:timuikit/utils/push/push_constant.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 
 /// 首页
 class HomePage extends StatefulWidget {
@@ -40,11 +39,11 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   bool hasInit = false;
   var subscription;
-  bool hasInternet = true;
   final CoreServicesImpl _coreInstance = TIMUIKitCore.getInstance();
   final V2TIMManager _sdkInstance = TIMUIKitCore.getSDKInstance();
+  final TUICalling _calling = TUICalling();
   final TIMUIKitConversationController _conversationController =
-      TIMUIKitConversationController();
+  TIMUIKitConversationController();
   final TIMUIKitChatController _timuiKitChatController =
   TIMUIKitChatController();
   final contactTooltip = [
@@ -80,14 +79,27 @@ class HomePageState extends State<HomePage> {
 
   SuperTooltip? tooltip;
 
-  // Widget _emptyAvatarBuilder(context) {
-  //   return Image.asset("assets/default_avatar.png");
-  // }
+  _initTrtc() {
+    final loginInfo = _coreInstance.loginInfo;
+    final userID = loginInfo.userID;
+    final userSig = loginInfo.userSig;
+    final sdkAppId = loginInfo.sdkAppID;
+    _calling.init(sdkAppID: sdkAppId, userID: userID, userSig: userSig);
+    _calling.enableFloatingWindow();
+  }
+
+  @override
+  initState() {
+    super.initState();
+    currentIndex = widget.pageIndex;
+    // _coreInstance.setEmptyAvatarBuilder(_emptyAvatarBuilder);
+    _initTrtc();
+    setState(() {});
+    getLoginUserInfo();
+    initOfflinePush();
+  }
 
   getLoginUserInfo() async {
-    if(kIsWeb){
-      return;
-    }
     final res = await _sdkInstance.getLoginUser();
     if (res.code == 0) {
       final result = await _sdkInstance.getUsersInfo(userIDList: [res.data!]);
@@ -99,38 +111,20 @@ class HomePageState extends State<HomePage> {
     }
   }
 
-  _initTrtc() async {
-    final isAndroidEmulator = await PlatformUtils.isAndroidEmulator();
-    if (!isAndroidEmulator) {
-      final TUICalling _calling = TUICalling();
-      final loginInfo = _coreInstance.loginInfo;
-      final userID = loginInfo.userID;
-      final userSig = loginInfo.userSig;
-      final sdkAppId = loginInfo.sdkAppID;
-      _calling.init(sdkAppID: sdkAppId, userID: userID, userSig: userSig);
-      _calling.enableFloatingWindow();
-    }
-  }
-
-  uploadOfflinePushInfoToken() async {
-    if (!kIsWeb) {
-      ChannelPush.requestPermission();
-      Future.delayed(const Duration(seconds: 5), () async {
-        final bool isUploadSuccess =
-            await ChannelPush.uploadToken(PushConfig.appInfo);
-        print("Push token upload result: $isUploadSuccess");
-      });
-    }
-  }
-
   @override
-  initState() {
-    super.initState();
-    currentIndex = widget.pageIndex;
-    _initTrtc();
-    setState(() {});
-    getLoginUserInfo();
-    initOfflinePush();
+  dispose() {
+    super.dispose();
+    // subscription.cancle();
+  }
+
+  Map<int, String> pageTitle(LocalSetting localSetting) {
+    final String connectText = localSetting.connectStatus == ConnectStatus.connecting ? imt("连接中...") : imt("连接失败");
+    return {
+      // 0: imt("频道"),
+      0: localSetting.connectStatus == ConnectStatus.success ? imt("消息") : connectText,
+      1: imt("通讯录"),
+      2: imt("我的"),
+    };
   }
 
   initOfflinePush()async {
@@ -138,21 +132,16 @@ class HomePageState extends State<HomePage> {
     uploadOfflinePushInfoToken();
   }
 
-  @override
-  dispose() {
-    super.dispose();
-    // subscription.cancle();
-  }
-
   void handleClickNotification(Map<String, dynamic> msg) async {
     String ext = msg['ext'] ?? "";
     Map<String, dynamic> extMsp = jsonDecode(ext);
     String convId = extMsp["conversationID"] ?? "";
     final currentConvID = _timuiKitChatController.getCurrentConversation();
+
     if (convId.split("_").length < 2 || currentConvID == convId.split("_")[1]) {
       return;
     }
-    final targetConversationRes = await TencentImSDKPlugin.v2TIMManager
+    final targetConversationRes = await _sdkInstance
         .getConversationManager()
         .getConversation(conversationID: convId);
 
@@ -172,31 +161,8 @@ class HomePageState extends State<HomePage> {
     }
   }
 
-  Map<int, String> pageTitle(LocalSetting localSetting) {
-    final String connectText = localSetting.connectStatus == ConnectStatus.connecting ? imt("连接中...") : imt("连接失败");
-    return {
-      // 0: imt("频道"),
-      0: localSetting.connectStatus == ConnectStatus.success ? imt("消息") : connectText,
-      1: imt("通讯录"),
-      2: imt("我的"),
-    };
-  }
-
   List<NavigationBarData> getBottomNavigatorList(BuildContext context, theme) {
     final List<NavigationBarData> bottomNavigatorList = [
-      // NavigationBarData(
-      //   widget: const Channel(),
-      //   // widget: Text("1"),
-      //   title: imt("频道"),
-      //   selectedIcon: Icon(
-      //     Icons.group_work_outlined,
-      //     color: theme.primaryColor,
-      //   ),
-      //   unselectedIcon: const Icon(
-      //     Icons.group_work_outlined,
-      //     color: Colors.grey,
-      //   ),
-      // ),
       NavigationBarData(
         widget: Conversation(
           conversationController: _conversationController,
@@ -215,14 +181,13 @@ class HomePageState extends State<HomePage> {
                   theme.primaryColor ?? CommonColor.primaryColor,
                   BlendMode.srcATop),
             ),
-              Positioned(
-                top: -5,
-                right: -6,
-                child: UnconstrainedBox(
-                  child: TIMUIKitConversationTotalUnread(
-                      width: 16, height: 16),
-                ),
-              )
+            Positioned(
+              top: -5,
+              right: -6,
+              child: UnconstrainedBox(
+                child: TIMUIKitConversationTotalUnread(width: 16, height: 16),
+              ),
+            )
           ],
         ),
         unselectedIcon: Stack(
@@ -233,14 +198,13 @@ class HomePageState extends State<HomePage> {
               width: 24,
               height: 24,
             ),
-              Positioned(
-                top: -5,
-                right: -6,
-                child: UnconstrainedBox(
-                  child: TIMUIKitConversationTotalUnread(
-                      width: 16, height: 16),
-                ),
-              )
+            Positioned(
+              top: -5,
+              right: -6,
+              child: UnconstrainedBox(
+                child: TIMUIKitConversationTotalUnread(width: 16, height: 16),
+              ),
+            )
           ],
         ),
       ),
@@ -325,6 +289,16 @@ class HomePageState extends State<HomePage> {
     Navigator.of(context).pop();
   }
 
+  uploadOfflinePushInfoToken() async {
+    if (!kIsWeb) {
+      ChannelPush.requestPermission();
+      Future.delayed(const Duration(seconds: 5), () async {
+        final bool isUploadSuccess =
+        await ChannelPush.uploadToken(PushConfig.appInfo);
+        print("Push token upload result: $isUploadSuccess");
+      });
+    }
+  }
   //如果点击的导航页不是当前项，切换
   void _changePage(int index) {
     if (index != currentIndex) {
@@ -409,6 +383,7 @@ class HomePageState extends State<HomePage> {
   List<Widget> _getTooltipContent(BuildContext context) {
     List toolTipList = currentIndex == 1 ? contactTooltip : conversationTooltip;
 
+
     return toolTipList.map((e) {
       return InkWell(
         onTap: () {
@@ -454,48 +429,46 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
-    final LocalSetting localSetting = Provider.of<LocalSetting>(context);
     ScreenUtil.init(
       context,
       designSize: const Size(750, 1624),
       minTextAdapt: true,
     );
-
+    final LocalSetting localSetting = Provider.of<LocalSetting>(context);
     final theme = Provider.of<DefaultThemeData>(context).theme;
     return Scaffold(
       appBar: AppBar(
-              iconTheme: const IconThemeData(
-                color: Colors.white,
-              ),
-              shadowColor: theme.weakDividerColor,
-              elevation: currentIndex == 0 ? 0 : 1,
-              automaticallyImplyLeading: false,
-              leading: null,
-              title: getTitle(localSetting),
-              centerTitle: true,
-              flexibleSpace: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [
-                    theme.lightPrimaryColor ?? CommonColor.lightPrimaryColor,
-                    theme.primaryColor ?? CommonColor.primaryColor
-                  ]),
-                ),
-              ),
-              actions: [
-                if ([0, 1].contains(currentIndex))
-                  Builder(builder: (BuildContext c) {
-                    return IconButton(
-                        onPressed: () {
-                          _showTooltip(c);
-                        },
-                        icon: const Icon(
-                          Icons.add_circle_outline,
-                          color: Colors.white,
-                        ));
-                  })
-              ],
-            ),
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
+        shadowColor: theme.weakDividerColor,
+        elevation: currentIndex == 0 ? 0 : 1,
+        automaticallyImplyLeading: false,
+        leading: null,
+        title: getTitle(localSetting),
+        centerTitle: true,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [
+              theme.lightPrimaryColor ?? CommonColor.lightPrimaryColor,
+              theme.primaryColor ?? CommonColor.primaryColor
+            ]),
+          ),
+        ),
+        actions: [
+          if ([0, 1].contains(currentIndex))
+            Builder(builder: (BuildContext c) {
+              return IconButton(
+                  onPressed: () {
+                    _showTooltip(c);
+                  },
+                  icon: const Icon(
+                    Icons.add_circle_outline,
+                    color: Colors.white,
+                  ));
+            })
+        ],
+      ),
       body: IndexedStack(
         index: currentIndex,
         children: bottomNavigatorList(theme).map((res) => res.widget).toList(),
@@ -503,7 +476,7 @@ class HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         items: List.generate(
           bottomNavigatorList(theme).length,
-          (index) => BottomNavigationBarItem(
+              (index) => BottomNavigationBarItem(
             icon: index == currentIndex
                 ? bottomNavigatorList(theme)[index].selectedIcon
                 : bottomNavigatorList(theme)[index].unselectedIcon,
