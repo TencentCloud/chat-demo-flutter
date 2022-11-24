@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:tim_ui_kit/tim_ui_kit.dart';
+import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:timuikit/i18n/i18n_utils.dart';
 
 enum ThemeType { solemn, brisk, bright, fantasy }

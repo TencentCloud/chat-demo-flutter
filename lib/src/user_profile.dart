@@ -1,27 +1,29 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
-import 'package:tim_ui_kit/business_logic/life_cycle/profile_life_cycle.dart';
-import 'package:tim_ui_kit/tim_ui_kit.dart';
-import 'package:tim_ui_kit/ui/utils/color.dart';
-import 'package:tim_ui_kit/ui/utils/permission.dart';
-import 'package:tim_ui_kit/ui/views/TIMUIKitProfile/profile_widget.dart';
-import 'package:tim_ui_kit/ui/views/TIMUIKitProfile/widget/tim_uikit_profile_widget.dart';
-import 'package:tim_ui_kit/ui/widgets/toast.dart';
+import 'package:tencent_cloud_chat_uikit/business_logic/life_cycle/profile_life_cycle.dart';
+import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
+import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+import 'package:tencent_cloud_chat_uikit/ui/utils/permission.dart';
+import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/profile_widget.dart';
+import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/widget/tim_uikit_profile_widget.dart';
+import 'package:tencent_cloud_chat_uikit/ui/widgets/toast.dart';
 import 'package:tim_ui_kit_calling_plugin/enum/tim_uikit_trtc_calling_scence.dart';
 import 'package:tim_ui_kit_calling_plugin/tim_ui_kit_calling_plugin.dart';
 import 'package:timuikit/i18n/i18n_utils.dart';
 import 'package:timuikit/src/provider/theme.dart';
+import 'package:timuikit/src/provider/user_guide_provider.dart';
 import 'package:timuikit/src/search.dart';
 import 'package:timuikit/utils/platform.dart';
 import 'package:timuikit/utils/push/push_constant.dart';
+import 'package:timuikit/utils/user_guide.dart';
 import 'chat.dart';
 
 class UserProfile extends StatefulWidget {
   final String userID;
   final ValueChanged<String>? onRemarkUpdate;
-  const UserProfile({Key? key, required this.userID, this.onRemarkUpdate}) : super(key: key);
+  const UserProfile({Key? key, required this.userID, this.onRemarkUpdate})
+      : super(key: key);
   @override
   State<StatefulWidget> createState() => UserProfileState();
 }
@@ -72,8 +74,7 @@ class UserProfileState extends State<UserProfile> {
           ignoreIOSBadge: false,
         );
 
-         await Permissions.checkPermission(
-            context, Permission.microphone.value);
+        await Permissions.checkPermission(context, Permission.microphone.value);
 
         _calling?.call(widget.userID, CallingScenes.Audio, offlinePush);
         break;
@@ -90,9 +91,8 @@ class UserProfileState extends State<UserProfile> {
         );
 
         await Permissions.checkPermission(context, Permission.camera.value);
-        await Permissions.checkPermission(
-            context, Permission.microphone.value);
-            
+        await Permissions.checkPermission(context, Permission.microphone.value);
+
         _calling?.call(widget.userID, CallingScenes.Video, offlinePush);
         break;
     }
@@ -183,102 +183,105 @@ class UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<DefaultThemeData>(context).theme;
-    return Scaffold(
-      appBar: AppBar(
-        shadowColor: Colors.white,
-        title: Text(
-          imt("详细资料"),
-          style: TextStyle(color: hexToColor("1f2329"), fontSize: 17),
-        ),
-        backgroundColor: hexToColor("f2f3f5"),
-        // flexibleSpace: Container(
-        //   decoration: BoxDecoration(
-        //     gradient: LinearGradient(colors: [
-        //       theme.lightPrimaryColor ?? CommonColor.lightPrimaryColor,
-        //       theme.primaryColor ?? CommonColor.primaryColor
-        //     ]),
-        //   ),
-        // ),
-        iconTheme: const IconThemeData(
-          color: Colors.white,
-        ),
-        leading: IconButton(
-          padding: const EdgeInsets.only(left: 16),
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: 
-                hexToColor("2a2e35"),
-            size: 20,
+    judgeGuide('friendProfile', context);
+    final guideModel = Provider.of<UserGuideProvider>(context);
+    return IndexedStack(index: guideModel.guideName != "" ? 0 : 1, children: [
+      UserGuide(guideName: guideModel.guideName),
+      Scaffold(
+        appBar: AppBar(
+          shadowColor: Colors.white,
+          title: Text(
+            imt("详细资料"),
+            style: TextStyle(color: hexToColor("1f2329"), fontSize: 17),
           ),
-          onPressed: () {
-            Navigator.pop(context, newUserMARK);
-          },
+          backgroundColor: hexToColor("f2f3f5"),
+          // flexibleSpace: Container(
+          //   decoration: BoxDecoration(
+          //     gradient: LinearGradient(colors: [
+          //       theme.lightPrimaryColor ?? CommonColor.lightPrimaryColor,
+          //       theme.primaryColor ?? CommonColor.primaryColor
+          //     ]),
+          //   ),
+          // ),
+          iconTheme: const IconThemeData(
+            color: Colors.white,
+          ),
+          leading: IconButton(
+            padding: const EdgeInsets.only(left: 16),
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: hexToColor("2a2e35"),
+              size: 20,
+            ),
+            onPressed: () {
+              Navigator.pop(context, newUserMARK);
+            },
+          ),
         ),
-      ),
-      body: Container(
-        color: theme.weakBackgroundColor,
-        child: TIMUIKitProfile(
-          lifeCycle: ProfileLifeCycle(
-            didRemarkUpdated: (String newRemark) async {
-              if(widget.onRemarkUpdate != null) widget.onRemarkUpdate!(newRemark);
+        body: Container(
+          color: theme.weakBackgroundColor,
+          child: TIMUIKitProfile(
+            lifeCycle:
+                ProfileLifeCycle(didRemarkUpdated: (String newRemark) async {
+              if (widget.onRemarkUpdate != null)
+                widget.onRemarkUpdate!(newRemark);
               return true;
-            }
-          ),
-          userID: widget.userID,
-          profileWidgetBuilder: ProfileWidgetBuilder(
-            searchBar: (conversation) => TIMUIKitProfileWidget.searchBar(context, conversation,
-                    handleTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Search(
-                            conversation: conversation,
-                            onTapConversation:
-                                (V2TimConversation conversation,
-                                    [V2TimMessage? targetMsg]) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Chat(
-                                      selectedConversation: conversation,
-                                      initFindingMsg: targetMsg,
-                                    ),
-                                  ));
-                            }),
-                      ));
-                }),
-            customBuilderOne: (bool isFriend, V2TimFriendInfo friendInfo, V2TimConversation conversation){
-              // If you don't allow sending message when friendship not exist,
-              // please not comment the following lines.
+            }),
+            userID: widget.userID,
+            profileWidgetBuilder: ProfileWidgetBuilder(
+                searchBar: (conversation) => TIMUIKitProfileWidget.searchBar(
+                        context, conversation, handleTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Search(
+                                conversation: conversation,
+                                onTapConversation:
+                                    (V2TimConversation conversation,
+                                        [V2TimMessage? targetMsg]) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Chat(
+                                          selectedConversation: conversation,
+                                          initFindingMsg: targetMsg,
+                                        ),
+                                      ));
+                                }),
+                          ));
+                    }),
+                customBuilderOne: (bool isFriend, V2TimFriendInfo friendInfo,
+                    V2TimConversation conversation) {
+                  // If you don't allow sending message when friendship not exist,
+                  // please not comment the following lines.
 
-              // if(!isFriend){
-              //   return Container();
-              // }
-              return Column(
-                  children: _buildBottomOperationList(
-                  context, conversation, theme)
-              );
-            }
+                  // if(!isFriend){
+                  //   return Container();
+                  // }
+                  return Column(
+                      children: _buildBottomOperationList(
+                          context, conversation, theme));
+                }),
+            controller: _timuiKitProfileController,
+            profileWidgetsOrder: const [
+              ProfileWidgetEnum.userInfoCard,
+              ProfileWidgetEnum.operationDivider,
+              ProfileWidgetEnum.remarkBar,
+              ProfileWidgetEnum.genderBar,
+              ProfileWidgetEnum.birthdayBar,
+              ProfileWidgetEnum.operationDivider,
+              ProfileWidgetEnum.searchBar,
+              ProfileWidgetEnum.operationDivider,
+              ProfileWidgetEnum.addToBlockListBar,
+              ProfileWidgetEnum.pinConversationBar,
+              ProfileWidgetEnum.messageMute,
+              ProfileWidgetEnum.operationDivider,
+              ProfileWidgetEnum.customBuilderOne,
+              ProfileWidgetEnum.addAndDeleteArea
+            ],
           ),
-          controller: _timuiKitProfileController,
-          profileWidgetsOrder: const [
-            ProfileWidgetEnum.userInfoCard,
-            ProfileWidgetEnum.operationDivider,
-            ProfileWidgetEnum.remarkBar,
-            ProfileWidgetEnum.genderBar,
-            ProfileWidgetEnum.birthdayBar,
-            ProfileWidgetEnum.operationDivider,
-            ProfileWidgetEnum.searchBar,
-            ProfileWidgetEnum.operationDivider,
-            ProfileWidgetEnum.addToBlockListBar,
-            ProfileWidgetEnum.pinConversationBar,
-            ProfileWidgetEnum.messageMute,
-            ProfileWidgetEnum.operationDivider,
-            ProfileWidgetEnum.customBuilderOne,
-            ProfileWidgetEnum.addAndDeleteArea
-          ],
         ),
-      ),
-    );
+      )
+    ]);
   }
 }

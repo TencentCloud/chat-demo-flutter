@@ -33,30 +33,28 @@ dependencies:
     sdk: flutter
 
   # Tencent Cloud Chat dependencies:
-  tim_ui_kit: ^0.1.8
-  # tim_ui_kit:
-  #   path: package_src/tim_ui_kit
-  tim_ui_kit_calling_plugin: 0.4.2
+  # tencent_cloud_chat_uikit: ^0.1.4
+  tencent_cloud_chat_uikit:
+    path: package_src/tim_ui_kit
+  tim_ui_kit_calling_plugin: ^1.0.0
 #  tim_ui_kit_calling_plugin:
 #    path: /Users/wangrunlin/Documents/GitHub/im-flutter-uikit-calling
-  tim_ui_kit_sticker_plugin: ^0.0.9
-#  tim_ui_kit_sticker_plugin:
-#    path: /Users/wangrunlin/Documents/GitHub/tim_ui_kit_sticker_plugin
-#  tim_ui_kit_lbs_plugin:
-#    path:
-#      /Users/wangrunlin/Documents/GitHub/im-flutter-uikit-lbs
-  tim_ui_kit_push_plugin: ^0.4.2
-#  tim_ui_kit_push_plugin:
-#    path: /Users/wangrunlin/Documents/GitHub/im-flutter-uikit-push
-#  tencent_trtc_cloud: ^2.3.8
+  tim_ui_kit_sticker_plugin: ^1.0.3
+  #  tim_ui_kit_lbs_plugin:
+  #    path:
+  #      /Users/wangrunlin/Documents/GitHub/im-flutter-uikit-lbs
+  tim_ui_kit_push_plugin: ^1.0.1
+  #  tim_ui_kit_push_plugin:
+  #    path: /Users/wangrunlin/Documents/GitHub/im-flutter-uikit-push
 
   # Location message and Baidu Map:
   tim_ui_kit_lbs_plugin: ^1.1.15
-  flutter_baidu_mapapi_map: ^3.1.0+1
-  flutter_baidu_mapapi_search: ^3.1.0
-  flutter_bmflocation: ^3.1.0+1
-#  tim_ui_kit_lbs_plugin:
-#    path: /Users/wangrunlin/Documents/GitHub/im-flutter-uikit-lbs
+  flutter_baidu_mapapi_map: 3.1.0+1
+  flutter_baidu_mapapi_search: 3.1.0
+  flutter_bmflocation: 3.1.0+1
+  flutter_baidu_mapapi_base: 3.1.0
+  #  tim_ui_kit_lbs_plugin:
+  #    path: /Users/wangrunlin/Documents/GitHub/im-flutter-uikit-lbs
 
   # Tencent internal dependencies:
   # bugly:
@@ -92,6 +90,9 @@ dependencies:
   universal_io: ^2.0.4
   tencent_im_sdk_plugin_web: ^0.3.2
 
+dependency_overrides:
+  firebase_core_platform_interface: 4.5.1
+
 dev_dependencies:
   fast_i18n: ^5.12.0
   build_runner: any
@@ -114,9 +115,14 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/custom_face_resource/4348/
+    - assets/custom_face_resource/4349/
     - assets/custom_face_resource/4350/
     - assets/custom_face_resource/4351/
     - assets/custom_face_resource/4352/
+    - assets/user_guide/small/zh/
+    - assets/user_guide/small/en/
+    - assets/user_guide/
     - lib/country_list_pick-1.0.1+5/flags/
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -3,7 +3,6 @@ import 'package:timuikit/i18n/i18n_utils.dart';
 import 'package:timuikit/utils/custom_emoji_face_data.dart';
 
 class Const {
-
   // 上报相关
   static const String BID = "com.tencent.flutter.tuikit";
   static const BAPPID = "6a585cf1c9";
@@ -41,7 +40,25 @@ class Const {
   };
 
   static final List<CustomEmojiFaceData> emojiList = [
-    const CustomEmojiFaceData(name: '4350', icon: "menu@2x.png", list: [
+    // CustomEmojiFaceData(
+    //     name: '4348',
+    //     icon: "[爱心]@2x.png",
+    //     isEmoji: true,
+    //     list: [
+    //       "[aini]@2x.png",
+    //       "[爱情]@2x.png",
+    //       "[爱心]@2x.png",
+    //     ]),
+    // CustomEmojiFaceData(
+    //     name: '4349',
+    //     icon: "[爱心]@2x.png",
+    //     isEmoji: true,
+    //     list: [
+    //       "[aini]@2x.png",
+    //       "[爱情]@2x.png",
+    //       "[爱心]@2x.png",
+    //     ]),
+    CustomEmojiFaceData(name: '4350', icon: "menu@2x.png", list: [
       "yz00@2x.png",
       "yz01@2x.png",
       "yz02@2x.png",
@@ -61,7 +78,7 @@ class Const {
       "yz16@2x.png",
       "yz17@2x.png"
     ]),
-    const CustomEmojiFaceData(name: "4351", icon: "menu@2x.png", list: [
+    CustomEmojiFaceData(name: "4351", icon: "menu@2x.png", list: [
       "ys00@2x.png",
       "ys01@2x.png",
       "ys02@2x.png",
@@ -79,7 +96,7 @@ class Const {
       "ys14@2x.png",
       "ys15@2x.png"
     ]),
-    const CustomEmojiFaceData(name: "4352", icon: "menu@2x.png", list: [
+    CustomEmojiFaceData(name: "4352", icon: "menu@2x.png", list: [
       "gcs00@2x.png",
       "gcs01@2x.png",
       "gcs02@2x.png",

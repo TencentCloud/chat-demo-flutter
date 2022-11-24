@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tim_ui_kit/business_logic/view_models/tui_chat_global_model.dart';
-import 'package:tim_ui_kit/tim_ui_kit.dart';
-import 'package:tim_ui_kit/ui/controller/tim_uikit_chat_controller.dart';
+import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_chat_global_model.dart';
+import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
+import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_chat_controller.dart';
 
 class ChatV2 extends StatefulWidget {
   final V2TimConversation selectedConversation;

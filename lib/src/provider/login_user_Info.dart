@@ -3,7 +3,7 @@
 import 'dart:math';
 
 import 'package:flutter/widgets.dart';
-import 'package:tim_ui_kit/tim_ui_kit.dart';
+import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
 class LoginUserInfo with ChangeNotifier {
   V2TimUserFullInfo _loginUserInfo = V2TimUserFullInfo();

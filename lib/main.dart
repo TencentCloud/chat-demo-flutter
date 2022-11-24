@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:tim_ui_kit/ui/utils/color.dart';
+import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
 import 'package:tim_ui_kit_calling_plugin/tim_ui_kit_calling_plugin.dart';
 import 'package:timuikit/custom_animation.dart';
 import 'package:timuikit/i18n/strings.g.dart';
@@ -17,6 +17,7 @@ import 'package:timuikit/src/provider/login_user_Info.dart';
 import 'package:timuikit/src/provider/theme.dart';
 
 import 'package:provider/provider.dart';
+import 'package:timuikit/src/provider/user_guide_provider.dart';
 
 void main() {
   // 设置状态栏样式
@@ -56,7 +57,10 @@ void main() {
             ChangeNotifierProvider(create: (_) => LoginUserInfo()),
             ChangeNotifierProvider(create: (_) => DefaultThemeData()),
             ChangeNotifierProvider(create: (_) => CustomStickerPackageData()),
-            ChangeNotifierProvider(create: (_) => LocalSetting()),
+            ChangeNotifierProvider(
+              create: (_) => LocalSetting(),
+            ),
+            ChangeNotifierProvider(create: (_) => UserGuideProvider()),
           ],
           child: const TUIKitDemoApp(),
         ),

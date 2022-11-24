@@ -1,11 +1,13 @@
-
 import 'package:timuikit/i18n/i18n_utils.dart';
 
 enum WebUrl { personalInfo, thirdPartyInfo }
 
 class IMDemoConfig {
-  static const int sdkappid = int.fromEnvironment('SDK_APPID', defaultValue: 0);
-  static const String key = String.fromEnvironment('KEY', defaultValue: "");
+  static const int sdkappid =
+      int.fromEnvironment('SDK_APPID', defaultValue: 1400187352);
+  static const String key = String.fromEnvironment('KEY',
+      defaultValue:
+          "f442d0cca069bbcc8ced55f4f113b965999b928c78e3cd83495728133a06f4cb");
   static const String appVersion =
       String.fromEnvironment('APP_VERSION', defaultValue: "0.0.1");
   static const String projectType =
@@ -18,8 +20,7 @@ class IMDemoConfig {
       'https://demos.trtc.tencent-cloud.com/prod';
   // static const String captchaUrl =
   // 'https://imgcache.qq.com/operation/dianshi/other/captcha.11f3ef11e3657473779f28383735c6a680a87180.html';
-  static const String captchaUrl =
-      'https://comm.qq.com/login/captcha/app.html';
+  static const String captchaUrl = 'https://comm.qq.com/login/captcha/app.html';
   static const String webCaptchaUrl =
       'https://comm.qq.com/login/captcha/index.html';
   static const int loglevel = 3;

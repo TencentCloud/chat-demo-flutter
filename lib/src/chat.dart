@@ -3,13 +3,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:tim_ui_kit/business_logic/life_cycle/chat_life_cycle.dart';
-import 'package:tim_ui_kit/business_logic/view_models/tui_chat_global_model.dart';
-import 'package:tim_ui_kit/tim_ui_kit.dart';
-import 'package:tim_ui_kit/ui/controller/tim_uikit_chat_controller.dart';
-import 'package:tim_ui_kit/ui/utils/color.dart';
-import 'package:tim_ui_kit/ui/utils/permission.dart';
-import 'package:tim_ui_kit/ui/views/TIMUIKitChat/TIMUIKitTextField/tim_uikit_call_invite_list.dart';
+import 'package:tencent_cloud_chat_uikit/business_logic/life_cycle/chat_life_cycle.dart';
+import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_chat_global_model.dart';
+import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
+import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_chat_controller.dart';
+import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+import 'package:tencent_cloud_chat_uikit/ui/utils/custom_emoji_face_data_class.dart';
+import 'package:tencent_cloud_chat_uikit/ui/utils/permission.dart';
+import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/TIMUIKitTextField/tim_uikit_call_invite_list.dart';
 import 'package:tim_ui_kit_calling_plugin/enum/tim_uikit_trtc_calling_scence.dart';
 import 'package:tim_ui_kit_calling_plugin/tim_ui_kit_calling_plugin.dart';
 import 'package:tim_ui_kit_lbs_plugin/pages/location_picker.dart';
@@ -30,6 +31,7 @@ import 'package:provider/provider.dart';
 import 'package:timuikit/i18n/i18n_utils.dart';
 import 'package:timuikit/utils/baidu_implements/map_service_baidu_implement.dart';
 import 'package:timuikit/utils/baidu_implements/map_widget_baidu_implement.dart';
+import 'package:timuikit/utils/custom_message/custom_message_element.dart';
 import 'package:timuikit/utils/push/push_constant.dart';
 import 'package:timuikit/utils/toast.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -89,7 +91,7 @@ class _ChatState extends State<Chat> {
         MaterialPageRoute(
           builder: (context) => UserProfile(
             userID: userID,
-            onRemarkUpdate: (String newRemark){
+            onRemarkUpdate: (String newRemark) {
               setState(() {
                 conversationName = newRemark;
               });
@@ -99,7 +101,7 @@ class _ChatState extends State<Chat> {
   }
 
   _onTapLocation() {
-    if(kIsWeb){
+    if (kIsWeb) {
       Utils.toast(imt("百度地图插件暂不支持网页版，请使用手机APP DEMO体验位置消息能力。"));
       return;
     }
@@ -116,8 +118,7 @@ class _ChatState extends State<Chat> {
                         longitude: location.longitude,
                         latitude: location.latitude);
                 final messageInfo = locationMessageInfo.data!.messageInfo;
-                _timuiKitChatController.sendMessage(
-                    messageInfo: messageInfo);
+                _timuiKitChatController.sendMessage(messageInfo: messageInfo);
               },
               mapBuilder: (onMapLoadDone, mapKey, onMapMoveEnd) => BaiduMap(
                 onMapMoveEnd: onMapMoveEnd,
@@ -224,18 +225,48 @@ class _ChatState extends State<Chat> {
     super.dispose();
   }
 
-  Widget renderCustomStickerPanel(
-      {sendTextMessage, sendFaceMessage, deleteText, addText}) {
+  Widget renderCustomStickerPanel({
+    sendTextMessage,
+    sendFaceMessage,
+    deleteText,
+    addCustomEmojiText,
+    addText,
+    List<CustomEmojiFaceData> defaultCustomEmojiStickerList = const [],
+  }) {
     final theme = Provider.of<DefaultThemeData>(context).theme;
     final customStickerPackageList =
         Provider.of<CustomStickerPackageData>(context).customStickerPackageList;
+
+    final defaultEmojiList =
+        defaultCustomEmojiStickerList.map((customEmojiPackage) {
+      return CustomStickerPackage(
+          name: customEmojiPackage.name,
+          baseUrl: "assets/emoji",
+          isEmoji: customEmojiPackage.isEmoji,
+          isDeafultEmoji: true,
+          stickerList: customEmojiPackage.list
+              .asMap()
+              .keys
+              .map((idx) =>
+                  CustomSticker(index: idx, name: customEmojiPackage.list[idx]))
+              .toList(),
+          menuItem: CustomSticker(
+            index: 0,
+            name: customEmojiPackage.icon,
+          ));
+    }).toList();
+
     return StickerPanel(
         sendTextMsg: sendTextMessage,
         sendFaceMsg: (index, data) =>
             sendFaceMessage(index + 1, (data.split("/")[3]).split("@")[0]),
         deleteText: deleteText,
         addText: addText,
-        customStickerPackageList: customStickerPackageList,
+        addCustomEmojiText: addCustomEmojiText,
+        customStickerPackageList: [
+          ...defaultEmojiList,
+          ...customStickerPackageList
+        ],
         backgroundColor: theme.weakBackgroundColor,
         lightPrimaryColor: theme.lightPrimaryColor);
   }
@@ -290,6 +321,7 @@ class _ChatState extends State<Chat> {
               return "";
             }
             int? dirNumber;
+
             if (path.contains("yz")) {
               dirNumber = 4350;
             }
@@ -317,6 +349,13 @@ class _ChatState extends State<Chat> {
         initFindingMsg: widget.initFindingMsg,
         draftText: _getDraftText(),
         messageItemBuilder: MessageItemBuilder(
+          customMessageItemBuilder: (message, isShowJump, clearJump) {
+            return CustomMessageElem(
+              message: message,
+              isShowJump: isShowJump,
+              clearJump: clearJump,
+            );
+          },
           locationMessageItemBuilder: (message, isShowJump, clearJump) {
             if (kIsWeb) {
               String dividerForDesc = "/////";
@@ -447,7 +486,7 @@ class _ChatState extends State<Chat> {
                       borderRadius: BorderRadius.all(Radius.circular(5))),
                   child: SvgPicture.asset(
                     "images/voice-call.svg",
-                    package: 'tim_ui_kit',
+                    package: 'tencent_cloud_chat_uikit',
                     height: 64,
                     width: 64,
                   ),
@@ -468,7 +507,7 @@ class _ChatState extends State<Chat> {
                       borderRadius: BorderRadius.all(Radius.circular(5))),
                   child: SvgPicture.asset(
                     "images/video-call.svg",
-                    package: 'tim_ui_kit',
+                    package: 'tencent_cloud_chat_uikit',
                     height: 64,
                     width: 64,
                   ),
@@ -496,7 +535,7 @@ class _ChatState extends State<Chat> {
                         MaterialPageRoute(
                           builder: (context) => UserProfile(
                             userID: userID!,
-                            onRemarkUpdate: (String newRemark){
+                            onRemarkUpdate: (String newRemark) {
                               setState(() {
                                 conversationName = newRemark;
                               });

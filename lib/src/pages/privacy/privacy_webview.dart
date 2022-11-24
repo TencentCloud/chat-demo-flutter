@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tim_ui_kit/ui/utils/color.dart';
+import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
 import 'package:timuikit/src/provider/theme.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -29,7 +29,7 @@ class PrivacyDocument extends StatelessWidget {
           padding: const EdgeInsets.only(left: 16),
           icon: Image.asset(
             'images/arrow_back.png',
-            package: 'tim_ui_kit',
+            package: 'tencent_cloud_chat_uikit',
             height: 34,
             width: 34,
           ),

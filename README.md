@@ -38,7 +38,6 @@ More languages:
 1. You have [signed up](https://intl.cloud.tencent.com/document/product/378/17985) for a Tencent Cloud account and completed [identity verification](https://intl.cloud.tencent.com/document/product/378/3629).
 2. You have created an application as instructed in [Creating and Upgrading an Application](https://intl.cloud.tencent.com/document/product/1047/34577) and recorded the `SDKAppID`.
 
-
 ## Running the demo
 
 1. Download the source code and install dependencies:
@@ -52,13 +51,12 @@ flutter pub get
 ```
 
 2. Run the demo:
+
 ```shell
 # Start the demo. Replace `SDK_APPID` and `KEY`
 flutter run --dart-define=SDK_APPID={YOUR_SDKAPPID} --dart-define=ISPRODUCT_ENV=false --dart-define=KEY={YOUR_KEY}
 ```
 
->?
->
 >- `--dart-define=SDK_APPID={YOUR_SDKAPPID}`. Here, `{YOUR_SDKAPPID}` needs to be replaced with the `SDKAppID` of your application.
 >- `--dart-define=ISPRODUCT_ENV=false`. Set it to `false` for a development environment.
 >- `--dart-define=KEY={YOUR_KEY}`. Here, `{YOUR_KEY}` needs to be replaced with the `Key` recorded in [Part 1. Creating a Test User](#part1).
@@ -90,11 +88,9 @@ flutter run --dart-define=SDK_APPID={YOUR_SDKAPPID} --dart-define=ISPRODUCT_ENV=
 
 ![](https://qcloudimg.tencent-cloud.cn/raw/3fe6bbac88bb21ad7a7822bb297793b3.png)
 
-
 ## Demo code structure
 
 > The [TUIKit](https://www.tencentcloud.com/document/product/1047/50059) for Flutter is used for the UI and business logic of the demo. The demo layer itself is only used to build the application, process navigation redirects, and call instantiated [TUIKit](https://www.tencentcloud.com/document/product/1047/50059) components.
-
 
 |  Folder  | Description |
 |---------|---------|
@@ -104,11 +100,9 @@ flutter run --dart-define=SDK_APPID={YOUR_SDKAPPID} --dart-define=ISPRODUCT_ENV=
 | lib/src/pages | Important navigation pages of the demo. After the application is initialized, `app.dart` displays the loading animation, judges the login status, and redirects the user to `login.dart` or `home_page.dart`. After the user logs in, the login information will be stored locally through the `shared_preference` plugin and used for automatic login upon future application launch. If there is no such information or the login fails, the user will be redirected to the login page. During automatic login, the user is still on `app.dart` and can see the loading animation. `home_page.dart` has a bottom tab to switch between the four main feature pages of the demo. |
 | lib/utils | Some tool function classes. |
 
-
 Basically, a TUIKit component is imported into each `dart` file in `lib/src`. After the component is instantiated in the file, the page can be rendered.
 
 Below are main files:
-
 
 |  Main File in `lib/src`  | Description |
 |---------|---------|

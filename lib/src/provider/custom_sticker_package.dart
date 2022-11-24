@@ -9,6 +9,8 @@ class CustomStickerPackageData extends ChangeNotifier {
     return _customStickerPackageList;
   }
 
+  late StickerListUtil stickerListUtil;
+
   int get selectedIdx {
     return _selectedIdx;
   }
@@ -41,8 +43,7 @@ class CustomStickerPackageData extends ChangeNotifier {
     notifyListeners();
   }
 
-  removeEmojiPackage(CustomStickerPackage sticker) {
-  }
+  removeEmojiPackage(CustomStickerPackage sticker) {}
 
   clearStickerPackageList() {
     _customStickerPackageList = [];

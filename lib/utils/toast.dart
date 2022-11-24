@@ -8,10 +8,10 @@ class Utils {
     Fluttertoast.showToast(
       msg: msg,
       toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER,
+      gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,
       textColor: Colors.white,
-      fontSize: CommonUtils.adaptFontSize(34),
+      fontSize: CommonUtils.adaptFontSize(20),
       backgroundColor: Colors.black,
     );
   }
@@ -20,10 +20,10 @@ class Utils {
     Fluttertoast.showToast(
       msg: "code:$code,desc:$desc",
       toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER,
+      gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,
       textColor: Colors.white,
-      fontSize: CommonUtils.adaptFontSize(34),
+      fontSize: CommonUtils.adaptFontSize(20),
       backgroundColor: Colors.black,
     );
   }

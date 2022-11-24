@@ -1,8 +1,26 @@
 class CustomEmojiFaceData {
-  const CustomEmojiFaceData(
-      {required this.name, required this.icon, required this.list});
+  CustomEmojiFaceData(
+      {required this.name,
+      required this.icon,
+      required this.list,
+      this.isEmoji});
 
-  final String name;
-  final String icon;
-  final List<String> list;
+  late final String name;
+  late final String icon;
+  late List<String> list;
+  bool? isEmoji = false;
+
+  Map<String, dynamic> toJson() => {
+        'name': name,
+        'icon': icon,
+        'list': list,
+        'isEmoji': isEmoji ?? false,
+      };
+
+  CustomEmojiFaceData.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    icon = json['icon'];
+    list = json['list'];
+    isEmoji = json['isEmoji'];
+  }
 }

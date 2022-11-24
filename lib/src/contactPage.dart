@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:tim_ui_kit/ui/utils/color.dart';
+import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
 import 'package:timuikit/i18n/i18n_utils.dart';
 import 'package:timuikit/src/provider/theme.dart';
 import 'package:timuikit/utils/toast.dart';

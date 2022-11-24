@@ -6,7 +6,7 @@ const CONSTVARS = {
 }
 async function exec() {
     const examplePaths = await getAllFiles(path.resolve(__dirname, 'lib'), '.dart', CONSTVARS.EXCLUDE);
-    const uikitPaths = await getAllFiles(path.resolve(__dirname, 'package_src/tim_ui_kit/lib'),'.dart',[]);
+    const uikitPaths = await getAllFiles(path.resolve(__dirname, 'package_src/tencent_cloud_chat_uikit/lib'),'.dart',[]);
     const allFilesPath = examplePaths.concat(uikitPaths)
     console.log(allFilesPath)
     await generateAllCodeText(allFilesPath);

@@ -2,12 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tim_ui_kit/data_services/core/tim_uikit_config.dart';
-import 'package:tim_ui_kit/tim_ui_kit.dart';
+import 'package:tencent_cloud_chat_uikit/data_services/core/tim_uikit_config.dart';
+import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tim_ui_kit/ui/constants/emoji.dart';
-import 'package:tim_ui_kit/ui/widgets/emoji.dart';
+import 'package:tencent_cloud_chat_uikit/ui/constants/emoji.dart';
+import 'package:tencent_cloud_chat_uikit/ui/widgets/emoji.dart';
 import 'package:tim_ui_kit_sticker_plugin/utils/tim_ui_kit_sticker_data.dart';
+import 'package:timuikit/i18n/strings.g.dart';
 import 'package:timuikit/src/config.dart';
 import 'package:timuikit/src/launch_page.dart';
 import 'package:timuikit/src/pages/home_page.dart';
@@ -75,7 +76,8 @@ class _MyAppState extends State<WebApp> with WidgetsBindingObserver {
       directToLogin();
     } catch (err) {}
     Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (BuildContext context) => const WebLoginPage()),
+      MaterialPageRoute(
+          builder: (BuildContext context) => const WebLoginPage()),
       ModalRoute.withName('/'),
     );
   }
@@ -93,7 +95,8 @@ class _MyAppState extends State<WebApp> with WidgetsBindingObserver {
   }
 
   initIMSDKAndAddIMListeners() async {
-    final LocalSetting localSetting = Provider.of<LocalSetting>(context, listen: false);
+    final LocalSetting localSetting =
+        Provider.of<LocalSetting>(context, listen: false);
     final isInitSuccess = await _coreInstance.init(
       // You can specify the language here,
       // not providing this field means using the system language.
@@ -107,12 +110,12 @@ class _MyAppState extends State<WebApp> with WidgetsBindingObserver {
       onTUIKitCallbackListener: (TIMCallback callbackValue) {
         switch (callbackValue.type) {
           case TIMCallbackType.INFO:
-          // Shows the recommend text for info callback directly
+            // Shows the recommend text for info callback directly
             Utils.toast(callbackValue.infoRecommendText!);
             break;
 
           case TIMCallbackType.API_ERROR:
-          //Prints the API error to console, and shows the error message.
+            //Prints the API error to console, and shows the error message.
             print(
                 "Error from TUIKit: ${callbackValue.errorMsg}, Code: ${callbackValue.errorCode}");
             if (callbackValue.errorCode == 10004 &&
@@ -126,7 +129,7 @@ class _MyAppState extends State<WebApp> with WidgetsBindingObserver {
 
           case TIMCallbackType.FLUTTER_ERROR:
           default:
-          // prints the stack trace to console or shows the catch error
+            // prints the stack trace to console or shows the catch error
             if (callbackValue.catchError != null) {
               Utils.toast(callbackValue.catchError.toString());
             } else {
@@ -181,7 +184,7 @@ class _MyAppState extends State<WebApp> with WidgetsBindingObserver {
     Provider.of<DefaultThemeData>(context, listen: false).currentThemeType =
         themeType;
     Provider.of<DefaultThemeData>(context, listen: false).theme =
-    DefTheme.defaultTheme[themeType]!;
+        DefTheme.defaultTheme[themeType]!;
     _coreInstance.setTheme(theme: DefTheme.defaultTheme[themeType]!);
   }
 
@@ -220,7 +223,7 @@ class _MyAppState extends State<WebApp> with WidgetsBindingObserver {
         print(_coreInstance.loginUserInfo);
         await initIMSDKAndAddIMListeners();
         V2TimCallback data =
-        await _coreInstance.login(userID: userId, userSig: userSig);
+            await _coreInstance.login(userID: userId, userSig: userSig);
 
         if (data.code != 0) {
           final option8 = data.desc;
@@ -248,7 +251,6 @@ class _MyAppState extends State<WebApp> with WidgetsBindingObserver {
       minTextAdapt: true,
     );
     isInitScreenUtils = true;
-    
   }
 
   initRouteListener() {
@@ -301,7 +303,7 @@ class _MyAppState extends State<WebApp> with WidgetsBindingObserver {
               .asMap()
               .keys
               .map((idx) =>
-              CustomSticker(index: idx, name: customEmojiPackage.list[idx]))
+                  CustomSticker(index: idx, name: customEmojiPackage.list[idx]))
               .toList(),
           menuItem: CustomSticker(
             index: 0,
@@ -318,4 +320,3 @@ class _MyAppState extends State<WebApp> with WidgetsBindingObserver {
     return const LaunchPage();
   }
 }
-

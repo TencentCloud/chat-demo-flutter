@@ -1,0 +1,15 @@
+{
+  "name": "tencent-cloud-chat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.dart.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "tim-js-sdk": "^2.24.1",
+    "tim-upload-plugin": "^1.0.6"
+  }
+}
