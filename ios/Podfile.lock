@@ -7,8 +7,6 @@ PODS:
   - BaiduMapKit/Utils (6.5.1):
     - BaiduMapKit/Base
   - BMKLocationKit (2.0.5)
-  - bugly (0.0.1):
-    - Flutter
   - camera_avfoundation (0.0.1):
     - Flutter
   - device_info_plus (0.0.1):
@@ -177,10 +175,6 @@ PODS:
   - plain_notification_token (0.0.1):
     - Flutter
   - PromisesObjC (2.1.1)
-  - ReachabilitySwift (5.0.0)
-  - rmonitor_base (0.0.1):
-    - Flutter
-    - ReachabilitySwift
   - SDWebImage (5.14.2):
     - SDWebImage/Core (= 5.14.2)
   - SDWebImage/Core (5.14.2)
@@ -224,7 +218,6 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
-  - bugly (from `.symlinks/plugins/bugly/ios`)
   - camera_avfoundation (from `.symlinks/plugins/camera_avfoundation/ios`)
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
   - disk_space (from `.symlinks/plugins/disk_space/ios`)
@@ -250,7 +243,6 @@ DEPENDENCIES:
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - photo_manager (from `.symlinks/plugins/photo_manager/ios`)
   - plain_notification_token (from `.symlinks/plugins/plain_notification_token/ios`)
-  - rmonitor_base (from `.symlinks/plugins/rmonitor_base/ios`)
   - shared_preferences_ios (from `.symlinks/plugins/shared_preferences_ios/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - tencent_cloud_chat_sdk (from `.symlinks/plugins/tencent_cloud_chat_sdk/ios`)
@@ -284,7 +276,6 @@ SPEC REPOS:
     - nanopb
     - OpenWeChatSDK
     - PromisesObjC
-    - ReachabilitySwift
     - SDWebImage
     - SDWebImageWebPCoder
     - SwiftyGif
@@ -293,8 +284,6 @@ SPEC REPOS:
     - TXLiteAVSDK_Live
 
 EXTERNAL SOURCES:
-  bugly:
-    :path: ".symlinks/plugins/bugly/ios"
   camera_avfoundation:
     :path: ".symlinks/plugins/camera_avfoundation/ios"
   device_info_plus:
@@ -345,8 +334,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/photo_manager/ios"
   plain_notification_token:
     :path: ".symlinks/plugins/plain_notification_token/ios"
-  rmonitor_base:
-    :path: ".symlinks/plugins/rmonitor_base/ios"
   shared_preferences_ios:
     :path: ".symlinks/plugins/shared_preferences_ios/ios"
   sqflite:
@@ -375,7 +362,6 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   BaiduMapKit: f227cfb43581e91466fb4f1344f655eab5788777
   BMKLocationKit: c0a4266f84ad2a3296df8c24f14f0ed20dbbf0ee
-  bugly: b3674afe180564b5464015d0a8a6b174c2356589
   camera_avfoundation: 07c77549ea54ad95d8581be86617c094a46280d9
   device_info_plus: e5c5da33f982a436e103237c0c85f9031142abed
   disk_space: e94d34bbdf77954adfb39e60bde9cc5c7233eda6
@@ -417,8 +403,6 @@ SPEC CHECKSUMS:
   photo_manager: 4f6810b7dfc4feb03b461ac1a70dacf91fba7604
   plain_notification_token: b36467dc91939a7b6754267c701bbaca14996ee1
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
-  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
-  rmonitor_base: 63e3a81285479c232541536a44f16b62f9373f87
   SDWebImage: b9a731e1d6307f44ca703b3976d18c24ca561e84
   SDWebImageWebPCoder: 18503de6621dd2c420d680e33d46bf8e1d5169b0
   shared_preferences_ios: 548a61f8053b9b8a49ac19c1ffbc8b92c50d68ad
