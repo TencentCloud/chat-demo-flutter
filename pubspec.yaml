@@ -33,7 +33,10 @@ dependencies:
     sdk: flutter
 
   # Tencent Cloud Chat dependencies:
-  tencent_cloud_chat_uikit: ^1.0.0
+  tencent_cloud_chat_uikit:
+    git:
+      url: https://github.com/TencentCloud/chat-uikit-flutter.git
+#  tencent_cloud_chat_uikit: ^1.0.0
 #  tencent_cloud_chat_uikit:
 #    path: package_src/tim_ui_kit
   tim_ui_kit_calling_plugin: ^1.0.0

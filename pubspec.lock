@@ -1373,9 +1373,11 @@ packages:
   tencent_cloud_chat_uikit:
     dependency: "direct main"
     description:
-      name: tencent_cloud_chat_uikit
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: f6de597b49812c255aabe8d5d7e81eac387b9faf
+      url: "https://github.com/TencentCloud/chat-uikit-flutter.git"
+    source: git
     version: "1.0.0"
   tencent_extended_text:
     dependency: transitive
