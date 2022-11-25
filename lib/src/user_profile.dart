@@ -63,8 +63,6 @@ class UserProfileState extends State<UserProfile> {
         });
         break;
       case "audioCall":
-        final user = await sdkInstance.getLoginUser();
-        final myId = user.data;
         OfflinePushInfo offlinePush = OfflinePushInfo(
           title: "",
           desc: imt("邀请你语音通话"),
@@ -79,8 +77,6 @@ class UserProfileState extends State<UserProfile> {
         _calling?.call(widget.userID, CallingScenes.Audio, offlinePush);
         break;
       case "videoCall":
-        final user = await sdkInstance.getLoginUser();
-        final myId = user.data;
         OfflinePushInfo offlinePush = OfflinePushInfo(
           title: "",
           desc: imt("邀请你视频通话"),
@@ -223,8 +219,9 @@ class UserProfileState extends State<UserProfile> {
           child: TIMUIKitProfile(
             lifeCycle:
                 ProfileLifeCycle(didRemarkUpdated: (String newRemark) async {
-              if (widget.onRemarkUpdate != null)
+              if (widget.onRemarkUpdate != null) {
                 widget.onRemarkUpdate!(newRemark);
+              }
               return true;
             }),
             userID: widget.userID,

@@ -39,7 +39,7 @@ dependencies:
 #  tencent_cloud_chat_uikit: ^1.0.0
 #  tencent_cloud_chat_uikit:
 #    path: package_src/tim_ui_kit
-  tim_ui_kit_calling_plugin: ^1.0.0
+  tim_ui_kit_calling_plugin: ^1.0.2
 #  tim_ui_kit_calling_plugin:
 #    path: /Users/wangrunlin/Documents/GitHub/im-flutter-uikit-calling
   tim_ui_kit_sticker_plugin: ^1.0.3
@@ -82,7 +82,7 @@ dependencies:
   webview_flutter: ^3.0.0
   flutter_easyloading: ^3.0.3
   i18n: any
-  super_tooltip: ^1.0.1
+  tencent_super_tooltip: ^0.0.1
   flutter_svg: ^1.0.3
   uni_links: ^0.5.1
   fluwx: ^3.8.5
@@ -91,7 +91,7 @@ dependencies:
   loading_animation_widget: ^1.2.0+2
   path_provider: ^2.0.11
   universal_io: ^2.0.4
-  tencent_im_sdk_plugin_web: ^0.3.2
+  tencent_im_sdk_plugin_web: ^0.3.6
 
 dependency_overrides:
   firebase_core_platform_interface: 4.5.1

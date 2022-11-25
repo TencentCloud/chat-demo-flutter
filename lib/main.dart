@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import
+// ignore_for_file: unused_import, deprecated_member_use
 
 import 'dart:io' show Platform;
 import 'package:flutter/material.dart';

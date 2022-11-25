@@ -5,6 +5,7 @@ import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 class WebLinkMessage {
   String? title;
   String? description;
+  // ignore: non_constant_identifier_names
   Map<String, dynamic>? hyperlinks_text;
 
   WebLinkMessage.fromJSON(Map json) {

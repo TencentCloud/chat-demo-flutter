@@ -1,25 +1,19 @@
 // ignore_for_file: avoid_print, prefer_typing_uninitialized_variables, empty_catches
 
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:tencent_cloud_chat_uikit/data_services/conversation/conversation_services.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/core/core_services.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/core/tim_uikit_config.dart';
-import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tencent_cloud_chat_uikit/ui/constants/emoji.dart';
-import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_chat_controller.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/emoji.dart';
 import 'package:tim_ui_kit_sticker_plugin/utils/tim_ui_kit_sticker_data.dart';
-import 'package:timuikit/src/chat.dart';
 import 'package:timuikit/src/config.dart';
 import 'package:timuikit/src/launch_page.dart';
 import 'package:timuikit/src/pages/home_page.dart';
 import 'package:timuikit/src/pages/login.dart';
-import 'package:timuikit/src/provider/local_setting.dart';
 import 'package:timuikit/src/provider/login_user_Info.dart';
 import 'package:timuikit/src/routes.dart';
 import 'package:timuikit/utils/push/channel/channel_push.dart';
@@ -42,11 +36,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   var subscription;
   final CoreServicesImpl _coreInstance = TIMUIKitCore.getInstance();
   final V2TIMManager _sdkInstance = TIMUIKitCore.getSDKInstance();
-  final ConversationService _conversationService =
-  serviceLocator<ConversationService>();
-  BuildContext? _cachedContext;
-  final TIMUIKitChatController _timuiKitChatController =
-  TIMUIKitChatController();
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
@@ -259,7 +248,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addObserver(this);
-    _cachedContext = context;
     initApp();
     initRouteListener();
   }

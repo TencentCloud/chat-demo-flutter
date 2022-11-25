@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:super_tooltip/super_tooltip.dart';
+import 'package:tencent_super_tooltip/tencent_super_tooltip.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_chat_controller.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_conversation_controller.dart';
@@ -43,9 +43,9 @@ class HomePageState extends State<HomePage> {
   final V2TIMManager _sdkInstance = TIMUIKitCore.getSDKInstance();
   final TUICalling _calling = TUICalling();
   final TIMUIKitConversationController _conversationController =
-  TIMUIKitConversationController();
+      TIMUIKitConversationController();
   final TIMUIKitChatController _timuiKitChatController =
-  TIMUIKitChatController();
+      TIMUIKitChatController();
   final contactTooltip = [
     {"id": "addFriend", "asset": "assets/add_friend.png", "label": imt("添加好友")},
     {"id": "addGroup", "asset": "assets/add_group.png", "label": imt("添加群聊")}
@@ -118,16 +118,21 @@ class HomePageState extends State<HomePage> {
   }
 
   Map<int, String> pageTitle(LocalSetting localSetting) {
-    final String connectText = localSetting.connectStatus == ConnectStatus.connecting ? imt("连接中...") : imt("连接失败");
+    final String connectText =
+        localSetting.connectStatus == ConnectStatus.connecting
+            ? imt("连接中...")
+            : imt("连接失败");
     return {
       // 0: imt("频道"),
-      0: localSetting.connectStatus == ConnectStatus.success ? imt("消息") : connectText,
+      0: localSetting.connectStatus == ConnectStatus.success
+          ? imt("消息")
+          : connectText,
       1: imt("通讯录"),
       2: imt("我的"),
     };
   }
 
-  initOfflinePush()async {
+  initOfflinePush() async {
     await ChannelPush.init(handleClickNotification);
     uploadOfflinePushInfoToken();
   }
@@ -294,11 +299,13 @@ class HomePageState extends State<HomePage> {
       ChannelPush.requestPermission();
       Future.delayed(const Duration(seconds: 5), () async {
         final bool isUploadSuccess =
-        await ChannelPush.uploadToken(PushConfig.appInfo);
+            await ChannelPush.uploadToken(PushConfig.appInfo);
+        // ignore: avoid_print
         print("Push token upload result: $isUploadSuccess");
       });
     }
   }
+
   //如果点击的导航页不是当前项，切换
   void _changePage(int index) {
     if (index != currentIndex) {
@@ -382,7 +389,6 @@ class HomePageState extends State<HomePage> {
 
   List<Widget> _getTooltipContent(BuildContext context) {
     List toolTipList = currentIndex == 1 ? contactTooltip : conversationTooltip;
-
 
     return toolTipList.map((e) {
       return InkWell(
@@ -476,7 +482,7 @@ class HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         items: List.generate(
           bottomNavigatorList(theme).length,
-              (index) => BottomNavigationBarItem(
+          (index) => BottomNavigationBarItem(
             icon: index == currentIndex
                 ? bottomNavigatorList(theme)[index].selectedIcon
                 : bottomNavigatorList(theme)[index].unselectedIcon,

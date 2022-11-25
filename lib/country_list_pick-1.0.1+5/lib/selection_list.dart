@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_typing_uninitialized_variables, curly_braces_in_flow_control_structures
+// ignore_for_file: prefer_typing_uninitialized_variables, curly_braces_in_flow_control_structures, empty_catches
 
 import 'country_selection_theme.dart';
 import 'support/code_country.dart';

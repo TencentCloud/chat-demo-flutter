@@ -8,15 +8,13 @@ import 'package:tim_ui_kit_lbs_plugin/abstract/map_widget.dart';
 import 'package:flutter_baidu_mapapi_base/flutter_baidu_mapapi_base.dart';
 import 'package:tim_ui_kit_lbs_plugin/utils/tim_location_model.dart';
 
-class BaiduMap extends TIMMapWidget{
-  final Function? onMapLoadDone;
-  final Function(TIMCoordinate? targetGeoPt, TIMRegionChangeReason regionChangeReason)? onMapMoveEnd;
-
-  const BaiduMap({Key? key, this.onMapLoadDone, this.onMapMoveEnd}) : super(key: key);
+class BaiduMap extends TIMMapWidget {
+  const BaiduMap({Key? key, onMapLoadDone, onMapMoveEnd})
+      : super(
+            key: key, onMapLoadDone: onMapLoadDone, onMapMoveEnd: onMapMoveEnd);
 
   @override
   State<StatefulWidget> createState() => BaiduMapState();
-
 }
 
 // 使用百度地图继承TIMMapState的sample
@@ -30,6 +28,7 @@ class BaiduMapState extends TIMMapState<BaiduMap>{
 
     /// 地图加载回调
     timMapController.setMapDidLoadCallback(callback: () {
+      // ignore: avoid_print
       print(('mapDidLoad-地图加载完成'));
     });
 

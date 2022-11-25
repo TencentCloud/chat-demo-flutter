@@ -91,27 +91,25 @@ class _ContactState extends State<Contact> {
                     ),
               ),
               Expanded(
-                  child: Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      showName,
-                      style:
-                          TextStyle(color: hexToColor("111111"), fontSize: 18),
-                    ),
-                    Expanded(child: Container()),
-                    const TIMUIKitUnreadCount(),
-                    Container(
-                      margin: const EdgeInsets.only(right: 16),
-                      child: Icon(
-                        Icons.keyboard_arrow_right,
-                        color: hexToColor('BBBBBB'),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        showName,
+                        style:
+                            TextStyle(color: hexToColor("111111"), fontSize: 18),
                       ),
-                    )
-                  ],
-                ),
-              ))
+                      Expanded(child: Container()),
+                      const TIMUIKitUnreadCount(),
+                      Container(
+                        margin: const EdgeInsets.only(right: 16),
+                        child: Icon(
+                          Icons.keyboard_arrow_right,
+                          color: hexToColor('BBBBBB'),
+                        ),
+                      )
+                    ],
+                  ))
             ],
           ),
         ),

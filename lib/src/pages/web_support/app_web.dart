@@ -8,7 +8,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tencent_cloud_chat_uikit/ui/constants/emoji.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/emoji.dart';
 import 'package:tim_ui_kit_sticker_plugin/utils/tim_ui_kit_sticker_data.dart';
-import 'package:timuikit/i18n/strings.g.dart';
 import 'package:timuikit/src/config.dart';
 import 'package:timuikit/src/launch_page.dart';
 import 'package:timuikit/src/pages/home_page.dart';

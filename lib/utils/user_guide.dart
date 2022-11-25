@@ -1,4 +1,5 @@
-import 'dart:convert';
+// ignore_for_file: empty_catches
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timuikit/i18n/i18n_utils.dart';
@@ -7,8 +8,8 @@ import 'package:timuikit/src/provider/user_guide_provider.dart';
 import 'package:provider/provider.dart';
 
 class UserGuide extends StatefulWidget {
-  String guideName;
-  UserGuide({Key? key, required this.guideName}) : super(key: key);
+  final String guideName;
+  const UserGuide({Key? key, required this.guideName}) : super(key: key);
 
   @override
   _UserGuideState createState() => _UserGuideState();
@@ -115,7 +116,7 @@ void judgeGuide(String guideName, BuildContext context) async {
 
     for (int i = 0; i < unit.length; i++) {
       int builderLength = userGuideList[unit[i]] ?? 0;
-      for (int j = 0; j < builderLength; j++) {
+      for (int j = 1; j < builderLength; j++) {
         precacheImage(
             AssetImage(
                 "assets/user_guide/$screenType/$languageType/${unit[i]}-$j.png"),

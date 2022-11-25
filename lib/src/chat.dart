@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, unused_field, unused_element
+// ignore_for_file: avoid_print, unused_field, unused_element, deprecated_member_use
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -159,8 +159,6 @@ class _ChatState extends State<Chat> {
             widget.selectedConversation.groupID);
       }
     } else {
-      final user = await sdkInstance.getLoginUser();
-      final myId = user.data;
       OfflinePushInfo offlinePush = OfflinePushInfo(
         title: "",
         desc: imt("邀请你视频通话"),
@@ -198,8 +196,6 @@ class _ChatState extends State<Chat> {
             widget.selectedConversation.groupID);
       }
     } else {
-      final user = await sdkInstance.getLoginUser();
-      final myId = user.data;
       OfflinePushInfo offlinePush = OfflinePushInfo(
         title: "",
         desc: imt("邀请你语音通话"),

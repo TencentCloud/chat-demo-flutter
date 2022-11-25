@@ -8,10 +8,8 @@ import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/platform.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitGroupProfile/group_profile_widget.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitGroupProfile/widgets/tim_ui_group_profile_widget.dart';
-import 'package:timuikit/src/pages/home_page.dart';
 import 'package:timuikit/i18n/i18n_utils.dart';
 import 'package:timuikit/src/chat.dart';
-import 'package:timuikit/src/provider/theme.dart';
 import 'package:timuikit/src/provider/user_guide_provider.dart';
 import 'package:timuikit/src/search.dart';
 import 'package:timuikit/src/user_profile.dart';
@@ -26,7 +24,6 @@ class GroupProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<DefaultThemeData>(context).theme;
     final TUISelfInfoViewModel _selfInfoViewModel =
         serviceLocator<TUISelfInfoViewModel>();
     judgeGuide('groupProfile', context);

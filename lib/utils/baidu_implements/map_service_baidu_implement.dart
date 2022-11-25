@@ -1,5 +1,7 @@
 // map_service_baidu_implement.dart
 
+// ignore_for_file: avoid_print
+
 // 使用百度地图继承TIMMapService的sample
 import 'dart:io';
 
@@ -9,8 +11,6 @@ import 'package:flutter_baidu_mapapi_base/flutter_baidu_mapapi_base.dart';
 import 'package:tim_ui_kit_lbs_plugin/abstract/map_service.dart';
 import 'package:tim_ui_kit_lbs_plugin/utils/location_utils.dart';
 import 'package:tim_ui_kit_lbs_plugin/utils/tim_location_model.dart';
-
-import '../toast.dart';
 
 class BaiduMapService extends TIMMapService{
 
@@ -161,7 +161,7 @@ class BaiduMapService extends TIMMapService{
     // 注册检索回调
     reverseGeoCodeSearch.onGetReverseGeoCodeSearchResult(
         callback: (result, errorCode){
-          print("failed reason ${errorCode} ${errorCode.name} ${errorCode.toString()}");
+          print("failed reason $errorCode ${errorCode.name} ${errorCode.toString()}");
           return onGetReverseGeoCodeSearchResult(
               TIMReverseGeoCodeSearchResult.fromMap(result.toMap()),
               errorCode != BMFSearchErrorCode.NO_ERROR

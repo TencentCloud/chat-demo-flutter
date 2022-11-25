@@ -364,7 +364,6 @@ class _LoginFormState extends State<LoginForm> {
       appId: sdkAppid,
     );
     int errorCode = response['errorCode'];
-    String errorMessage = response['errorMessage'];
     if (errorCode == 0) {
       Map<String, dynamic> res = response['data'];
       String sid = res['sessionId'];
