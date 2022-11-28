@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/TIMUIKitMessageIt
 import 'package:tencent_cloud_chat_uikit/ui/widgets/link_preview/common/extensions.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/link_preview/common/utils.dart';
 import 'package:tim_ui_kit_calling_plugin/view/callingMessageItemBuilder/call_message_item_builder.dart';
+import 'package:tim_ui_kit_calling_plugin/view/callingMessageItemBuilder/group_call_message_item_builder.dart';
 import 'package:timuikit/src/provider/theme.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:timuikit/utils/custom_message/link_message.dart';
@@ -85,108 +87,107 @@ class _CustomMessageElemState extends State<CustomMessageElem> {
     }
   }
 
-
-  Widget _callElemBuilder(BuildContext context) {
+  Widget _callElemBuilder(BuildContext context, TUITheme theme) {
     final customElem = widget.message.customElem;
     final callingMessage = CallingMessage.getCallMessage(customElem);
     final linkMessage = getLinkMessage(customElem);
     final webLinkMessage = getWebLinkMessage(customElem);
 
     if (callingMessage != null) {
-      return CallMessageItem(
-          customElem: customElem,
-          isFromSelf: widget.isFromSelf,
-          padding: const EdgeInsets.all(0));
+      if (widget.message.groupID != null) {
+        // Group Call message
+        return GroupCallMessageItem(customMessage: widget.message);
+      } else {
+        // One-to-one Call message
+        return renderMessageItem(
+            CallMessageItem(
+                customElem: customElem,
+                isFromSelf: widget.isFromSelf,
+                padding: const EdgeInsets.all(0)),
+            theme);
+      }
     } else if (linkMessage != null) {
       final String option1 = linkMessage.link ?? "";
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(linkMessage.text ?? ""),
-          MarkdownBody(
-            data: TIM_t_para("[查看详情 >>]({{option1}})", "[查看详情 >>]($option1)")(
-                option1: option1),
-            styleSheet: MarkdownStyleSheet.fromTheme(ThemeData(
-                    textTheme:
-                        const TextTheme(bodyText2: TextStyle(fontSize: 16.0))))
-                .copyWith(
-              a: TextStyle(color: LinkUtils.hexToColor("015fff")),
-            ),
-            onTapLink: (
-              String link,
-              String? href,
-              String title,
-            ) {
-              LinkUtils.launchURL(context, linkMessage.link ?? "");
-            },
-          )
-        ],
-      );
+      return renderMessageItem(
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(linkMessage.text ?? ""),
+              MarkdownBody(
+                data:
+                    TIM_t_para("[查看详情 >>]({{option1}})", "[查看详情 >>]($option1)")(
+                        option1: option1),
+                styleSheet: MarkdownStyleSheet.fromTheme(ThemeData(
+                        textTheme: const TextTheme(
+                            bodyText2: TextStyle(fontSize: 16.0))))
+                    .copyWith(
+                  a: TextStyle(color: LinkUtils.hexToColor("015fff")),
+                ),
+                onTapLink: (
+                  String link,
+                  String? href,
+                  String title,
+                ) {
+                  LinkUtils.launchURL(context, linkMessage.link ?? "");
+                },
+              )
+            ],
+          ),
+          theme);
     } else if (webLinkMessage != null) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text.rich(TextSpan(
-              style: const TextStyle(
-                fontSize: 16,
-              ),
-              children: [
-                TextSpan(text: webLinkMessage.title),
-                TextSpan(
-                  text: webLinkMessage.hyperlinks_text?["key"],
+      return renderMessageItem(
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text.rich(TextSpan(
                   style: const TextStyle(
-                    color: Color.fromRGBO(0, 110, 253, 1),
+                    fontSize: 16,
                   ),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      CustomMessageElem.launchWebURL(
-                        context,
-                        webLinkMessage.hyperlinks_text?["value"],
-                      );
-                    },
+                  children: [
+                    TextSpan(text: webLinkMessage.title),
+                    TextSpan(
+                      text: webLinkMessage.hyperlinks_text?["key"],
+                      style: const TextStyle(
+                        color: Color.fromRGBO(0, 110, 253, 1),
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          CustomMessageElem.launchWebURL(
+                            context,
+                            webLinkMessage.hyperlinks_text?["value"],
+                          );
+                        },
+                    )
+                  ])),
+              if (webLinkMessage.description != null &&
+                  webLinkMessage.description!.isNotEmpty)
+                Text(
+                  webLinkMessage.description!,
+                  style: const TextStyle(
+                    fontSize: 16,
+                  ),
                 )
-              ])),
-          if (webLinkMessage.description != null &&
-              webLinkMessage.description!.isNotEmpty)
-            Text(
-              webLinkMessage.description!,
-              style: const TextStyle(
-                fontSize: 16,
-              ),
-            )
-        ],
-      );
+            ],
+          ),
+          theme);
     } else if (customElem?.data == "group_create") {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(TIM_t(("群聊创建成功！"))),
-        ],
-      );
+      return renderMessageItem(
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(TIM_t(("群聊创建成功！"))),
+            ],
+          ),
+          theme);
     } else {
-      return const Text("[自定义]");
+      return renderMessageItem(const Text("[自定义]"), theme);
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final theme = Provider.of<DefaultThemeData>(context).theme;
-
-    if (widget.isShowJump) {
-      if (!isShining) {
-        Future.delayed(Duration.zero, () {
-          _showJumpColor();
-        });
-      } else {
-        if(widget.clearJump != null){
-          widget.clearJump!();
-        }
-      }
-    }
-
+  Widget renderMessageItem(Widget child, TUITheme theme) {
     final borderRadius = widget.isFromSelf
         ? const BorderRadius.only(
             topLeft: Radius.circular(10),
@@ -202,9 +203,8 @@ class _CustomMessageElemState extends State<CustomMessageElem> {
     final defaultStyle = widget.isFromSelf
         ? theme.lightPrimaryMaterialColor.shade50
         : theme.weakBackgroundColor;
-    final backgroundColor = isShowJumpState
-        ? const Color.fromRGBO(245, 166, 35, 1)
-        : defaultStyle;
+    final backgroundColor =
+        isShowJumpState ? const Color.fromRGBO(245, 166, 35, 1) : defaultStyle;
 
     return Container(
         padding: widget.textPadding ?? const EdgeInsets.all(10),
@@ -215,10 +215,29 @@ class _CustomMessageElemState extends State<CustomMessageElem> {
         constraints: const BoxConstraints(maxWidth: 240),
         child: Column(
           children: [
-            _callElemBuilder(context),
+            child,
             if (widget.isShowMessageReaction ?? true)
               TIMUIKitMessageReactionShowPanel(message: widget.message)
           ],
         ));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Provider.of<DefaultThemeData>(context).theme;
+
+    if (widget.isShowJump) {
+      if (!isShining) {
+        Future.delayed(Duration.zero, () {
+          _showJumpColor();
+        });
+      } else {
+        if (widget.clearJump != null) {
+          widget.clearJump!();
+        }
+      }
+    }
+
+    return _callElemBuilder(context, theme);
   }
 }

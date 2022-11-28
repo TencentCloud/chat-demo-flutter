@@ -9,7 +9,7 @@ import 'package:tencent_super_tooltip/tencent_super_tooltip.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_chat_controller.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_conversation_controller.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tim_ui_kit_calling_plugin/tim_ui_kit_calling_plugin.dart';
 import 'package:timuikit/src/add_friend.dart';
 import 'package:timuikit/src/add_group.dart';

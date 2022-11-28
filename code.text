@@ -159,7 +159,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tim_ui_kit_calling_plugin/tim_ui_kit_calling_plugin.dart';
 import 'package:timuikit/custom_animation.dart';
 import 'package:timuikit/i18n/strings.g.dart';
@@ -2042,7 +2042,7 @@ extension on _StringsZhHant {
 
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:timuikit/i18n/i18n_utils.dart';
 import 'package:timuikit/src/cancel_account.dart';
 import 'package:timuikit/src/provider/theme.dart';
@@ -2223,7 +2223,7 @@ class AboutState extends State<About>{
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:timuikit/i18n/i18n_utils.dart';
 import 'package:timuikit/src/provider/theme.dart';
 
@@ -2260,7 +2260,7 @@ class AddFriend extends StatelessWidget {
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:timuikit/i18n/i18n_utils.dart';
 import 'package:timuikit/src/provider/theme.dart';
 
@@ -2298,7 +2298,7 @@ class AddGroup extends StatelessWidget {
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:timuikit/i18n/i18n_utils.dart';
 import 'package:timuikit/src/provider/theme.dart';
 
@@ -2346,7 +2346,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_self_info_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:timuikit/i18n/i18n_utils.dart';
 import 'package:timuikit/src/pages/login.dart';
 import 'package:timuikit/src/provider/theme.dart';
@@ -2538,7 +2538,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
 import 'package:timuikit/src/provider/login_user_Info.dart';
 import 'package:timuikit/src/provider/theme.dart';
@@ -4220,7 +4220,7 @@ class IMDemoConfig {
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
 import 'package:timuikit/src/blackList.dart';
 import 'package:timuikit/src/group_list.dart';
@@ -4384,7 +4384,7 @@ class _ContactState extends State<Contact> {
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:timuikit/i18n/i18n_utils.dart';
 import 'package:timuikit/src/provider/theme.dart';
 import 'package:timuikit/utils/toast.dart';
@@ -4487,7 +4487,7 @@ class ContactPage extends StatelessWidget {
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_conversation_controller.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:timuikit/src/chat.dart';
 import 'package:timuikit/i18n/i18n_utils.dart';
 import 'package:provider/provider.dart';
@@ -4671,7 +4671,7 @@ class _ConversationState extends State<Conversation> {
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:timuikit/i18n/i18n_utils.dart';
 import 'package:timuikit/src/chat.dart';
 import 'package:timuikit/src/provider/theme.dart';
@@ -4880,7 +4880,7 @@ class GroupApplicationList extends StatelessWidget{
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:timuikit/src/chat.dart';
 import 'package:timuikit/i18n/i18n_utils.dart';
 import 'package:timuikit/src/provider/theme.dart';
@@ -4950,7 +4950,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/life_cycle/group_profile_life_cycle.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitGroupProfile/group_profile_widget.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitGroupProfile/widgets/tim_ui_group_profile_widget.dart';
 import 'package:timuikit/src/pages/home_page.dart';
@@ -5029,7 +5029,7 @@ class GroupProfilePage extends StatelessWidget {
 文件：/im-flutter-uikit/lib/src/launch_page.dart
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:timuikit/src/provider/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -5082,7 +5082,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_personal_profile_controller.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/widget/tim_uikit_profile_widget.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
 import 'package:timuikit/i18n/i18n_utils.dart';
@@ -5263,7 +5263,7 @@ class MyProfileDetail extends StatelessWidget {
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:timuikit/i18n/i18n_utils.dart';
 import 'package:timuikit/src/provider/theme.dart';
 
@@ -5312,7 +5312,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 
 import 'package:timuikit/src/pages/login.dart';
 import 'package:timuikit/src/provider/login_user_Info.dart';
@@ -5648,7 +5648,7 @@ class Search extends StatelessWidget {
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 
 /// 点击事件
 typedef OnItemClickListener = void Function(int index);
@@ -5796,7 +5796,7 @@ class _ShareWidgetState extends State<ShareWidget> {
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/utils/permission.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/profile_widget.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/widget/tim_uikit_profile_widget.dart';
@@ -6061,7 +6061,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:timuikit/openSourceTmp/chat.dart';
 import 'package:timuikit/src/provider/theme.dart';
 import 'package:timuikit/utils/discuss.dart';
@@ -6462,7 +6462,7 @@ import 'package:intl/intl.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'dart:convert';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:timuikit/openSourceTmp/chat.dart';
 import 'package:timuikit/src/discuss/create_topic.dart';
 import 'package:timuikit/src/provider/theme.dart';
@@ -7369,7 +7369,7 @@ import 'package:super_tooltip/super_tooltip.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_chat_controller.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_conversation_controller.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tim_ui_kit_calling_plugin/tim_ui_kit_calling_plugin.dart';
 import 'package:timuikit/src/add_friend.dart';
 import 'package:timuikit/src/add_group.dart';
@@ -7885,7 +7885,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:tim_ui_kit_push_plugin/tim_ui_kit_push_plugin.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:timuikit/country_list_pick-1.0.1+5/lib/country_list_pick.dart';
 import 'package:timuikit/country_list_pick-1.0.1+5/lib/country_selection_theme.dart';
 import 'package:timuikit/country_list_pick-1.0.1+5/lib/support/code_country.dart';
@@ -8663,7 +8663,7 @@ class NoConnectivityPageState extends State<NoConnectivityPage> {
 文件：/im-flutter-uikit/lib/src/pages/privacy/privacy_webview.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:timuikit/src/provider/theme.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -8720,7 +8720,7 @@ class PrivacyDocument extends StatelessWidget {
 文件：/im-flutter-uikit/lib/src/pages/skin/skin_page.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:timuikit/i18n/i18n_utils.dart';
 import 'package:timuikit/src/provider/theme.dart';
 import 'package:timuikit/utils/theme.dart';
@@ -8977,7 +8977,7 @@ class LoginUserInfo with ChangeNotifier {
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:timuikit/utils/theme.dart';
 
 class DefaultThemeData with ChangeNotifier {
@@ -9101,7 +9101,7 @@ class _LoginCaptchaState extends State<LoginCaptcha> {
 文件：/im-flutter-uikit/lib/src/widgets/message_item/location_message_item.dart
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:timuikit/i18n/i18n_utils.dart';
 import 'package:timuikit/src/provider/theme.dart';
 import 'package:provider/provider.dart';
@@ -9854,7 +9854,7 @@ class Utils {
 文件：/im-flutter-uikit/lib/utils/webview_page.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:timuikit/src/provider/theme.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:timuikit/i18n/i18n_utils.dart';
@@ -10080,7 +10080,7 @@ class TIMUIKitCore {
   }
 }
 文件：/im-flutter-uikit/package_src/tencent_cloud_chat_uikit/lib/base_widgets/tim_ui_kit_base.dart
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
 
 class TUIKitBuildValue {
   // 这里预留以后可以扩展全局通用能力
@@ -13514,8 +13514,8 @@ class TUISelfInfoViewModel extends ChangeNotifier {
 }
 文件：/im-flutter-uikit/package_src/tencent_cloud_chat_uikit/lib/business_logic/view_models/tui_theme_view_model.dart
 import 'package:flutter/material.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
+
 
 class TUIThemeViewModel extends ChangeNotifier {
   TUITheme _theme = CommonColor.defaultTheme;
@@ -13730,7 +13730,7 @@ class ConversationServicesImpl extends ConversationService {
 }
 文件：/im-flutter-uikit/package_src/tencent_cloud_chat_uikit/lib/data_services/core/core_services.dart
 import 'package:tencent_im_base/tencent_im_base.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
 
 enum AppStatus { foreground, background }
 
@@ -13792,8 +13792,8 @@ import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_self_inf
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_theme_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/core/core_services.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
+
 
 typedef EmptyAvatarBuilder = Widget Function(BuildContext context);
 
@@ -16183,7 +16183,7 @@ class MessageThemeData {
 }
 文件：/im-flutter-uikit/package_src/tencent_cloud_chat_uikit/lib/ui/utils/color.dart
 import 'package:flutter/material.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
 
 Color hexToColor(String hexString) {
   return Color(int.parse(hexString, radix: 16)).withAlpha(255);
@@ -16278,7 +16278,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:tencent_im_base/tencent_im_base.dart';
 import 'package:tencent_cloud_chat_uikit/ui/constants/history_message_constant.dart';
 import 'package:tencent_cloud_chat_uikit/ui/constants/time.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/TIMUIKitMessageItem/tim_uikit_chat_custom_elem.dart';
 
 class CallingMessage {
@@ -16728,7 +16728,7 @@ import 'package:tencent_im_base/tencent_im_base.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_state.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/platform.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
 
 class PermissionRequestInfo extends StatefulWidget {
   final Function removeOverLay;
@@ -17428,7 +17428,7 @@ import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_state.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/life_cycle/add_friend_life_cycle.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_add_friend_view_model.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitAddFriend/tim_uikit_send_application.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
 
@@ -17636,8 +17636,8 @@ import 'package:flutter/material.dart';
 import 'package:tencent_im_base/tencent_im_base.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_state.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_add_friend_view_model.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
+
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 
@@ -17855,7 +17855,7 @@ import 'package:tencent_im_base/tencent_im_base.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_state.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/life_cycle/add_group_life_cycle.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_add_group_view_model.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitAddGroup/tim_uikit_send_application.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
@@ -18079,8 +18079,8 @@ import 'package:flutter/material.dart';
 import 'package:tencent_im_base/tencent_im_base.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_state.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_add_group_view_model.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
+
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 
@@ -18259,7 +18259,7 @@ import 'package:tencent_cloud_chat_uikit/business_logic/life_cycle/block_list_li
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_block_list_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_theme_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 
@@ -18402,7 +18402,7 @@ import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_theme_vi
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/constants/history_message_constant.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/utils/frame.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/optimize_utils.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/tim_uikit_multi_select_panel.dart';
@@ -18839,8 +18839,8 @@ import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_chat_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
+
 import 'package:tencent_cloud_chat_uikit/ui/widgets/forward_message_screen.dart';
 import 'package:tencent_im_base/tencent_im_base.dart';
 
@@ -20949,8 +20949,8 @@ class _TIMUIKitHistoryMessageListTongueContainerState
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget.dart';
 
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
+
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 import 'package:tencent_im_base/tencent_im_base.dart';
 
@@ -21054,7 +21054,7 @@ import 'package:tencent_cloud_chat_uikit/data_services/friendShip/friendship_ser
 import 'package:tencent_cloud_chat_uikit/data_services/group/group_services.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tuple/tuple.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 
@@ -21506,10 +21506,10 @@ import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_state.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_chat_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
 
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/utils/permission.dart';
 import 'package:open_file/open_file.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
 
 class TIMUIKitFileElem extends StatefulWidget {
   final String? messageID;
@@ -21755,9 +21755,9 @@ class _TIMUIKitFileElemState extends TIMUIKitState<TIMUIKitFileElem> {
 import 'package:flutter/material.dart';
 import 'package:tencent_im_base/tencent_im_base.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/utils/message.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 
 class TIMUIKitGroupTipsElem extends TIMUIKitStatelessWidget {
@@ -21799,7 +21799,7 @@ import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/message.dart';
 
-import 'package:tencent_cloud_chat_uikit/ui/utils/shared_theme.dart';
+
 
 import '../../../utils/color.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
@@ -22087,7 +22087,7 @@ import 'package:tencent_cloud_chat_uikit/ui/widgets/toast.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 
-import 'package:tencent_cloud_chat_uikit/ui/utils/shared_theme.dart';
+
 
 class TIMUIKitImageElem extends StatefulWidget {
   final V2TimMessage message;
@@ -22539,11 +22539,11 @@ import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_chat_vie
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_theme_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
 
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/TIMUIKitMessageItem/main.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/TIMUIKitMessageItem/tim_uikit_chat_face_elem.dart';
 
-import 'package:tencent_cloud_chat_uikit/ui/utils/shared_theme.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/widgets/link_preview/link_preview_entry.dart';
 
 class CloudCustomData {
@@ -22815,7 +22815,7 @@ import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_state.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
 import 'package:tencent_cloud_chat_uikit/ui/constants/history_message_constant.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tencent_im_base/tencent_im_base.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/sound_record.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_chat_view_model.dart';
@@ -23235,9 +23235,9 @@ import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_state.dart';
 import 'package:tencent_im_base/tencent_im_base.dart';
 
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/utils/message.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/widgets/video_screen.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -23432,8 +23432,8 @@ import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_chat_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
+
 import 'package:tencent_cloud_chat_uikit/ui/widgets/merger_message_screen.dart';
 
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
@@ -23665,8 +23665,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_state.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_group_profile_view_model.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
+
 import 'package:tencent_im_base/tencent_im_base.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitGroupProfile/widgets/tim_ui_group_member_search.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/group_member_list.dart';
@@ -23813,7 +23813,7 @@ import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_state.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_group_profile_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitGroupProfile/widgets/tim_ui_group_member_search.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/group_member_list.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
@@ -24114,11 +24114,11 @@ import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_chat_vie
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_self_info_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_theme_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/utils/message.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/permission.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/platform.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/TIMUIKitTextField/intl_camer_picker.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/toast.dart';
 import 'package:video_thumbnail/video_thumbnail.dart' as video_thumbnail;
@@ -24126,7 +24126,7 @@ import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 
-import 'package:tencent_cloud_chat_uikit/ui/utils/shared_theme.dart';
+
 
 class MorePanelConfig {
   final bool showGalleryPickAction;
@@ -24488,7 +24488,7 @@ import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/message.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/permission.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/sound_record.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/widgets/toast.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 
@@ -24785,7 +24785,7 @@ import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_group_pr
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_self_info_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/utils/message.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/TIMUIKitTextField/tim_uikit_at_text.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/TIMUIKitTextField/tim_uikit_emoji_panel.dart';
@@ -25668,7 +25668,7 @@ import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_conversa
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_theme_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_conversation_controller.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitConversation/tim_uikit_conversation_item.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/customize_ball_pulse_header.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
@@ -25944,7 +25944,7 @@ class _TIMUIKitConversationState extends TIMUIKitState<TIMUIKitConversation> {
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
 import 'package:tencent_im_base/tencent_im_base.dart';
 
 class TIMUIKitDraftText extends TIMUIKitStatelessWidget {
@@ -25984,9 +25984,9 @@ class TIMUIKitDraftText extends TIMUIKitStatelessWidget {
 import 'package:flutter/material.dart';
 import 'package:tencent_im_base/tencent_im_base.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/utils/time_ago.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitConversation/tim_uikit_conversation_draft_text.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitConversation/tim_uikit_conversation_last_msg.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
@@ -26162,7 +26162,7 @@ import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_theme_view_model.dart';
 
 import 'package:tencent_cloud_chat_uikit/ui/utils/message.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/TIMUIKitMessageItem/tim_uikit_chat_custom_elem.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 import 'package:tencent_im_base/tencent_im_base.dart';
@@ -26310,7 +26310,7 @@ import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_state.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_group_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_theme_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/az_list_view.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
@@ -26460,8 +26460,8 @@ import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_chat_vie
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_theme_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/group/group_services.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
+
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
 
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
@@ -26700,7 +26700,7 @@ class TIMUIKitGroupApplicationListState
 import 'package:flutter/material.dart';
 import 'package:tencent_im_base/tencent_im_base.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_state.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 
@@ -26966,7 +26966,7 @@ import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_state.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_group_profile_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitGroupProfile/widgets/tim_ui_group_member_search.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/group_member_list.dart';
 
@@ -27556,7 +27556,7 @@ class _TIMUIKitGroupProfileState extends TIMUIKitState<TIMUIKitGroupProfile> {
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/optimize_utils.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
 
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 import 'package:tencent_im_base/tencent_im_base.dart';
@@ -27674,7 +27674,7 @@ import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_theme_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitSearch/tim_uikit_search.dart';
 
 import 'package:tencent_cloud_chat_uikit/data_services/conversation/conversation_services.dart';
@@ -27736,8 +27736,8 @@ import 'package:tencent_im_base/tencent_im_base.dart';
 import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_group_profile_view_model.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
+
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitGroupProfile/shared_data_widget.dart';
 
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
@@ -27869,7 +27869,7 @@ import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_group_profile_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_chat_controller.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 
 class GroupProfileButtonArea extends TIMUIKitStatelessWidget {
   final String groupID;
@@ -28098,7 +28098,7 @@ class GroupProfileButtonArea extends TIMUIKitStatelessWidget {
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
 import 'package:tencent_im_base/tencent_im_base.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitGroupProfile/shared_data_widget.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
@@ -28293,8 +28293,8 @@ import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_group_profile_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_theme_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
+
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/radio_button.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitGroupProfile/shared_data_widget.dart';
@@ -28939,8 +28939,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_group_profile_view_model.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
+
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitGroupProfile/tim_uikit_group_member_list.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitGroupProfile/shared_data_widget.dart';
@@ -29190,8 +29190,8 @@ class GroupMessageDisturb extends TIMUIKitStatelessWidget {
 文件：/im-flutter-uikit/package_src/tencent_cloud_chat_uikit/lib/ui/views/TIMUIKitGroupProfile/widgets/tim_uikit_group_name_card.dart
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
+
 import 'package:tencent_im_base/tencent_im_base.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitGroupProfile/shared_data_widget.dart';
 
@@ -29324,8 +29324,8 @@ import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_state.dart';
 import 'package:tencent_im_base/tencent_im_base.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_group_profile_view_model.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
+
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitGroupProfile/shared_data_widget.dart';
 
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
@@ -29527,8 +29527,8 @@ class GroupPinConversation extends TIMUIKitStatelessWidget {
 文件：/im-flutter-uikit/package_src/tencent_cloud_chat_uikit/lib/ui/views/TIMUIKitGroupProfile/widgets/tim_uikit_group_type.dart
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
+
 
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 import 'package:tencent_im_base/tencent_im_base.dart';
@@ -29597,7 +29597,7 @@ import 'package:tencent_cloud_chat_uikit/business_logic/life_cycle/new_contact_l
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_new_contact_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_theme_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tencent_im_base/tencent_im_base.dart';
 
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
@@ -30418,7 +30418,7 @@ class _TIMUIKitProfileState extends TIMUIKitState<TIMUIKitProfile> {
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 
 class TIMUIKitOperationItem extends TIMUIKitStatelessWidget {
@@ -30491,7 +30491,7 @@ import 'package:flutter/material.dart';
 import 'package:tencent_im_base/tencent_im_base.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
 
 class TIMUIKitProfileUserInfoCard extends TIMUIKitStatelessWidget {
@@ -30575,7 +30575,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_class.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
 
 class TIMUIKitProfileWidget extends TIMUIKitClass {
@@ -30852,7 +30852,7 @@ import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_state.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_search_view_model.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitSearch/tim_uikit_search_friend.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitSearch/pureUI/tim_uikit_search_input.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitSearch/tim_uikit_search_group.dart';
@@ -31397,8 +31397,8 @@ import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget.dart';
 
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
+
 
 class TIMUIKitSearchFolder extends TIMUIKitStatelessWidget {
   final String folderName;
@@ -31446,11 +31446,11 @@ class TIMUIKitSearchFolder extends TIMUIKitStatelessWidget {
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_state.dart';
 
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tencent_im_base/tencent_im_base.dart';
 
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
 
 class TIMUIKitSearchInput extends StatefulWidget {
   final ValueChanged<String> onChange;
@@ -31576,7 +31576,7 @@ class TIMUIKitSearchInputState extends TIMUIKitState<TIMUIKitSearchInput> {
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 
@@ -31685,7 +31685,7 @@ class TIMUIKitSearchItem extends TIMUIKitStatelessWidget {
 
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 
 class TIMUIKitSearchShowALl extends TIMUIKitStatelessWidget {
@@ -31754,7 +31754,7 @@ import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/core/core_services_implements.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 
 class Avatar extends TIMUIKitStatelessWidget {
@@ -31927,7 +31927,7 @@ import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_chat_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 
 class CenterLoading extends TIMUIKitStatelessWidget {
@@ -31998,8 +31998,8 @@ import 'package:flutter/material.dart';
 import 'package:lpinyin/lpinyin.dart';
 import 'package:tencent_im_base/tencent_im_base.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_state.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
+
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/az_list_view.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/radio_button.dart';
@@ -32539,7 +32539,7 @@ import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_state.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_chat_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/utils/message.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/recent_conversation_list.dart';
 
@@ -33158,9 +33158,9 @@ import 'package:tencent_im_base/tencent_im_base.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_state.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_theme_view_model.dart';
 
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/utils/optimize_utils.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/az_list_view.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/radio_button.dart';
@@ -33931,8 +33931,8 @@ import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget
 import 'package:tencent_im_base/tencent_im_base.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_theme_view_model.dart';
 
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
+
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/TIMUIKitMessageItem/main.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/TIMUIKitMessageItem/tim_uikit_chat_face_elem.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
@@ -34098,10 +34098,10 @@ import 'package:tencent_im_base/tencent_im_base.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_chat_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
 
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/utils/message.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/time_ago.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/TIMUIKitMessageItem/tim_uikit_chat_face_elem.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/TIMUIKitMessageItem/tim_uikit_chat_file_elem.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/TIMUIKitMessageItem/tim_uikit_chat_image_elem.dart';
@@ -34449,8 +34449,8 @@ class _MessageReadReceiptState extends TIMUIKitState<MessageReadReceipt> {
 文件：/im-flutter-uikit/package_src/tencent_cloud_chat_uikit/lib/ui/widgets/radio_button.dart
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
+
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 
 class CheckBoxButton extends TIMUIKitStatelessWidget {
@@ -34495,7 +34495,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_state.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_conversation_view_model.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/az_list_view.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/radio_button.dart';
@@ -34818,7 +34818,7 @@ import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_state.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_group_profile_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitGroupProfile/widgets/tim_ui_group_member_search.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/group_member_list.dart';
 
@@ -34981,8 +34981,8 @@ class _SelectCallInviterState extends TIMUIKitState<SelectTransimitOwner> {
 文件：/im-flutter-uikit/package_src/tencent_cloud_chat_uikit/lib/ui/widgets/unread_message.dart
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
+
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 
 class UnreadMessage extends TIMUIKitStatelessWidget {
@@ -35033,7 +35033,7 @@ import 'package:chewie/src/material/material_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_state.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/tui_theme.dart';
+
 import 'package:video_player/video_player.dart';
 import 'center_play_button.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';

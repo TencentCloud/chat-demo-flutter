@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_conversation_controller.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitSearch/tim_uikit_search.dart';
 import 'package:timuikit/src/chat.dart';
 import 'package:timuikit/i18n/i18n_utils.dart';

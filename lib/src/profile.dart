@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 
 import 'package:timuikit/src/pages/login.dart';
 import 'package:timuikit/src/provider/local_setting.dart';

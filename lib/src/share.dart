@@ -1,7 +1,8 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
+
 
 /// 点击事件
 typedef OnItemClickListener = void Function(int index);

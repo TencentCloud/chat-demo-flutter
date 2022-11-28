@@ -33,13 +33,11 @@ dependencies:
     sdk: flutter
 
   # Tencent Cloud Chat dependencies:
+  # tencent_cloud_chat_uikit: ^0.1.4
   tencent_cloud_chat_uikit:
     git:
       url: https://github.com/TencentCloud/chat-uikit-flutter.git
-#  tencent_cloud_chat_uikit: ^1.0.0
-#  tencent_cloud_chat_uikit:
-#    path: package_src/tim_ui_kit
-  tim_ui_kit_calling_plugin: ^1.0.2
+  tim_ui_kit_calling_plugin: ^1.0.4
 #  tim_ui_kit_calling_plugin:
 #    path: /Users/wangrunlin/Documents/GitHub/im-flutter-uikit-calling
   tim_ui_kit_sticker_plugin: ^1.0.3
@@ -51,7 +49,7 @@ dependencies:
   #    path: /Users/wangrunlin/Documents/GitHub/im-flutter-uikit-push
 
   # Location message and Baidu Map:
-  tim_ui_kit_lbs_plugin: ^1.1.15
+  tim_ui_kit_lbs_plugin: ^2.0.0+1
   flutter_baidu_mapapi_map: 3.1.0+1
   flutter_baidu_mapapi_search: 3.1.0
   flutter_bmflocation: 3.1.0+1
@@ -60,11 +58,11 @@ dependencies:
   #    path: /Users/wangrunlin/Documents/GitHub/im-flutter-uikit-lbs
 
   # Tencent internal dependencies:
-  # bugly:
-  #   hosted:
-  #     name: bugly
-  #     url: http://pub.oa.com
-  #   version: ^0.2.1
+  bugly:
+    hosted:
+      name: bugly
+      url: http://pub.oa.com
+    version: ^0.2.1
 
   # Third party dependencies:
   cupertino_icons: ^1.0.2

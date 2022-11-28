@@ -7,8 +7,9 @@ import 'package:tencent_cloud_chat_uikit/business_logic/life_cycle/chat_life_cyc
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_chat_global_model.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_chat_controller.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/utils/custom_emoji_face_data_class.dart';
+import 'package:tencent_cloud_chat_uikit/ui/utils/message.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/permission.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/TIMUIKitTextField/tim_uikit_call_invite_list.dart';
 import 'package:tim_ui_kit_calling_plugin/enum/tim_uikit_trtc_calling_scence.dart';
@@ -345,6 +346,14 @@ class _ChatState extends State<Chat> {
         initFindingMsg: widget.initFindingMsg,
         draftText: _getDraftText(),
         messageItemBuilder: MessageItemBuilder(
+          messageRowBuilder: (message, messageWidget, onScrollToIndex,
+              isNeedShowJumpStatus, clearJumpStatus, onScrollToIndexBegin) {
+            if (MessageUtils.isGroupCallingMessage(message)) {
+              // If group call message, not use default layout.
+              return messageWidget;
+            }
+            return null;
+          },
           customMessageItemBuilder: (message, isShowJump, clearJump) {
             return CustomMessageElem(
               message: message,

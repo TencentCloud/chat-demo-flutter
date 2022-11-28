@@ -1415,9 +1415,11 @@ packages:
   tencent_cloud_chat_uikit:
     dependency: "direct main"
     description:
-      path: "package_src/tim_ui_kit"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "0cdba29ac0f0d9442e173b030f1da995428c97e0"
+      url: "https://github.com/TencentCloud/chat-uikit-flutter.git"
+    source: git
     version: "1.0.0+1"
   tencent_extended_text:
     dependency: transitive
@@ -1446,7 +1448,7 @@ packages:
       name: tencent_im_base
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.3"
+    version: "1.0.7"
   tencent_im_sdk_plugin_platform_interface:
     dependency: transitive
     description:
@@ -1509,14 +1511,14 @@ packages:
       name: tim_ui_kit_calling_plugin
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.2"
+    version: "1.0.4"
   tim_ui_kit_lbs_plugin:
     dependency: "direct main"
     description:
       name: tim_ui_kit_lbs_plugin
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.16+2"
+    version: "2.0.0+1"
   tim_ui_kit_push_plugin:
     dependency: "direct main"
     description:

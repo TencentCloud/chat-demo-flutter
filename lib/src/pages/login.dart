@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tim_ui_kit_push_plugin/tim_ui_kit_push_plugin.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/color.dart';
+
 import 'package:timuikit/src/config.dart';
 import 'package:timuikit/src/pages/home_page.dart';
 import 'package:timuikit/src/pages/privacy/privacy_webview.dart';
