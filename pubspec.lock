@@ -1416,11 +1416,11 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: HEAD
-      resolved-ref: "0cdba29ac0f0d9442e173b030f1da995428c97e0"
+      ref: "3a52a62"
+      resolved-ref: "3a52a6235a7d3b4875d2a5d32b4e0f269be525ac"
       url: "https://github.com/TencentCloud/chat-uikit-flutter.git"
     source: git
-    version: "1.0.0+1"
+    version: "1.0.1"
   tencent_extended_text:
     dependency: transitive
     description:
