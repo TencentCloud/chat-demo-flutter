@@ -59,11 +59,11 @@ dependencies:
   #    path: /Users/wangrunlin/Documents/GitHub/im-flutter-uikit-lbs
 
   # Tencent internal dependencies:
-  bugly:
-    hosted:
-      name: bugly
-      url: http://pub.oa.com
-    version: ^0.2.1
+#  bugly:
+#    hosted:
+#      name: bugly
+#      url: http://pub.oa.com
+#    version: ^0.2.1
 
   # Third party dependencies:
   cupertino_icons: ^1.0.2
