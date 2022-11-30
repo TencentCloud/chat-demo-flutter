@@ -39,6 +39,8 @@ class PushConfig{
   // Business ID for Apple APNS
   static const ApplePushBuzID = 0;
 
+  static const HonorPushBuzID = 0;
+
   static final PushAppInfo appInfo = PushAppInfo(
       hw_buz_id: PushConfig.HWPushBuzID,
       mi_app_id: PushConfig.XMPushAPPID,
@@ -53,6 +55,7 @@ class PushConfig{
       oppo_buz_id: PushConfig.OPPOPushBuzID,
       oppo_app_id: PushConfig.OPPOPushAPPID,
       google_buz_id: PushConfig.GOOGLEFCMPushBuzID,
-      apple_buz_id: PushConfig.ApplePushBuzID
+      apple_buz_id: PushConfig.ApplePushBuzID,
+    honor_buz_id: PushConfig.HonorPushBuzID
   );
 }

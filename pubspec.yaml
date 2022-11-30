@@ -38,16 +38,16 @@ dependencies:
 #    git:
 #      url: https://github.com/TencentCloud/chat-uikit-flutter.git
 #      ref: 3a52a62
-  tim_ui_kit_calling_plugin: ^1.0.4
+  tim_ui_kit_calling_plugin: ^1.0.5
 #  tim_ui_kit_calling_plugin:
 #    path: /Users/wangrunlin/Documents/GitHub/im-flutter-uikit-calling
   tim_ui_kit_sticker_plugin: ^1.0.3
   #  tim_ui_kit_lbs_plugin:
   #    path:
   #      /Users/wangrunlin/Documents/GitHub/im-flutter-uikit-lbs
-  tim_ui_kit_push_plugin: ^1.0.1
-  #  tim_ui_kit_push_plugin:
-  #    path: /Users/wangrunlin/Documents/GitHub/im-flutter-uikit-push
+  tim_ui_kit_push_plugin: ^2.0.0+1
+#  tim_ui_kit_push_plugin:
+#    path: /Users/wangrunlin/Documents/GitHub/im-flutter-uikit-push
 
   # Location message and Baidu Map:
   tim_ui_kit_lbs_plugin: ^2.0.0+1
@@ -98,6 +98,7 @@ dependency_overrides:
 dev_dependencies:
   fast_i18n: ^5.12.0
   build_runner: any
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

@@ -63,8 +63,9 @@
        <meta-data
            android:name="com.vivo.push.app_id"
            android:value="" />
-
-
+       <meta-data
+           android:name="com.hihonor.push.app_id"
+           android:value="" />
    </application>
 
     <!--xiaomi-->

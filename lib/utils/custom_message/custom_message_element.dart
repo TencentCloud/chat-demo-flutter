@@ -17,7 +17,6 @@ import 'package:timuikit/utils/custom_message/web_link_message.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomMessageElem extends StatefulWidget {
-  final bool isFromSelf;
   final TextStyle? messageFontStyle;
   final BorderRadius? messageBorderRadius;
   final Color? messageBackgroundColor;
@@ -33,7 +32,6 @@ class CustomMessageElem extends StatefulWidget {
     this.isShowMessageReaction,
     required this.isShowJump,
     this.clearJump,
-    this.isFromSelf = false,
     this.messageFontStyle,
     this.messageBorderRadius,
     this.messageBackgroundColor,
@@ -102,7 +100,7 @@ class _CustomMessageElemState extends State<CustomMessageElem> {
         return renderMessageItem(
             CallMessageItem(
                 customElem: customElem,
-                isFromSelf: widget.isFromSelf,
+                isFromSelf: widget.message.isSelf ?? true,
                 padding: const EdgeInsets.all(0)),
             theme);
       }
@@ -188,7 +186,8 @@ class _CustomMessageElemState extends State<CustomMessageElem> {
   }
 
   Widget renderMessageItem(Widget child, TUITheme theme) {
-    final borderRadius = widget.isFromSelf
+    final isFromSelf = widget.message.isSelf ?? true;
+    final borderRadius = isFromSelf
         ? const BorderRadius.only(
             topLeft: Radius.circular(10),
             topRight: Radius.circular(2),
@@ -200,7 +199,7 @@ class _CustomMessageElemState extends State<CustomMessageElem> {
             bottomLeft: Radius.circular(10),
             bottomRight: Radius.circular(10));
 
-    final defaultStyle = widget.isFromSelf
+    final defaultStyle = isFromSelf
         ? theme.lightPrimaryMaterialColor.shade50
         : theme.weakBackgroundColor;
     final backgroundColor =
