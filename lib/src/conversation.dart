@@ -7,7 +7,7 @@ import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_conversation_co
 
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitSearch/tim_uikit_search.dart';
 import 'package:timuikit/src/chat.dart';
-import 'package:timuikit/i18n/i18n_utils.dart';
+
 import 'package:provider/provider.dart';
 import 'package:timuikit/src/provider/local_setting.dart';
 import 'package:timuikit/src/provider/theme.dart';
@@ -79,7 +79,7 @@ class _ConversationState extends State<Conversation> {
         },
         backgroundColor: hexToColor("006EFF"),
         foregroundColor: Colors.white,
-        label: imt("清除聊天"),
+        label: TIM_t("清除聊天"),
         autoClose: true,
       ),
       ConversationItemSlidablePanel(
@@ -88,7 +88,7 @@ class _ConversationState extends State<Conversation> {
         },
         backgroundColor: hexToColor("FF9C19"),
         foregroundColor: Colors.white,
-        label: conversationItem.isPinned! ? imt("取消置顶") : imt("置顶"),
+        label: conversationItem.isPinned! ? TIM_t("取消置顶") : TIM_t("置顶"),
       ),
       ConversationItemSlidablePanel(
         onPressed: (context) {
@@ -96,7 +96,7 @@ class _ConversationState extends State<Conversation> {
         },
         backgroundColor: Colors.red,
         foregroundColor: Colors.white,
-        label: imt("删除"),
+        label: TIM_t("删除"),
       )
     ];
   }
@@ -139,7 +139,7 @@ class _ConversationState extends State<Conversation> {
                   color: hexToColor("979797"),
                   size: 18,
                 ),
-                Text(imt("搜索"),
+                Text(TIM_t("搜索"),
                     style: TextStyle(
                       color: hexToColor("979797"),
                       fontSize: 14,
@@ -175,7 +175,7 @@ class _ConversationState extends State<Conversation> {
                 return Container(
                   padding: const EdgeInsets.only(top:100),
                   child: Center(
-                    child: Text(imt("暂无会话")),
+                    child: Text(TIM_t("暂无会话")),
                   ),
                 );
               },

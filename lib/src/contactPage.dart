@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
-import 'package:timuikit/i18n/i18n_utils.dart';
+
 import 'package:timuikit/src/provider/theme.dart';
 import 'package:timuikit/utils/toast.dart';
 
@@ -23,7 +23,7 @@ class ContactPage extends StatelessWidget {
           shadowColor: theme.weakDividerColor,
           elevation: 1,
           title: Text(
-            imt("联系我们"),
+            TIM_t("联系我们"),
             style: const TextStyle(color: Colors.white, fontSize: 17),
           ),
           flexibleSpace: Container(
@@ -49,7 +49,7 @@ class ContactPage extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      imt("反馈及建议可以加入QQ群"),
+                      TIM_t("反馈及建议可以加入QQ群"),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 18,
@@ -67,7 +67,7 @@ class ContactPage extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      imt("在线时间: 周一到周五，早上10点 - 晚上8点"),
+                      TIM_t("在线时间: 周一到周五，早上10点 - 晚上8点"),
                       style: TextStyle(
                         color: theme.darkTextColor,
                       ),
@@ -77,9 +77,9 @@ class ContactPage extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () {
                           Clipboard.setData(const ClipboardData(text: '788910197'));
-                          Utils.toast(imt("QQ群号复制成功"));
+                          Utils.toast(TIM_t("QQ群号复制成功"));
                         },
-                        child: Text(imt("复制群号")),
+                        child: Text(TIM_t("复制群号")),
                       ),
                     ),
                   ],

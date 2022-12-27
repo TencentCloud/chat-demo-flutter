@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:timuikit/i18n/i18n_utils.dart';
+import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
+
 import 'package:timuikit/src/config.dart';
 import 'package:timuikit/utils/toast.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -67,7 +68,7 @@ class _LoginCaptchaState extends State<LoginCaptcha> {
                         var messageObj = jsonDecode(message.message);
                         widget.onSuccess(messageObj);
                       } catch (e) {
-                        Utils.toast(imt("图片验证码校验失败"));
+                        Utils.toast(TIM_t("图片验证码校验失败"));
                       }
                       setState(() {
                         captchaStatus = CaptchaStatus.unReady;

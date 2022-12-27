@@ -7,9 +7,7 @@ import 'package:tencent_cloud_chat_uikit/data_services/core/core_services.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/core/tim_uikit_config.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tencent_cloud_chat_uikit/ui/constants/emoji.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/emoji.dart';
-import 'package:tim_ui_kit_sticker_plugin/utils/tim_ui_kit_sticker_data.dart';
 import 'package:timuikit/src/config.dart';
 import 'package:timuikit/src/launch_page.dart';
 import 'package:timuikit/src/pages/home_page.dart';
@@ -18,10 +16,11 @@ import 'package:timuikit/src/provider/login_user_Info.dart';
 import 'package:timuikit/src/routes.dart';
 import 'package:timuikit/utils/push/channel/channel_push.dart';
 import 'package:timuikit/utils/toast.dart';
-import 'package:timuikit/i18n/i18n_utils.dart';
+
 import 'package:timuikit/src/provider/custom_sticker_package.dart';
 import 'package:timuikit/utils/constant.dart';
 import 'package:provider/provider.dart';
+import 'package:timuikit/utils/unicode_emoji.dart';
 
 bool isInitScreenUtils = false;
 
@@ -145,6 +144,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         isCheckDiskStorageSpace: true,
       ),
       onWebLoginSuccess: getLoginUserInfo,
+      // language: LanguageEnum.zhHans,
+      // extraLanguage: "zh-Hans",
       onTUIKitCallbackListener: (TIMCallback callbackValue) {
         switch (callbackValue.type) {
           case TIMCallbackType.INFO:
@@ -158,7 +159,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 "Error from TUIKit: ${callbackValue.errorMsg}, Code: ${callbackValue.errorCode}");
             if (callbackValue.errorCode == 10004 &&
                 callbackValue.errorMsg!.contains("not support @all")) {
-              Utils.toast(imt("当前群组不支持@全体成员"));
+              Utils.toast(TIM_t("当前群组不支持@全体成员"));
             } else {
               Utils.toast(
                   callbackValue.errorMsg ?? callbackValue.errorCode.toString());
@@ -181,7 +182,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         onConnectFailed: (code, error) {},
         onConnectSuccess: () {
           // Connected to Tencent IM server success
-          Utils.log(imt("即时通信服务连接成功"));
+          Utils.log(TIM_t("即时通信服务连接成功"));
         },
         onConnecting: () {},
         onKickedOffline: () {
@@ -189,7 +190,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           onKickedOffline();
         },
         onSelfInfoUpdated: (info) {
-          print(imt("信息已变更"));
+          print(TIM_t("信息已变更"));
           Provider.of<LoginUserInfo>(context, listen: false)
               .setLoginUserInfo(info);
           // onSelfInfoUpdated(info);
@@ -201,7 +202,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       ),
     );
     if (isInitSuccess == null || !isInitSuccess) {
-      Utils.toast(imt("即时通信 SDK初始化失败"));
+      Utils.toast(TIM_t("即时通信 SDK初始化失败"));
     } else {}
     // setState(() {
     //   hasInit = true;
@@ -261,18 +262,22 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   setCustomSticker() async {
-    // 添加自定义表情包
-    // Add custom sticker package
     List<CustomStickerPackage> customStickerPackageList = [];
+
+    // 表情项一：使用Emoji Unicode表情列表，以字符串形式。可以嵌入文字内容中。
+    // Solution A: Use Emoji Unicode list, as String. Can be added to text messages.
     final defEmojiList = emojiData.asMap().keys.map((emojiIndex) {
-      final emo = Emoji.fromJson(emojiData[emojiIndex]);
+      final emoji = Emoji.fromJson(emojiData[emojiIndex]);
       return CustomSticker(
-          index: emojiIndex, name: emo.name, unicode: emo.unicode);
+          index: emojiIndex, name: emoji.name, unicode: emoji.unicode);
     }).toList();
     customStickerPackageList.add(CustomStickerPackage(
         name: "defaultEmoji",
         stickerList: defEmojiList,
         menuItem: defEmojiList[0]));
+
+    // 表情项二：使用您提供的图片表情包。
+    // Solution B: Use the image sticker.
     customStickerPackageList.addAll(Const.emojiList.map((customEmojiPackage) {
       return CustomStickerPackage(
           name: customEmojiPackage.name,

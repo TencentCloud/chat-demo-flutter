@@ -18,9 +18,10 @@ import 'package:timuikit/src/config.dart';
 import 'package:timuikit/src/contact.dart';
 import 'package:timuikit/src/conversation.dart';
 import 'package:timuikit/src/create_group.dart';
+import 'package:timuikit/src/create_group_introduction.dart';
 import 'package:timuikit/src/profile.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:timuikit/i18n/i18n_utils.dart';
+
 import 'package:timuikit/src/provider/local_setting.dart';
 import 'package:timuikit/src/provider/login_user_Info.dart';
 import 'package:timuikit/src/provider/theme.dart';
@@ -39,6 +40,10 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   bool hasInit = false;
   var subscription;
+  /// 当前选择下标
+  int currentIndex = 0;
+  SuperTooltip? tooltip;
+
   final CoreServicesImpl _coreInstance = TIMUIKitCore.getInstance();
   final V2TIMManager _sdkInstance = TIMUIKitCore.getSDKInstance();
   final TUICalling _calling = TUICalling();
@@ -46,38 +51,19 @@ class HomePageState extends State<HomePage> {
       TIMUIKitConversationController();
   final TIMUIKitChatController _timuiKitChatController =
       TIMUIKitChatController();
+
   final contactTooltip = [
-    {"id": "addFriend", "asset": "assets/add_friend.png", "label": imt("添加好友")},
-    {"id": "addGroup", "asset": "assets/add_group.png", "label": imt("添加群聊")}
+    {"id": "addFriend", "asset": "assets/add_friend.png", "label": TIM_t("添加好友")},
+    {"id": "addGroup", "asset": "assets/add_group.png", "label": TIM_t("添加群聊")}
   ];
   final conversationTooltip = [
-    {"id": "createConv", "asset": "assets/c2c_conv.png", "label": imt("发起会话")},
+    {"id": "createConv", "asset": "assets/c2c_conv.png", "label": TIM_t("发起会话")},
     {
-      "id": "createWork",
+      "id": "createGroup",
       "asset": "assets/group_conv.png",
-      "label": imt("创建工作群")
-    },
-    {
-      "id": "createPublic",
-      "asset": "assets/group_conv.png",
-      "label": imt("创建社交群")
-    },
-    {
-      "id": "createMeeting",
-      "asset": "assets/group_conv.png",
-      "label": imt("创建会议群")
-    },
-    {
-      "id": "createAvChat",
-      "asset": "assets/group_conv.png",
-      "label": imt("创建直播群")
+      "label": TIM_t("创建群聊")
     },
   ];
-
-  /// 当前选择下标
-  int currentIndex = 0;
-
-  SuperTooltip? tooltip;
 
   _initTrtc() {
     final loginInfo = _coreInstance.loginInfo;
@@ -120,15 +106,15 @@ class HomePageState extends State<HomePage> {
   Map<int, String> pageTitle(LocalSetting localSetting) {
     final String connectText =
         localSetting.connectStatus == ConnectStatus.connecting
-            ? imt("连接中...")
-            : imt("连接失败");
+            ? TIM_t("连接中...")
+            : TIM_t("连接失败");
     return {
-      // 0: imt("频道"),
+      // 0: TIM_t("频道"),
       0: localSetting.connectStatus == ConnectStatus.success
-          ? imt("消息")
+          ? TIM_t("消息")
           : connectText,
-      1: imt("通讯录"),
-      2: imt("我的"),
+      1: TIM_t("通讯录"),
+      2: TIM_t("我的"),
     };
   }
 
@@ -172,7 +158,7 @@ class HomePageState extends State<HomePage> {
         widget: Conversation(
           conversationController: _conversationController,
         ),
-        title: imt("消息"),
+        title: TIM_t("消息"),
         selectedIcon: Stack(
           clipBehavior: Clip.none,
           children: [
@@ -215,7 +201,7 @@ class HomePageState extends State<HomePage> {
       ),
       NavigationBarData(
         widget: const Contact(),
-        title: imt("通讯录"),
+        title: TIM_t("通讯录"),
         selectedIcon: Stack(
           clipBehavior: Clip.none,
           children: [
@@ -264,7 +250,7 @@ class HomePageState extends State<HomePage> {
       ),
       NavigationBarData(
         widget: const MyProfile(),
-        title: imt("我的"),
+        title: TIM_t("我的"),
         selectedIcon: ColorFiltered(
             child: Image.asset(
               "assets/profile_active.png",
@@ -348,39 +334,10 @@ class HomePageState extends State<HomePage> {
           ),
         );
         break;
-      case "createWork":
+      case "createGroup":
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => const CreateGroup(
-              convType: GroupTypeForUIKit.work,
-            ),
-          ),
-        );
-        break;
-      case "createPublic":
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => const CreateGroup(
-              convType: GroupTypeForUIKit.public,
-            ),
-          ),
-        );
-        break;
-      case "createMeeting":
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => const CreateGroup(
-              convType: GroupTypeForUIKit.meeting,
-            ),
-          ),
-        );
-        break;
-      case "createAvChat":
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => const CreateGroup(
-              convType: GroupTypeForUIKit.chat,
-            ),
+            builder: (context) => const CreateGroupIntroduction(),
           ),
         );
         break;

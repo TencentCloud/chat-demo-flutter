@@ -33,37 +33,26 @@ dependencies:
     sdk: flutter
 
   # Tencent Cloud Chat dependencies:
-  tencent_cloud_chat_uikit: ^1.0.1
-#  tencent_cloud_chat_uikit:
-#    git:
-#      url: https://github.com/TencentCloud/chat-uikit-flutter.git
-#      ref: 3a52a62
-  tim_ui_kit_calling_plugin: ^1.0.5
+  # tencent_cloud_chat_uikit: ^0.1.4
+  tencent_cloud_chat_uikit: ^1.1.0
+  tim_ui_kit_calling_plugin: ^1.0.7
 #  tim_ui_kit_calling_plugin:
 #    path: /Users/wangrunlin/Documents/GitHub/im-flutter-uikit-calling
-  tim_ui_kit_sticker_plugin: ^1.0.3
   #  tim_ui_kit_lbs_plugin:
   #    path:
   #      /Users/wangrunlin/Documents/GitHub/im-flutter-uikit-lbs
-  tim_ui_kit_push_plugin: ^2.0.0+1
+  tim_ui_kit_push_plugin: ^2.1.0
 #  tim_ui_kit_push_plugin:
 #    path: /Users/wangrunlin/Documents/GitHub/im-flutter-uikit-push
 
   # Location message and Baidu Map:
   tim_ui_kit_lbs_plugin: ^2.0.0+1
-  flutter_baidu_mapapi_map: 3.1.0+1
-  flutter_baidu_mapapi_search: 3.1.0
-  flutter_bmflocation: 3.1.0+1
-  flutter_baidu_mapapi_base: 3.1.0
+  flutter_baidu_mapapi_map: 3.2.1
+  flutter_baidu_mapapi_search: 3.2.0
+  flutter_bmflocation: 3.2.1
+  flutter_baidu_mapapi_base: 3.2.0
   #  tim_ui_kit_lbs_plugin:
   #    path: /Users/wangrunlin/Documents/GitHub/im-flutter-uikit-lbs
-
-  # Tencent internal dependencies:
-#  bugly:
-#    hosted:
-#      name: bugly
-#      url: http://pub.oa.com
-#    version: ^0.2.1
 
   # Third party dependencies:
   cupertino_icons: ^1.0.2
@@ -84,16 +73,12 @@ dependencies:
   tencent_super_tooltip: ^0.0.1
   flutter_svg: ^1.0.3
   uni_links: ^0.5.1
-  fluwx: ^3.8.5
-  firebase_core: 1.12.0
   flutter_launcher_icons: ^0.9.2
   loading_animation_widget: ^1.2.0+2
   path_provider: ^2.0.11
   universal_io: ^2.0.4
   tencent_im_sdk_plugin_web: ^0.3.6
-
-dependency_overrides:
-  firebase_core_platform_interface: 4.5.1
+  synchronized: ^3.0.0+3
 
 dev_dependencies:
   fast_i18n: ^5.12.0
@@ -118,7 +103,6 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
-    - assets/custom_face_resource/4348/
     - assets/custom_face_resource/4349/
     - assets/custom_face_resource/4350/
     - assets/custom_face_resource/4351/

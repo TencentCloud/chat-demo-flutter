@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
-import 'package:timuikit/i18n/i18n_utils.dart';
+
 import 'package:timuikit/src/chat.dart';
 import 'package:timuikit/src/provider/theme.dart';
 
@@ -68,19 +68,19 @@ class _CreateGroup extends State<CreateGroup> {
 
     final option1 = selectedFriendList.length;
     groupName = _getShowName(selectedFriendList[0]) +
-        imt_para(" 等{{option1}}人", " 等$option1人")(option1: option1);
+        TIM_t_para(" 等{{option1}}人", " 等$option1人")(option1: option1);
     if(_isValidGroupName(groupName)){
       return groupName;
     }
 
     final option2 = selectedFriendList.length + 1;
     groupName = _getShowName(selectedFriendList[0]) +
-        imt_para("{{option2}}人群", "$option2人群")(option2: option2);
+        TIM_t_para("{{option2}}人群", "$option2人群")(option2: option2);
     if(_isValidGroupName(groupName)){
       return groupName;
     }
 
-    return imt("新群聊");
+    return TIM_t("新群聊");
   }
 
   _createGroup(String groupType) async {
@@ -142,7 +142,7 @@ class _CreateGroup extends State<CreateGroup> {
     return Scaffold(
       appBar: AppBar(
           title: Text(
-            imt("选择联系人"),
+            TIM_t("选择联系人"),
             style: const TextStyle(color: Colors.white, fontSize: 17),
           ),
           shadowColor: theme.weakDividerColor,
@@ -178,7 +178,7 @@ class _CreateGroup extends State<CreateGroup> {
                 }
               },
               child: Text(
-                imt("确定"),
+                TIM_t("确定"),
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16,

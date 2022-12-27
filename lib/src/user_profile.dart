@@ -10,7 +10,7 @@ import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/widget/tim_uik
 import 'package:tencent_cloud_chat_uikit/ui/widgets/toast.dart';
 import 'package:tim_ui_kit_calling_plugin/enum/tim_uikit_trtc_calling_scence.dart';
 import 'package:tim_ui_kit_calling_plugin/tim_ui_kit_calling_plugin.dart';
-import 'package:timuikit/i18n/i18n_utils.dart';
+
 import 'package:timuikit/src/provider/theme.dart';
 import 'package:timuikit/src/provider/user_guide_provider.dart';
 import 'package:timuikit/src/search.dart';
@@ -53,19 +53,19 @@ class UserProfileState extends State<UserProfile> {
             throw Error();
           }
           if (res.resultCode == 0) {
-            Toast.showToast(ToastType.success, imt("好友删除成功"), context);
+            Toast.showToast(ToastType.success, TIM_t("好友删除成功"), context);
             _timuiKitProfileController.loadData(widget.userID);
           } else {
             throw Error();
           }
         }).catchError((error) {
-          Toast.showToast(ToastType.fail, imt("好友添加失败"), context);
+          Toast.showToast(ToastType.fail, TIM_t("好友添加失败"), context);
         });
         break;
       case "audioCall":
         OfflinePushInfo offlinePush = OfflinePushInfo(
           title: "",
-          desc: imt("邀请你语音通话"),
+          desc: TIM_t("邀请你语音通话"),
           ext: "{\"conversationID\": \"\"}",
           disablePush: false,
           androidOPPOChannelID: PushConfig.OPPOChannelID,
@@ -79,7 +79,7 @@ class UserProfileState extends State<UserProfile> {
       case "videoCall":
         OfflinePushInfo offlinePush = OfflinePushInfo(
           title: "",
-          desc: imt("邀请你视频通话"),
+          desc: TIM_t("邀请你视频通话"),
           ext: "{\"conversationID\": \"\"}",
           androidOPPOChannelID: PushConfig.OPPOChannelID,
           disablePush: false,
@@ -98,15 +98,15 @@ class UserProfileState extends State<UserProfile> {
       BuildContext context, V2TimConversation conversation, theme) {
     List operationList = [
       {
-        "label": imt("发送消息"),
+        "label": TIM_t("发送消息"),
         "id": "sendMsg",
       },
       {
-        "label": imt("语音通话"),
+        "label": TIM_t("语音通话"),
         "id": "audioCall",
       },
       {
-        "label": imt("视频通话"),
+        "label": TIM_t("视频通话"),
         "id": "videoCall",
       },
     ];
@@ -114,7 +114,7 @@ class UserProfileState extends State<UserProfile> {
     if (kIsWeb) {
       operationList = [
         {
-          "label": imt("发送消息"),
+          "label": TIM_t("发送消息"),
           "id": "sendMsg",
         }
       ];
@@ -145,22 +145,6 @@ class UserProfileState extends State<UserProfile> {
     }).toList();
   }
 
-  handleTapRemarkBar(BuildContext context) async {
-    _timuiKitProfileController.showTextInputBottomSheet(
-        context, imt("修改备注"), imt("支持数字、英文、下划线"), (String remark) {
-      newUserMARK = remark;
-      _timuiKitProfileController.updateRemarks(widget.userID, remark);
-    });
-  }
-
-  handleTapSearch(BuildContext context) async {
-    _timuiKitProfileController.showTextInputBottomSheet(
-        context, imt("修改备注"), imt("支持数字、英文、下划线"), (String remark) {
-      newUserMARK = remark;
-      _timuiKitProfileController.updateRemarks(widget.userID, remark);
-    });
-  }
-
   _initTUICalling() async {
     final isAndroidEmulator = await PlatformUtils.isAndroidEmulator();
     if (!isAndroidEmulator) {
@@ -187,18 +171,10 @@ class UserProfileState extends State<UserProfile> {
         appBar: AppBar(
           shadowColor: Colors.white,
           title: Text(
-            imt("详细资料"),
-            style: TextStyle(color: hexToColor("1f2329"), fontSize: 17),
+            TIM_t("详细资料"),
+            style: TextStyle(color: hexToColor("1f2329"), fontSize: 16),
           ),
           backgroundColor: hexToColor("f2f3f5"),
-          // flexibleSpace: Container(
-          //   decoration: BoxDecoration(
-          //     gradient: LinearGradient(colors: [
-          //       theme.lightPrimaryColor ?? CommonColor.lightPrimaryColor,
-          //       theme.primaryColor ?? CommonColor.primaryColor
-          //     ]),
-          //   ),
-          // ),
           iconTheme: const IconThemeData(
             color: Colors.white,
           ),

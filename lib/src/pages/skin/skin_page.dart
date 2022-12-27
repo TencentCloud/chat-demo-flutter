@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
-import 'package:timuikit/i18n/i18n_utils.dart';
+
 import 'package:timuikit/src/provider/theme.dart';
 import 'package:timuikit/utils/theme.dart';
 
@@ -26,7 +26,7 @@ class SkinPage extends StatelessWidget {
           shadowColor: theme.weakDividerColor,
           elevation: 1,
           title: Text(
-            imt("更换皮肤"),
+            TIM_t("更换皮肤"),
             style: const TextStyle(color: Colors.white, fontSize: 17),
           ),
           flexibleSpace: Container(

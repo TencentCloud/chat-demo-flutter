@@ -5,9 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/core/tim_uikit_config.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tencent_cloud_chat_uikit/ui/constants/emoji.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/emoji.dart';
-import 'package:tim_ui_kit_sticker_plugin/utils/tim_ui_kit_sticker_data.dart';
 import 'package:timuikit/src/config.dart';
 import 'package:timuikit/src/launch_page.dart';
 import 'package:timuikit/src/pages/home_page.dart';
@@ -19,10 +17,11 @@ import 'package:timuikit/src/routes.dart';
 import 'package:timuikit/utils/smsLogin.dart';
 import 'package:timuikit/utils/theme.dart';
 import 'package:timuikit/utils/toast.dart';
-import 'package:timuikit/i18n/i18n_utils.dart';
+
 import 'package:timuikit/src/provider/custom_sticker_package.dart';
 import 'package:timuikit/utils/constant.dart';
 import 'package:provider/provider.dart';
+import 'package:timuikit/utils/unicode_emoji.dart';
 
 bool isInitScreenUtils = false;
 
@@ -119,7 +118,7 @@ class _MyAppState extends State<WebApp> with WidgetsBindingObserver {
                 "Error from TUIKit: ${callbackValue.errorMsg}, Code: ${callbackValue.errorCode}");
             if (callbackValue.errorCode == 10004 &&
                 callbackValue.errorMsg!.contains("not support @all")) {
-              Utils.toast(imt("当前群组不支持@全体成员"));
+              Utils.toast(TIM_t("当前群组不支持@全体成员"));
             } else {
               Utils.toast(
                   callbackValue.errorMsg ?? callbackValue.errorCode.toString());
@@ -141,14 +140,14 @@ class _MyAppState extends State<WebApp> with WidgetsBindingObserver {
       listener: V2TimSDKListener(
         onConnectFailed: (code, error) {},
         onConnectSuccess: () {
-          Utils.log(imt("即时通信服务连接成功"));
+          Utils.log(TIM_t("即时通信服务连接成功"));
         },
         onConnecting: () {},
         onKickedOffline: () {
           onKickedOffline();
         },
         onSelfInfoUpdated: (info) {
-          print(imt("信息已变更"));
+          print(TIM_t("信息已变更"));
           Provider.of<LoginUserInfo>(context, listen: false)
               .setLoginUserInfo(info);
           // onSelfInfoUpdated(info);
@@ -160,7 +159,7 @@ class _MyAppState extends State<WebApp> with WidgetsBindingObserver {
       ),
     );
     if (isInitSuccess == null || !isInitSuccess) {
-      Utils.toast(imt("即时通信 SDK初始化失败"));
+      Utils.toast(TIM_t("即时通信 SDK初始化失败"));
     } else {}
     // setState(() {
     //   hasInit = true;
@@ -213,7 +212,6 @@ class _MyAppState extends State<WebApp> with WidgetsBindingObserver {
         token: token,
       );
       int errorCode = response['errorCode'];
-      String errorMessage = response['errorMessage'];
 
       if (errorCode == 0) {
         Map<String, dynamic> datas = response['data'];
@@ -227,14 +225,13 @@ class _MyAppState extends State<WebApp> with WidgetsBindingObserver {
         if (data.code != 0) {
           final option8 = data.desc;
           Utils.toast(
-              imt_para("登录失败 {{option8}}", "登录失败 $option8")(option8: option8));
+              TIM_t_para("登录失败 {{option8}}", "登录失败 $option8")(option8: option8));
           removeLocalSetting();
           directToLogin();
           return;
         }
         directToHomePage();
       } else {
-        Utils.toast(errorMessage);
         directToLogin();
       }
     } else {
@@ -294,15 +291,18 @@ class _MyAppState extends State<WebApp> with WidgetsBindingObserver {
         name: "defaultEmoji",
         stickerList: defEmojiList,
         menuItem: defEmojiList[0]));
+    StickerListUtil stickerListUtil =
+    StickerListUtil(Const.emojiList.map((e) => e.toJson()).toList());
     customStickerPackageList.addAll(Const.emojiList.map((customEmojiPackage) {
       return CustomStickerPackage(
           name: customEmojiPackage.name,
           baseUrl: "assets/custom_face_resource/${customEmojiPackage.name}",
+          isEmoji: customEmojiPackage.isEmoji,
           stickerList: customEmojiPackage.list
               .asMap()
               .keys
               .map((idx) =>
-                  CustomSticker(index: idx, name: customEmojiPackage.list[idx]))
+              CustomSticker(index: idx, name: customEmojiPackage.list[idx]))
               .toList(),
           menuItem: CustomSticker(
             index: 0,
@@ -311,6 +311,8 @@ class _MyAppState extends State<WebApp> with WidgetsBindingObserver {
     }).toList());
     Provider.of<CustomStickerPackageData>(context, listen: false)
         .customStickerPackageList = customStickerPackageList;
+    Provider.of<CustomStickerPackageData>(context, listen: false)
+        .stickerListUtil = stickerListUtil;
   }
 
   @override

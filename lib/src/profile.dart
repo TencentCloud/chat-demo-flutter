@@ -18,7 +18,7 @@ import 'package:timuikit/utils/theme.dart';
 import 'package:timuikit/utils/toast.dart';
 
 import 'package:adaptive_action_sheet/adaptive_action_sheet.dart';
-import 'package:timuikit/i18n/i18n_utils.dart';
+
 
 import 'about.dart';
 import 'my_profile_detail.dart';
@@ -40,22 +40,23 @@ class _ProfileState extends State<MyProfile> {
 
   String _getAllowText(int? allowType) {
     if (allowType == 0) {
-      return imt("同意任何用户加好友");
+      return TIM_t("允许任何人");
     }
 
     if (allowType == 1) {
-      return imt("需要验证");
+      return TIM_t("需要验证信息");
     }
 
     if (allowType == 2) {
-      return imt("拒绝任何人加好友");
+      return TIM_t("禁止加我为好友");
     }
 
-    return imt("未知");
+    return TIM_t("未指定");
   }
 
   _handleLogout() async {
     final res = await _coreServices.logout();
+
     if (res.code == 0) {
       try {
         Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
@@ -92,7 +93,7 @@ class _ProfileState extends State<MyProfile> {
       actions: <BottomSheetAction>[
         BottomSheetAction(
           title: Text(
-            imt("同意任何用户加好友"),
+            TIM_t("允许任何人"),
             style: TextStyle(color: theme.primaryColor, fontSize: 18),
           ),
           onPressed: () {
@@ -102,7 +103,7 @@ class _ProfileState extends State<MyProfile> {
         ),
         BottomSheetAction(
             title: Text(
-              imt("需要验证"),
+              TIM_t("需要验证信息"),
               style: TextStyle(color: theme.primaryColor, fontSize: 18),
             ),
             onPressed: () {
@@ -111,7 +112,7 @@ class _ProfileState extends State<MyProfile> {
             }),
         BottomSheetAction(
           title: Text(
-            imt("拒绝任何人加好友"),
+            TIM_t("禁止加我为好友"),
             style: TextStyle(color: theme.primaryColor, fontSize: 18),
           ),
           onPressed: () {
@@ -122,7 +123,7 @@ class _ProfileState extends State<MyProfile> {
       ],
       cancelAction: CancelAction(
         title: Text(
-          imt("取消"),
+          TIM_t("取消"),
           style: const TextStyle(fontSize: 18),
         ),
       ), // onPressed parameter is optional by default will dismiss the ActionSheet
@@ -178,7 +179,7 @@ class _ProfileState extends State<MyProfile> {
                   showApplicationTypeSheet(theme);
                 },
                 child: TIMUIKitOperationItem(
-                  operationName: imt("加我为好友时需要验证"),
+                  operationName: TIM_t("加我为好友的方式"),
                   operationRightWidget: Text(allowText),
                 ),
               ),
@@ -193,7 +194,7 @@ class _ProfileState extends State<MyProfile> {
                 );
               },
               child: TIMUIKitOperationItem(
-                operationName: imt("更换皮肤"),
+                operationName: TIM_t("更换皮肤"),
                 operationRightWidget: Text(
                     DefTheme.defaultThemeName[themeType]!,
                     style: TextStyle(color: theme.primaryColor)),
@@ -203,9 +204,9 @@ class _ProfileState extends State<MyProfile> {
               height: 10,
             ),
             TIMUIKitOperationItem(
-              operationName: imt("消息阅读状态"),
+              operationName: TIM_t("消息阅读状态"),
               operationDescription:
-                  imt("关闭后，您收发的消息均不带消息阅读状态，您将无法看到对方是否已读，同时对方也无法看到你是否已读。"),
+                  TIM_t("关闭后，您收发的消息均不带消息阅读状态，您将无法看到对方是否已读，同时对方也无法看到你是否已读。"),
               type: "switch",
               operationValue: localSetting.isShowReadingStatus,
               onSwitchChange: (bool value) {
@@ -216,8 +217,8 @@ class _ProfileState extends State<MyProfile> {
               height: 10,
             ),
             TIMUIKitOperationItem(
-              operationName: imt("显示在线状态"),
-              operationDescription: imt("关闭后，您将不可以在会话列表和通讯录中看到好友在线或离线的状态提示。"),
+              operationName: TIM_t("显示在线状态"),
+              operationDescription: TIM_t("关闭后，您将不可以在会话列表和通讯录中看到好友在线或离线的状态提示。"),
               type: "switch",
               operationValue: localSetting.isShowOnlineStatus,
               onSwitchChange: (bool value) {
@@ -237,7 +238,7 @@ class _ProfileState extends State<MyProfile> {
                 );
               },
               child: TIMUIKitOperationItem(
-                operationName: imt("关于腾讯云 · IM"),
+                operationName: TIM_t("关于腾讯云 · IM"),
                 operationRightWidget: const Text(""),
               ),
             ),
@@ -254,7 +255,7 @@ class _ProfileState extends State<MyProfile> {
                     border: Border(
                         bottom: BorderSide(color: hexToColor("E5E5E5")))),
                 child: Text(
-                  imt("退出登录"),
+                  TIM_t("退出登录"),
                   style: TextStyle(color: hexToColor("FF584C"), fontSize: 17),
                 ),
               ),

@@ -2,8 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:timuikit/i18n/i18n_utils.dart';
-import 'package:timuikit/i18n/strings.g.dart';
+import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
+
+
 import 'package:timuikit/src/provider/user_guide_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -36,7 +37,7 @@ class _UserGuideState extends State<UserGuide> {
       MediaQuery.of(context).size.width > 10000 ? 'large' : 'small';
       final String? deviceLocale =
       WidgetsBinding.instance?.window.locale.toLanguageTag();
-      final AppLocale appLocale = TIMDemoI18n.findDeviceLocale(deviceLocale);
+      final AppLocale appLocale = I18nUtils.findDeviceLocale(deviceLocale);
       String languageType =
       (appLocale == AppLocale.zhHans || appLocale == AppLocale.zhHant)
           ? 'zh'
@@ -90,7 +91,8 @@ void judgeGuide(String guideName, BuildContext context) async {
     MediaQuery.of(context).size.width > 10000 ? 'large' : 'small';
     final String? deviceLocale =
     WidgetsBinding.instance?.window.locale.toLanguageTag();
-    final AppLocale appLocale = TIMDemoI18n.findDeviceLocale(deviceLocale);
+    // TODO
+    final AppLocale appLocale = I18nUtils.findDeviceLocale(deviceLocale);
     String languageType =
     (appLocale == AppLocale.zhHans || appLocale == AppLocale.zhHant)
         ? 'zh'

@@ -6,10 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-
 import 'package:tim_ui_kit_calling_plugin/tim_ui_kit_calling_plugin.dart';
 import 'package:timuikit/custom_animation.dart';
-import 'package:timuikit/i18n/strings.g.dart';
 import 'package:timuikit/src/config.dart';
 import 'package:timuikit/src/pages/app.dart';
 import 'package:timuikit/src/provider/custom_sticker_package.dart';

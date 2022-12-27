@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:timuikit/src/provider/theme.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:timuikit/i18n/i18n_utils.dart';
+
 
 class WebviewPage extends StatelessWidget {
   const WebviewPage({Key? key, required this.url}) : super(key: key);
@@ -21,7 +21,7 @@ class WebviewPage extends StatelessWidget {
         shadowColor: theme.weakDividerColor,
         elevation: 1,
         title: Text(
-          imt("腾讯云即时通信IM"),
+          TIM_t("腾讯云即时通信IM"),
           style: const TextStyle(fontSize: 17),
         ),
         leading: SizedBox(

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-
-import 'package:timuikit/i18n/i18n_utils.dart';
 import 'package:timuikit/src/chat.dart';
 import 'package:timuikit/src/provider/theme.dart';
 
@@ -14,22 +12,24 @@ class AddGroup extends StatelessWidget {
     final theme = Provider.of<DefaultThemeData>(context).theme;
     return Scaffold(
       appBar: AppBar(
-          title: Text(
-            imt("添加群聊"),
-            style: const TextStyle(color: Colors.white, fontSize: 17),
+        shadowColor: Colors.white,
+        title: Text(
+          TIM_t("添加群聊"),
+          style: TextStyle(color: hexToColor("1f2329"), fontSize: 16),
+        ),
+        backgroundColor: hexToColor("f2f3f5"),
+        leading: IconButton(
+          padding: const EdgeInsets.only(left: 16),
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: hexToColor("2a2e35"),
+            size: 20,
           ),
-          shadowColor: theme.weakDividerColor,
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [
-                theme.lightPrimaryColor ?? CommonColor.lightPrimaryColor,
-                theme.primaryColor ?? CommonColor.primaryColor
-              ]),
-            ),
-          ),
-          iconTheme: const IconThemeData(
-            color: Colors.white,
-          )),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: TIMUIKitAddGroup(
         onTapExistGroup: (groupID, conversation) {
           Navigator.push(

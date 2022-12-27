@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
-import 'package:timuikit/i18n/i18n_utils.dart';
+
 import 'package:timuikit/src/provider/theme.dart';
 import 'package:timuikit/src/user_profile.dart';
 
@@ -17,7 +17,7 @@ class BlackList extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           title: Text(
-            imt("黑名单"),
+            TIM_t("黑名单"),
             style: const TextStyle(color: Colors.white, fontSize: 17),
           ),
           shadowColor: Colors.white,
@@ -35,7 +35,7 @@ class BlackList extends StatelessWidget {
       body: TIMUIKitBlackList(
         emptyBuilder: (_) {
           return Center(
-            child: Text(imt("暂无黑名单")),
+            child: Text(TIM_t("暂无黑名单")),
           );
         },
         onTapItem: (V2TimFriendInfo friendInfo) {

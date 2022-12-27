@@ -7,7 +7,7 @@ import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/widget/tim_uikit_profile_widget.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
-import 'package:timuikit/i18n/i18n_utils.dart';
+
 import 'package:timuikit/src/config.dart';
 import 'package:timuikit/src/provider/theme.dart';
 import 'package:provider/provider.dart';
@@ -57,10 +57,10 @@ class MyProfileDetailState extends State<MyProfileDetail>{
   showGenderChoseSheet(BuildContext context, TUITheme? theme) {
     showAdaptiveActionSheet(
       context: context,
-      title: Text(imt("性别")),
+      title: Text(TIM_t("性别")),
       actions: <BottomSheetAction>[
         BottomSheetAction(
-          title: Text(imt("男"), style: TextStyle(color: theme?.primaryColor)),
+          title: Text(TIM_t("男"), style: TextStyle(color: theme?.primaryColor)),
           onPressed: () async {
             final res = await widget.controller?.updateGender(1);
             if(res?.code == 0){
@@ -72,7 +72,7 @@ class MyProfileDetailState extends State<MyProfileDetail>{
           },
         ),
         BottomSheetAction(
-          title: Text(imt("女"), style: TextStyle(color: theme?.primaryColor)),
+          title: Text(TIM_t("女"), style: TextStyle(color: theme?.primaryColor)),
           onPressed: () async {
             final res = await widget.controller?.updateGender(2);
             if(res?.code == 0){
@@ -85,7 +85,7 @@ class MyProfileDetailState extends State<MyProfileDetail>{
         ),
       ],
       cancelAction: CancelAction(
-        title: Text(imt("取消")),
+        title: Text(TIM_t("取消")),
       ), // onPressed parameter is optional by default will dismiss the ActionSheet
     );
   }
@@ -93,11 +93,11 @@ class MyProfileDetailState extends State<MyProfileDetail>{
   String handleGender(int gender) {
     switch (gender) {
       case 0:
-        return imt("未设置");
+        return TIM_t("未设置");
       case 1:
-        return imt("男");
+        return TIM_t("男");
       case 2:
-        return imt("女");
+        return TIM_t("女");
       default:
         return "";
     }
@@ -108,17 +108,17 @@ class MyProfileDetailState extends State<MyProfileDetail>{
       context: context,
       builder: (context) {
         return CupertinoAlertDialog(
-          title: Text(imt("TUIKIT 为你选择一个头像?")),
+          title: Text(TIM_t("TUIKIT 为你选择一个头像?")),
           actions: [
             CupertinoDialogAction(
-              child: Text(imt("取消")),
+              child: Text(TIM_t("取消")),
               isDestructiveAction: true,
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             CupertinoDialogAction(
-              child: Text(imt("确定")),
+              child: Text(TIM_t("确定")),
               onPressed: () {
                 setRandomAvatar();
                 Navigator.of(context).pop();
@@ -141,7 +141,7 @@ class MyProfileDetailState extends State<MyProfileDetail>{
         shadowColor: theme.weakDividerColor,
         elevation: 1,
         title: Text(
-          imt("个人资料"),
+          TIM_t("个人资料"),
           style: const TextStyle(fontSize: IMDemoConfig.appBarTitleFontSize),
         ),
         flexibleSpace: Container(
@@ -172,7 +172,7 @@ class MyProfileDetailState extends State<MyProfileDetail>{
           GestureDetector(
             onTap: () async {
               widget.controller?.showTextInputBottomSheet(
-                  context, imt("修改昵称"), imt("仅限中字、字母、数字和下划线"),
+                  context, TIM_t("修改昵称"), TIM_t("仅限汉字、英文、数字和下划线"),
                       (String nickName) async {
                         final res = await widget.controller?.updateNickName(nickName);
                         if(res?.code == 0){
@@ -180,11 +180,11 @@ class MyProfileDetailState extends State<MyProfileDetail>{
                             userProfile?.nickName = nickName;
                           });
                         }
-                  });
+                  }, theme);
             },
             child: TIMUIKitOperationItem(
               operationName: TIM_t("昵称"),
-              operationRightWidget: Text(userProfile?.nickName ?? ""),
+              operationRightWidget: Text(TencentUtils.isTextNotEmpty(userProfile?.nickName) ? userProfile!.nickName! : TIM_t("未填写")),
             ),
           ),
           TIMUIKitProfileWidget.userAccountBar(
@@ -194,7 +194,7 @@ class MyProfileDetailState extends State<MyProfileDetail>{
           GestureDetector(
               onTap: () async {
                 widget.controller?.showTextInputBottomSheet(
-                    context, imt("修改签名"), imt("仅限中字、字母、数字和下划线"),
+                    context, TIM_t("修改签名"), TIM_t("仅限汉字、英文、数字和下划线"),
                         (String selfSignature) async {
                           final res = await widget.controller?.updateSelfSignature(selfSignature);
                           if(res?.code == 0){
@@ -202,13 +202,14 @@ class MyProfileDetailState extends State<MyProfileDetail>{
                               userProfile?.selfSignature = selfSignature;
                             });
                           }
-                    });
-
+                    }, theme);
               },
               child: TIMUIKitOperationItem(
                   operationName: TIM_t("个性签名"),
-                  operationRightWidget:
-                  Text(userProfile?.selfSignature ?? imt("这个人很懒，什么也没写")))),
+                  operationRightWidget: Text(
+                      TencentUtils.isTextNotEmpty(userProfile?.selfSignature)
+                          ? userProfile!.selfSignature!
+                          : TIM_t("未填写")))),
           GestureDetector(
               onTap: () async {
                 showGenderChoseSheet(context, theme);

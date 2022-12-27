@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-typedef WebEvent = void Function(String name, String body);
+typedef WebEvent = void Function(String name, dynamic body);
 
 class TIMWebView extends StatelessWidget {
   final String initialUrl;

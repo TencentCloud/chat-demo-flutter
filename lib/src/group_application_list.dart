@@ -1,8 +1,9 @@
 // ignore_for_file: unused_import
 
 import 'package:flutter/material.dart';
+import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitGroup/tim_uikit_group_application_list.dart';
-import 'package:timuikit/i18n/i18n_utils.dart';
+
 import 'package:timuikit/src/provider/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -23,7 +24,7 @@ class GroupApplicationList extends StatelessWidget{
         elevation: 0,
         backgroundColor: theme.primaryColor,
         title: Text(
-          imt("进群申请列表"),
+          TIM_t("进群申请列表"),
           style: const TextStyle(
             color: Colors.white,
             fontSize: 17,

@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
-import 'package:timuikit/i18n/i18n_utils.dart';
+
 import 'package:timuikit/src/cancel_account.dart';
 import 'package:timuikit/src/provider/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -44,7 +44,7 @@ class AboutState extends State<About>{
           onClick();
         },
         child: TIMUIKitOperationItem(
-          operationName: imt(text),
+          operationName: TIM_t(text),
           isRightIcon: !(rightText != null && rightText.isNotEmpty),
           operationRightWidget: Text(rightText ?? ""),
         ),
@@ -75,7 +75,7 @@ class AboutState extends State<About>{
         shadowColor: theme.weakDividerColor,
         elevation: 1,
         title: Text(
-            imt("关于腾讯云 · IM"),
+            TIM_t("关于腾讯云 · IM"),
           style: const TextStyle(fontSize: IMDemoConfig.appBarTitleFontSize),
         ),
         flexibleSpace: Container(
@@ -106,7 +106,7 @@ class AboutState extends State<About>{
                 context,
                 MaterialPageRoute(
                     builder: (context) => PrivacyDocument(
-                        title: imt("隐私政策"),
+                        title: TIM_t("隐私政策"),
                         url:
                         "https://privacy.qq.com/document/preview/1cfe904fb7004b8ab1193a55857f7272")));
           }),
@@ -122,7 +122,7 @@ class AboutState extends State<About>{
                 context,
                 MaterialPageRoute(
                     builder: (context) => PrivacyDocument(
-                        title: imt("用户协议"),
+                        title: TIM_t("用户协议"),
                         url:
                         "https://web.sdk.qcloud.com/document/Tencent-IM-User-Agreement.html")));
           }),
@@ -131,16 +131,16 @@ class AboutState extends State<About>{
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  title: Text(imt("免责声明")),
-                  content: Text(imt(
+                  title: Text(TIM_t("免责声明")),
+                  content: Text(TIM_t(
                       "腾讯云IM APP（“本产品”）是由腾讯云提供的一款测试产品，腾讯云享有本产品的著作权和所有权。本产品仅用于功能体验，不得用于任何商业用途。严禁在使用中有任何色情、辱骂、暴恐、涉政等违法内容传播。")),
                   actions: <Widget>[
                     TextButton(
-                      child: Text(imt("取消")),
+                      child: Text(TIM_t("取消")),
                       onPressed: () => Navigator.of(context).pop(), // 关闭对话框
                     ),
                     TextButton(
-                      child: Text(imt("确定")),
+                      child: Text(TIM_t("确定")),
                       onPressed: () {
                         //关闭对话框并返回true
                         Navigator.of(context).pop(true);
@@ -166,7 +166,7 @@ class AboutState extends State<About>{
                 context,
                 MaterialPageRoute(
                     builder: (context) => PrivacyDocument(
-                        title: imt("信息收集清单"),
+                        title: TIM_t("信息收集清单"),
                         url:
                         "https://privacy.qq.com/document/preview/45ba982a1ce6493597a00f8c86b52a1e")));
           }),
@@ -182,7 +182,7 @@ class AboutState extends State<About>{
                 context,
                 MaterialPageRoute(
                     builder: (context) => PrivacyDocument(
-                        title: imt("信息共享清单"),
+                        title: TIM_t("信息共享清单"),
                         url:
                         "https://privacy.qq.com/document/preview/dea84ac4bb88454794928b77126e9246")));
           }),

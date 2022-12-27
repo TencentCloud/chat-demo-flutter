@@ -8,7 +8,6 @@ import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_chat_glo
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_chat_controller.dart';
 
-import 'package:tencent_cloud_chat_uikit/ui/utils/custom_emoji_face_data_class.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/message.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/permission.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/TIMUIKitTextField/tim_uikit_call_invite_list.dart';
@@ -18,7 +17,6 @@ import 'package:tim_ui_kit_lbs_plugin/pages/location_picker.dart';
 import 'package:tim_ui_kit_lbs_plugin/utils/location_utils.dart';
 import 'package:tim_ui_kit_lbs_plugin/utils/tim_location_model.dart';
 import 'package:tim_ui_kit_lbs_plugin/widget/location_msg_element.dart';
-import 'package:tim_ui_kit_sticker_plugin/tim_ui_kit_sticker_plugin.dart';
 import 'package:timuikit/src/config.dart';
 import 'package:timuikit/src/group_application_list.dart';
 
@@ -29,9 +27,9 @@ import 'package:timuikit/src/provider/theme.dart';
 import 'package:timuikit/src/user_profile.dart';
 import 'package:provider/provider.dart';
 
-import 'package:timuikit/i18n/i18n_utils.dart';
 import 'package:timuikit/utils/baidu_implements/map_service_baidu_implement.dart';
 import 'package:timuikit/utils/baidu_implements/map_widget_baidu_implement.dart';
+import 'package:timuikit/utils/constant.dart';
 import 'package:timuikit/utils/custom_message/custom_message_element.dart';
 import 'package:timuikit/utils/push/push_constant.dart';
 import 'package:timuikit/utils/toast.dart';
@@ -103,7 +101,7 @@ class _ChatState extends State<Chat> {
 
   _onTapLocation() {
     if (kIsWeb) {
-      Utils.toast(imt("百度地图插件暂不支持网页版，请使用手机APP DEMO体验位置消息能力。"));
+      Utils.toast(TIM_t("百度地图插件暂不支持网页版，请使用手机APP DEMO体验位置消息能力。"));
       return;
     }
     if (IMDemoConfig.baiduMapIOSAppKey.isNotEmpty) {
@@ -162,7 +160,7 @@ class _ChatState extends State<Chat> {
     } else {
       OfflinePushInfo offlinePush = OfflinePushInfo(
         title: "",
-        desc: imt("邀请你视频通话"),
+        desc: TIM_t("邀请你视频通话"),
         ext: "{\"conversationID\": \"\"}",
         disablePush: false,
         androidOPPOChannelID: PushConfig.OPPOChannelID,
@@ -199,7 +197,7 @@ class _ChatState extends State<Chat> {
     } else {
       OfflinePushInfo offlinePush = OfflinePushInfo(
         title: "",
-        desc: imt("邀请你语音通话"),
+        desc: TIM_t("邀请你语音通话"),
         ext: "{\"conversationID\": \"\"}",
         disablePush: false,
         androidOPPOChannelID: PushConfig.OPPOChannelID,
@@ -240,7 +238,7 @@ class _ChatState extends State<Chat> {
           name: customEmojiPackage.name,
           baseUrl: "assets/emoji",
           isEmoji: customEmojiPackage.isEmoji,
-          isDeafultEmoji: true,
+          isDefaultEmoji: true,
           stickerList: customEmojiPackage.list
               .asMap()
               .keys
@@ -271,6 +269,8 @@ class _ChatState extends State<Chat> {
   @override
   Widget build(BuildContext context) {
     final LocalSetting localSetting = Provider.of<LocalSetting>(context);
+    // List customEmojiList =
+    //     Const.emojiList.where((element) => element.isEmoji == true).toList();
     return TIMUIKitChat(
         controller: _timuiKitChatController,
         lifeCycle:
@@ -292,9 +292,15 @@ class _ChatState extends State<Chat> {
         groupAtInfoList: widget.selectedConversation.groupAtInfoList,
         key: tuiChatField,
         customStickerPanel: renderCustomStickerPanel,
+        // customEmojiStickerList: customEmojiList,
         config: TIMUIKitChatConfig(
           // For demonstration only, not all configuration items.
           // In practical use, only parameters that are different from the default items need be provided.
+
+          // `isUseDefaultEmoji: true`：使用我们默认自带小表情包，以png图片方式呈现。可以嵌入文字内容中。
+          // `isUseDefaultEmoji: true`: Use the small sticker provided by us as default, as png image. But can be added to text messages.
+          isUseDefaultEmoji: true,
+
           isAllowClickAvatar: true,
           isAllowLongPressMessage: true,
           isShowReadingStatus: localSetting.isShowReadingStatus,
@@ -367,26 +373,29 @@ class _ChatState extends State<Chat> {
               String address = message.locationElem?.desc ?? "";
               String addressName = address;
               String? addressLocation;
-              if(RegExp(dividerForDesc).hasMatch(address)){
+              if (RegExp(dividerForDesc).hasMatch(address)) {
                 addressName = address.split(dividerForDesc)[0];
-                addressLocation = address.split(dividerForDesc)[1] != "null" ? address.split(dividerForDesc)[1] : null;
+                addressLocation = address.split(dividerForDesc)[1] != "null"
+                    ? address.split(dividerForDesc)[1]
+                    : null;
               }
               final borderRadius = (message.isSelf ?? true)
                   ? const BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(2),
-                  bottomLeft: Radius.circular(10),
-                  bottomRight: Radius.circular(10))
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(2),
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10))
                   : const BorderRadius.only(
-                  topLeft: Radius.circular(2),
-                  topRight: Radius.circular(10),
-                  bottomLeft: Radius.circular(10),
-                  bottomRight: Radius.circular(10));
+                      topLeft: Radius.circular(2),
+                      topRight: Radius.circular(10),
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10));
               const backgroundColor = Colors.white;
               return GestureDetector(
                 onTap: () {
                   launchUrl(
-                    Uri.parse("http://api.map.baidu.com/marker?location=${message.locationElem?.latitude},${message.locationElem?.longitude}&title=$addressName&content=$addressLocation&output=html"),
+                    Uri.parse(
+                        "http://api.map.baidu.com/marker?location=${message.locationElem?.latitude},${message.locationElem?.longitude}&title=$addressName&content=$addressLocation&output=html"),
                     mode: LaunchMode.externalApplication,
                   );
                 },
@@ -408,24 +417,25 @@ class _ChatState extends State<Chat> {
                           size: 32,
                         ),
                         const SizedBox(width: 4),
-                        Expanded(child: Column(
+                        Expanded(
+                            child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            if(addressName.isNotEmpty)Text(
-                              addressName,
-                              softWrap: true,
-                              style: const TextStyle(fontSize: 16),
-                            ),
-
-                            if(addressLocation != null &&
-                                addressLocation.isNotEmpty) Text(
-                              addressLocation,
-                              softWrap: true,
-                              style: const TextStyle(
-                                  fontSize: 12,
-                                  color: CommonColor.weakTextColor
+                            if (addressName.isNotEmpty)
+                              Text(
+                                addressName,
+                                softWrap: true,
+                                style: const TextStyle(fontSize: 16),
                               ),
-                            ),
+                            if (addressLocation != null &&
+                                addressLocation.isNotEmpty)
+                              Text(
+                                addressLocation,
+                                softWrap: true,
+                                style: const TextStyle(
+                                    fontSize: 12,
+                                    color: CommonColor.weakTextColor),
+                              ),
                           ],
                         ))
                       ],
@@ -458,7 +468,7 @@ class _ChatState extends State<Chat> {
             MorePanelItem(
                 // 使用前，清先根据本文档配置AK。https://docs.qq.com/doc/DSVliWE9acURta2dL
                 id: "location",
-                title: imt("位置"),
+                title: TIM_t("位置"),
                 onTap: (c) {
                   _onTapLocation();
                 },
@@ -477,7 +487,7 @@ class _ChatState extends State<Chat> {
                 )),
             MorePanelItem(
                 id: "voiceCall",
-                title: imt("语音通话"),
+                title: TIM_t("语音通话"),
                 onTap: (c) {
                   // _onFeatureTap("voiceCall", c);
                   _goToVoiceUI();
@@ -498,7 +508,7 @@ class _ChatState extends State<Chat> {
                 )),
             MorePanelItem(
                 id: "videoCall",
-                title: imt("视频通话"),
+                title: TIM_t("视频通话"),
                 onTap: (c) {
                   // _onFeatureTap("videoCall", c);
                   _goToVideoUI();
@@ -522,11 +532,8 @@ class _ChatState extends State<Chat> {
         appBarConfig: AppBar(
           backgroundColor: hexToColor("f2f3f5"),
           textTheme: TextTheme(
-              titleMedium: TextStyle(
-                  color: hexToColor("010000"),
-                  fontSize: 16
-              )
-          ),
+              titleMedium:
+                  TextStyle(color: hexToColor("010000"), fontSize: 16)),
           actions: [
             IconButton(
                 padding: const EdgeInsets.only(left: 8, right: 16),

@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:timuikit/src/config.dart';
 import 'package:timuikit/utils/constant.dart';
-import 'package:timuikit/i18n/i18n_utils.dart';
+
 
 Future<Response<Map<String, dynamic>>> appRequest({
   String? method = 'get',
@@ -29,7 +30,7 @@ Future<Response<Map<String, dynamic>>> appRequest({
       return Response(data: {
         'errorCode': Const.SERVER_ERROR_CODE,
         'errorMessage':
-            imt_para("服务器错误：{{option8}}", "服务器错误：$option8")(option8: option8),
+            TIM_t_para("服务器错误：{{option8}}", "服务器错误：$option8")(option8: option8),
       }, requestOptions: e.requestOptions);
     } else {
       // Request error 请求时的问题
@@ -37,7 +38,7 @@ Future<Response<Map<String, dynamic>>> appRequest({
       return Response(data: {
         'errorCode': Const.REQUEST_ERROR_CODE,
         'errorMessage':
-            imt_para("请求错误：{{option8}}", "请求错误：$option8")(option8: option8),
+            TIM_t_para("请求错误：{{option8}}", "请求错误：$option8")(option8: option8),
       }, requestOptions: e.requestOptions);
     }
   }

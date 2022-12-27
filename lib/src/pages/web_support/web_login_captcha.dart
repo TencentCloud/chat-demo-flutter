@@ -1,7 +1,10 @@
 
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:timuikit/i18n/i18n_utils.dart';
+import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
+
 import 'package:timuikit/src/config.dart';
 import 'package:timuikit/src/pages/web_support/webview/tim_webview.dart'
   if(dart.library.html) 'package:timuikit/src/pages/web_support/webview/tim_webview_web_implement.dart';
@@ -22,15 +25,28 @@ class WebLoginCaptcha extends StatefulWidget {
 class _WebLoginCaptchaState extends State<WebLoginCaptcha> {
   CaptchaStatus captchaStatus = CaptchaStatus.unReady;
   bool isClose = false;
+  double width = 360;
+  double height = 360;
 
-  double getSize() {
+  double getWidth() {
     switch (captchaStatus) {
       case CaptchaStatus.unReady:
         return 0;
       case CaptchaStatus.loading:
         return 130;
       case CaptchaStatus.ready:
-        return 360;
+        return width;
+    }
+  }
+
+  double getHeight() {
+    switch (captchaStatus) {
+      case CaptchaStatus.unReady:
+        return 0;
+      case CaptchaStatus.loading:
+        return 130;
+      case CaptchaStatus.ready:
+        return height;
     }
   }
 
@@ -40,12 +56,12 @@ class _WebLoginCaptchaState extends State<WebLoginCaptcha> {
         color: Colors.transparent,
         child: Center(
           child: SizedBox(
-            width: getSize(),
-            height: getSize(),
+            width: getWidth(),
+            height: getHeight(),
             child: TIMWebView(
               initialUrl: IMDemoConfig.webCaptchaUrl,
-              width: getSize(),
-              height: getSize(),
+              width: getWidth(),
+              height: getHeight(),
               webEventHandler: (name, body){
                 switch (name){
                   case 'onLoading':
@@ -54,6 +70,9 @@ class _WebLoginCaptchaState extends State<WebLoginCaptcha> {
                     });
                     break;
                   case "onCaptchaReady":
+                    final sdkView = body["opts"]["sdkView"];
+                    width = sdkView["width"];
+                    height = sdkView["height"];
                     setState(() {
                       captchaStatus = CaptchaStatus.ready;
                     });
@@ -62,7 +81,7 @@ class _WebLoginCaptchaState extends State<WebLoginCaptcha> {
                     try {
                       widget.onSuccess(body);
                     } catch (e) {
-                      Utils.toast(imt("图片验证码校验失败"));
+                      Utils.toast(TIM_t("图片验证码校验失败"));
                     }
                     setState(() {
                       captchaStatus = CaptchaStatus.unReady;

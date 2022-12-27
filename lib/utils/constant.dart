@@ -1,6 +1,4 @@
-// ignore_for_file: constant_identifier_names
-import 'package:timuikit/i18n/i18n_utils.dart';
-import 'package:timuikit/utils/custom_emoji_face_data.dart';
+import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
 class Const {
   // 上报相关
@@ -18,13 +16,13 @@ class Const {
   static const int V2TIM_ELEM_TYPE_END = -9999;
   static List weekdayMap = [
     '',
-    imt("星期一"),
-    imt("星期二"),
-    imt("星期三"),
-    imt("星期四"),
-    imt("星期五"),
-    imt("星期六"),
-    imt("星期七")
+    TIM_t("星期一"),
+    TIM_t("星期二"),
+    TIM_t("星期三"),
+    TIM_t("星期四"),
+    TIM_t("星期五"),
+    TIM_t("星期六"),
+    TIM_t("星期七")
   ];
 
   static const DAY_SEC = 86400;
@@ -41,22 +39,13 @@ class Const {
 
   static final List<CustomEmojiFaceData> emojiList = [
     // CustomEmojiFaceData(
-    //     name: '4348',
-    //     icon: "[爱心]@2x.png",
-    //     isEmoji: true,
-    //     list: [
-    //       "[aini]@2x.png",
-    //       "[爱情]@2x.png",
-    //       "[爱心]@2x.png",
-    //     ]),
-    // CustomEmojiFaceData(
     //     name: '4349',
-    //     icon: "[爱心]@2x.png",
+    //     icon: "aircraft.png",
     //     isEmoji: true,
     //     list: [
-    //       "[aini]@2x.png",
-    //       "[爱情]@2x.png",
-    //       "[爱心]@2x.png",
+    //       "aircraft.png",
+    //       "alarmClock.png",
+    //       "anger.png",
     //     ]),
     CustomEmojiFaceData(name: '4350', icon: "menu@2x.png", list: [
       "yz00@2x.png",

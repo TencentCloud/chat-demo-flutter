@@ -62,6 +62,7 @@ class BaiduMapState extends TIMMapState<BaiduMap>{
     timMapController.updateMapOptions(BMFMapOptions(
       scrollEnabled: false,
       zoomEnabled: false,
+      showZoomControl: false,
       overlookEnabled: false,
       rotateEnabled: false,
       gesturesEnabled: false,
@@ -83,6 +84,7 @@ class BaiduMapState extends TIMMapState<BaiduMap>{
   /// 设置地图参数
   BMFMapOptions initMapOptions() {
     BMFMapOptions mapOptions = BMFMapOptions(
+      showZoomControl: false,
       center: BMFCoordinate(39.917215, 116.380341),
       zoomLevel: 18,
     );

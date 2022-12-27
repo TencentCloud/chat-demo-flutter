@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:timuikit/i18n/i18n_utils.dart';
+
 
 enum ThemeType { solemn, brisk, bright, fantasy }
 
@@ -31,9 +31,9 @@ class DefTheme {
   };
 
   static final Map<ThemeType, String> defaultThemeName = {
-    ThemeType.solemn: imt("深沉"),
-    ThemeType.brisk: imt("轻快"),
-    ThemeType.bright: imt("明媚"),
-    ThemeType.fantasy: imt("梦幻")
+    ThemeType.solemn: TIM_t("深沉"),
+    ThemeType.brisk: TIM_t("轻快"),
+    ThemeType.bright: TIM_t("明媚"),
+    ThemeType.fantasy: TIM_t("梦幻")
   };
 }

@@ -8,6 +8,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:synchronized/synchronized.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
 import 'package:timuikit/country_list_pick-1.0.1+5/lib/country_list_pick.dart';
@@ -25,7 +26,7 @@ import 'package:timuikit/utils/commonUtils.dart';
 import 'package:timuikit/utils/smsLogin.dart';
 import 'package:timuikit/utils/toast.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:timuikit/i18n/i18n_utils.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 
 class WebLoginPage extends StatelessWidget {
@@ -120,14 +121,14 @@ class AppLogo extends StatelessWidget {
                       child: Column(
                         children: <Widget>[
                           Text(
-                            imt("腾讯云即时通信IM"),
+                            TIM_t("腾讯云即时通信IM"),
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: CommonUtils.adaptFontSize(58),
                             ),
                           ),
                           Text(
-                            imt("欢迎使用本 APP 体验腾讯云 IM 产品服务"),
+                            TIM_t("欢迎使用本 APP 体验腾讯云 IM 产品服务"),
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: CommonUtils.adaptFontSize(26),
@@ -156,6 +157,8 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final CoreServicesImpl coreInstance = TIMUIKitCore.getInstance();
+  final lock = Lock();
+  bool isSent = false;
 
   @override
   void initState() {
@@ -180,7 +183,7 @@ class _LoginFormState extends State<LoginForm> {
   TextEditingController userSigEtController = TextEditingController();
   TextEditingController telEtController = TextEditingController();
   String dialCode = "+86";
-  String countryName = imt("中国大陆");
+  String countryName = TIM_t("中国大陆");
 
   initService() {
     if (widget.initIMSDK != null) {
@@ -239,7 +242,7 @@ class _LoginFormState extends State<LoginForm> {
 
   TextSpan webViewLink(String title, String url) {
     return TextSpan(
-      text: imt(title),
+      text: TIM_t(title),
       style: const TextStyle(
         color: Color.fromRGBO(0, 110, 253, 1),
       ),
@@ -268,39 +271,39 @@ class _LoginFormState extends State<LoginForm> {
                     fontSize: 14, color: Colors.black, height: 2.0),
                 children: [
                   TextSpan(
-                    text: imt(
+                    text: TIM_t(
                         "欢迎使用腾讯云即时通信 IM，为保护您的个人信息安全，我们更新了《隐私政策》，主要完善了收集用户信息的具体内容和目的、增加了第三方SDK使用等方面的内容。"),
                   ),
                   const TextSpan(
                     text: "\n",
                   ),
                   TextSpan(
-                    text: imt("请您点击"),
+                    text: TIM_t("请您点击"),
                   ),
                   webViewLink("《用户协议》",
                       'https://web.sdk.qcloud.com/document/Tencent-IM-User-Agreement.html'),
                   TextSpan(
-                    text: imt(", "),
+                    text: TIM_t(", "),
                   ),
                   webViewLink("《隐私政策摘要》",
                       'https://privacy.qq.com/document/preview/c63a48325d0e4a35b93f675205a65a77'),
                   TextSpan(
-                    text: imt(", "),
+                    text: TIM_t(", "),
                   ),
                   webViewLink("《隐私政策》",
                       'https://privacy.qq.com/document/preview/1cfe904fb7004b8ab1193a55857f7272'),
                   TextSpan(
-                    text: imt(", "),
+                    text: TIM_t(", "),
                   ),
                   webViewLink("《信息收集清单》",
                       'https://privacy.qq.com/document/preview/45ba982a1ce6493597a00f8c86b52a1e'),
                   TextSpan(
-                    text: imt("和"),
+                    text: TIM_t("和"),
                   ),
                   webViewLink("《信息共享清单》",
                       'https://privacy.qq.com/document/preview/dea84ac4bb88454794928b77126e9246'),
                   TextSpan(
-                      text: imt("并仔细阅读，如您同意以上内容，请点击“同意并继续”，开始使用我们的产品与服务！")),
+                      text: TIM_t("并仔细阅读，如您同意以上内容，请点击“同意并继续”，开始使用我们的产品与服务！")),
                 ]),
             overflow: TextOverflow.clip,
           ),
@@ -315,7 +318,7 @@ class _LoginFormState extends State<LoginForm> {
                       Radius.circular(24),
                     ),
                   ),
-                  child: Text(imt("同意并继续"),
+                  child: Text(TIM_t("同意并继续"),
                       style:
                       const TextStyle(color: Colors.white, fontSize: 16))),
               onPressed: () {
@@ -324,7 +327,7 @@ class _LoginFormState extends State<LoginForm> {
               },
             ),
             CupertinoDialogAction(
-              child: Text(imt("不同意并退出"),
+              child: Text(TIM_t("不同意并退出"),
                   style: const TextStyle(color: Colors.grey, fontSize: 16)),
               isDestructiveAction: true,
               onPressed: () {
@@ -340,10 +343,10 @@ class _LoginFormState extends State<LoginForm> {
   // 获取验证码
   getLoginCode(context) async {
     if (tel.isEmpty) {
-      Utils.toast(imt("请输入手机号"));
+      Utils.toast(TIM_t("请输入手机号"));
       return;
     } else if (!RegExp(r"1[0-9]\d{9}$").hasMatch(tel)) {
-      Utils.toast(imt("手机号格式错误"));
+      Utils.toast(TIM_t("手机号格式错误"));
       return;
     } else {
       await _showMyDialog();
@@ -351,31 +354,37 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   // 验证验证码后台下发短信
-  vervifyPicture(messageObj) async {
+  verifyPicture(messageObj) async {
     // String captchaWebAppid =
     //     Provider.of<AppConfig>(context, listen: false).appid;
-    String phoneNum = "$dialCode$tel";
-    final sdkAppid = IMDemoConfig.sdkappid.toString();
-    print("sdkAppID$sdkAppid");
-    Map<String, dynamic> response = await SmsLogin.vervifyPicture(
-      phone: phoneNum,
-      ticket: messageObj['ticket'],
-      randstr: messageObj['randstr'],
-      appId: sdkAppid,
-    );
-    int errorCode = response['errorCode'];
-    if (errorCode == 0) {
-      Map<String, dynamic> res = response['data'];
-      String sid = res['sessionId'];
-      setState(() {
-        isGeted = true;
-        sessionId = sid;
-      });
-      timeDown();
-      Utils.toast(imt("验证码发送成功"));
-    } else {
-      // Utils.toast(errorMessage);
-    }
+    await lock.synchronized(() async {
+      if(isSent){
+        return;
+      }
+      String phoneNum = "$dialCode$tel";
+      final sdkAppid = IMDemoConfig.sdkappid.toString();
+      print("sdkAppID$sdkAppid");
+      Map<String, dynamic> response = await SmsLogin.vervifyPicture(
+        phone: phoneNum,
+        ticket: messageObj['ticket'],
+        randstr: messageObj['randstr'],
+        appId: sdkAppid,
+      );
+      int errorCode = response['errorCode'];
+      if (errorCode == 0) {
+        Map<String, dynamic> res = response['data'];
+        String sid = res['sessionId'];
+        setState(() {
+          isGeted = true;
+          sessionId = sid;
+        });
+        timeDown();
+        Utils.toast(TIM_t("验证码发送成功"));
+        isSent = true;
+      } else {
+        // Utils.toast(errorMessage);
+      }
+    });
   }
 
   Future<void> _showMyDialog() async {
@@ -389,7 +398,7 @@ class _LoginFormState extends State<LoginForm> {
           elevation: 0,
           content: SingleChildScrollView(
               child: WebLoginCaptcha(
-                  onSuccess: vervifyPicture,
+                  onSuccess: verifyPicture,
                   onClose: () {
                     Navigator.of(dialogContext).pop(1);
                   })),
@@ -404,10 +413,10 @@ class _LoginFormState extends State<LoginForm> {
 
   smsFristLogin() async {
     if (tel == '' && IMDemoConfig.productEnv) {
-      Utils.toast(imt("请输入手机号"));
+      Utils.toast(TIM_t("请输入手机号"));
     }
     if (sessionId == '' || code == '') {
-      Utils.toast(imt("验证码异常"));
+      Utils.toast(TIM_t("验证码异常"));
       return;
     }
     String phoneNum = "$dialCode$tel";
@@ -436,7 +445,7 @@ class _LoginFormState extends State<LoginForm> {
       if (data.code != 0) {
         final option1 = data.desc;
         Utils.toast(
-            imt_para("登录失败{{option1}}", "登录失败$option1")(option1: option1));
+            TIM_t_para("登录失败{{option1}}", "登录失败$option1")(option1: option1));
         return;
       }
 
@@ -510,7 +519,7 @@ class _LoginFormState extends State<LoginForm> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      imt("国家/地区"),
+                      TIM_t("国家/地区"),
                       style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: CommonUtils.adaptFontSize(34)),
@@ -518,7 +527,7 @@ class _LoginFormState extends State<LoginForm> {
                     CountryListPick(
                       appBar: AppBar(
                         // backgroundColor: Colors.blue,
-                        title: Text(imt("选择你的国家区号"),
+                        title: Text(TIM_t("选择你的国家区号"),
                             style: const TextStyle(fontSize: 17)),
                         flexibleSpace: Container(
                           decoration: BoxDecoration(
@@ -560,14 +569,14 @@ class _LoginFormState extends State<LoginForm> {
                           isShowCode: true,
                           isDownIcon: true,
                           showEnglishName: true,
-                          searchHintText: imt("请使用英文搜索"),
-                          searchText: imt("搜索")),
+                          searchHintText: TIM_t("请使用英文搜索"),
+                          searchText: TIM_t("搜索")),
                       // Set default value
                       initialSelection: '+86',
                       onChanged: (code) {
                         setState(() {
                           dialCode = code?.dialCode ?? "+86";
-                          countryName = code?.name ?? imt("中国大陆");
+                          countryName = code?.name ?? TIM_t("中国大陆");
                         });
                       },
                       useUiOverlay: false,
@@ -584,7 +593,7 @@ class _LoginFormState extends State<LoginForm> {
                       padding:
                       EdgeInsets.only(top: CommonUtils.adaptFontSize(34)),
                       child: Text(
-                        imt("手机号"),
+                        TIM_t("手机号"),
                         style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: CommonUtils.adaptFontSize(34),
@@ -596,7 +605,7 @@ class _LoginFormState extends State<LoginForm> {
                       decoration: InputDecoration(
                         contentPadding:
                         EdgeInsets.only(left: CommonUtils.adaptWidth(14)),
-                        hintText: imt("请输入手机号"),
+                        hintText: TIM_t("请输入手机号"),
                         hintStyle:
                         TextStyle(fontSize: CommonUtils.adaptFontSize(32)),
                         //
@@ -610,7 +619,7 @@ class _LoginFormState extends State<LoginForm> {
                     ),
                     Padding(
                         child: Text(
-                          imt("验证码"),
+                          TIM_t("验证码"),
                           style: TextStyle(
                               fontWeight: FontWeight.w700,
                               fontSize: CommonUtils.adaptFontSize(34)),
@@ -625,7 +634,7 @@ class _LoginFormState extends State<LoginForm> {
                             controller: userSigEtController,
                             decoration: InputDecoration(
                               contentPadding: const EdgeInsets.only(left: 5),
-                              hintText: imt("请输入验证码"),
+                              hintText: TIM_t("请输入验证码"),
                               hintStyle: TextStyle(
                                   fontSize: CommonUtils.adaptFontSize(32)),
                             ),
@@ -667,7 +676,7 @@ class _LoginFormState extends State<LoginForm> {
                             child: isGeted
                                 ? Text(timer.toString())
                                 : Text(
-                              imt("获取验证码"),
+                              TIM_t("获取验证码"),
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: CommonUtils.adaptFontSize(24),
@@ -692,7 +701,7 @@ class _LoginFormState extends State<LoginForm> {
                         children: [
                           Expanded(
                             child: ElevatedButton(
-                              child: Text(imt("登录")),
+                              child: Text(TIM_t("登录")),
                               onPressed: isValid ? smsFristLogin : null,
                             ),
                           )

@@ -8,6 +8,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "40.0.0"
+  _flutterfire_internals:
+    dependency: transitive
+    description:
+      name: _flutterfire_internals
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.11"
   adaptive_action_sheet:
     dependency: "direct main"
     description:
@@ -204,6 +211,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.1"
+  cloud_firestore_platform_interface:
+    dependency: transitive
+    description:
+      name: cloud_firestore_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.10.0"
+  cloud_firestore_web:
+    dependency: transitive
+    description:
+      name: cloud_firestore_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.2.0"
   code_builder:
     dependency: transitive
     description:
@@ -316,13 +337,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.1"
-  dio:
-    dependency: transitive
-    description:
-      name: dio
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.0.6"
   disk_space:
     dependency: transitive
     description:
@@ -401,47 +415,47 @@ packages:
     source: hosted
     version: "1.0.1"
   firebase_core:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: firebase_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.12.0"
+    version: "2.4.0"
   firebase_core_platform_interface:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: firebase_core_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.5.1"
+    version: "4.5.2"
   firebase_core_web:
     dependency: transitive
     description:
       name: firebase_core_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.7.3"
+    version: "2.0.2"
   firebase_messaging:
     dependency: transitive
     description:
       name: firebase_messaging
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "11.2.6"
+    version: "14.2.0"
   firebase_messaging_platform_interface:
     dependency: transitive
     description:
       name: firebase_messaging_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.6"
+    version: "4.2.9"
   firebase_messaging_web:
     dependency: transitive
     description:
       name: firebase_messaging_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.7"
+    version: "3.2.10"
   fixnum:
     dependency: transitive
     description:
@@ -454,13 +468,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_apns:
-    dependency: transitive
-    description:
-      name: flutter_apns
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.5.4"
   flutter_apns_only:
     dependency: transitive
     description:
@@ -474,21 +481,21 @@ packages:
       name: flutter_baidu_mapapi_base
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.0"
+    version: "3.2.0"
   flutter_baidu_mapapi_map:
     dependency: "direct main"
     description:
       name: flutter_baidu_mapapi_map
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.0+1"
+    version: "3.2.1"
   flutter_baidu_mapapi_search:
     dependency: "direct main"
     description:
       name: flutter_baidu_mapapi_search
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.0"
+    version: "3.2.0"
   flutter_blurhash:
     dependency: transitive
     description:
@@ -502,7 +509,7 @@ packages:
       name: flutter_bmflocation
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.0+1"
+    version: "3.2.1"
   flutter_cache_manager:
     dependency: transitive
     description:
@@ -644,13 +651,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "8.1.1"
-  fluwx:
-    dependency: "direct main"
-    description:
-      name: fluwx
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.11.0+1"
   frontend_server_client:
     dependency: transitive
     description:
@@ -727,7 +727,7 @@ packages:
       name: huawei_push
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.3.0+304"
+    version: "6.5.0+300"
   i18n:
     dependency: "direct main"
     description:
@@ -1288,6 +1288,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
+  shell:
+    dependency: transitive
+    description:
+      name: shell
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -1343,7 +1350,7 @@ packages:
     source: hosted
     version: "1.1.1"
   synchronized:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: synchronized
       url: "https://pub.dartlang.org"
@@ -1369,7 +1376,7 @@ packages:
       name: tencent_cloud_chat_uikit
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.1"
+    version: "1.1.0"
   tencent_extended_text:
     dependency: transitive
     description:
@@ -1391,13 +1398,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  tencent_flutter_apns:
+    dependency: transitive
+    description:
+      name: tencent_flutter_apns
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   tencent_im_base:
     dependency: transitive
     description:
       name: tencent_im_base
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.9"
+    version: "1.0.14"
   tencent_im_sdk_plugin_platform_interface:
     dependency: transitive
     description:
@@ -1412,6 +1426,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.6"
+  tencent_keyboard_visibility:
+    dependency: transitive
+    description:
+      name: tencent_keyboard_visibility
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   tencent_open_file:
     dependency: transitive
     description:
@@ -1439,7 +1460,7 @@ packages:
       name: tencent_wechat_camera_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.6.2+5"
+    version: "3.6.5"
   term_glyph:
     dependency: transitive
     description:
@@ -1460,7 +1481,7 @@ packages:
       name: tim_ui_kit_calling_plugin
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.5"
+    version: "1.0.7"
   tim_ui_kit_lbs_plugin:
     dependency: "direct main"
     description:
@@ -1474,14 +1495,14 @@ packages:
       name: tim_ui_kit_push_plugin
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0+1"
+    version: "2.1.1+1"
   tim_ui_kit_sticker_plugin:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: tim_ui_kit_sticker_plugin
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.3"
+    version: "1.1.1"
   timezone:
     dependency: transitive
     description:

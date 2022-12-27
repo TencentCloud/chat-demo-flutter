@@ -8,7 +8,7 @@ import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
-import 'package:timuikit/i18n/i18n_utils.dart';
+
 import 'package:timuikit/src/pages/login.dart';
 import 'package:timuikit/src/provider/theme.dart';
 import 'package:provider/provider.dart';
@@ -45,7 +45,7 @@ class CancelAccount extends StatelessWidget {
 
   CupertinoActionSheet mapAppSheet(BuildContext context) {
     return CupertinoActionSheet(
-      title: Text(imt("确认注销账户")),
+      title: Text(TIM_t("确认注销账户")),
       actions: [
         CupertinoActionSheetAction(
           onPressed: () async {
@@ -71,7 +71,7 @@ class CancelAccount extends StatelessWidget {
             String? codeStr = res['codeStr'];
 
             if (errorCode == 0) {
-              Utils.toast((imt("账户注销成功！")));
+              Utils.toast((TIM_t("账户注销成功！")));
               _handleLogout(context);
             } else {
               Utils.log(codeStr);
@@ -79,7 +79,7 @@ class CancelAccount extends StatelessWidget {
             }
           },
           child: Text(
-            imt("注销"),
+            TIM_t("注销"),
             style: TextStyle(
               fontSize: 17.0,
               color: hexToColor("FF584C"),
@@ -102,7 +102,7 @@ class CancelAccount extends StatelessWidget {
         shadowColor: theme.weakDividerColor,
         elevation: 1,
         title: Text(
-          imt("注销账户"),
+          TIM_t("注销账户"),
           style: const TextStyle(fontSize: IMDemoConfig.appBarTitleFontSize),
         ),
         flexibleSpace: Container(
@@ -152,7 +152,7 @@ class CancelAccount extends StatelessWidget {
                 margin: const EdgeInsets.only(top: 40, bottom: 80),
                 padding: const EdgeInsets.only(right: 40, left: 40),
                 child: Text(
-                  imt_para("注销后，您将无法使用当前账号，相关数据也将删除且无法找回。当前账号ID: {{option1}}",
+                  TIM_t_para("注销后，您将无法使用当前账号，相关数据也将删除且无法找回。当前账号ID: {{option1}}",
                           "注销后，您将无法使用当前账号，相关数据也将删除且无法找回。当前账号ID: $option1")(
                       option1: option1),
                   textAlign: TextAlign.left,
@@ -172,7 +172,7 @@ class CancelAccount extends StatelessWidget {
                   textColor: hexToColor("FA5151"),
                   height: 46,
                   child: Text(
-                    imt("注销账号"),
+                    TIM_t("注销账号"),
                     style: const TextStyle(
                       fontSize: 18,
                     ),

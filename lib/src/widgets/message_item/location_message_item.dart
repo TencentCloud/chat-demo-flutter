@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
-import 'package:timuikit/i18n/i18n_utils.dart';
+
 import 'package:timuikit/src/provider/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -64,7 +64,7 @@ class LocationMessageItem extends StatelessWidget{
                   Text(
                     message.locationElem?.desc
                         ?.split(dividerForDesc)[0] ??
-                        imt("腾讯大厦"),
+                        TIM_t("腾讯大厦"),
                     softWrap: true,
                     style: const TextStyle(fontSize: 16),
                   ),
@@ -74,7 +74,7 @@ class LocationMessageItem extends StatelessWidget{
                   Text(
                     message.locationElem?.desc
                         ?.split(dividerForDesc)[0] ??
-                        imt("深圳市深南大道10000号"),
+                        TIM_t("深圳市深南大道10000号"),
                     softWrap: true,
                     style: const TextStyle(
                         fontSize: 12, color: CommonColor.weakTextColor),
@@ -93,7 +93,7 @@ class LocationMessageItem extends StatelessWidget{
                 ),
                 Center(
                   child: Text(
-                    imt("位置消息维护中"),
+                    TIM_t("位置消息维护中"),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize: 12, color: theme.darkTextColor),

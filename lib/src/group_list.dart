@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
 import 'package:timuikit/src/chat.dart';
-import 'package:timuikit/i18n/i18n_utils.dart';
+
 import 'package:timuikit/src/provider/theme.dart';
 
 class GroupList extends StatelessWidget {
@@ -33,7 +33,7 @@ class GroupList extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           title: Text(
-            imt("群聊"),
+            TIM_t("群聊"),
             style: const TextStyle(color: Colors.white, fontSize: 17),
           ),
           shadowColor: Colors.white,
@@ -55,7 +55,7 @@ class GroupList extends StatelessWidget {
         },
         emptyBuilder: (_) {
           return Center(
-            child: Text(imt("暂无群聊")),
+            child: Text(TIM_t("暂无群聊")),
           );
         },
         groupCollector: (groupInfo) {

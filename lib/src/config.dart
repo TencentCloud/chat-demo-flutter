@@ -1,4 +1,5 @@
-import 'package:timuikit/i18n/i18n_utils.dart';
+import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
+
 
 enum WebUrl { personalInfo, thirdPartyInfo }
 
@@ -24,7 +25,7 @@ class IMDemoConfig {
   static const String webCaptchaUrl =
       'https://comm.qq.com/login/captcha/index.html';
   static const int loglevel = 3;
-  static String appName = imt("Tencent IM");
+  static String appName = TIM_t("Tencent IM");
   static const pushConfig = <String, Map<String, double>>{
     "ios": {
       "dev": 30626,

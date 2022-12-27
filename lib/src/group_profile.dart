@@ -8,7 +8,7 @@ import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/platform.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitGroupProfile/group_profile_widget.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitGroupProfile/widgets/tim_ui_group_profile_widget.dart';
-import 'package:timuikit/i18n/i18n_utils.dart';
+
 import 'package:timuikit/src/chat.dart';
 import 'package:timuikit/src/provider/user_guide_provider.dart';
 import 'package:timuikit/src/search.dart';
@@ -33,18 +33,10 @@ class GroupProfilePage extends StatelessWidget {
       Scaffold(
           appBar: AppBar(
               title: Text(
-                imt("群聊"),
-                style: TextStyle(color: hexToColor("1f2329"), fontSize: 17),
+                TIM_t("群聊"),
+                style: TextStyle(color: hexToColor("1f2329"), fontSize: 16),
               ),
               shadowColor: Colors.white,
-              // flexibleSpace: Container(
-              //   decoration: BoxDecoration(
-              //     gradient: LinearGradient(colors: [
-              //       theme.lightPrimaryColor ?? CommonColor.lightPrimaryColor,
-              //       theme.primaryColor ?? CommonColor.primaryColor
-              //     ]),
-              //   ),
-              // ),
               backgroundColor: hexToColor("f2f3f5"),
               leading: IconButton(
                 padding: const EdgeInsets.only(left: 16),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:timuikit/i18n/i18n_utils.dart';
+
 import 'package:timuikit/src/provider/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:timuikit/src/provider/user_guide_provider.dart';
@@ -45,8 +45,8 @@ class Search extends StatelessWidget {
             isConversation
                 ? (conversation?.showName ??
                     conversation?.conversationID ??
-                    imt("相关聊天记录"))
-                : imt("全局搜索"),
+                    TIM_t("相关聊天记录"))
+                : TIM_t("全局搜索"),
             style: const TextStyle(
               color: Colors.white,
               fontSize: 17,

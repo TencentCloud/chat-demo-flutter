@@ -9,7 +9,7 @@ import 'package:timuikit/src/provider/local_setting.dart';
 import 'package:timuikit/src/provider/theme.dart';
 import 'package:timuikit/src/user_profile.dart';
 import 'newContact.dart';
-import 'package:timuikit/i18n/i18n_utils.dart';
+
 
 class Contact extends StatefulWidget {
   const Contact({Key? key}) : super(key: key);
@@ -50,17 +50,17 @@ class _ContactState extends State<Contact> {
   }
 
   String _getImagePathByID(String id) {
-    final themeTypeSubfix = Provider.of<DefaultThemeData>(context)
+    final themeTypeSuffix = Provider.of<DefaultThemeData>(context)
         .currentThemeType
         .toString()
         .replaceFirst('ThemeType.', '');
     switch (id) {
       case "newContact":
-        return "assets/newContact_$themeTypeSubfix.png";
+        return "assets/newContact_$themeTypeSuffix.png";
       case "groupList":
-        return "assets/groupList_$themeTypeSubfix.png";
+        return "assets/groupList_$themeTypeSuffix.png";
       case "blackList":
-        return "assets/blackList_$themeTypeSubfix.png";
+        return "assets/blackList_$themeTypeSuffix.png";
       default:
         return "";
     }
@@ -87,7 +87,7 @@ class _ContactState extends State<Contact> {
                 child: Avatar(
                     faceUrl: _getImagePathByID(item.id),
                     showName: showName,
-                    isFromLocal: true,
+                    isFromLocalAsset: true,
                     ),
               ),
               Expanded(
@@ -125,21 +125,21 @@ class _ContactState extends State<Contact> {
       isShowOnlineStatus: localSetting.isShowOnlineStatus,
       topList: [
         TopListItem(
-            name: imt("新的联系人"),
+            name: TIM_t("新的联系人"),
             id: "newContact",
             icon: Image.asset(_getImagePathByID("newContact")),
             onTap: () {
               _topListItemTap("newContact");
             }),
         TopListItem(
-            name: imt("我的群聊"),
+            name: TIM_t("我的群聊"),
             id: "groupList",
             icon: Image.asset(_getImagePathByID("groupList")),
             onTap: () {
               _topListItemTap("groupList");
             }),
         TopListItem(
-            name: imt("黑名单"),
+            name: TIM_t("黑名单"),
             id: "blackList",
             icon: Image.asset(_getImagePathByID("blackList")),
             onTap: () {
@@ -155,7 +155,7 @@ class _ContactState extends State<Contact> {
             ));
       },
       emptyBuilder: (context) => Center(
-        child: Text(imt("无联系人")),
+        child: Text(TIM_t("无联系人")),
       ),
     );
   }
