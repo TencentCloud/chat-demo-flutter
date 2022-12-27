@@ -79,6 +79,7 @@ dependencies:
   universal_io: ^2.0.4
   tencent_im_sdk_plugin_web: ^0.3.6
   synchronized: ^3.0.0+3
+  dio: ^4.0.6
 
 dev_dependencies:
   fast_i18n: ^5.12.0
