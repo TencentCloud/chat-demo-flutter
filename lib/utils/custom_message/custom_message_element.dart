@@ -25,12 +25,10 @@ class CustomMessageElem extends StatefulWidget {
   final V2TimMessage message;
   final bool isShowJump;
   final VoidCallback? clearJump;
-  final bool? isShowMessageReaction;
 
   const CustomMessageElem({
     Key? key,
     required this.message,
-    this.isShowMessageReaction,
     required this.isShowJump,
     this.clearJump,
     this.messageFontStyle,
@@ -213,13 +211,7 @@ class _CustomMessageElemState extends State<CustomMessageElem> {
           borderRadius: widget.messageBorderRadius ?? borderRadius,
         ),
         constraints: const BoxConstraints(maxWidth: 240),
-        child: Column(
-          children: [
-            child,
-            if (widget.isShowMessageReaction ?? true)
-              TIMUIKitMessageReactionShowPanel(message: widget.message)
-          ],
-        ));
+        child: child);
   }
 
   @override

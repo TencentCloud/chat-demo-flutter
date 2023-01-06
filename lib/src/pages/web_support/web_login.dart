@@ -98,7 +98,10 @@ class AppLogo extends StatelessWidget {
                     theme.primaryColor ?? CommonColor.primaryColor
                   ]),
             ),
-            child: Image.asset("assets/hero_image.png", color: Colors.transparent)),
+            child: Image.asset("assets/hero_image.png",
+                color: Colors.transparent,
+                width: MediaQuery.of(context).size.width,
+                height: 500)),
         Positioned(
           child: Container(
             padding: EdgeInsets.only(top: height / 30, left: 24),
