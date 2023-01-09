@@ -12,11 +12,9 @@ import 'package:tim_ui_kit_calling_plugin/enum/tim_uikit_trtc_calling_scence.dar
 import 'package:tim_ui_kit_calling_plugin/tim_ui_kit_calling_plugin.dart';
 
 import 'package:timuikit/src/provider/theme.dart';
-import 'package:timuikit/src/provider/user_guide_provider.dart';
 import 'package:timuikit/src/search.dart';
 import 'package:timuikit/utils/platform.dart';
 import 'package:timuikit/utils/push/push_constant.dart';
-import 'package:timuikit/utils/user_guide.dart';
 import 'chat.dart';
 
 class UserProfile extends StatefulWidget {
@@ -163,98 +161,101 @@ class UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<DefaultThemeData>(context).theme;
-    judgeGuide('friendProfile', context);
-    final guideModel = Provider.of<UserGuideProvider>(context);
-    return IndexedStack(index: guideModel.guideName != "" ? 0 : 1, children: [
-      UserGuide(guideName: guideModel.guideName),
-      Scaffold(
-        appBar: AppBar(
-          shadowColor: Colors.white,
-          title: Text(
-            TIM_t("详细资料"),
-            style: TextStyle(color: hexToColor("1f2329"), fontSize: 16),
-          ),
-          backgroundColor: hexToColor("f2f3f5"),
-          iconTheme: const IconThemeData(
-            color: Colors.white,
-          ),
-          leading: IconButton(
-            padding: const EdgeInsets.only(left: 16),
-            icon: Icon(
-              Icons.arrow_back_ios,
-              color: hexToColor("2a2e35"),
-              size: 20,
-            ),
-            onPressed: () {
-              Navigator.pop(context, newUserMARK);
-            },
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        shadowColor: Colors.white,
+        title: Text(
+          TIM_t("详细资料"),
+          style: TextStyle(color: hexToColor("1f2329"), fontSize: 17),
         ),
-        body: Container(
-          color: theme.weakBackgroundColor,
-          child: TIMUIKitProfile(
-            lifeCycle:
-                ProfileLifeCycle(didRemarkUpdated: (String newRemark) async {
-              if (widget.onRemarkUpdate != null) {
-                widget.onRemarkUpdate!(newRemark);
-              }
-              return true;
-            }),
-            userID: widget.userID,
-            profileWidgetBuilder: ProfileWidgetBuilder(
-                searchBar: (conversation) => TIMUIKitProfileWidget.searchBar(
-                        context, conversation, handleTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Search(
-                                conversation: conversation,
-                                onTapConversation:
-                                    (V2TimConversation conversation,
-                                        [V2TimMessage? targetMsg]) {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => Chat(
-                                          selectedConversation: conversation,
-                                          initFindingMsg: targetMsg,
-                                        ),
-                                      ));
-                                }),
-                          ));
-                    }),
-                customBuilderOne: (bool isFriend, V2TimFriendInfo friendInfo,
-                    V2TimConversation conversation) {
-                  // If you don't allow sending message when friendship not exist,
-                  // please not comment the following lines.
+        backgroundColor: hexToColor("f2f3f5"),
+        // flexibleSpace: Container(
+        //   decoration: BoxDecoration(
+        //     gradient: LinearGradient(colors: [
+        //       theme.lightPrimaryColor ?? CommonColor.lightPrimaryColor,
+        //       theme.primaryColor ?? CommonColor.primaryColor
+        //     ]),
+        //   ),
+        // ),
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
+        leading: IconButton(
+          padding: const EdgeInsets.only(left: 16),
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: hexToColor("2a2e35"),
+            size: 20,
+          ),
+          onPressed: () {
+            Navigator.pop(context, newUserMARK);
+          },
+        ),
+      ),
+      body: Container(
+        color: theme.weakBackgroundColor,
+        child: TIMUIKitProfile(
+          lifeCycle:
+              ProfileLifeCycle(didRemarkUpdated: (String newRemark) async {
+            if (widget.onRemarkUpdate != null) {
+              widget.onRemarkUpdate!(newRemark);
+            }
+            return true;
+          }),
+          userID: widget.userID,
+          profileWidgetBuilder: ProfileWidgetBuilder(
+              searchBar: (conversation) => TIMUIKitProfileWidget.searchBar(
+                      context, conversation, handleTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Search(
+                              conversation: conversation,
+                              onTapConversation:
+                                  (V2TimConversation conversation,
+                                      [V2TimMessage? targetMsg]) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Chat(
+                                        selectedConversation: conversation,
+                                        initFindingMsg: targetMsg,
+                                      ),
+                                    ));
+                              }),
+                        ));
+                  }),
+              customBuilderOne: (bool isFriend, V2TimFriendInfo friendInfo,
+                  V2TimConversation conversation) {
+                // If you don't allow sending message when friendship not exist,
+                // please not comment the following lines.
 
-                  // if(!isFriend){
-                  //   return Container();
-                  // }
-                  return Column(
-                      children: _buildBottomOperationList(
-                          context, conversation, theme));
-                }),
-            controller: _timuiKitProfileController,
-            profileWidgetsOrder: const [
-              ProfileWidgetEnum.userInfoCard,
-              ProfileWidgetEnum.operationDivider,
-              ProfileWidgetEnum.remarkBar,
-              ProfileWidgetEnum.genderBar,
-              ProfileWidgetEnum.birthdayBar,
-              ProfileWidgetEnum.operationDivider,
-              ProfileWidgetEnum.searchBar,
-              ProfileWidgetEnum.operationDivider,
-              ProfileWidgetEnum.addToBlockListBar,
-              ProfileWidgetEnum.pinConversationBar,
-              ProfileWidgetEnum.messageMute,
-              ProfileWidgetEnum.operationDivider,
-              ProfileWidgetEnum.customBuilderOne,
-              ProfileWidgetEnum.addAndDeleteArea
-            ],
-          ),
+                // if(!isFriend){
+                //   return Container();
+                // }
+                return Column(
+                    children: _buildBottomOperationList(
+                        context, conversation, theme));
+              }),
+          controller: _timuiKitProfileController,
+          profileWidgetsOrder: const [
+            ProfileWidgetEnum.userInfoCard,
+            ProfileWidgetEnum.operationDivider,
+            ProfileWidgetEnum.remarkBar,
+            ProfileWidgetEnum.genderBar,
+            ProfileWidgetEnum.birthdayBar,
+            ProfileWidgetEnum.operationDivider,
+            ProfileWidgetEnum.searchBar,
+            ProfileWidgetEnum.operationDivider,
+            ProfileWidgetEnum.addToBlockListBar,
+            ProfileWidgetEnum.pinConversationBar,
+            ProfileWidgetEnum.messageMute,
+            ProfileWidgetEnum.operationDivider,
+            ProfileWidgetEnum.customBuilderOne,
+            ProfileWidgetEnum.addAndDeleteArea
+          ],
         ),
-      )
-    ]);
+      ),
+    );
   }
 }

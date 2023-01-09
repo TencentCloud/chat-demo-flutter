@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-import 'package:tim_ui_kit_push_plugin/model/appInfo.dart';
+import 'package:tencent_chat_push_for_china/model/appInfo.dart';
 
 class PushConfig{
 
@@ -54,7 +54,6 @@ class PushConfig{
       oppo_app_secret: PushConfig.OPPOPushAPPSECRET,
       oppo_buz_id: PushConfig.OPPOPushBuzID,
       oppo_app_id: PushConfig.OPPOPushAPPID,
-      google_buz_id: PushConfig.GOOGLEFCMPushBuzID,
       apple_buz_id: PushConfig.ApplePushBuzID,
     honor_buz_id: PushConfig.HonorPushBuzID
   );

@@ -41,7 +41,10 @@ dependencies:
   #  tim_ui_kit_lbs_plugin:
   #    path:
   #      /Users/wangrunlin/Documents/GitHub/im-flutter-uikit-lbs
-  tim_ui_kit_push_plugin: ^2.1.0
+  tencent_chat_push_for_china: ^2.2.0
+#  tencent_chat_push_for_china:
+#    path: /Users/wangrunlin/Documents/GitHub/tencent_chat_push_plugin_for_china
+#  tim_ui_kit_push_plugin: ^2.1.0
 #  tim_ui_kit_push_plugin:
 #    path: /Users/wangrunlin/Documents/GitHub/im-flutter-uikit-push
 

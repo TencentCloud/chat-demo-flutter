@@ -105,7 +105,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           },
           settings: const RouteSettings(name: '/homePage')
       ),
-      ModalRoute.withName('/homePage'),
+      ModalRoute.withName('/'),
     );
   }
 
