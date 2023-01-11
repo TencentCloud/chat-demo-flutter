@@ -11,7 +11,6 @@ import 'package:flutter_baidu_mapapi_base/flutter_baidu_mapapi_base.dart';
 import 'package:tim_ui_kit_lbs_plugin/abstract/map_service.dart';
 import 'package:tim_ui_kit_lbs_plugin/utils/location_utils.dart';
 import 'package:tim_ui_kit_lbs_plugin/utils/tim_location_model.dart';
-import 'package:timuikit/utils/toast.dart';
 
 class BaiduMapService extends TIMMapService{
 

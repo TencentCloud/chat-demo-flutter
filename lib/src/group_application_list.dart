@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitGroup/tim_uikit_group_application_list.dart';
 
 import 'package:timuikit/src/provider/theme.dart';
 import 'package:provider/provider.dart';

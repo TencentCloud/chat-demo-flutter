@@ -33,20 +33,9 @@ dependencies:
     sdk: flutter
 
   # Tencent Cloud Chat dependencies:
-  # tencent_cloud_chat_uikit: ^0.1.4
-  tencent_cloud_chat_uikit: ^1.2.0
+  tencent_cloud_chat_uikit: ^1.3.0
   tim_ui_kit_calling_plugin: ^1.0.7
-#  tim_ui_kit_calling_plugin:
-#    path: /Users/wangrunlin/Documents/GitHub/im-flutter-uikit-calling
-  #  tim_ui_kit_lbs_plugin:
-  #    path:
-  #      /Users/wangrunlin/Documents/GitHub/im-flutter-uikit-lbs
-  tencent_chat_push_for_china: ^2.2.0
-#  tencent_chat_push_for_china:
-#    path: /Users/wangrunlin/Documents/GitHub/tencent_chat_push_plugin_for_china
-#  tim_ui_kit_push_plugin: ^2.1.0
-#  tim_ui_kit_push_plugin:
-#    path: /Users/wangrunlin/Documents/GitHub/im-flutter-uikit-push
+  tencent_chat_push_for_china: ^2.3.0
 
   # Location message and Baidu Map:
   tim_ui_kit_lbs_plugin: ^2.0.0+1
@@ -54,8 +43,6 @@ dependencies:
   flutter_baidu_mapapi_search: 3.2.0
   flutter_bmflocation: 3.2.1
   flutter_baidu_mapapi_base: 3.2.0
-  #  tim_ui_kit_lbs_plugin:
-  #    path: /Users/wangrunlin/Documents/GitHub/im-flutter-uikit-lbs
 
   # Third party dependencies:
   cupertino_icons: ^1.0.2
@@ -112,6 +99,9 @@ flutter:
     - assets/custom_face_resource/4351/
     - assets/custom_face_resource/4352/
     - lib/country_list_pick-1.0.1+5/flags/
+    - assets/user_guide/small/zh/
+    - assets/user_guide/small/en/
+    - assets/user_guide/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

@@ -1,6 +1,5 @@
 
 
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';

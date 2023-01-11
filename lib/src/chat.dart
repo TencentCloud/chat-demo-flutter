@@ -29,7 +29,6 @@ import 'package:provider/provider.dart';
 
 import 'package:timuikit/utils/baidu_implements/map_service_baidu_implement.dart';
 import 'package:timuikit/utils/baidu_implements/map_widget_baidu_implement.dart';
-import 'package:timuikit/utils/constant.dart';
 import 'package:timuikit/utils/custom_message/custom_message_element.dart';
 import 'package:timuikit/utils/push/push_constant.dart';
 import 'package:timuikit/utils/toast.dart';

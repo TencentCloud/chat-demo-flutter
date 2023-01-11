@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:timuikit/src/chat.dart';
-import 'package:timuikit/src/provider/theme.dart';
 
 class AddGroup extends StatelessWidget {
   const AddGroup({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<DefaultThemeData>(context).theme;
     return Scaffold(
       appBar: AppBar(
         shadowColor: Colors.white,
