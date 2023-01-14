@@ -180,22 +180,24 @@ PODS:
     - Flutter
     - FMDB (>= 2.7.5)
   - SwiftyGif (5.4.3)
-  - tencent_cloud_chat_sdk (5.0.4):
+  - tencent_chat_push_for_china (0.0.1):
+    - Flutter
+  - tencent_cloud_chat_sdk (5.0.5):
     - Flutter
     - HydraAsync
-    - TXIMSDK_Plus_iOS (= 6.9.3557)
+    - TXIMSDK_Plus_iOS (= 7.0.3754)
   - tencent_open_file (0.0.1):
     - Flutter
-  - tencent_trtc_cloud (9.5.11234):
+  - tencent_trtc_cloud (10.7):
     - Flutter
-    - TXLiteAVSDK_Live (= 9.5.11346)
-  - tim_ui_kit_push_plugin (0.0.1):
-    - Flutter
+    - TXCustomBeautyProcesserPlugin (= 1.0.2)
+    - TXLiteAVSDK_Professional (= 10.8.12025)
   - Toast (4.0.0)
-  - TXIMSDK_Plus_iOS (6.9.3557)
-  - TXLiteAVSDK_Live (9.5.11346):
-    - TXLiteAVSDK_Live/Live (= 9.5.11346)
-  - TXLiteAVSDK_Live/Live (9.5.11346)
+  - TXCustomBeautyProcesserPlugin (1.0.2)
+  - TXIMSDK_Plus_iOS (7.0.3754)
+  - TXLiteAVSDK_Professional (10.8.12025):
+    - TXLiteAVSDK_Professional/Professional (= 10.8.12025)
+  - TXLiteAVSDK_Professional/Professional (10.8.12025)
   - uni_links (0.0.1):
     - Flutter
   - url_launcher_ios (0.0.1):
@@ -271,8 +273,9 @@ SPEC REPOS:
     - SDWebImageWebPCoder
     - SwiftyGif
     - Toast
+    - TXCustomBeautyProcesserPlugin
     - TXIMSDK_Plus_iOS
-    - TXLiteAVSDK_Live
+    - TXLiteAVSDK_Professional
 
 EXTERNAL SOURCES:
   camera_avfoundation:
@@ -395,13 +398,14 @@ SPEC CHECKSUMS:
   shared_preferences_ios: 548a61f8053b9b8a49ac19c1ffbc8b92c50d68ad
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
   SwiftyGif: 6c3eafd0ce693cad58bb63d2b2fb9bacb8552780
-  tencent_cloud_chat_sdk: dcd483a0b0795eb79f495cb2c282b0011f9ac64c
+  tencent_chat_push_for_china: aa983a4716949ae4062c106204e2dc07d34d9f3b
+  tencent_cloud_chat_sdk: 98ea935d02f1b78f583c7ad3816fa1b69cbae615
   tencent_open_file: 1261db508715b8f43ef3b7e31c90824838038165
-  tencent_trtc_cloud: a717270754b3519b473b513b967c0b88b233aa45
-  tim_ui_kit_push_plugin: 37913e565d11c4841c254711cba35a3d5b17b02d
+  tencent_trtc_cloud: 247c93c42e51cccb7774360472df5f3d2d92acb5
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
-  TXIMSDK_Plus_iOS: 1fa1c9e736c7c0fc3feb4f07c073427f01e00824
-  TXLiteAVSDK_Live: cae30145d70254bdd35838569fcdfefd3a369aa0
+  TXCustomBeautyProcesserPlugin: 099393b941cb40eda12b3a80bf6c0319957b1cfd
+  TXIMSDK_Plus_iOS: 87d0262105df34c911a5077535f1d58bf15a077d
+  TXLiteAVSDK_Professional: e3a19b7dd4952f091c593d031dd02b9020d72c8d
   uni_links: d97da20c7701486ba192624d99bffaaffcfc298a
   url_launcher_ios: 839c58cdb4279282219f5e248c3321761ff3c4de
   video_player_avfoundation: e489aac24ef5cf7af82702979ed16f2a5ef84cff
