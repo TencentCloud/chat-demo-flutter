@@ -188,16 +188,14 @@ PODS:
     - TXIMSDK_Plus_iOS (= 7.0.3754)
   - tencent_open_file (0.0.1):
     - Flutter
-  - tencent_trtc_cloud (10.7):
+  - tencent_trtc_cloud (9.5.11234):
     - Flutter
-    - TXCustomBeautyProcesserPlugin (= 1.0.2)
-    - TXLiteAVSDK_Professional (= 10.8.12025)
+    - TXLiteAVSDK_Live (= 9.5.11346)
   - Toast (4.0.0)
-  - TXCustomBeautyProcesserPlugin (1.0.2)
   - TXIMSDK_Plus_iOS (7.0.3754)
-  - TXLiteAVSDK_Professional (10.8.12025):
-    - TXLiteAVSDK_Professional/Professional (= 10.8.12025)
-  - TXLiteAVSDK_Professional/Professional (10.8.12025)
+  - TXLiteAVSDK_Live (9.5.11346):
+    - TXLiteAVSDK_Live/Live (= 9.5.11346)
+  - TXLiteAVSDK_Live/Live (9.5.11346)
   - uni_links (0.0.1):
     - Flutter
   - url_launcher_ios (0.0.1):
@@ -273,9 +271,8 @@ SPEC REPOS:
     - SDWebImageWebPCoder
     - SwiftyGif
     - Toast
-    - TXCustomBeautyProcesserPlugin
     - TXIMSDK_Plus_iOS
-    - TXLiteAVSDK_Professional
+    - TXLiteAVSDK_Live
 
 EXTERNAL SOURCES:
   camera_avfoundation:
@@ -401,11 +398,10 @@ SPEC CHECKSUMS:
   tencent_chat_push_for_china: aa983a4716949ae4062c106204e2dc07d34d9f3b
   tencent_cloud_chat_sdk: 98ea935d02f1b78f583c7ad3816fa1b69cbae615
   tencent_open_file: 1261db508715b8f43ef3b7e31c90824838038165
-  tencent_trtc_cloud: 247c93c42e51cccb7774360472df5f3d2d92acb5
+  tencent_trtc_cloud: a717270754b3519b473b513b967c0b88b233aa45
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
-  TXCustomBeautyProcesserPlugin: 099393b941cb40eda12b3a80bf6c0319957b1cfd
   TXIMSDK_Plus_iOS: 87d0262105df34c911a5077535f1d58bf15a077d
-  TXLiteAVSDK_Professional: e3a19b7dd4952f091c593d031dd02b9020d72c8d
+  TXLiteAVSDK_Live: cae30145d70254bdd35838569fcdfefd3a369aa0
   uni_links: d97da20c7701486ba192624d99bffaaffcfc298a
   url_launcher_ios: 839c58cdb4279282219f5e248c3321761ff3c4de
   video_player_avfoundation: e489aac24ef5cf7af82702979ed16f2a5ef84cff
