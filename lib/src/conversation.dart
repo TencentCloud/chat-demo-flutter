@@ -13,6 +13,8 @@ import 'package:timuikit/src/provider/local_setting.dart';
 import 'package:timuikit/src/provider/theme.dart';
 import 'package:timuikit/src/search.dart';
 
+GlobalKey<_ConversationState> conversationKey = GlobalKey();
+
 class Conversation extends StatefulWidget {
   final TIMUIKitConversationController conversationController;
   const Conversation({Key? key, required this.conversationController})
@@ -24,6 +26,7 @@ class Conversation extends StatefulWidget {
 
 class _ConversationState extends State<Conversation> {
   late TIMUIKitConversationController _controller;
+  List<String> jumpedConversations = [];
 
   @override
   void initState() {
@@ -40,6 +43,23 @@ class _ConversationState extends State<Conversation> {
           ),
         ));
     _controller.reloadData();
+  }
+
+  scrollToNextUnreadConversation(){
+    final conversationList = _controller.conversationList;
+    for (var element in conversationList) {
+      if((element?.unreadCount ?? 0) > 0 && !jumpedConversations.contains(element!.conversationID)){
+        _controller.scrollToConversation(element.conversationID);
+        jumpedConversations.add(element.conversationID);
+        return;
+      }
+    }
+    jumpedConversations.clear();
+    try{
+      _controller.scrollToConversation(conversationList[0]!.conversationID);
+    }catch(e){
+      print(e);
+    }
   }
 
   void _handleOnConvItemTapedWithPlace(V2TimConversation? selectedConv,

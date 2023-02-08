@@ -1,6 +1,5 @@
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
-
 enum WebUrl { personalInfo, thirdPartyInfo }
 
 class IMDemoConfig {
@@ -43,4 +42,9 @@ class IMDemoConfig {
     WebUrl.thirdPartyInfo:
         "https://privacy.qq.com/document/preview/dea84ac4bb88454794928b77126e9246",
   };
+
+  // live plugin
+  static String licenseKey = "544bb202d43522fa0065d8b41409f7b5";
+  static String licenseUrl =
+      "https://license.vod2.myqcloud.com/license/v2/1258710235_1/v_cube.license";
 }

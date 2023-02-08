@@ -40,6 +40,7 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   bool hasInit = false;
   var subscription;
+
   /// 当前选择下标
   int currentIndex = 0;
   SuperTooltip? tooltip;
@@ -51,13 +52,22 @@ class HomePageState extends State<HomePage> {
       TIMUIKitConversationController();
   final TIMUIKitChatController _timuiKitChatController =
       TIMUIKitChatController();
+  bool isNeedMoveToConversation = false;
 
   final contactTooltip = [
-    {"id": "addFriend", "asset": "assets/add_friend.png", "label": TIM_t("添加好友")},
+    {
+      "id": "addFriend",
+      "asset": "assets/add_friend.png",
+      "label": TIM_t("添加好友")
+    },
     {"id": "addGroup", "asset": "assets/add_group.png", "label": TIM_t("添加群聊")}
   ];
   final conversationTooltip = [
-    {"id": "createConv", "asset": "assets/c2c_conv.png", "label": TIM_t("发起会话")},
+    {
+      "id": "createConv",
+      "asset": "assets/c2c_conv.png",
+      "label": TIM_t("发起会话")
+    },
     {
       "id": "createGroup",
       "asset": "assets/group_conv.png",
@@ -156,6 +166,7 @@ class HomePageState extends State<HomePage> {
     final List<NavigationBarData> bottomNavigatorList = [
       NavigationBarData(
         widget: Conversation(
+          key: conversationKey,
           conversationController: _conversationController,
         ),
         title: TIM_t("消息"),
@@ -392,11 +403,6 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-      context,
-      designSize: const Size(750, 1624),
-      minTextAdapt: true,
-    );
     final LocalSetting localSetting = Provider.of<LocalSetting>(context);
     final theme = Provider.of<DefaultThemeData>(context).theme;
     return Scaffold(
@@ -439,7 +445,7 @@ class HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         items: List.generate(
           bottomNavigatorList(theme).length,
-          (index) => BottomNavigationBarItem(
+              (index) => BottomNavigationBarItem(
             icon: index == currentIndex
                 ? bottomNavigatorList(theme)[index].selectedIcon
                 : bottomNavigatorList(theme)[index].unselectedIcon,
@@ -450,6 +456,16 @@ class HomePageState extends State<HomePage> {
         type: BottomNavigationBarType.fixed,
         onTap: (index) {
           _changePage(index);
+          if (isNeedMoveToConversation) {
+            if (index == 0 && currentIndex == 0) {
+              conversationKey.currentState
+                  ?.scrollToNextUnreadConversation();
+            }
+          }
+          isNeedMoveToConversation = true;
+          Future.delayed(const Duration(milliseconds: 300), () {
+            isNeedMoveToConversation = false;
+          });
         },
         selectedItemColor: theme.primaryColor,
         unselectedItemColor: Colors.grey,

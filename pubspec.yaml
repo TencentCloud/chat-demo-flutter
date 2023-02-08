@@ -38,7 +38,7 @@ dependencies:
   tencent_chat_push_for_china: ^2.3.0
 
   # Location message and Baidu Map:
-  tim_ui_kit_lbs_plugin: ^2.0.0+1
+  tim_ui_kit_lbs_plugin: ^2.1.0
   flutter_baidu_mapapi_map: 3.2.1
   flutter_baidu_mapapi_search: 3.2.0
   flutter_bmflocation: 3.2.1
@@ -70,6 +70,12 @@ dependencies:
   tencent_im_sdk_plugin_web: ^0.3.6
   synchronized: ^3.0.0+3
   dio: ^4.0.6
+  live_flutter_plugin: ^1.1.0
+  tencent_cloud_av_chat_room: ^0.0.2
+  lottie: 1.4.2
+
+#dependency_overrides:
+#  modal_bottom_sheet: ^3.0.0-pre
 
 dev_dependencies:
   fast_i18n: ^5.12.0
@@ -101,6 +107,7 @@ flutter:
     - assets/user_guide/small/zh/
     - assets/user_guide/small/en/
     - assets/user_guide/
+    - assets/live/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
