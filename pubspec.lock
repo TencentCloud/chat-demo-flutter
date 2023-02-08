@@ -1620,7 +1620,7 @@ packages:
       sha256: "4bc10531473c83f1d5c644a8aee88149464b80908c965ea7c4f402a2e99336d6"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.6"
+    version: "0.3.7"
   tencent_keyboard_visibility:
     dependency: transitive
     description:

@@ -67,7 +67,7 @@ dependencies:
   loading_animation_widget: ^1.2.0+2
   path_provider: ^2.0.11
   universal_io: ^2.0.4
-  tencent_im_sdk_plugin_web: ^0.3.6
+  tencent_im_sdk_plugin_web: ^0.3.7
   synchronized: ^3.0.0+3
   dio: ^4.0.6
   live_flutter_plugin: ^1.1.0

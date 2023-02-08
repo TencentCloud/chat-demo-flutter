@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:live_flutter_plugin/v2_tx_live_premier.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
@@ -22,7 +23,9 @@ class _LiveState extends State<Live> {
   void initState() {
     super.initState();
     _getAvChatRoomInfo();
-    setupLicense();
+    if (!kIsWeb) {
+      setupLicense();
+    }
   }
 
   @override
@@ -72,6 +75,9 @@ class _LiveState extends State<Live> {
   }
 
   _getAvChatRoomInfo() async {
+    if (kIsWeb) {
+      await Future.delayed(const Duration(milliseconds: 800));
+    }
     final responst = await TencentImSDKPlugin.v2TIMManager
         .getGroupManager()
         .getGroupsInfo(groupIDList: [avChatRoomID]);

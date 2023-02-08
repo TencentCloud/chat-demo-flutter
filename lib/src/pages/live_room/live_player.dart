@@ -1,6 +1,7 @@
 /*
  * @discripe: 直播
  */
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:live_flutter_plugin/v2_tx_live_code.dart';
 import 'package:live_flutter_plugin/v2_tx_live_player.dart';
@@ -27,7 +28,9 @@ class _LivePlayState extends State<LiveRoomPlayer> {
   @override
   void initState() {
     super.initState();
-    initPlayer();
+    if (!kIsWeb) {
+      initPlayer();
+    }
   }
 
   initPlayer() async {
@@ -110,6 +113,9 @@ class _LivePlayState extends State<LiveRoomPlayer> {
 
   @override
   Widget build(BuildContext context) {
+    if (kIsWeb) {
+      return Container(color: Colors.black.withOpacity(0.7));
+    }
     return Container(
         color: Colors.black.withOpacity(0.7),
         child: Stack(
