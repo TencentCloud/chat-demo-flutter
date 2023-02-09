@@ -1617,7 +1617,7 @@ packages:
     dependency: "direct main"
     description:
       name: tencent_im_sdk_plugin_web
-      sha256: "4bc10531473c83f1d5c644a8aee88149464b80908c965ea7c4f402a2e99336d6"
+      sha256: d83a2370398948bccdc3fa4aae33840bcee62d78faa288823a02d9e0e4ab677f
       url: "https://pub.dev"
     source: hosted
     version: "0.3.7"

@@ -235,7 +235,7 @@ class _ChatState extends State<Chat> {
         defaultCustomEmojiStickerList.map((customEmojiPackage) {
       return CustomStickerPackage(
           name: customEmojiPackage.name,
-          baseUrl: "assets/emoji",
+          baseUrl: "assets/custom_face_resource/${customEmojiPackage.name}",
           isEmoji: customEmojiPackage.isEmoji,
           isDefaultEmoji: true,
           stickerList: customEmojiPackage.list
