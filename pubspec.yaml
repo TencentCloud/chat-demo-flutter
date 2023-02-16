@@ -109,9 +109,6 @@ flutter:
     - assets/custom_face_resource/4351/
     - assets/custom_face_resource/4352/
     - lib/country_list_pick-1.0.1+5/flags/
-    - assets/user_guide/small/zh/
-    - assets/user_guide/small/en/
-    - assets/user_guide/
     - assets/live/
   # To add assets to your application, add an assets section, like this:
   # assets:
