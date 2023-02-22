@@ -39,7 +39,7 @@ dependencies:
 
   # Tencent Cloud Chat dependencies:
   tencent_cloud_chat_uikit: ^1.6.1
-  tim_ui_kit_calling_plugin: ^1.1.0
+  tim_ui_kit_calling_plugin: ^1.1.1
   tencent_chat_push_for_china: ^2.3.0
 
   # Location message and Baidu Map:
@@ -75,11 +75,12 @@ dependencies:
   tencent_im_sdk_plugin_web: ^0.3.7
   synchronized: ^3.0.0+3
   dio: ^4.0.6
-  live_flutter_plugin: ^1.1.0
+  live_flutter_plugin: 1.1.0
   tencent_cloud_av_chat_room: ^0.0.2
   lottie: 1.4.2
 
-#dependency_overrides:
+dependency_overrides:
+  tencent_trtc_cloud: 2.4.1
 #  modal_bottom_sheet: ^3.0.0-pre
 
 dev_dependencies:
