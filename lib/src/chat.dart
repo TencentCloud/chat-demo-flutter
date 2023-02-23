@@ -58,7 +58,7 @@ class _ChatState extends State<Chat> {
   String? conversationName;
 
   String _getTitle() {
-    return backRemark ?? widget.selectedConversation.showName ?? "";
+    return backRemark ?? "";
   }
 
   String? _getDraftText() {
@@ -271,6 +271,9 @@ class _ChatState extends State<Chat> {
     // List customEmojiList =
     //     Const.emojiList.where((element) => element.isEmoji == true).toList();
     return TIMUIKitChat(
+      // New field, instead of `conversationID` / `conversationType` / `groupAtInfoList` / `conversationShowName` in previous.
+        conversation: widget.selectedConversation,
+
         controller: _timuiKitChatController,
         lifeCycle:
             ChatLifeCycle(newMessageWillMount: (V2TimMessage message) async {

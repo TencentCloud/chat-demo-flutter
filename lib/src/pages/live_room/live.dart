@@ -13,7 +13,7 @@ class Live extends StatefulWidget {
 }
 
 class _LiveState extends State<Live> {
-  final avChatRoomID = '@TGS#aCWHGJ3LC';
+  final avChatRoomID = IMDemoConfig.liveRoomId;
   final CoreServicesImpl _coreInstance = TIMUIKitCore.getInstance();
 
   String groupName = "";
@@ -42,8 +42,7 @@ class _LiveState extends State<Live> {
               MaterialPageRoute(
                   builder: (context) => LiveRoom(
                         loginUserID: loginUserInfo.userID,
-                        playUrl:
-                            'webrtc://114289.liveplay.myqcloud.com/live/teststream',
+                        playUrl: IMDemoConfig.livePlayUrl,
                       )));
         },
         child: Container(

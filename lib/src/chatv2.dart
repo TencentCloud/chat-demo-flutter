@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tencent_cloud_chat_uikit/business_logic/separate_models/tui_chat_separate_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_chat_global_model.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_chat_controller.dart';
@@ -29,10 +30,11 @@ class _ChatV2State extends State<ChatV2> {
         : widget.selectedConversation.groupID;
   }
 
-  Future<void> loadHistoryMessageList(String? lastMsgID, [int? count]) async {
+  Future<void> loadHistoryMessageList(String? lastMsgID, LoadDirection direction, [int? count]) async {
     if (_haveMoreData) {
       _haveMoreData = await _controller.loadHistoryMessageList(
           count: count ?? 20,
+          direction: direction,
           userID: widget.selectedConversation.userID,
           groupID: widget.selectedConversation.groupID,
           lastMsgID: lastMsgID);
@@ -70,6 +72,7 @@ class _ChatV2State extends State<ChatV2> {
                       conversationID: _getConvID() ?? "",
                   builder: (context, messageList, w) {
                     return TIMUIKitHistoryMessageList(
+                      conversation: widget.selectedConversation,
                       model: model,
                       controller: _historyMessageListController,
                       messageList: messageList,

@@ -6,7 +6,7 @@ PODS:
     - BaiduMapKit/Base
   - BaiduMapKit/Utils (6.5.1):
     - BaiduMapKit/Base
-  - BMKLocationKit (2.0.5)
+  - BMKLocationKit (2.0.6)
   - bugly (0.0.1):
     - Flutter
   - camera_avfoundation (0.0.1):
@@ -73,8 +73,6 @@ PODS:
     - SDWebImageWebPCoder
   - flutter_keyboard_visibility (0.0.1):
     - Flutter
-  - flutter_local_notifications (0.0.1):
-    - Flutter
   - flutter_plugin_record_plus (0.0.1):
     - Flutter
   - fluttertoast (0.0.2):
@@ -101,6 +99,8 @@ PODS:
     - Flutter
     - TXCustomBeautyProcesserPlugin
     - TXLiteAVSDK_Professional (= 10.8.12025)
+  - local_notifications_for_us (0.0.1):
+    - Flutter
   - location (0.0.1):
     - Flutter
   - Mantle (2.2.0):
@@ -116,31 +116,31 @@ PODS:
   - photo_manager (2.0.0):
     - Flutter
     - FlutterMacOS
-  - plain_notification_token (0.0.1):
+  - plain_notification_token_for_us (0.0.1):
     - Flutter
   - ReachabilitySwift (5.0.0)
   - rmonitor_base (0.0.1):
     - Flutter
     - ReachabilitySwift
-  - SDWebImage (5.14.3):
-    - SDWebImage/Core (= 5.14.3)
-  - SDWebImage/Core (5.14.3)
-  - SDWebImageWebPCoder (0.9.1):
+  - SDWebImage (5.15.3):
+    - SDWebImage/Core (= 5.15.3)
+  - SDWebImage/Core (5.15.3)
+  - SDWebImageWebPCoder (0.10.1):
     - libwebp (~> 1.0)
-    - SDWebImage/Core (~> 5.13)
+    - SDWebImage/Core (~> 5.15)
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
   - sqflite (0.0.2):
     - Flutter
     - FMDB (>= 2.7.5)
-  - SwiftyGif (5.4.3)
+  - SwiftyGif (5.4.4)
   - tencent_chat_push_for_china (0.0.1):
     - Flutter
-  - tencent_cloud_chat_sdk (5.0.5):
+  - tencent_cloud_chat_sdk (5.0.6):
     - Flutter
     - HydraAsync
-    - TXIMSDK_Plus_iOS (= 7.0.3754)
+    - TXIMSDK_Plus_Pro_iOS (= 7.0.3754)
   - tencent_open_file (0.0.1):
     - Flutter
   - tencent_trtc_cloud (10.7):
@@ -149,7 +149,7 @@ PODS:
     - TXLiteAVSDK_Professional (= 10.8.12025)
   - Toast (4.0.0)
   - TXCustomBeautyProcesserPlugin (1.0.2)
-  - TXIMSDK_Plus_iOS (7.0.3754)
+  - TXIMSDK_Plus_Pro_iOS (7.0.3754)
   - TXLiteAVSDK_Professional (10.8.12025):
     - TXLiteAVSDK_Professional/Professional (= 10.8.12025)
   - TXLiteAVSDK_Professional/Professional (10.8.12025)
@@ -181,18 +181,18 @@ DEPENDENCIES:
   - flutter_bmflocation (from `.symlinks/plugins/flutter_bmflocation/ios`)
   - flutter_image_compress (from `.symlinks/plugins/flutter_image_compress/ios`)
   - flutter_keyboard_visibility (from `.symlinks/plugins/flutter_keyboard_visibility/ios`)
-  - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - flutter_plugin_record_plus (from `.symlinks/plugins/flutter_plugin_record_plus/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - image_gallery_saver (from `.symlinks/plugins/image_gallery_saver/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - live_flutter_plugin (from `.symlinks/plugins/live_flutter_plugin/ios`)
+  - local_notifications_for_us (from `.symlinks/plugins/local_notifications_for_us/ios`)
   - location (from `.symlinks/plugins/location/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - photo_manager (from `.symlinks/plugins/photo_manager/ios`)
-  - plain_notification_token (from `.symlinks/plugins/plain_notification_token/ios`)
+  - plain_notification_token_for_us (from `.symlinks/plugins/plain_notification_token_for_us/ios`)
   - rmonitor_base (from `.symlinks/plugins/rmonitor_base/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
@@ -223,7 +223,7 @@ SPEC REPOS:
     - SwiftyGif
     - Toast
     - TXCustomBeautyProcesserPlugin
-    - TXIMSDK_Plus_iOS
+    - TXIMSDK_Plus_Pro_iOS
     - TXLiteAVSDK_Professional
 
 EXTERNAL SOURCES:
@@ -253,8 +253,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_image_compress/ios"
   flutter_keyboard_visibility:
     :path: ".symlinks/plugins/flutter_keyboard_visibility/ios"
-  flutter_local_notifications:
-    :path: ".symlinks/plugins/flutter_local_notifications/ios"
   flutter_plugin_record_plus:
     :path: ".symlinks/plugins/flutter_plugin_record_plus/ios"
   fluttertoast:
@@ -265,6 +263,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/image_picker_ios/ios"
   live_flutter_plugin:
     :path: ".symlinks/plugins/live_flutter_plugin/ios"
+  local_notifications_for_us:
+    :path: ".symlinks/plugins/local_notifications_for_us/ios"
   location:
     :path: ".symlinks/plugins/location/ios"
   package_info_plus:
@@ -275,8 +275,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/permission_handler_apple/ios"
   photo_manager:
     :path: ".symlinks/plugins/photo_manager/ios"
-  plain_notification_token:
-    :path: ".symlinks/plugins/plain_notification_token/ios"
+  plain_notification_token_for_us:
+    :path: ".symlinks/plugins/plain_notification_token_for_us/ios"
   rmonitor_base:
     :path: ".symlinks/plugins/rmonitor_base/ios"
   shared_preferences_foundation:
@@ -306,7 +306,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   BaiduMapKit: f227cfb43581e91466fb4f1344f655eab5788777
-  BMKLocationKit: c0a4266f84ad2a3296df8c24f14f0ed20dbbf0ee
+  BMKLocationKit: 8d017e1bb5549d95f515da545435c0c724988697
   bugly: b3674afe180564b5464015d0a8a6b174c2356589
   camera_avfoundation: 07c77549ea54ad95d8581be86617c094a46280d9
   device_info_plus: e5c5da33f982a436e103237c0c85f9031142abed
@@ -322,7 +322,6 @@ SPEC CHECKSUMS:
   flutter_bmflocation: 1bd73181196567fe1529f765aa4f8e2615a8a3cf
   flutter_image_compress: 5a5e9aee05b6553048b8df1c3bc456d0afaac433
   flutter_keyboard_visibility: 0339d06371254c3eb25eeb90ba8d17dca8f9c069
-  flutter_local_notifications: 0c0b1ae97e741e1521e4c1629a459d04b9aec743
   flutter_plugin_record_plus: 79b8e13ee7ed9a94f6c067018653599528cee1fc
   fluttertoast: eb263d302cc92e04176c053d2385237e9f43fad0
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
@@ -331,27 +330,28 @@ SPEC CHECKSUMS:
   image_picker_ios: b786a5dcf033a8336a657191401bfdf12017dabb
   libwebp: f62cb61d0a484ba548448a4bd52aabf150ff6eef
   live_flutter_plugin: a11acf419b39d4f36ad9a6174377e5e2a41d3385
+  local_notifications_for_us: d4bb63b93eb429c4697edd0ee66bbe8bade29633
   location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
   Mantle: c5aa8794a29a022dfbbfc9799af95f477a69b62d
   package_info_plus: 6c92f08e1f853dc01228d6f553146438dafcd14e
   path_provider_foundation: 37748e03f12783f9de2cb2c4eadfaa25fe6d4852
   permission_handler_apple: 44366e37eaf29454a1e7b1b7d736c2cceaeb17ce
   photo_manager: 4f6810b7dfc4feb03b461ac1a70dacf91fba7604
-  plain_notification_token: b36467dc91939a7b6754267c701bbaca14996ee1
+  plain_notification_token_for_us: c804c7a9f79af55980cec08457cb8cdf73200db7
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   rmonitor_base: 63e3a81285479c232541536a44f16b62f9373f87
-  SDWebImage: 9c36e66c8ce4620b41a7407698dda44211a96764
-  SDWebImageWebPCoder: 18503de6621dd2c420d680e33d46bf8e1d5169b0
+  SDWebImage: 302d4e14efff86b36b5f36d1bf891b635436d071
+  SDWebImageWebPCoder: 4851414d9f8894e328e8b97c93ea4f4f4e4418ae
   shared_preferences_foundation: 297b3ebca31b34ec92be11acd7fb0ba932c822ca
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
-  SwiftyGif: 6c3eafd0ce693cad58bb63d2b2fb9bacb8552780
+  SwiftyGif: 93a1cc87bf3a51916001cf8f3d63835fb64c819f
   tencent_chat_push_for_china: aa983a4716949ae4062c106204e2dc07d34d9f3b
-  tencent_cloud_chat_sdk: 98ea935d02f1b78f583c7ad3816fa1b69cbae615
+  tencent_cloud_chat_sdk: 9e1092a36bfe57d355a254a42d0a07db32638d52
   tencent_open_file: 1261db508715b8f43ef3b7e31c90824838038165
   tencent_trtc_cloud: 247c93c42e51cccb7774360472df5f3d2d92acb5
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   TXCustomBeautyProcesserPlugin: 099393b941cb40eda12b3a80bf6c0319957b1cfd
-  TXIMSDK_Plus_iOS: 87d0262105df34c911a5077535f1d58bf15a077d
+  TXIMSDK_Plus_Pro_iOS: d115e3a8a363ba930ba3c6d58fbcf548009fe2c9
   TXLiteAVSDK_Professional: e3a19b7dd4952f091c593d031dd02b9020d72c8d
   uni_links: d97da20c7701486ba192624d99bffaaffcfc298a
   url_launcher_ios: fb12c43172927bb5cf75aeebd073f883801f1993

@@ -6,7 +6,7 @@ import FlutterMacOS
 import Foundation
 
 import device_info_plus_macos
-import flutter_local_notifications
+import local_notifications_for_us
 import location
 import package_info_plus_macos
 import path_provider_foundation
