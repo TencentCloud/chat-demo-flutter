@@ -53,6 +53,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         }
         break;
       case AppLifecycleState.resumed:
+        await _checkIfConnected();
         _coreInstance.setOfflinePushStatus(status: AppStatus.foreground);
         break;
       case AppLifecycleState.paused:
@@ -60,10 +61,29 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             status: AppStatus.background, totalCount: unreadCount);
         break;
       case AppLifecycleState.detached:
-      // ignore: todo
-      // TODO: Handle this case.
+
         break;
     }
+  }
+
+  Future<void> _checkIfConnected() async {
+    final res = await TencentImSDKPlugin.v2TIMManager.getLoginUser();
+    if(res.data != null && res.data!.isNotEmpty){
+      return;
+    }else if(res.data == null){
+      await initIMSDKAndAddIMListeners();
+      await checkLogin();
+      return;
+    } else if (res.data!.isEmpty){
+      await checkLogin();
+      return;
+    } else{
+      return;
+    }
+  }
+
+  checkLogin() async {
+    // 这里执行各位自己的自动登陆逻辑
   }
 
   Future<int?> _getTotalUnreadCount() async {
