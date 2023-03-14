@@ -1,10 +1,12 @@
-import 'package:tencent_chat_push_for_china/model/appInfo.dart';
-import 'package:tencent_chat_push_for_china/tencent_chat_push_for_china.dart';
+
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
+import 'package:tim_ui_kit_push_plugin/tim_ui_kit_push_plugin.dart';
 import 'package:timuikit/utils/push/push_constant.dart';
 
 class ChannelPush {
-  static final TimUiKitPushPlugin cPush = TimUiKitPushPlugin();
+  static final TimUiKitPushPlugin cPush = TimUiKitPushPlugin(
+    isUseGoogleFCM: true
+  );
 
   static init(PushClickAction pushClickAction) async {
     await cPush.init(

@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:live_flutter_plugin/v2_tx_live_premier.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:timuikit/src/config.dart';
 import 'package:timuikit/src/pages/live_room/live_room.dart';
@@ -23,9 +22,6 @@ class _LiveState extends State<Live> {
   void initState() {
     super.initState();
     _getAvChatRoomInfo();
-    if (!kIsWeb) {
-      setupLicense();
-    }
   }
 
   @override
@@ -87,17 +83,5 @@ class _LiveState extends State<Live> {
       backgroundUrl = info.faceUrl ?? "";
       setState(() {});
     }
-  }
-
-  setupLicense() {
-    final licenseUrl = IMDemoConfig.licenseUrl;
-    final licenseKey = IMDemoConfig.licenseKey;
-    V2TXLivePremier.setObserver(onPremierObserver);
-    V2TXLivePremier.setLicence(licenseUrl, licenseKey);
-  }
-
-  onPremierObserver(V2TXLivePremierObserverType type, param) {
-    debugPrint("==premier listener type= ${type.toString()}");
-    debugPrint("==premier listener param= $param");
   }
 }

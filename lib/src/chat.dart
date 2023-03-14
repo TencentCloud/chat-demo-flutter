@@ -7,7 +7,6 @@ import 'package:tencent_cloud_chat_uikit/business_logic/life_cycle/chat_life_cyc
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_chat_global_model.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_chat_controller.dart';
-
 import 'package:tencent_cloud_chat_uikit/ui/utils/message.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/permission.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/TIMUIKitTextField/tim_uikit_call_invite_list.dart';
@@ -19,14 +18,12 @@ import 'package:tim_ui_kit_lbs_plugin/utils/tim_location_model.dart';
 import 'package:tim_ui_kit_lbs_plugin/widget/location_msg_element.dart';
 import 'package:timuikit/src/config.dart';
 import 'package:timuikit/src/group_application_list.dart';
-
 import 'package:timuikit/src/group_profile.dart';
 import 'package:timuikit/src/provider/custom_sticker_package.dart';
 import 'package:timuikit/src/provider/local_setting.dart';
 import 'package:timuikit/src/provider/theme.dart';
 import 'package:timuikit/src/user_profile.dart';
 import 'package:provider/provider.dart';
-
 import 'package:timuikit/utils/baidu_implements/map_service_baidu_implement.dart';
 import 'package:timuikit/utils/baidu_implements/map_widget_baidu_implement.dart';
 import 'package:timuikit/utils/custom_message/custom_message_element.dart';
