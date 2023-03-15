@@ -9,8 +9,7 @@ import 'package:tencent_super_tooltip/tencent_super_tooltip.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_chat_controller.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_conversation_controller.dart';
-
-import 'package:tim_ui_kit_calling_plugin/tim_ui_kit_calling_plugin.dart';
+import 'package:tencent_calls_uikit/tuicall_kit.dart';
 import 'package:timuikit/src/add_friend.dart';
 import 'package:timuikit/src/add_group.dart';
 import 'package:timuikit/src/chat.dart';
@@ -47,7 +46,7 @@ class HomePageState extends State<HomePage> {
 
   final CoreServicesImpl _coreInstance = TIMUIKitCore.getInstance();
   final V2TIMManager _sdkInstance = TIMUIKitCore.getSDKInstance();
-  final TUICalling _calling = TUICalling();
+  final TUICallKit _calling = TUICallKit();
   final TIMUIKitConversationController _conversationController =
       TIMUIKitConversationController();
   final TIMUIKitChatController _timuiKitChatController =
@@ -80,8 +79,8 @@ class HomePageState extends State<HomePage> {
     final userID = loginInfo.userID;
     final userSig = loginInfo.userSig;
     final sdkAppId = loginInfo.sdkAppID;
-    _calling.init(sdkAppID: sdkAppId, userID: userID, userSig: userSig);
-    _calling.enableFloatingWindow();
+    _calling.login(sdkAppId: sdkAppId, userId: userID, userSig: userSig);
+    _calling.enableFloatWindow(true);
   }
 
   @override

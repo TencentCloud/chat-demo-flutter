@@ -39,9 +39,10 @@ dependencies:
     sdk: flutter
 
   # Tencent Cloud Chat dependencies:
-  tencent_cloud_chat_uikit: ^1.7.0
-  tim_ui_kit_calling_plugin: ^1.1.1
-  tencent_chat_push_for_china: ^2.4.0
+  tencent_cloud_chat_uikit: ^1.7.0+1
+  tencent_calls_uikit: ^1.5.2
+  # If you use this sample app outside Mainland China, please use tim_ui_kit_push_plugin instead.
+  tencent_chat_push_for_china: ^2.5.0
 
   # Location message and Baidu Map:
   tim_ui_kit_lbs_plugin: ^2.1.0
@@ -80,7 +81,7 @@ dependencies:
   tencent_cloud_av_chat_room: ^0.0.3
   lottie: 1.4.2
   fluttertoast: 8.1.2
-  tencent_trtc_cloud: 2.4.1
+#  tencent_trtc_cloud: 2.4.1
 
 #dependency_overrides:
 #  modal_bottom_sheet: ^3.0.0-pre
@@ -116,6 +117,7 @@ flutter:
     - assets/custom_face_resource/4352/
     - lib/country_list_pick-1.0.1+5/flags/
     - assets/live/
+    - assets/calling_message/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

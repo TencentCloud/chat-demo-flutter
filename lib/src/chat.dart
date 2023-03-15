@@ -10,8 +10,8 @@ import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_chat_controller
 import 'package:tencent_cloud_chat_uikit/ui/utils/message.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/permission.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/TIMUIKitTextField/tim_uikit_call_invite_list.dart';
-import 'package:tim_ui_kit_calling_plugin/enum/tim_uikit_trtc_calling_scence.dart';
-import 'package:tim_ui_kit_calling_plugin/tim_ui_kit_calling_plugin.dart';
+import 'package:tencent_calls_uikit/tuicall_kit.dart';
+import 'package:tencent_calls_engine/tuicall_define.dart';
 import 'package:tim_ui_kit_lbs_plugin/pages/location_picker.dart';
 import 'package:tim_ui_kit_lbs_plugin/utils/location_utils.dart';
 import 'package:tim_ui_kit_lbs_plugin/utils/tim_location_model.dart';
@@ -31,6 +31,8 @@ import 'package:timuikit/utils/push/push_constant.dart';
 import 'package:timuikit/utils/toast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'package:timuikit/utils/commonUtils.dart';
+
 class Chat extends StatefulWidget {
   final V2TimConversation selectedConversation;
   final V2TimMessage? initFindingMsg;
@@ -46,7 +48,7 @@ class Chat extends StatefulWidget {
 class _ChatState extends State<Chat> {
   final TIMUIKitChatController _timuiKitChatController =
       TIMUIKitChatController();
-  final TUICalling _calling = TUICalling();
+  final TUICallKit _calling = TUICallKit();
   bool isDisscuss = false;
   bool isTopic = false;
   String? backRemark;
@@ -150,8 +152,7 @@ class _ChatState extends State<Chat> {
       );
       if (selectedMember != null) {
         final inviteMember = selectedMember.map((e) => e.userID).toList();
-        _calling.groupCall(inviteMember, CallingScenes.Video,
-            widget.selectedConversation.groupID);
+        _calling.groupCall(widget.selectedConversation.groupID!, inviteMember, TUICallMediaType.video);
       }
     } else {
       OfflinePushInfo offlinePush = OfflinePushInfo(
@@ -162,9 +163,8 @@ class _ChatState extends State<Chat> {
         androidOPPOChannelID: PushConfig.OPPOChannelID,
         ignoreIOSBadge: false,
       );
-
-      _calling.call(widget.selectedConversation.userID!, CallingScenes.Video,
-          offlinePush);
+      TUIOfflinePushInfo tuiOfflinePushInfo = CommonUtils.convertTUIOfflinePushInfo(offlinePush);
+      _calling.call(widget.selectedConversation.userID!, TUICallMediaType.video, TUICallParams(offlinePushInfo: tuiOfflinePushInfo));
     }
   }
 
@@ -187,8 +187,7 @@ class _ChatState extends State<Chat> {
       );
       if (selectedMember != null) {
         final inviteMember = selectedMember.map((e) => e.userID).toList();
-        _calling.groupCall(inviteMember, CallingScenes.Audio,
-            widget.selectedConversation.groupID);
+        _calling.groupCall(widget.selectedConversation.groupID!, inviteMember, TUICallMediaType.audio);
       }
     } else {
       OfflinePushInfo offlinePush = OfflinePushInfo(
@@ -199,9 +198,8 @@ class _ChatState extends State<Chat> {
         androidOPPOChannelID: PushConfig.OPPOChannelID,
         ignoreIOSBadge: false,
       );
-
-      _calling.call(widget.selectedConversation.userID!, CallingScenes.Audio,
-          offlinePush);
+      TUIOfflinePushInfo tuiOfflinePushInfo = CommonUtils.convertTUIOfflinePushInfo(offlinePush);
+      _calling.call(widget.selectedConversation.userID!, TUICallMediaType.audio, TUICallParams(offlinePushInfo: tuiOfflinePushInfo));
     }
   }
 

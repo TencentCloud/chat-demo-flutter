@@ -1,9 +1,10 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tim_ui_kit_calling_plugin/model/calling_message.dart';
 import 'package:timuikit/src/provider/theme.dart';
 import 'package:provider/provider.dart';
+
+import 'package:timuikit/utils/custom_message/calling_message/calling_message.dart';
 
 String handleCustomMessage(V2TimMessage message) {
   final customElem = message.customElem;

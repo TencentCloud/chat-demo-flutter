@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-import 'package:tim_ui_kit_push_plugin/model/appInfo.dart';
+import 'package:tencent_chat_push_for_china/model/appInfo.dart';
 
 class PushConfig{
 
