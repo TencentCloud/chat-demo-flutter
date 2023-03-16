@@ -81,7 +81,6 @@ dependencies:
   tencent_cloud_av_chat_room: ^0.0.3
   lottie: 1.4.2
   fluttertoast: 8.1.2
-#  tencent_trtc_cloud: 2.4.1
 
 #dependency_overrides:
 #  modal_bottom_sheet: ^3.0.0-pre
