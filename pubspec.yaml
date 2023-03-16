@@ -77,7 +77,6 @@ dependencies:
   tencent_im_sdk_plugin_web: ^0.3.7
   synchronized: ^3.0.0+3
   dio: ^4.0.6
-  live_flutter_plugin: 1.1.0
   tencent_cloud_av_chat_room: ^0.0.3
   lottie: 1.4.2
   fluttertoast: 8.1.2
