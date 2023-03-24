@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
 
-import 'package:timuikit/src/provider/theme.dart';
-import 'package:timuikit/utils/toast.dart';
+import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
+import 'package:tencent_cloud_chat_demo/utils/toast.dart';
 
 class ContactPage extends StatelessWidget {
   const ContactPage({Key? key}) : super(key: key);
@@ -77,7 +77,7 @@ class ContactPage extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () {
                           Clipboard.setData(const ClipboardData(text: '788910197'));
-                          Utils.toast(TIM_t("QQ群号复制成功"));
+                          ToastUtils.toast(TIM_t("QQ群号复制成功"));
                         },
                         child: Text(TIM_t("复制群号")),
                       ),

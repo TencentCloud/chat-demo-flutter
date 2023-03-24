@@ -6,16 +6,17 @@ import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:timuikit/custom_animation.dart';
-import 'package:timuikit/src/config.dart';
-import 'package:timuikit/src/pages/app.dart';
-import 'package:timuikit/src/provider/custom_sticker_package.dart';
-import 'package:timuikit/src/provider/local_setting.dart';
-import 'package:timuikit/src/provider/login_user_Info.dart';
-import 'package:timuikit/src/provider/theme.dart';
+import 'package:tim_ui_kit_calling_plugin/tim_ui_kit_calling_plugin.dart';
+import 'package:tencent_cloud_chat_demo/custom_animation.dart';
+import 'package:tencent_cloud_chat_demo/src/config.dart';
+import 'package:tencent_cloud_chat_demo/src/pages/app.dart';
+import 'package:tencent_cloud_chat_demo/src/provider/custom_sticker_package.dart';
+import 'package:tencent_cloud_chat_demo/src/provider/local_setting.dart';
+import 'package:tencent_cloud_chat_demo/src/provider/login_user_Info.dart';
+import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
 
 import 'package:provider/provider.dart';
-import 'package:timuikit/src/provider/user_guide_provider.dart';
+import 'package:tencent_cloud_chat_demo/src/provider/user_guide_provider.dart';
 
 void main() {
   // 设置状态栏样式
@@ -75,6 +76,7 @@ class TUIKitDemoApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Provider.of<DefaultThemeData>(context).theme;
     return MaterialApp(
+      navigatorKey: TUICalling.navigatorKey,
       locale: TranslationProvider.of(context).flutterLocale, // use provider
       supportedLocales: LocaleSettings.supportedLocales,
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
@@ -89,7 +91,7 @@ class TUIKitDemoApp extends StatelessWidget {
           primary: theme.primaryColor,
         )),
       ),
-      home: const MyApp(),
+      home: const MobileApp(),
       builder: EasyLoading.init(),
     );
   }

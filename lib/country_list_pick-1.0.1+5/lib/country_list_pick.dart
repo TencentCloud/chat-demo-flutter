@@ -1,11 +1,14 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, no_logic_in_create_state
 
 import 'package:flutter/material.dart';
-import 'package:timuikit/country_list_pick-1.0.1+5/lib/country_selection_theme.dart';
-import 'package:timuikit/country_list_pick-1.0.1+5/lib/selection_list.dart';
-import 'package:timuikit/country_list_pick-1.0.1+5/lib/support/code_countries_en.dart';
-import 'package:timuikit/country_list_pick-1.0.1+5/lib/support/code_country.dart';
-import 'package:timuikit/country_list_pick-1.0.1+5/lib/support/code_countrys.dart';
+import 'package:tencent_cloud_chat_demo/country_list_pick-1.0.1+5/lib/country_selection_theme.dart';
+import 'package:tencent_cloud_chat_demo/country_list_pick-1.0.1+5/lib/selection_list.dart';
+import 'package:tencent_cloud_chat_demo/country_list_pick-1.0.1+5/lib/support/code_countries_en.dart';
+import 'package:tencent_cloud_chat_demo/country_list_pick-1.0.1+5/lib/support/code_country.dart';
+import 'package:tencent_cloud_chat_demo/country_list_pick-1.0.1+5/lib/support/code_countrys.dart';
+import 'package:tencent_cloud_chat_uikit/data_services/core/%20tim_uikit_wide_modal_operation_key.dart';
+import 'package:tencent_cloud_chat_uikit/ui/utils/screen_utils.dart';
+import 'package:tencent_cloud_chat_uikit/ui/widgets/wide_popup.dart';
 
 class CountryListPick extends StatefulWidget {
    CountryListPick(
@@ -70,28 +73,58 @@ class _CountryListPickState extends State<CountryListPick> {
 
   void _awaitFromSelectScreen(BuildContext context, PreferredSizeWidget? appBar,
       CountryTheme? theme) async {
-    final result = await Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => SelectionList(
+    final isWideScreen = TUIKitScreenUtils.getFormFactor(context) == ScreenType.Wide;
+    if(isWideScreen){
+      TUIKitWidePopup.showPopupWindow(
+          context: context,
+          operationKey: TUIKitWideModalOperationKey.chooseCountry,
+          width: MediaQuery.of(context).size.width * 0.4,
+          height: MediaQuery.of(context).size.width * 0.5,
+          child: (onClose) => SelectionList(
             elements,
             selectedItem,
             appBar: widget.appBar ??
-                AppBar(
+                (!isWideScreen ? AppBar(
                   backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
                   title: const Text("Select Country"),
-                ),
+                ) : null),
             theme: theme,
             countryBuilder: widget.countryBuilder,
             useUiOverlay: widget.useUiOverlay,
             useSafeArea: widget.useSafeArea,
-          ),
-        ));
+            onChange: (item){
+              setState(() {
+                selectedItem = item;
+                widget.onChanged!(item);
+              });
+              onClose();
+            },
+          ));
+    }else{
+      final result = await Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SelectionList(
+              elements,
+              selectedItem,
+              appBar: widget.appBar ??
+                  AppBar(
+                    backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+                    title: const Text("Select Country"),
+                  ),
+              theme: theme,
+              countryBuilder: widget.countryBuilder,
+              useUiOverlay: widget.useUiOverlay,
+              useSafeArea: widget.useSafeArea,
+            ),
+          ));
 
-    setState(() {
-      selectedItem = result ?? selectedItem;
-      widget.onChanged!(result ?? selectedItem);
-    });
+      setState(() {
+        selectedItem = result ?? selectedItem;
+        widget.onChanged!(result ?? selectedItem);
+      });
+    }
+
   }
 
   @override

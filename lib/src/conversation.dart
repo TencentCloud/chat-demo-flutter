@@ -1,23 +1,35 @@
-// ignore_for_file: unused_import
+// ignore_for_file: unused_element
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:tencent_cloud_chat_demo/src/multi_platform_widget/search_entry/search_entry_wide.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_conversation_controller.dart';
 
-import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitSearch/tim_uikit_search.dart';
-import 'package:timuikit/src/chat.dart';
+import 'package:tencent_cloud_chat_uikit/ui/utils/platform.dart';
+import 'package:tencent_cloud_chat_demo/src/chat.dart';
 
 import 'package:provider/provider.dart';
-import 'package:timuikit/src/provider/local_setting.dart';
-import 'package:timuikit/src/provider/theme.dart';
-import 'package:timuikit/src/search.dart';
+import 'package:tencent_cloud_chat_demo/src/multi_platform_widget/search_entry/search_entry.dart';
+import 'package:tencent_cloud_chat_demo/src/provider/local_setting.dart';
+import 'package:tencent_cloud_chat_demo/utils/custom_message/custom_last_message.dart';
+import 'package:tencent_cloud_chat_demo/utils/user_guide.dart';
+
 
 GlobalKey<_ConversationState> conversationKey = GlobalKey();
 
 class Conversation extends StatefulWidget {
   final TIMUIKitConversationController conversationController;
-  const Conversation({Key? key, required this.conversationController})
+  final ValueChanged<V2TimConversation?>? onConversationChanged;
+  final VoidCallback? onClickSearch;
+  final ValueChanged<Offset?>? onClickPlus;
+
+  /// Used for specify the current conversation, usually used for showing the conversation indicator background color on wide screen.
+  final V2TimConversation? selectedConversation;
+
+  const Conversation(
+      {Key? key,
+      required this.conversationController,
+      this.onConversationChanged, this.onClickSearch, this.onClickPlus, this.selectedConversation})
       : super(key: key);
 
   @override
@@ -27,6 +39,7 @@ class Conversation extends StatefulWidget {
 class _ConversationState extends State<Conversation> {
   late TIMUIKitConversationController _controller;
   List<String> jumpedConversations = [];
+  V2TimConversation? selectedConversation;
 
   @override
   void initState() {
@@ -34,15 +47,12 @@ class _ConversationState extends State<Conversation> {
     _controller = widget.conversationController;
   }
 
-  void _handleOnConvItemTaped(V2TimConversation? selectedConv) async {
-    await Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => Chat(
-            selectedConversation: selectedConv!,
-          ),
-        ));
-    _controller.reloadData();
+  @override
+  void didUpdateWidget(Conversation oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.selectedConversation != oldWidget.selectedConversation) {
+      _controller.selectedConversation = widget.selectedConversation;
+    }
   }
 
   scrollToNextUnreadConversation(){
@@ -62,17 +72,18 @@ class _ConversationState extends State<Conversation> {
     }
   }
 
-  void _handleOnConvItemTapedWithPlace(V2TimConversation? selectedConv,
-      [V2TimMessage? targetMsg]) async {
-    await Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => Chat(
-            selectedConversation: selectedConv!,
-            initFindingMsg: targetMsg,
-          ),
-        ));
-    _controller.reloadData();
+  void _handleOnConvItemTaped(V2TimConversation? selectedConv) async {
+    if (widget.onConversationChanged != null) {
+      widget.onConversationChanged!(selectedConv);
+    } else {
+      await Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Chat(
+              selectedConversation: selectedConv!,
+            ),
+          ));
+    }
   }
 
   _clearHistory(V2TimConversation conversationItem) {
@@ -89,20 +100,20 @@ class _ConversationState extends State<Conversation> {
     _controller.deleteConversation(conversationID: conversation.conversationID);
   }
 
-
-  List<ConversationItemSlidablePanel> _itemSlidableBuilder(
+  List<ConversationItemSlidePanel> _itemSlidableBuilder(
       V2TimConversation conversationItem) {
     return [
-      if(!kIsWeb) ConversationItemSlidablePanel(
-        onPressed: (context) {
-          _clearHistory(conversationItem);
-        },
-        backgroundColor: hexToColor("006EFF"),
-        foregroundColor: Colors.white,
-        label: TIM_t("清除聊天"),
-        autoClose: true,
-      ),
-      ConversationItemSlidablePanel(
+      if (!PlatformUtils().isWeb)
+        ConversationItemSlidePanel(
+          onPressed: (context) {
+            _clearHistory(conversationItem);
+          },
+          backgroundColor: hexToColor("006EFF"),
+          foregroundColor: Colors.white,
+          label: TIM_t("清除聊天"),
+          autoClose: true,
+        ),
+      ConversationItemSlidePanel(
         onPressed: (context) {
           _pinConversation(conversationItem);
         },
@@ -110,7 +121,7 @@ class _ConversationState extends State<Conversation> {
         foregroundColor: Colors.white,
         label: conversationItem.isPinned! ? TIM_t("取消置顶") : TIM_t("置顶"),
       ),
-      ConversationItemSlidablePanel(
+      ConversationItemSlidePanel(
         onPressed: (context) {
           _deleteConversation(conversationItem);
         },
@@ -121,85 +132,43 @@ class _ConversationState extends State<Conversation> {
     ];
   }
 
-  Widget searchEntry(TUITheme theme) {
-    return GestureDetector(
-      onTap: () async {
-        await Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) =>
-                  Search(onTapConversation: _handleOnConvItemTapedWithPlace),
-            ));
-      },
-      child: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
-              theme.lightPrimaryColor ?? CommonColor.lightPrimaryColor,
-              theme.primaryColor ?? CommonColor.primaryColor
-            ]),
-            boxShadow: [
-              BoxShadow(
-                color: theme.weakDividerColor ?? hexToColor("E6E9EB"),
-                offset: const Offset(0.0, 2.0),
-              )
-            ]),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-          child: Container(
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(4)),
-            ),
-            height: 40,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.search,
-                  color: hexToColor("979797"),
-                  size: 18,
-                ),
-                Text(TIM_t("搜索"),
-                    style: TextStyle(
-                      color: hexToColor("979797"),
-                      fontSize: 14,
-                    )),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<DefaultThemeData>(context).theme;
     final LocalSetting localSetting = Provider.of<LocalSetting>(context);
+    judgeGuide('conversation', context);
     return Column(
       children: [
-        searchEntry(theme),
+        SearchEntry(
+          conversationController: widget.conversationController,
+          plusType: PlusType.create,
+          onClickSearch: widget.onClickSearch,
+          directToChat: (conversation){
+            _handleOnConvItemTaped(conversation);
+            _controller.selectedConversation = conversation;
+          },
+        ),
         Expanded(
-            child: TIMUIKitConversation(
-          onTapItem: _handleOnConvItemTaped,
-          isShowOnlineStatus: localSetting.isShowOnlineStatus,
-          itemSlidableBuilder: _itemSlidableBuilder,
-          controller: _controller,
-              emptyBuilder: () {
-                return Container(
-                  padding: const EdgeInsets.only(top:100),
-                  child: Center(
-                    child: Text(TIM_t("暂无会话")),
-                  ),
-                );
-              },
-        ))
+          child: TIMUIKitConversation(
+            onTapItem: _handleOnConvItemTaped,
+            isShowOnlineStatus: localSetting.isShowOnlineStatus,
+            lastMessageBuilder: (lastMsg, groupAtInfoList) {
+              if (lastMsg != null &&
+                  lastMsg.elemType == MessageElemType.V2TIM_ELEM_TYPE_CUSTOM) {
+                return renderCustomMessage(lastMsg, context);
+              }
+              return null;
+            },
+            controller: _controller,
+            emptyBuilder: () {
+              return Container(
+                padding: const EdgeInsets.only(top: 100),
+                child: Center(
+                  child: Text(TIM_t("暂无会话")),
+                ),
+              );
+            },
+          ),
+        )
       ],
     );
   }

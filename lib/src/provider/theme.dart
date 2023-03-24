@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
-import 'package:timuikit/utils/theme.dart';
+import 'package:tencent_cloud_chat_demo/utils/theme.dart';
 
 class DefaultThemeData with ChangeNotifier {
   ThemeType _currentThemeType = ThemeType.brisk;

@@ -1,8 +1,7 @@
-
 import 'package:tencent_chat_push_for_china/model/appInfo.dart';
-import 'package:tencent_chat_push_for_china/tencent_chat_push_for_china.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:timuikit/utils/push/push_constant.dart';
+import 'package:tencent_chat_push_for_china/tencent_chat_push_for_china.dart';
+import 'package:tencent_cloud_chat_demo/utils/push/push_constant.dart';
 
 class ChannelPush {
   static final TimUiKitPushPlugin cPush = TimUiKitPushPlugin();

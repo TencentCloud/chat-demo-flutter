@@ -57,11 +57,23 @@
     <link rel="stylesheet" type="text/css" href="splash/style.css" />
   </head>
 
-  <body>
+  <body oncontextmenu="return false">
     <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
     <script>
+    document.oncontextmenu = function (event) {
+            if (window.event) {
+                event =
+                    window.event;
+            } try {
+                var the = event.srcElement; if (!((the.tagName == "INPUT" && the.type.toLowerCase() ==
+                    "text") || the.tagName == "TEXTAREA")) { return false; } return true;
+            } catch (e) {
+                return false;
+            }
+        }
+
       var serviceWorkerVersion = null;
       var scriptLoaded = false;
       function loadMainDartJs() {

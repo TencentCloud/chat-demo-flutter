@@ -1,10 +1,10 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:timuikit/src/provider/theme.dart';
+import 'package:tencent_cloud_chat_uikit/ui/utils/screen_utils.dart';
+import 'package:tim_ui_kit_calling_plugin/model/calling_message.dart';
+import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
 import 'package:provider/provider.dart';
-
-import 'package:timuikit/utils/custom_message/calling_message/calling_message.dart';
 
 String handleCustomMessage(V2TimMessage message) {
   final customElem = message.customElem;
@@ -45,6 +45,7 @@ String handleCustomMessage(V2TimMessage message) {
 
 Widget renderCustomMessage(V2TimMessage message, BuildContext context){
   final theme = Provider.of<DefaultThemeData>(context).theme;
+  final isWideScreen = TUIKitScreenUtils.getFormFactor(context) == ScreenType.Wide;
   return Row(children: [
     Expanded(
         child: Text(
@@ -52,7 +53,7 @@ Widget renderCustomMessage(V2TimMessage message, BuildContext context){
           softWrap: true,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: TextStyle(height: 1, color: theme.weakTextColor, fontSize: 14),
+          style: TextStyle(height: 1, color: theme.weakTextColor, fontSize: isWideScreen ? 12 : 14),
         )),
   ]);
 }

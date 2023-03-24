@@ -3,8 +3,8 @@
 // ignore_for_file: file_names
 
 import 'package:dio/dio.dart';
-import 'package:timuikit/src/config.dart';
-import 'package:timuikit/utils/request.dart';
+import 'package:tencent_cloud_chat_demo/src/config.dart';
+import 'package:tencent_cloud_chat_demo/utils/request.dart';
 
 class SmsLogin {
   static Future<Map<String, dynamic>?> getGlsb() async {

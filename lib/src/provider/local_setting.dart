@@ -19,6 +19,9 @@ class LocalSetting with ChangeNotifier {
   /// The connection status to Tencent Server
   ConnectStatus? _connectStatus;
 
+  /// Interface Language
+  String? _language;
+
   ConnectStatus get connectStatus => _connectStatus ?? ConnectStatus.success;
 
   set connectStatus(ConnectStatus value) {
@@ -34,6 +37,14 @@ class LocalSetting with ChangeNotifier {
     updateSettingsToLocal("isShowReadingStatus", value);
   }
 
+  String? get language => _language;
+
+  set language(String? value) {
+    _language = value;
+    notifyListeners();
+    updateSettingsToLocalString("language", value ?? "en");
+  }
+
   bool get isShowOnlineStatus => _isShowOnlineStatus ?? true;
 
   set isShowOnlineStatus(bool value) {
@@ -42,9 +53,10 @@ class LocalSetting with ChangeNotifier {
     updateSettingsToLocal("isShowOnlineStatus", value);
   }
 
-  loadSettingsFromLocal() async{
+  loadSettingsFromLocal() async {
     SharedPreferences prefs = await _prefs;
     _isShowOnlineStatus = prefs.getBool("isShowOnlineStatus");
+    _language = prefs.getString("language");
     _isShowReadingStatus = prefs.getBool("isShowReadingStatus");
     notifyListeners();
   }
@@ -52,6 +64,11 @@ class LocalSetting with ChangeNotifier {
   updateSettingsToLocal(String setting, bool value) async{
     SharedPreferences prefs = await _prefs;
     prefs.setBool(setting, value);
+  }
+
+  updateSettingsToLocalString(String setting, String value) async{
+    SharedPreferences prefs = await _prefs;
+    prefs.setString(setting, value);
   }
 
   LocalSetting(){

@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
-import 'package:timuikit/src/provider/theme.dart';
+import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
 import 'package:provider/provider.dart';
 
 class GroupApplicationList extends StatelessWidget{

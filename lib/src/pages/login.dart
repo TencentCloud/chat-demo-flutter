@@ -8,18 +8,19 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tencent_chat_push_for_china/tencent_chat_push_for_china.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
-import 'package:timuikit/src/config.dart';
-import 'package:timuikit/src/pages/home_page.dart';
-import 'package:timuikit/src/pages/privacy/privacy_webview.dart';
-import 'package:timuikit/src/provider/theme.dart';
-import 'package:timuikit/src/routes.dart';
-import 'package:timuikit/utils/GenerateUserSig.dart';
-import 'package:timuikit/utils/commonUtils.dart';
-import 'package:timuikit/utils/push/channel/channel_push.dart';
-import 'package:timuikit/utils/push/push_constant.dart';
-import 'package:timuikit/utils/toast.dart';
+import 'package:tencent_cloud_chat_demo/src/config.dart';
+import 'package:tencent_cloud_chat_demo/src/pages/home_page.dart';
+import 'package:tencent_cloud_chat_demo/src/pages/privacy/privacy_webview.dart';
+import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
+import 'package:tencent_cloud_chat_demo/src/routes.dart';
+import 'package:tencent_cloud_chat_demo/utils/GenerateUserSig.dart';
+import 'package:tencent_cloud_chat_demo/utils/commonUtils.dart';
+import 'package:tencent_cloud_chat_demo/utils/push/channel/channel_push.dart';
+import 'package:tencent_cloud_chat_demo/utils/push/push_constant.dart';
+import 'package:tencent_cloud_chat_demo/utils/toast.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginPage extends StatefulWidget {
@@ -256,14 +257,14 @@ class _LoginFormState extends State<LoginForm> {
 
   userLogin() async {
     if (userID.trim() == '') {
-      Utils.toast(TIM_t("请输入用户名"));
+      ToastUtils.toast(TIM_t("请输入用户名"));
       return;
     }
 
     String key = IMDemoConfig.key;
     int sdkAppId = IMDemoConfig.sdkappid;
     if (key == "") {
-      Utils.toast(TIM_t("请在环境变量中写入key"));
+      ToastUtils.toast(TIM_t("请在环境变量中写入key"));
       return;
     }
     GenerateTestUserSig generateTestUserSig = GenerateTestUserSig(
@@ -280,7 +281,7 @@ class _LoginFormState extends State<LoginForm> {
     );
     if (data.code != 0) {
       final option1 = data.desc;
-      Utils.toast(
+      ToastUtils.toast(
           TIM_t_para("登录失败{{option1}}", "登录失败$option1")(option1: option1));
       return;
     }
@@ -356,7 +357,7 @@ class _LoginFormState extends State<LoginForm> {
                         children: [
                           Expanded(
                             child: ElevatedButton(
-                              child: Text(TIM_t("登陆")),
+                              child: Text(TIM_t("登录")),
                               onPressed: userLogin,
                             ),
                           )

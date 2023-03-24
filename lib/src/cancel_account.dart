@@ -6,17 +6,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_self_info_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
-
-import 'package:timuikit/src/pages/login.dart';
-import 'package:timuikit/src/provider/theme.dart';
+import 'package:tencent_cloud_chat_demo/src/pages/login.dart';
+import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
 import 'package:provider/provider.dart';
-import 'package:timuikit/src/routes.dart';
-import 'package:timuikit/utils/request.dart';
-import 'package:timuikit/utils/toast.dart';
+import 'package:tencent_cloud_chat_demo/src/routes.dart';
+import 'package:tencent_cloud_chat_demo/utils/request.dart';
+import 'package:tencent_cloud_chat_demo/utils/toast.dart';
 import 'config.dart';
-
 import 'package:dio/dio.dart';
 
 class CancelAccount extends StatelessWidget {
@@ -36,8 +33,8 @@ class CancelAccount extends StatelessWidget {
         prefs.remove('channelListMain');
         prefs.remove('discussListMain');
       } catch (err) {
-        Utils.log("someError");
-        Utils.log(err);
+        ToastUtils.log("someError");
+        ToastUtils.log(err);
       }
       Routes().directToLoginPage();
     }
@@ -71,11 +68,11 @@ class CancelAccount extends StatelessWidget {
             String? codeStr = res['codeStr'];
 
             if (errorCode == 0) {
-              Utils.toast((TIM_t("账户注销成功！")));
+              ToastUtils.toast((TIM_t("账户注销成功！")));
               _handleLogout(context);
             } else {
-              Utils.log(codeStr);
-              Utils.toast(codeStr ?? "");
+              ToastUtils.log(codeStr);
+              ToastUtils.toast(codeStr ?? "");
             }
           },
           child: Text(

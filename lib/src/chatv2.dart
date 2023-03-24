@@ -11,6 +11,7 @@ class ChatV2 extends StatefulWidget {
   const ChatV2(
       {Key? key, required this.selectedConversation, this.initFindingMsg})
       : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _ChatV2State();
 }
@@ -48,10 +49,11 @@ class _ChatV2State extends State<ChatV2> {
     isInit = true;
     return TIMUIKitChatProviderScope(
       isBuild: isBuild,
-      controller: _controller, // `TIMUIKitChatController` needs to be provided if you use it.
+      controller: _controller,
+      // `TIMUIKitChatController` needs to be provided if you use it.
       config: const TIMUIKitChatConfig(
-        // You can define anything here up to your business needs.
-      ),
+          // You can define anything here up to your business needs.
+          ),
       conversationID: _getConvID() ?? "",
       conversationType: ConvType.values[widget.selectedConversation.type ?? 1],
       builder: (context, model, w) {
@@ -69,7 +71,7 @@ class _ChatV2State extends State<ChatV2> {
               children: [
                 Expanded(
                     child: TIMUIKitHistoryMessageListSelector(
-                      conversationID: _getConvID() ?? "",
+                  conversationID: _getConvID() ?? "",
                   builder: (context, messageList, w) {
                     return TIMUIKitHistoryMessageList(
                       conversation: widget.selectedConversation,
@@ -94,8 +96,8 @@ class _ChatV2State extends State<ChatV2> {
                           showMessageReadRecipt: false,
                           onScrollToIndex:
                               _historyMessageListController.scrollToIndex,
-                          onScrollToIndexBegin: _historyMessageListController
-                              .scrollToIndexBegin,
+                          onScrollToIndexBegin:
+                              _historyMessageListController.scrollToIndexBegin,
                           message: message!,
                           // onTapAvatar: widget.onTapAvatar,
                           // showNickName: widget.showNickName,
@@ -109,10 +111,12 @@ class _ChatV2State extends State<ChatV2> {
                   },
                 )),
                 TIMUIKitInputTextField(
+                  currentConversation: widget.selectedConversation,
                   model: model,
                   controller: _textFieldController,
                   conversationID: _getConvID() ?? "",
-                  conversationType: ConvType.values[widget.selectedConversation.type ?? 1],
+                  conversationType:
+                      ConvType.values[widget.selectedConversation.type ?? 1],
                   scrollController:
                       _historyMessageListController.scrollController!,
                   hintText: "",

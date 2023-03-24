@@ -3,10 +3,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-
-
-import 'package:timuikit/src/cancel_account.dart';
-import 'package:timuikit/src/provider/theme.dart';
+import 'package:tencent_cloud_chat_demo/src/cancel_account.dart';
+import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'config.dart';
 import 'package:provider/provider.dart';
@@ -44,8 +42,9 @@ class AboutState extends State<About>{
           onClick();
         },
         child: TIMUIKitOperationItem(
+          isEmpty: text.isEmpty,
           operationName: TIM_t(text),
-          isRightIcon: !(rightText != null && rightText.isNotEmpty),
+          showAllowEditStatus: !(rightText != null && rightText.isNotEmpty),
           operationRightWidget: Text(rightText ?? ""),
         ),
       ),
@@ -64,6 +63,7 @@ class AboutState extends State<About>{
     getSDKVersion();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<DefaultThemeData>(context).theme;

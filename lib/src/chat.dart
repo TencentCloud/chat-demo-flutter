@@ -1,44 +1,57 @@
-// ignore_for_file: avoid_print, unused_field, unused_element, deprecated_member_use
+// ignore_for_file: unused_field, unused_element, avoid_print, deprecated_member_use
 
+import 'dart:math';
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:tencent_cloud_chat_demo/src/group_application_list.dart';
+import 'package:tencent_cloud_chat_demo/src/tencent_page.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/life_cycle/chat_life_cycle.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_chat_global_model.dart';
+import 'package:tencent_cloud_chat_uikit/data_services/core/%20tim_uikit_wide_modal_operation_key.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_chat_controller.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/message.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/permission.dart';
+import 'package:tencent_cloud_chat_uikit/ui/utils/platform.dart';
+import 'package:tencent_cloud_chat_uikit/ui/utils/screen_utils.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/TIMUIKitTextField/tim_uikit_call_invite_list.dart';
-import 'package:tencent_calls_uikit/tuicall_kit.dart';
-import 'package:tencent_calls_engine/tuicall_define.dart';
+import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/profile_widget.dart';
+import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/widget/tim_uikit_profile_widget.dart';
+import 'package:tencent_cloud_chat_uikit/ui/widgets/wide_popup.dart';
+import 'package:tim_ui_kit_calling_plugin/enum/tim_uikit_trtc_calling_scence.dart';
+import 'package:tim_ui_kit_calling_plugin/tim_ui_kit_calling_plugin.dart';
 import 'package:tim_ui_kit_lbs_plugin/pages/location_picker.dart';
 import 'package:tim_ui_kit_lbs_plugin/utils/location_utils.dart';
 import 'package:tim_ui_kit_lbs_plugin/utils/tim_location_model.dart';
 import 'package:tim_ui_kit_lbs_plugin/widget/location_msg_element.dart';
-import 'package:timuikit/src/config.dart';
-import 'package:timuikit/src/group_application_list.dart';
-import 'package:timuikit/src/group_profile.dart';
-import 'package:timuikit/src/provider/custom_sticker_package.dart';
-import 'package:timuikit/src/provider/local_setting.dart';
-import 'package:timuikit/src/provider/theme.dart';
-import 'package:timuikit/src/user_profile.dart';
-import 'package:provider/provider.dart';
-import 'package:timuikit/utils/baidu_implements/map_service_baidu_implement.dart';
-import 'package:timuikit/utils/baidu_implements/map_widget_baidu_implement.dart';
-import 'package:timuikit/utils/custom_message/custom_message_element.dart';
-import 'package:timuikit/utils/push/push_constant.dart';
-import 'package:timuikit/utils/toast.dart';
+import 'package:tencent_cloud_chat_demo/src/group_profile.dart';
+import 'package:tencent_cloud_chat_demo/utils/baidu_implements/map_service_baidu_implement.dart';
+import 'package:tencent_cloud_chat_demo/utils/baidu_implements/map_widget_baidu_implement.dart';
+import 'package:tencent_cloud_chat_demo/utils/custom_message/custom_message_element.dart';
+import 'package:tencent_cloud_chat_demo/utils/toast.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import 'package:timuikit/utils/commonUtils.dart';
+import 'package:tencent_cloud_chat_demo/src/provider/custom_sticker_package.dart';
+import 'package:tencent_cloud_chat_demo/src/provider/local_setting.dart';
+import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
+import 'package:tencent_cloud_chat_demo/src/user_profile.dart';
+import 'package:provider/provider.dart';
+import 'package:tencent_cloud_chat_demo/utils/platform.dart';
+import 'package:tencent_cloud_chat_demo/utils/push/push_constant.dart';
 
 class Chat extends StatefulWidget {
   final V2TimConversation selectedConversation;
   final V2TimMessage? initFindingMsg;
+  final VoidCallback? showGroupProfile;
+  final ValueChanged<V2TimConversation>? directToChat;
 
   const Chat(
-      {Key? key, required this.selectedConversation, this.initFindingMsg})
+      {Key? key,
+      required this.selectedConversation,
+      this.initFindingMsg,
+      this.showGroupProfile,
+      this.directToChat})
       : super(key: key);
 
   @override
@@ -46,18 +59,15 @@ class Chat extends StatefulWidget {
 }
 
 class _ChatState extends State<Chat> {
-  final TIMUIKitChatController _timuiKitChatController =
-      TIMUIKitChatController();
-  final TUICallKit _calling = TUICallKit();
-  bool isDisscuss = false;
-  bool isTopic = false;
+  final TIMUIKitChatController _chatController = TIMUIKitChatController();
+  TUICalling? _calling;
   String? backRemark;
   final V2TIMManager sdkInstance = TIMUIKitCore.getSDKInstance();
   GlobalKey<dynamic> tuiChatField = GlobalKey();
   String? conversationName;
 
   String _getTitle() {
-    return backRemark ?? "";
+    return backRemark ?? widget.selectedConversation.showName ?? "Chat";
   }
 
   String? _getDraftText() {
@@ -76,68 +86,73 @@ class _ChatState extends State<Chat> {
         : ConvType.group;
   }
 
-  _initListener() async {
-    // 这个注册监听的逻辑，我们在TIMUIKitChat内已处理，您如果没有单独需要，可不手动注册
-    // await _timuiKitChatController.removeMessageListener();
-    // await _timuiKitChatController.setMessageListener();
+  _onTapAvatar(String userID, TapDownDetails tapDetails, TUITheme theme) {
+    final isWideScreen =
+        TUIKitScreenUtils.getFormFactor(context) == ScreenType.Wide;
+    if (isWideScreen) {
+      onClickUserName(
+          Offset(
+              min(tapDetails.globalPosition.dx,
+                  MediaQuery.of(context).size.width - 350),
+              min(tapDetails.globalPosition.dy,
+                  MediaQuery.of(context).size.height - 490)),
+          theme,
+          userID);
+    } else {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => UserProfile(
+              userID: userID,
+              onRemarkUpdate: (String newRemark) {
+                setState(() {
+                  conversationName = newRemark;
+                });
+              },
+            ),
+          ));
+    }
   }
 
-  _onTapAvatar(String userID) {
+  _onTapLocation() {
+    if (!PlatformUtils().isMobile) {
+      ToastUtils.toast(TIM_t("百度地图插件暂不支持网页版，请使用手机APP DEMO体验位置消息能力。"));
+      return;
+    }
+    tuiChatField.currentState.textFieldController.hideAllPanel();
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => UserProfile(
-            userID: userID,
-            onRemarkUpdate: (String newRemark) {
-              setState(() {
-                conversationName = newRemark;
-              });
+          builder: (context) => LocationPicker(
+            isUseMapSDKLocation: true,
+            onChange: (LocationMessage location) async {
+              final locationMessageInfo = await sdkInstance.v2TIMMessageManager
+                  .createLocationMessage(
+                      desc: location.desc,
+                      longitude: location.longitude,
+                      latitude: location.latitude);
+              final messageInfo = locationMessageInfo.data!.messageInfo;
+              _chatController.sendMessage(messageInfo: messageInfo);
             },
+            mapBuilder: (onMapLoadDone, mapKey, onMapMoveEnd) => BaiduMap(
+              onMapMoveEnd: onMapMoveEnd,
+              onMapLoadDone: onMapLoadDone,
+              key: mapKey,
+            ),
+            locationUtils: LocationUtils(BaiduMapService()),
           ),
         ));
   }
 
-  _onTapLocation() {
-    if (kIsWeb) {
-      Utils.toast(TIM_t("百度地图插件暂不支持网页版，请使用手机APP DEMO体验位置消息能力。"));
-      return;
-    }
-    if (IMDemoConfig.baiduMapIOSAppKey.isNotEmpty) {
-      tuiChatField.currentState.inputextField.currentState.hideAllPanel();
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => LocationPicker(
-              onChange: (LocationMessage location) async {
-                final locationMessageInfo =
-                    await sdkInstance.v2TIMMessageManager.createLocationMessage(
-                        desc: location.desc,
-                        longitude: location.longitude,
-                        latitude: location.latitude);
-                final messageInfo = locationMessageInfo.data!.messageInfo;
-                _timuiKitChatController.sendMessage(messageInfo: messageInfo);
-              },
-              mapBuilder: (onMapLoadDone, mapKey, onMapMoveEnd) => BaiduMap(
-                onMapMoveEnd: onMapMoveEnd,
-                onMapLoadDone: onMapLoadDone,
-                key: mapKey,
-              ),
-              locationUtils: LocationUtils(BaiduMapService()),
-            ),
-          ));
-    } else {
-      Utils.toast("请根据Demo的README指引，配置百度AK，体验DEMO的位置消息能力");
-      print("请根据本文档指引 https://docs.qq.com/doc/DSVliWE9acURta2dL ， 快速体验位置消息能力");
-    }
-  }
-
   _goToVideoUI() async {
-    final hasCameraPermission =
-        await Permissions.checkPermission(context, Permission.camera.value);
-    final hasMicphonePermission =
-        await Permissions.checkPermission(context, Permission.microphone.value);
-    if (!hasCameraPermission || !hasMicphonePermission) {
-      return;
+    if (!kIsWeb) {
+      final hasCameraPermission =
+          await Permissions.checkPermission(context, Permission.camera.value);
+      final hasMicphonePermission = await Permissions.checkPermission(
+          context, Permission.microphone.value);
+      if (!hasCameraPermission || !hasMicphonePermission) {
+        return;
+      }
     }
     final isGroup = widget.selectedConversation.type == 2;
     tuiChatField.currentState.textFieldController.hideAllPanel();
@@ -152,7 +167,8 @@ class _ChatState extends State<Chat> {
       );
       if (selectedMember != null) {
         final inviteMember = selectedMember.map((e) => e.userID).toList();
-        _calling.groupCall(widget.selectedConversation.groupID!, inviteMember, TUICallMediaType.video);
+        _calling?.groupCall(inviteMember, CallingScenes.Video,
+            widget.selectedConversation.groupID);
       }
     } else {
       OfflinePushInfo offlinePush = OfflinePushInfo(
@@ -163,16 +179,19 @@ class _ChatState extends State<Chat> {
         androidOPPOChannelID: PushConfig.OPPOChannelID,
         ignoreIOSBadge: false,
       );
-      TUIOfflinePushInfo tuiOfflinePushInfo = CommonUtils.convertTUIOfflinePushInfo(offlinePush);
-      _calling.call(widget.selectedConversation.userID!, TUICallMediaType.video, TUICallParams(offlinePushInfo: tuiOfflinePushInfo));
+
+      await _calling?.call(widget.selectedConversation.userID!,
+          CallingScenes.Video, offlinePush);
     }
   }
 
   _goToVoiceUI() async {
-    final hasMicphonePermission =
-        await Permissions.checkPermission(context, Permission.microphone.value);
-    if (!hasMicphonePermission) {
-      return;
+    if (!kIsWeb) {
+      final hasMicphonePermission = await Permissions.checkPermission(
+          context, Permission.microphone.value);
+      if (!hasMicphonePermission) {
+        return;
+      }
     }
     final isGroup = widget.selectedConversation.type == 2;
     tuiChatField.currentState.textFieldController.hideAllPanel();
@@ -187,7 +206,8 @@ class _ChatState extends State<Chat> {
       );
       if (selectedMember != null) {
         final inviteMember = selectedMember.map((e) => e.userID).toList();
-        _calling.groupCall(widget.selectedConversation.groupID!, inviteMember, TUICallMediaType.audio);
+        _calling?.groupCall(inviteMember, CallingScenes.Audio,
+            widget.selectedConversation.groupID);
       }
     } else {
       OfflinePushInfo offlinePush = OfflinePushInfo(
@@ -195,18 +215,26 @@ class _ChatState extends State<Chat> {
         desc: TIM_t("邀请你语音通话"),
         ext: "{\"conversationID\": \"\"}",
         disablePush: false,
-        androidOPPOChannelID: PushConfig.OPPOChannelID,
         ignoreIOSBadge: false,
+        androidOPPOChannelID: PushConfig.OPPOChannelID,
       );
-      TUIOfflinePushInfo tuiOfflinePushInfo = CommonUtils.convertTUIOfflinePushInfo(offlinePush);
-      _calling.call(widget.selectedConversation.userID!, TUICallMediaType.audio, TUICallParams(offlinePushInfo: tuiOfflinePushInfo));
+
+      await _calling?.call(widget.selectedConversation.userID!,
+          CallingScenes.Audio, offlinePush);
+    }
+  }
+
+  _initTUICalling() async {
+    final isAndroidEmulator = await PlatformSimulatorUtils.isAndroidEmulator();
+    if (!isAndroidEmulator) {
+      _calling = TUICalling();
     }
   }
 
   @override
   void initState() {
     super.initState();
-    _initListener();
+    _initTUICalling();
   }
 
   @override
@@ -221,10 +249,14 @@ class _ChatState extends State<Chat> {
     addCustomEmojiText,
     addText,
     List<CustomEmojiFaceData> defaultCustomEmojiStickerList = const [],
+    double? width,
+    double? height,
   }) {
     final theme = Provider.of<DefaultThemeData>(context).theme;
     final customStickerPackageList =
         Provider.of<CustomStickerPackageData>(context).customStickerPackageList;
+    final isWideScreen =
+        TUIKitScreenUtils.getFormFactor(context) == ScreenType.Wide;
 
     final defaultEmojiList =
         defaultCustomEmojiStickerList.map((customEmojiPackage) {
@@ -246,7 +278,10 @@ class _ChatState extends State<Chat> {
     }).toList();
 
     return StickerPanel(
-        sendTextMsg: sendTextMessage,
+        isWideScreen: isWideScreen,
+        height: height,
+        width: width,
+        sendTextMsg: isWideScreen ? null : sendTextMessage,
         sendFaceMsg: (index, data) =>
             sendFaceMessage(index + 1, (data.split("/")[3]).split("@")[0]),
         deleteText: deleteText,
@@ -256,323 +291,474 @@ class _ChatState extends State<Chat> {
           ...defaultEmojiList,
           ...customStickerPackageList
         ],
-        backgroundColor: theme.weakBackgroundColor,
+        bottomColor: isWideScreen ? theme.weakBackgroundColor : null,
+        backgroundColor: isWideScreen ? theme.wideBackgroundColor : null,
         lightPrimaryColor: theme.lightPrimaryColor);
+  }
+
+  _itemClick(String id, BuildContext context, V2TimConversation conversation,
+      VoidCallback closeFunc) async {
+    closeFunc();
+    switch (id) {
+      case "sendMsg":
+        if (widget.directToChat != null) {
+          widget.directToChat!(conversation);
+        }
+        break;
+    }
+  }
+
+  _buildBottomOperationList(BuildContext context,
+      V2TimConversation conversation, VoidCallback closeFunc, TUITheme theme) {
+    List operationList = [
+      {
+        "label": TIM_t("发送消息"),
+        "id": "sendMsg",
+      }
+    ];
+
+    return operationList.map((e) {
+      return TIMUIKitProfileWidget.wideButton(
+        margin: const EdgeInsets.symmetric(vertical: 0),
+        smallCardMode: true,
+        onPressed: () =>
+            _itemClick(e["id"] ?? "", context, conversation, closeFunc),
+        text: e["label"] ?? "",
+        color: theme.primaryColor ?? hexToColor("3e4b67"),
+      );
+    }).toList();
+  }
+
+  void onClickUserName(Offset offset, TUITheme theme, [String? user]) {
+    final conversationType = widget.selectedConversation.type;
+    if (conversationType == 1 || user != null) {
+      final userID = user ?? widget.selectedConversation.userID;
+      TUIKitWidePopup.showPopupWindow(
+          operationKey: TUIKitWideModalOperationKey.showUserProfileFromChat,
+          context: context,
+          isDarkBackground: false,
+          width: 350,
+          offset: offset,
+          height: (widget.selectedConversation.type == 2) ? 490 : 444,
+          child: (closeFunc) => Container(
+                padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
+                child: TIMUIKitProfile(
+                  smallCardMode: true,
+                  profileWidgetBuilder: ProfileWidgetBuilder(customBuilderOne:
+                      (bool isFriend, V2TimFriendInfo friendInfo,
+                          V2TimConversation conversation) {
+                    // If you don't allow sending message when friendship not exist,
+                    // please not comment the following lines.
+
+                    // if(!isFriend){
+                    //   return Container();
+                    // }
+                    return Column(
+                        children: _buildBottomOperationList(
+                            context, conversation, closeFunc, theme));
+                  }),
+                  profileWidgetsOrder: [
+                    ProfileWidgetEnum.userInfoCard,
+                    ProfileWidgetEnum.operationDivider,
+                    ProfileWidgetEnum.remarkBar,
+                    ProfileWidgetEnum.genderBar,
+                    ProfileWidgetEnum.birthdayBar,
+                    ProfileWidgetEnum.operationDivider,
+                    ProfileWidgetEnum.addToBlockListBar,
+                    ProfileWidgetEnum.pinConversationBar,
+                    ProfileWidgetEnum.messageMute,
+                    ProfileWidgetEnum.addAndDeleteArea,
+                    if (widget.selectedConversation.type == 2)
+                      ProfileWidgetEnum.customBuilderOne,
+                  ],
+                  userID: userID ?? "",
+                ),
+              ));
+    } else {
+      if (widget.showGroupProfile != null) {
+        widget.showGroupProfile!();
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final LocalSetting localSetting = Provider.of<LocalSetting>(context);
+    final isWideScreen =
+        TUIKitScreenUtils.getFormFactor(context) == ScreenType.Wide;
+    final theme = Provider.of<DefaultThemeData>(context).theme;
     // List customEmojiList =
     //     Const.emojiList.where((element) => element.isEmoji == true).toList();
-    return TIMUIKitChat(
-      // New field, instead of `conversationID` / `conversationType` / `groupAtInfoList` / `conversationShowName` in previous.
-        conversation: widget.selectedConversation,
-
-        controller: _timuiKitChatController,
-        lifeCycle:
-            ChatLifeCycle(newMessageWillMount: (V2TimMessage message) async {
-          // This configuration is unnecessary and only for demonstration purpose.
-          // It shows if you tend to avoid a message from rending, you can `return null` here.
-          return message;
-        }),
-        onDealWithGroupApplication: (String groupId) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => GroupApplicationList(
-                groupID: groupId,
-              ),
-            ),
-          );
-        },
-        groupAtInfoList: widget.selectedConversation.groupAtInfoList,
-        key: tuiChatField,
-        customStickerPanel: renderCustomStickerPanel,
-        // customEmojiStickerList: customEmojiList,
-        config: TIMUIKitChatConfig(
-          // For demonstration only, not all configuration items.
-          // In practical use, only parameters that are different from the default items need be provided.
-
-          // `isUseDefaultEmoji: true`：使用我们默认自带小表情包，以png图片方式呈现。可以嵌入文字内容中。
-          // `isUseDefaultEmoji: true`: Use the small sticker provided by us as default, as png image. But can be added to text messages.
-          isUseDefaultEmoji: true,
-
-          isAllowClickAvatar: true,
-          isAllowLongPressMessage: true,
-          isShowReadingStatus: localSetting.isShowReadingStatus,
-          isShowGroupReadingStatus: localSetting.isShowReadingStatus,
-          notificationTitle: "",
-          notificationOPPOChannelID: PushConfig.OPPOChannelID,
-          urlPreviewType: UrlPreviewType.previewCardAndHyperlink,
-          groupReadReceiptPermissionList: [
-            // The group receipt function only works with `Ultimate Edition`
-
-            // GroupReceiptAllowType.work,
-            // GroupReceiptAllowType.meeting,
-            // GroupReceiptAllowType.public
-          ],
-          timeDividerConfig: TimeDividerConfig(
-            timeInterval: 300,
-            // timestampParser: (int timestamp) => "$timestamp",
-          ),
-          faceURIPrefix: (String path) {
-            if (path.contains("assets/custom_face_resource/")) {
-              return "";
-            }
-            int? dirNumber;
-
-            if (path.contains("yz")) {
-              dirNumber = 4350;
-            }
-            if (path.contains("ys")) {
-              dirNumber = 4351;
-            }
-            if (path.contains("gcs")) {
-              dirNumber = 4352;
-            }
-            if (dirNumber != null) {
-              return "assets/custom_face_resource/$dirNumber/";
-            } else {
-              return "";
-            }
-          },
-          faceURISuffix: (String path) {
-            return "@2x.png";
-          },
-        ),
-        conversationID: _getConvID() ?? '',
-        conversationType:
-            ConvType.values[widget.selectedConversation.type ?? 1],
-        onTapAvatar: _onTapAvatar,
-        conversationShowName: _getTitle(),
-        initFindingMsg: widget.initFindingMsg,
-        draftText: _getDraftText(),
-        messageItemBuilder: MessageItemBuilder(
-          messageRowBuilder: (message, messageWidget, onScrollToIndex,
-              isNeedShowJumpStatus, clearJumpStatus, onScrollToIndexBegin) {
-            if (MessageUtils.isGroupCallingMessage(message)) {
-              // If group call message, not use default layout.
-              return messageWidget;
-            }
-            return null;
-          },
-          customMessageItemBuilder: (message, isShowJump, clearJump) {
-            return CustomMessageElem(
-              message: message,
-              isShowJump: isShowJump,
-              clearJump: clearJump,
-            );
-          },
-          locationMessageItemBuilder: (message, isShowJump, clearJump) {
-            if (kIsWeb) {
-              String dividerForDesc = "/////";
-              String address = message.locationElem?.desc ?? "";
-              String addressName = address;
-              String? addressLocation;
-              if (RegExp(dividerForDesc).hasMatch(address)) {
-                addressName = address.split(dividerForDesc)[0];
-                addressLocation = address.split(dividerForDesc)[1] != "null"
-                    ? address.split(dividerForDesc)[1]
-                    : null;
-              }
-              final borderRadius = (message.isSelf ?? true)
-                  ? const BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(2),
-                      bottomLeft: Radius.circular(10),
-                      bottomRight: Radius.circular(10))
-                  : const BorderRadius.only(
-                      topLeft: Radius.circular(2),
-                      topRight: Radius.circular(10),
-                      bottomLeft: Radius.circular(10),
-                      bottomRight: Radius.circular(10));
-              const backgroundColor = Colors.white;
-              return GestureDetector(
-                onTap: () {
-                  launchUrl(
-                    Uri.parse(
-                        "http://api.map.baidu.com/marker?location=${message.locationElem?.latitude},${message.locationElem?.longitude}&title=$addressName&content=$addressLocation&output=html"),
-                    mode: LaunchMode.externalApplication,
-                  );
-                },
-                child: Material(
-                  color: Colors.transparent,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: backgroundColor,
-                      borderRadius: borderRadius,
-                      border: Border.all(color: hexToColor("DDDDDD")),
-                    ),
-                    constraints: const BoxConstraints(maxWidth: 240),
-                    padding: const EdgeInsets.fromLTRB(6, 10, 6, 10),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.location_on,
-                          color: hexToColor("5c6168"),
-                          size: 32,
-                        ),
-                        const SizedBox(width: 4),
-                        Expanded(
-                            child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            if (addressName.isNotEmpty)
-                              Text(
-                                addressName,
-                                softWrap: true,
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                            if (addressLocation != null &&
-                                addressLocation.isNotEmpty)
-                              Text(
-                                addressLocation,
-                                softWrap: true,
-                                style: const TextStyle(
-                                    fontSize: 12,
-                                    color: CommonColor.weakTextColor),
-                              ),
-                          ],
-                        ))
-                      ],
-                    ),
-                  ),
+    return TencentPage(
+      name: 'chat',
+      child: TIMUIKitChat(
+          // New field, instead of `conversationID` / `conversationType` / `groupAtInfoList` / `conversationShowName` in previous.
+          conversation: widget.selectedConversation,
+          conversationShowName: conversationName ?? _getTitle(),
+          controller: _chatController,
+          lifeCycle:
+              ChatLifeCycle(newMessageWillMount: (V2TimMessage message) async {
+            // ChannelPush.displayDefaultNotificationForMessage(message);
+            return message;
+          }),
+          onDealWithGroupApplication: (String groupId) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => GroupApplicationList(
+                  groupID: groupId,
                 ),
-              );
-            }
-            return LocationMsgElement(
-              isAllowCurrentLocation: false,
-              messageID: message.msgID,
-              locationElem: LocationMessage(
-                longitude: message.locationElem!.longitude,
-                latitude: message.locationElem!.latitude,
-                desc: message.locationElem?.desc ?? "",
               ),
-              isFromSelf: message.isSelf ?? false,
-              isShowJump: isShowJump,
-              clearJump: clearJump,
-              mapBuilder: (onMapLoadDone, mapKey) => BaiduMap(
-                onMapLoadDone: onMapLoadDone,
-                key: mapKey,
-              ),
-              locationUtils: LocationUtils(BaiduMapService()),
             );
           },
-        ),
-        morePanelConfig: MorePanelConfig(
-          extraAction: [
-            MorePanelItem(
-                // 使用前，清先根据本文档配置AK。https://docs.qq.com/doc/DSVliWE9acURta2dL
-                id: "location",
-                title: TIM_t("位置"),
-                onTap: (c) {
-                  _onTapLocation();
-                },
-                icon: Container(
-                  height: 64,
-                  width: 64,
-                  margin: const EdgeInsets.only(bottom: 4),
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(5))),
-                  child: Icon(
-                    Icons.location_on,
-                    color: hexToColor("5c6168"),
-                    size: 32,
-                  ),
-                )),
-            MorePanelItem(
-                id: "voiceCall",
-                title: TIM_t("语音通话"),
-                onTap: (c) {
-                  // _onFeatureTap("voiceCall", c);
-                  _goToVoiceUI();
-                },
-                icon: Container(
-                  height: 64,
-                  width: 64,
-                  margin: const EdgeInsets.only(bottom: 4),
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(5))),
-                  child: SvgPicture.asset(
-                    "images/voice-call.svg",
-                    package: 'tencent_cloud_chat_uikit',
-                    height: 64,
-                    width: 64,
-                  ),
-                )),
-            MorePanelItem(
-                id: "videoCall",
-                title: TIM_t("视频通话"),
-                onTap: (c) {
-                  // _onFeatureTap("videoCall", c);
-                  _goToVideoUI();
-                },
-                icon: Container(
-                  height: 64,
-                  width: 64,
-                  margin: const EdgeInsets.only(bottom: 4),
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(5))),
-                  child: SvgPicture.asset(
-                    "images/video-call.svg",
-                    package: 'tencent_cloud_chat_uikit',
-                    height: 64,
-                    width: 64,
-                  ),
-                ))
-          ],
-        ),
-        appBarConfig: AppBar(
-          backgroundColor: hexToColor("f2f3f5"),
-          textTheme: TextTheme(
-              titleMedium:
-                  TextStyle(color: hexToColor("010000"), fontSize: 16)),
-          actions: [
-            IconButton(
-                padding: const EdgeInsets.only(left: 8, right: 16),
-                onPressed: () async {
-                  final conversationType = widget.selectedConversation.type;
-                  if (conversationType == 1) {
-                    final userID = widget.selectedConversation.userID;
-                    // if had remark modifed its will back new remark
-                    String? newRemark = await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => UserProfile(
-                            userID: userID!,
-                            onRemarkUpdate: (String newRemark) {
-                              setState(() {
-                                conversationName = newRemark;
-                              });
-                            },
+          groupAtInfoList: widget.selectedConversation.groupAtInfoList,
+          key: tuiChatField,
+          customStickerPanel: renderCustomStickerPanel,
+          showTotalUnReadCount: true,
+          // customEmojiStickerList: customEmojiList,
+          config: TIMUIKitChatConfig(
+            showC2cMessageEditStatus: true,
+            isUseDefaultEmoji: true,
+            isAllowClickAvatar: true,
+            isAllowLongPressMessage: true,
+            isShowReadingStatus: localSetting.isShowReadingStatus,
+            isShowGroupReadingStatus: localSetting.isShowReadingStatus,
+            notificationTitle: "",
+            isSupportMarkdownForTextMessage: false,
+            urlPreviewType: UrlPreviewType.previewCardAndHyperlink,
+            isUseMessageReaction: true,
+            notificationOPPOChannelID: PushConfig.OPPOChannelID,
+            groupReadReceiptPermissionList: [
+              GroupReceiptAllowType.work,
+              GroupReceiptAllowType.meeting,
+              GroupReceiptAllowType.public
+            ],
+            faceURIPrefix: (String path) {
+              if (path.contains("assets/custom_face_resource/")) {
+                return "";
+              }
+              int? dirNumber;
+              if (path.contains("yz")) {
+                dirNumber = 4350;
+              }
+              if (path.contains("ys")) {
+                dirNumber = 4351;
+              }
+              if (path.contains("gcs")) {
+                dirNumber = 4352;
+              }
+              if (dirNumber != null) {
+                return "assets/custom_face_resource/$dirNumber/";
+              } else {
+                return "";
+              }
+            },
+            faceURISuffix: (String path) {
+              return "@2x.png";
+            },
+          ),
+          conversationID: _getConvID() ?? '',
+          conversationType:
+              ConvType.values[widget.selectedConversation.type ?? 1],
+          onTapAvatar: (userID, tapDetails) =>
+              _onTapAvatar(userID, tapDetails, theme),
+          initFindingMsg: widget.initFindingMsg,
+          draftText: _getDraftText(),
+          messageItemBuilder: MessageItemBuilder(
+            messageRowBuilder: (message, messageWidget, onScrollToIndex,
+                isNeedShowJumpStatus, clearJumpStatus, onScrollToIndexBegin) {
+              if (MessageUtils.isGroupCallingMessage(message)) {
+                // If group call message, not use default layout.
+                return messageWidget;
+              }
+              return null;
+            },
+            customMessageItemBuilder: (message, isShowJump, clearJump) {
+              return CustomMessageElem(
+                message: message,
+                isShowJump: isShowJump,
+                clearJump: clearJump,
+              );
+            },
+            locationMessageItemBuilder: (message, isShowJump, clearJump) {
+              if (kIsWeb) {
+                String dividerForDesc = "/////";
+                String address = message.locationElem?.desc ?? "";
+                String addressName = address;
+                String? addressLocation;
+                if (RegExp(dividerForDesc).hasMatch(address)) {
+                  addressName = address.split(dividerForDesc)[0];
+                  addressLocation = address.split(dividerForDesc)[1] != "null"
+                      ? address.split(dividerForDesc)[1]
+                      : null;
+                }
+                final borderRadius = (message.isSelf ?? true)
+                    ? const BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(2),
+                        bottomLeft: Radius.circular(10),
+                        bottomRight: Radius.circular(10))
+                    : const BorderRadius.only(
+                        topLeft: Radius.circular(2),
+                        topRight: Radius.circular(10),
+                        bottomLeft: Radius.circular(10),
+                        bottomRight: Radius.circular(10));
+                const backgroundColor = Colors.white;
+                return GestureDetector(
+                  onTap: () {
+                    launchUrl(
+                      Uri.parse(
+                          "http://api.map.baidu.com/marker?location=${message.locationElem?.latitude},${message.locationElem?.longitude}&title=$addressName&content=$addressLocation&output=html"),
+                      mode: LaunchMode.externalApplication,
+                    );
+                  },
+                  child: Material(
+                    color: Colors.transparent,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: backgroundColor,
+                        borderRadius: borderRadius,
+                        border: Border.all(color: hexToColor("DDDDDD")),
+                      ),
+                      constraints: const BoxConstraints(maxWidth: 240),
+                      padding: const EdgeInsets.fromLTRB(6, 10, 6, 10),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.location_on,
+                            color: hexToColor("5c6168"),
+                            size: 32,
                           ),
-                        ));
-                    setState(() {
-                      backRemark = newRemark;
-                    });
-                  } else {
-                    final groupID = widget.selectedConversation.groupID;
-                    if (groupID != null) {
-                      Navigator.push(
+                          const SizedBox(width: 4),
+                          Expanded(
+                              child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (addressName.isNotEmpty)
+                                Text(
+                                  addressName,
+                                  softWrap: true,
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              if (addressLocation != null &&
+                                  addressLocation.isNotEmpty)
+                                Text(
+                                  addressLocation,
+                                  softWrap: true,
+                                  style: const TextStyle(
+                                      fontSize: 12,
+                                      color: CommonColor.weakTextColor),
+                                ),
+                            ],
+                          ))
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              }
+              return LocationMsgElement(
+                isAllowCurrentLocation: false,
+                messageID: message.msgID,
+                locationElem: LocationMessage(
+                  longitude: message.locationElem!.longitude,
+                  latitude: message.locationElem!.latitude,
+                  desc: message.locationElem?.desc ?? "",
+                ),
+                isFromSelf: message.isSelf ?? false,
+                isShowJump: isShowJump,
+                clearJump: clearJump,
+                mapBuilder: (onMapLoadDone, mapKey) => BaiduMap(
+                  onMapLoadDone: onMapLoadDone,
+                  key: mapKey,
+                ),
+                locationUtils: LocationUtils(BaiduMapService()),
+              );
+            },
+          ),
+          morePanelConfig: MorePanelConfig(
+            extraAction: [
+              // 隐私协议中没有位置消息，暂时下掉
+              MorePanelItem(
+                  id: "location",
+                  title: TIM_t("位置"),
+                  onTap: (c) {
+                    _onTapLocation();
+                  },
+                  icon: Container(
+                    height: 64,
+                    width: 64,
+                    margin: const EdgeInsets.only(bottom: 4),
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(5))),
+                    child: Icon(
+                      Icons.location_on,
+                      color: hexToColor("5c6168"),
+                      size: 32,
+                    ),
+                  )),
+              if (PlatformUtils().isMobile)
+                MorePanelItem(
+                    id: "voiceCall",
+                    title: TIM_t("语音通话"),
+                    onTap: (c) {
+                      // _onFeatureTap("voiceCall", c);
+                      _goToVoiceUI();
+                    },
+                    icon: Container(
+                      height: 64,
+                      width: 64,
+                      margin: const EdgeInsets.only(bottom: 4),
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(5))),
+                      child: SvgPicture.asset(
+                        "images/voice-call.svg",
+                        package: 'tencent_cloud_chat_uikit',
+                        height: 64,
+                        width: 64,
+                      ),
+                    )),
+              if (PlatformUtils().isMobile)
+                MorePanelItem(
+                    id: "videoCall",
+                    title: TIM_t("视频通话"),
+                    onTap: (c) {
+                      // _onFeatureTap("videoCall", c);
+                      _goToVideoUI();
+                    },
+                    icon: Container(
+                      height: 64,
+                      width: 64,
+                      margin: const EdgeInsets.only(bottom: 4),
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(5))),
+                      child: SvgPicture.asset(
+                        "images/video-call.svg",
+                        package: 'tencent_cloud_chat_uikit',
+                        height: 64,
+                        width: 64,
+                      ),
+                    ))
+            ],
+          ),
+          customAppBar: isWideScreen
+              ? ConstrainedBox(
+                  constraints: const BoxConstraints(maxHeight: 60),
+                  child: Stack(
+                    children: [
+                      Column(
+                        children: [
+                          Expanded(
+                            child: TIMUIKitAppBar(
+                              onClickTitle: (details) {
+                                onClickUserName(
+                                    Offset(details.globalPosition.dx,
+                                        details.globalPosition.dy),
+                                    theme);
+                              },
+                              config: AppBar(
+                                backgroundColor: isWideScreen
+                                    ? hexToColor("fafafa")
+                                    : hexToColor("f2f3f5"),
+                                actions: [
+                                  IconButton(
+                                      padding: const EdgeInsets.only(
+                                          left: 8, right: 16),
+                                      onPressed: () async {
+                                        onClickUserName(
+                                            Offset(
+                                                MediaQuery.of(context)
+                                                        .size
+                                                        .width -
+                                                    380,
+                                                30),
+                                            theme);
+                                      },
+                                      icon: Icon(
+                                        Icons.more_horiz,
+                                        color: hexToColor("010000"),
+                                        size: 20,
+                                      ))
+                                ],
+                                textTheme: TextTheme(
+                                    titleMedium: TextStyle(
+                                        color: hexToColor("010000"),
+                                        fontSize: 16)),
+                              ),
+                              conversationShowName: _getTitle(),
+                              conversationID: _getConvID() ?? "",
+                              showC2cMessageEditStatus: true,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 1,
+                            child: Container(
+                              color: theme.weakDividerColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                      if (PlatformUtils().isMacOS)
+                        SizedBox(
+                          height: 20,
+                          child: MoveWindow(),
+                        ),
+                    ],
+                  ))
+              : null,
+          appBarConfig: AppBar(
+            backgroundColor:
+                isWideScreen ? hexToColor("fafafa") : hexToColor("f2f3f5"),
+            textTheme: TextTheme(
+                titleMedium:
+                    TextStyle(color: hexToColor("010000"), fontSize: 16)),
+            actions: [
+              IconButton(
+                  padding: const EdgeInsets.only(left: 8, right: 16),
+                  onPressed: () async {
+                    final conversationType = widget.selectedConversation.type;
+
+                    if (conversationType == 1) {
+                      final userID = widget.selectedConversation.userID;
+                      // if had remark modified its will back new remark
+                      String? newRemark = await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => GroupProfilePage(
-                              groupID: groupID,
+                            builder: (context) => UserProfile(
+                              userID: userID!,
+                              onRemarkUpdate: (String newRemark) {
+                                setState(() {
+                                  conversationName = newRemark;
+                                });
+                              },
                             ),
                           ));
+                      setState(() {
+                        backRemark = newRemark;
+                      });
+                    } else {
+                      final groupID = widget.selectedConversation.groupID;
+                      if (groupID != null) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => GroupProfilePage(
+                                groupID: groupID,
+                              ),
+                            ));
+                      }
                     }
-                  }
-                },
-                icon: Icon(
-                  Icons.more_horiz,
-                  color: hexToColor("010000"),
-                  size: 20,
-                ))
-          ],
-        ));
+                  },
+                  icon: Icon(
+                    Icons.more_horiz,
+                    color: hexToColor("010000"),
+                    size: 20,
+                  ))
+            ],
+          )),
+    );
   }
 }

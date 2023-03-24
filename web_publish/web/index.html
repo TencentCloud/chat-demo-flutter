@@ -31,8 +31,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="Tencent Cloud Chat - 腾讯云IM - Flutter" />
     <link rel="apple-touch-icon" href="./favicon.ico" />
-    <script src="./nodemodules/tim-upload-plugin/index.js"></script>
-    <script src="./nodemodules/tim-js-sdk/tim-js-friendship.js"></script>
+    <script src="./node_modules/tim-upload-plugin/index.js"></script>
+    <script src="./node_modules/tim-js-sdk/tim-js-friendship.js"></script>
     <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
     <script src="./trtc-wrapper.js"></script>
     <title>Tencent Cloud Chat - 腾讯云IM - Flutter</title>
@@ -57,12 +57,24 @@
     <link rel="stylesheet" type="text/css" href="splash/style.css" />
   </head>
 
-  <body>
+  <body oncontextmenu="return false">
     <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
     <script>
-      var serviceWorkerVersion = '2205050005';
+    document.oncontextmenu = function (event) {
+            if (window.event) {
+                event =
+                    window.event;
+            } try {
+                var the = event.srcElement; if (!((the.tagName == "INPUT" && the.type.toLowerCase() ==
+                    "text") || the.tagName == "TEXTAREA")) { return false; } return true;
+            } catch (e) {
+                return false;
+            }
+        }
+
+      var serviceWorkerVersion = '764596012';
       var scriptLoaded = false;
       function loadMainDartJs() {
         if (scriptLoaded) {

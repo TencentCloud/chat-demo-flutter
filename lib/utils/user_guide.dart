@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
 
-import 'package:timuikit/src/provider/user_guide_provider.dart';
+import 'package:tencent_cloud_chat_demo/src/provider/user_guide_provider.dart';
 import 'package:provider/provider.dart';
 
 class UserGuide extends StatefulWidget {
@@ -36,7 +36,7 @@ class _UserGuideState extends State<UserGuide> {
       String screenType =
       MediaQuery.of(context).size.width > 10000 ? 'large' : 'small';
       final String? deviceLocale =
-      WidgetsBinding.instance?.window.locale.toLanguageTag();
+      WidgetsBinding.instance.window.locale.toLanguageTag();
       final AppLocale appLocale = I18nUtils.findDeviceLocale(deviceLocale);
       String languageType =
       (appLocale == AppLocale.zhHans || appLocale == AppLocale.zhHant)
@@ -90,13 +90,13 @@ void judgeGuide(String guideName, BuildContext context) async {
     String screenType =
     MediaQuery.of(context).size.width > 10000 ? 'large' : 'small';
     final String? deviceLocale =
-    WidgetsBinding.instance?.window.locale.toLanguageTag();
+        WidgetsBinding.instance.window.locale.toLanguageTag();
     // TODO
     final AppLocale appLocale = I18nUtils.findDeviceLocale(deviceLocale);
     String languageType =
-    (appLocale == AppLocale.zhHans || appLocale == AppLocale.zhHant)
-        ? 'zh'
-        : 'en';
+        (appLocale == AppLocale.zhHans || appLocale == AppLocale.zhHant)
+            ? 'zh'
+            : 'en';
     List<String> unit = [
       'conversation',
       'search',

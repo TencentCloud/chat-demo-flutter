@@ -1,28 +1,21 @@
 // ignore_for_file: unused_import
 
 import 'dart:math';
-
 import 'package:provider/provider.dart';
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tencent_cloud_chat_demo/src/about.dart';
+import 'package:tencent_cloud_chat_demo/src/my_profile_detail.dart';
+import 'package:tencent_cloud_chat_demo/src/pages/skin/skin_page.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-
-
-import 'package:timuikit/src/pages/login.dart';
-import 'package:timuikit/src/provider/local_setting.dart';
-import 'package:timuikit/src/provider/login_user_Info.dart';
-import 'package:timuikit/src/provider/theme.dart';
-import 'package:timuikit/src/routes.dart';
-import 'package:timuikit/utils/theme.dart';
-import 'package:timuikit/utils/toast.dart';
-
+import 'package:tencent_cloud_chat_demo/src/pages/login.dart';
+import 'package:tencent_cloud_chat_demo/src/provider/local_setting.dart';
+import 'package:tencent_cloud_chat_demo/src/provider/login_user_Info.dart';
+import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
+import 'package:tencent_cloud_chat_demo/src/routes.dart';
+import 'package:tencent_cloud_chat_demo/utils/theme.dart';
+import 'package:tencent_cloud_chat_demo/utils/toast.dart';
 import 'package:adaptive_action_sheet/adaptive_action_sheet.dart';
-
-
-import 'about.dart';
-import 'my_profile_detail.dart';
-import 'pages/skin/skin_page.dart';
 
 class MyProfile extends StatefulWidget {
   const MyProfile({Key? key}) : super(key: key);
@@ -67,8 +60,8 @@ class _ProfileState extends State<MyProfile> {
         prefs.remove('channelListMain');
         prefs.remove('discussListMain');
       } catch (err) {
-        Utils.log("someError");
-        Utils.log(err);
+        ToastUtils.log("someError");
+        ToastUtils.log(err);
       }
       Routes().directToLoginPage();
 
@@ -142,9 +135,6 @@ class _ProfileState extends State<MyProfile> {
     final theme = Provider.of<DefaultThemeData>(context).theme;
     final loginUserInfoModel = Provider.of<LoginUserInfo>(context);
     final V2TimUserFullInfo loginUserInfo = loginUserInfoModel.loginUserInfo;
-    if (loginUserInfo.userID == null || loginUserInfo.userID!.isEmpty) {
-      return Container();
-    }
     return TIMUIKitProfile(
       isSelf: true,
       userID: loginUserInfo.userID ?? "",
@@ -179,6 +169,7 @@ class _ProfileState extends State<MyProfile> {
                   showApplicationTypeSheet(theme);
                 },
                 child: TIMUIKitOperationItem(
+                  isEmpty: false,
                   operationName: TIM_t("加我为好友的方式"),
                   operationRightWidget: Text(allowText),
                 ),
@@ -194,6 +185,7 @@ class _ProfileState extends State<MyProfile> {
                 );
               },
               child: TIMUIKitOperationItem(
+                isEmpty: false,
                 operationName: TIM_t("更换皮肤"),
                 operationRightWidget: Text(
                     DefTheme.defaultThemeName[themeType]!,
@@ -204,6 +196,7 @@ class _ProfileState extends State<MyProfile> {
               height: 10,
             ),
             TIMUIKitOperationItem(
+              isEmpty: false,
               operationName: TIM_t("消息阅读状态"),
               operationDescription:
                   TIM_t("关闭后，您收发的消息均不带消息阅读状态，您将无法看到对方是否已读，同时对方也无法看到你是否已读。"),
@@ -217,6 +210,7 @@ class _ProfileState extends State<MyProfile> {
               height: 10,
             ),
             TIMUIKitOperationItem(
+              isEmpty: false,
               operationName: TIM_t("显示在线状态"),
               operationDescription: TIM_t("关闭后，您将不可以在会话列表和通讯录中看到好友在线或离线的状态提示。"),
               type: "switch",
@@ -238,6 +232,7 @@ class _ProfileState extends State<MyProfile> {
                 );
               },
               child: TIMUIKitOperationItem(
+                isEmpty: false,
                 operationName: TIM_t("关于腾讯云 · IM"),
                 operationRightWidget: const Text(""),
               ),

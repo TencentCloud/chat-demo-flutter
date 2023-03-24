@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, curly_braces_in_flow_control_structures, empty_catches
 
+import 'package:tencent_cloud_chat_uikit/ui/utils/screen_utils.dart';
+
 import 'country_selection_theme.dart';
 import 'support/code_country.dart';
 import 'package:flutter/foundation.dart';
@@ -14,7 +16,7 @@ class SelectionList extends StatefulWidget {
       this.theme,
       this.countryBuilder,
       this.useUiOverlay = true,
-      this.useSafeArea = false})
+      this.useSafeArea = false,  this.onChange})
       : super(key: key);
 
   final PreferredSizeWidget? appBar;
@@ -24,6 +26,7 @@ class SelectionList extends StatefulWidget {
   final Widget Function(BuildContext context, CountryCode)? countryBuilder;
   final bool useUiOverlay;
   final bool useSafeArea;
+  final ValueChanged<CountryCode>? onChange;
 
   @override
   _SelectionListState createState() => _SelectionListState();
@@ -58,7 +61,12 @@ class _SelectionListState extends State<SelectionList> {
   }
 
   void _sendDataBack(BuildContext context, CountryCode initialSelection) {
-    Navigator.pop(context, initialSelection);
+    final isWideScreen = TUIKitScreenUtils.getFormFactor(context) == ScreenType.Wide;
+    if(isWideScreen){
+      widget.onChange!(initialSelection);
+    }else{
+      Navigator.pop(context, initialSelection);
+    }
   }
 
   final List _alphabet =

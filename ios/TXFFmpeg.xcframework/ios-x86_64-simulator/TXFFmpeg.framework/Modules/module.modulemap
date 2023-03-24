@@ -1,0 +1,6 @@
+framework module TXFFmpeg {
+  umbrella header "TXFFmpeg.h"
+
+  export *
+  module * { export * }
+}

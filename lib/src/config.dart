@@ -1,13 +1,14 @@
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
+
 enum WebUrl { personalInfo, thirdPartyInfo }
 
 class IMDemoConfig {
   static const int sdkappid =
-      int.fromEnvironment('SDK_APPID', defaultValue: 0);
+      int.fromEnvironment('SDK_APPID', defaultValue: 1400187352);
   static const String key = String.fromEnvironment('KEY',
       defaultValue:
-          "");
+          "f442d0cca069bbcc8ced55f4f113b965999b928c78e3cd83495728133a06f4cb");
   static const String appVersion =
       String.fromEnvironment('APP_VERSION', defaultValue: "0.0.1");
   static const String projectType =
@@ -23,6 +24,10 @@ class IMDemoConfig {
   static const String captchaUrl = 'https://comm.qq.com/login/captcha/app.html';
   static const String webCaptchaUrl =
       'https://comm.qq.com/login/captcha/index.html';
+  static const String macosCaptchaUrl =
+      'https://comm.qq.com/login/captcha/desktop.html';
+  static const String windowsCaptchaUrl =
+      'https://comm.qq.com/login/captcha/windows.html';
   static const int loglevel = 3;
   static String appName = TIM_t("Tencent IM");
   static const pushConfig = <String, Map<String, double>>{
@@ -42,10 +47,4 @@ class IMDemoConfig {
     WebUrl.thirdPartyInfo:
         "https://privacy.qq.com/document/preview/dea84ac4bb88454794928b77126e9246",
   };
-
-  // live plugin
-  static String licenseKey = "";
-  static String licenseUrl = "";
-  static String liveRoomId = '@TGS#aCWHGJ3LC';
-  static String livePlayUrl = '';
 }
