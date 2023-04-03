@@ -78,6 +78,7 @@ dependencies:
   bitsdojo_window: ^0.1.2
   flutter_screenutil: ^5.6.1
   fluttertoast: ^8.2.1
+  dio: ^4.0.0
 
 dependency_overrides:
   # modal_bottom_sheet: ^3.0.0-pre

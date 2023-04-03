@@ -30,7 +30,6 @@ import 'package:tencent_cloud_chat_demo/src/routes.dart';
 import 'package:tencent_cloud_chat_demo/utils/constant.dart';
 import 'package:tencent_cloud_chat_demo/utils/push/channel/channel_push.dart';
 import 'package:tencent_cloud_chat_demo/utils/push/push_constant.dart';
-import 'package:tencent_cloud_chat_demo/utils/smsLogin.dart';
 import 'package:tencent_cloud_chat_demo/utils/theme.dart';
 import 'package:tencent_cloud_chat_demo/utils/toast.dart';
 import 'package:tencent_cloud_chat_demo/utils/unicode_emoji.dart';
