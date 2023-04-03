@@ -145,6 +145,8 @@ class _MyAppState extends State<CrossPlatformApp> with WidgetsBindingObserver {
               if (callbackValue.errorCode == 10004 &&
                   callbackValue.errorMsg!.contains("not support @all")) {
                 ToastUtils.toast(TIM_t("当前群组不支持@全体成员"));
+              } else if (callbackValue.errorCode == -4) {
+                return;
               } else {
                 ToastUtils.toast(callbackValue.errorMsg ??
                     callbackValue.errorCode.toString());

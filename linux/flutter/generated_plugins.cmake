@@ -5,7 +5,8 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   audioplayers_linux
   bitsdojo_window_linux
-  desktop_webview_window
+  desktop_webview_window_for_is
+  pasteboard
   url_launcher_linux
 )
 

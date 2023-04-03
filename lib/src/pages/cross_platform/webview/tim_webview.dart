@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:desktop_webview_window_for_is/desktop_webview_window_for_is.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:desktop_webview_window/desktop_webview_window.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart' as p;
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';

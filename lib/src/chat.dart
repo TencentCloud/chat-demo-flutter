@@ -4,7 +4,6 @@ import 'dart:math';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:tencent_cloud_chat_demo/src/group_application_list.dart';
 import 'package:tencent_cloud_chat_demo/src/tencent_page.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/life_cycle/chat_life_cycle.dart';
@@ -13,15 +12,11 @@ import 'package:tencent_cloud_chat_uikit/data_services/core/%20tim_uikit_wide_mo
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_chat_controller.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/message.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/permission.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/platform.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/screen_utils.dart';
-import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/TIMUIKitTextField/tim_uikit_call_invite_list.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/profile_widget.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/widget/tim_uikit_profile_widget.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/wide_popup.dart';
-import 'package:tim_ui_kit_calling_plugin/enum/tim_uikit_trtc_calling_scence.dart';
-import 'package:tim_ui_kit_calling_plugin/tim_ui_kit_calling_plugin.dart';
 import 'package:tim_ui_kit_lbs_plugin/pages/location_picker.dart';
 import 'package:tim_ui_kit_lbs_plugin/utils/location_utils.dart';
 import 'package:tim_ui_kit_lbs_plugin/utils/tim_location_model.dart';
@@ -37,7 +32,6 @@ import 'package:tencent_cloud_chat_demo/src/provider/local_setting.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
 import 'package:tencent_cloud_chat_demo/src/user_profile.dart';
 import 'package:provider/provider.dart';
-import 'package:tencent_cloud_chat_demo/utils/platform.dart';
 import 'package:tencent_cloud_chat_demo/utils/push/push_constant.dart';
 
 class Chat extends StatefulWidget {
@@ -60,7 +54,6 @@ class Chat extends StatefulWidget {
 
 class _ChatState extends State<Chat> {
   final TIMUIKitChatController _chatController = TIMUIKitChatController();
-  TUICalling? _calling;
   String? backRemark;
   final V2TIMManager sdkInstance = TIMUIKitCore.getSDKInstance();
   GlobalKey<dynamic> tuiChatField = GlobalKey();
@@ -144,97 +137,9 @@ class _ChatState extends State<Chat> {
         ));
   }
 
-  _goToVideoUI() async {
-    if (!kIsWeb) {
-      final hasCameraPermission =
-          await Permissions.checkPermission(context, Permission.camera.value);
-      final hasMicphonePermission = await Permissions.checkPermission(
-          context, Permission.microphone.value);
-      if (!hasCameraPermission || !hasMicphonePermission) {
-        return;
-      }
-    }
-    final isGroup = widget.selectedConversation.type == 2;
-    tuiChatField.currentState.textFieldController.hideAllPanel();
-    if (isGroup) {
-      List<V2TimGroupMemberFullInfo>? selectedMember = await Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => SelectCallInviter(
-            groupID: widget.selectedConversation.groupID,
-          ),
-        ),
-      );
-      if (selectedMember != null) {
-        final inviteMember = selectedMember.map((e) => e.userID).toList();
-        _calling?.groupCall(inviteMember, CallingScenes.Video,
-            widget.selectedConversation.groupID);
-      }
-    } else {
-      OfflinePushInfo offlinePush = OfflinePushInfo(
-        title: "",
-        desc: TIM_t("邀请你视频通话"),
-        ext: "{\"conversationID\": \"\"}",
-        disablePush: false,
-        androidOPPOChannelID: PushConfig.OPPOChannelID,
-        ignoreIOSBadge: false,
-      );
-
-      await _calling?.call(widget.selectedConversation.userID!,
-          CallingScenes.Video, offlinePush);
-    }
-  }
-
-  _goToVoiceUI() async {
-    if (!kIsWeb) {
-      final hasMicphonePermission = await Permissions.checkPermission(
-          context, Permission.microphone.value);
-      if (!hasMicphonePermission) {
-        return;
-      }
-    }
-    final isGroup = widget.selectedConversation.type == 2;
-    tuiChatField.currentState.textFieldController.hideAllPanel();
-    if (isGroup) {
-      List<V2TimGroupMemberFullInfo>? selectedMember = await Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => SelectCallInviter(
-            groupID: widget.selectedConversation.groupID,
-          ),
-        ),
-      );
-      if (selectedMember != null) {
-        final inviteMember = selectedMember.map((e) => e.userID).toList();
-        _calling?.groupCall(inviteMember, CallingScenes.Audio,
-            widget.selectedConversation.groupID);
-      }
-    } else {
-      OfflinePushInfo offlinePush = OfflinePushInfo(
-        title: "",
-        desc: TIM_t("邀请你语音通话"),
-        ext: "{\"conversationID\": \"\"}",
-        disablePush: false,
-        ignoreIOSBadge: false,
-        androidOPPOChannelID: PushConfig.OPPOChannelID,
-      );
-
-      await _calling?.call(widget.selectedConversation.userID!,
-          CallingScenes.Audio, offlinePush);
-    }
-  }
-
-  _initTUICalling() async {
-    final isAndroidEmulator = await PlatformSimulatorUtils.isAndroidEmulator();
-    if (!isAndroidEmulator) {
-      _calling = TUICalling();
-    }
-  }
-
   @override
   void initState() {
     super.initState();
-    _initTUICalling();
   }
 
   @override
@@ -565,7 +470,7 @@ class _ChatState extends State<Chat> {
                   latitude: message.locationElem!.latitude,
                   desc: message.locationElem?.desc ?? "",
                 ),
-                isFromSelf: message.isSelf ?? false,
+                isFromSelf: message.isSelf ?? true,
                 isShowJump: isShowJump,
                 clearJump: clearJump,
                 mapBuilder: (onMapLoadDone, mapKey) => BaiduMap(
@@ -598,50 +503,6 @@ class _ChatState extends State<Chat> {
                       size: 32,
                     ),
                   )),
-              if (PlatformUtils().isMobile)
-                MorePanelItem(
-                    id: "voiceCall",
-                    title: TIM_t("语音通话"),
-                    onTap: (c) {
-                      // _onFeatureTap("voiceCall", c);
-                      _goToVoiceUI();
-                    },
-                    icon: Container(
-                      height: 64,
-                      width: 64,
-                      margin: const EdgeInsets.only(bottom: 4),
-                      decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(5))),
-                      child: SvgPicture.asset(
-                        "images/voice-call.svg",
-                        package: 'tencent_cloud_chat_uikit',
-                        height: 64,
-                        width: 64,
-                      ),
-                    )),
-              if (PlatformUtils().isMobile)
-                MorePanelItem(
-                    id: "videoCall",
-                    title: TIM_t("视频通话"),
-                    onTap: (c) {
-                      // _onFeatureTap("videoCall", c);
-                      _goToVideoUI();
-                    },
-                    icon: Container(
-                      height: 64,
-                      width: 64,
-                      margin: const EdgeInsets.only(bottom: 4),
-                      decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(5))),
-                      child: SvgPicture.asset(
-                        "images/video-call.svg",
-                        package: 'tencent_cloud_chat_uikit',
-                        height: 64,
-                        width: 64,
-                      ),
-                    ))
             ],
           ),
           customAppBar: isWideScreen

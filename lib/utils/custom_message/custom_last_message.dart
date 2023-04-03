@@ -1,8 +1,8 @@
 
 import 'package:flutter/cupertino.dart';
+import 'package:tencent_cloud_chat_demo/utils/custom_message/calling_message/calling_message.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/screen_utils.dart';
-import 'package:tim_ui_kit_calling_plugin/model/calling_message.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +18,6 @@ String handleCustomMessage(V2TimMessage message) {
   if (callingMessage != null) {
     // 如果是结束消息
     final isCallEnd = CallingMessage.isCallEndExist(callingMessage);
-
     final isVoiceCall = callingMessage.callType == 1;
 
     String? callTime = "";

@@ -23,29 +23,26 @@ import 'package:tencent_cloud_chat_demo/utils/push/push_constant.dart';
 import 'package:tencent_cloud_chat_demo/utils/toast.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class LoginPage extends StatelessWidget {
+  final Function? initIMSDK;
+  const LoginPage({Key? key, this.initIMSDK}) : super(key: key);
 
-  @override
-  _LoginPageState createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
         onWillPop: () async {
           return false;
         },
-        child: const Scaffold(
-          body: AppLayout(),
+        child: Scaffold(
+          body: AppLayout(initIMSDK: initIMSDK),
           resizeToAvoidBottomInset: false,
         ));
   }
 }
 
 class AppLayout extends StatelessWidget {
-  const AppLayout({Key? key}) : super(key: key);
+  final Function? initIMSDK;
+  const AppLayout({Key? key, this.initIMSDK}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -54,9 +51,11 @@ class AppLayout extends StatelessWidget {
         SystemChannels.textInput.invokeMethod('TextInput.hide');
       },
       child: Stack(
-        children: const [
-          AppLogo(),
-          LoginForm(),
+        children: [
+          const AppLogo(),
+          LoginForm(
+            initIMSDK: initIMSDK,
+          ),
         ],
       ),
     );
@@ -133,7 +132,8 @@ class AppLogo extends StatelessWidget {
 }
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({Key? key}) : super(key: key);
+  final Function? initIMSDK;
+  const LoginForm({Key? key, required this.initIMSDK}) : super(key: key);
 
   @override
   _LoginFormState createState() => _LoginFormState();
@@ -148,6 +148,9 @@ class _LoginFormState extends State<LoginForm> {
   initState() {
     super.initState();
     checkFirstEnter();
+    if (widget.initIMSDK != null) {
+      widget.initIMSDK!();
+    }
   }
 
   TextSpan webViewLink(String title, String url) {

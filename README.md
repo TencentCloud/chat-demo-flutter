@@ -4,7 +4,7 @@
   </a>
 </p>
 
-<h1 align="center">Tencent Cloud Chat Demo</h1>
+<h1 align="center">Tencent Cloud Chat Sample App</h1>
 
 <br>
 
@@ -25,6 +25,35 @@ More languages:
 
 ![](https://qcloudimg.tencent-cloud.cn/raw/193ec650f17da6bb33edf5df5d978091.png)
 
+## Compatible Platforms
+
+The platforms are compatible with the deployment of our Chat UIKit.
+
+- Android
+- iOS
+- Web (version 0.1.4 and later)
+- Windows (version 2.0.0 and later)
+- macOS (version 2.0.0 and later)
+
+## Check Out Our Sample Apps
+
+Experience our Chat and Voice/Video Call modules by trying out our sample apps.
+
+**These apps have been created using the same Flutter project as our SDKs and extensions.**
+
+| Platform | Link | Remark |
+|---------|---------|---------|
+| Android / iOS | <img src="https://qcloudimg.tencent-cloud.cn/raw/e791bd503ae267aa51234ad66e347f10.png" width="140px" alt="Tencent Chat Logo" /> | Scan to download app for both Android and iOS. Automatically identifies platform. |
+| Web | <img src="https://qcloudimg.tencent-cloud.cn/raw/7908cf6f3c16e4059f8f21229d70a918.png" width="140px" alt="Tencent Chat Logo" /> | Supports both desktop and mobile browsers and automatically adjusts its layout accordingly. Same website as link below. |
+| Web | [Visit Now](https://comm.qq.com/flutter/#/) | Supports both desktop and mobile browsers and automatically adjusts its layout accordingly. Same website as previous QR code. |
+| macOS | [Download Now](https://comm.qq.com/im_demo_download/macos_flutter.dmg) | The macOS version of our sample app. Control-click the app icon, then choose "Open" from the shortcut menu. |
+| Windows | [Download Now](https://comm.qq.com/im_demo_download/windows_flutter.appx) | The Windows version of our sample app, which is a UWP (Universal Windows Platform) application. |
+| Linux | Coming Soon... | Will be available later this year. |
+
+**Take a look at the screenshots of
+TUIKit [here](https://www.tencentcloud.com/document/product/1047/50059?from=pub) to get an idea of
+what to expect.**
+
 ## Environment Requirements
 
 |   | Version |
@@ -38,22 +67,21 @@ More languages:
 1. You have [signed up](https://intl.cloud.tencent.com/document/product/378/17985) for a Tencent Cloud account and completed [identity verification](https://intl.cloud.tencent.com/document/product/378/3629).
 2. You have created an application as instructed in [Creating and Upgrading an Application](https://intl.cloud.tencent.com/document/product/1047/34577) and recorded the `SDKAppID`.
 
-
-## Running the demo
+## Running the sample app
 
 1. Download the source code and install dependencies:
 
 ```shell
 # Clone the code
-git clone https://github.com/TencentCloud/tc-chat-demo-flutter.git
+git clone https://github.com/TencentCloud/chat-demo-flutter.git
 
 # Install dependencies
 flutter pub get
 ```
 
-2. Run the demo:
+2. Run it:
 ```shell
-# Start the demo. Replace `SDK_APPID` and `KEY`
+# Start the sample app. Replace `SDK_APPID` and `KEY`
 flutter run --dart-define=SDK_APPID={YOUR_SDKAPPID} --dart-define=ISPRODUCT_ENV=false --dart-define=KEY={YOUR_KEY}
 ```
 
@@ -71,9 +99,9 @@ flutter run --dart-define=SDK_APPID={YOUR_SDKAPPID} --dart-define=ISPRODUCT_ENV=
 
 ![](https://qcloudimg.tencent-cloud.cn/raw/6516f9b17c58915c4ebc93c5c8829831.png)
 
-2. Start an Android simulator, tap **Build And Run** to run the demo. Enter a random `UserID` (a combination of digits and letters).
+2. Start an Android simulator, tap **Build And Run** to run the sample app. Enter a random `UserID` (a combination of digits and letters).
 
-> The UI of the latest version of the demo may look different after adjustments.
+> The UI of the latest version of the sample app may look different after adjustments.
 
 ### iOS
 
@@ -85,14 +113,14 @@ flutter run --dart-define=SDK_APPID={YOUR_SDKAPPID} --dart-define=ISPRODUCT_ENV=
 
 3. Open the iOS project, and set **Signing & Capabilities** (an iPhone developer account required) for the primary target to run the project on the iPhone.
 
-4. Start the project and debug the demo on the iPhone device.
+4. Start the project and debug the sample app on the iPhone device.
 
 ![](https://qcloudimg.tencent-cloud.cn/raw/3fe6bbac88bb21ad7a7822bb297793b3.png)
 
 
-## Demo code structure
+## Sample app code structure
 
-> The [TUIKit](https://www.tencentcloud.com/document/product/1047/50059) for Flutter is used for the UI and business logic of the demo. The demo layer itself is only used to build the application, process navigation redirects, and call instantiated [TUIKit](https://www.tencentcloud.com/document/product/1047/50059) components.
+> The [TUIKit](https://www.tencentcloud.com/document/product/1047/50059) for Flutter is used for the UI and business logic of the sample app. The sample app layer itself is only used to build the application, process navigation redirects, and call instantiated [TUIKit](https://www.tencentcloud.com/document/product/1047/50059) components.
 
 
 |  Folder  | Description |
@@ -100,14 +128,13 @@ flutter run --dart-define=SDK_APPID={YOUR_SDKAPPID} --dart-define=ISPRODUCT_ENV=
 | lib | Core application directory |
 | lib/i18n | Internationalization code, excluding the internationalization capabilities and strings of TUIKit, which can be imported as needed. |
 | lib/src | Main application directory |
-| lib/src/pages | Important navigation pages of the demo. After the application is initialized, `app.dart` displays the loading animation, judges the login status, and redirects the user to `login.dart` or `home_page.dart`. After the user logs in, the login information will be stored locally through the `shared_preference` plugin and used for automatic login upon future application launch. If there is no such information or the login fails, the user will be redirected to the login page. During automatic login, the user is still on `app.dart` and can see the loading animation. `home_page.dart` has a bottom tab to switch between the four main feature pages of the demo. |
+| lib/src/pages | Important navigation pages of the sample app. After the application is initialized, `app.dart` displays the loading animation, judges the login status, and redirects the user to `login.dart` or `home_page.dart`. After the user logs in, the login information will be stored locally through the `shared_preference` plugin and used for automatic login upon future application launch. If there is no such information or the login fails, the user will be redirected to the login page. During automatic login, the user is still on `app.dart` and can see the loading animation. `home_page.dart` has a bottom tab to switch between the four main feature pages of the sample app. |
 | lib/utils | Some tool function classes. |
 
 
 Basically, a TUIKit component is imported into each `dart` file in `lib/src`. After the component is instantiated in the file, the page can be rendered.
 
 Below are main files:
-
 
 |  Main File in `lib/src`  | Description |
 |---------|---------|
@@ -118,15 +145,15 @@ Below are main files:
 | chatv2.dart | Main chat page that uses atomic capabilities and the `TIMUIKitChat` component. |
 | contact.dart | Contacts page that uses the `TIMUIKitContact` component. |
 | conversation.dart | Conversation list page that uses the `TIMUIKitConversation` component. |
-| create_group.dart | Group chat page that is implemented in the demo with no component used. |
+| create_group.dart | Group chat page that is implemented in the sample app with no component used. |
 | group_application_list.dart | Group application list page that uses the `TIMUIKitGroupApplicationList` component. |
 | group_list.dart | Group list page that uses the `TIMUIKitGroup` component.  |
 | group_profile.dart | Group profile and management page that uses the `TIMUIKitGroupProfile` component. |
 | newContact.dart | New contact request page that uses the `TIMUIKitNewContact` component. |
-| routes.dart | Demo route that navigates users to the login page `login.dart` or homepage `home_page.dart`. |
+| routes.dart | Sample app route that navigates users to the login page `login.dart` or homepage `home_page.dart`. |
 | search.dart | Global search and in-conversation search page that uses the `TIMUIKitSearch` (global search) and `TIMUIKitSearchMsgDetail` (in-conversation search) components. |
 | user_profile.dart | User information and relationship chain maintenance page that uses the `TIMUIKitProfile` component. |
 
-The navigation redirect method needs to be imported into most TUIKit components; therefore, the demo layer needs to process `Navigator`.
+The navigation redirect method needs to be imported into most TUIKit components; therefore, the sample app layer needs to process `Navigator`.
 
-You can modify the above demo for secondary development or implement your business needs based on it.
+You can modify the above sample app for secondary development or implement your business needs based on it.

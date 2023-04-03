@@ -1,16 +1,15 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, avoid_print
 
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tencent_calls_uikit/tuicall_kit.dart';
 import 'package:tencent_cloud_chat_demo/src/tencent_page.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/platform.dart';
 import 'package:tencent_super_tooltip/tencent_super_tooltip.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_chat_controller.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_conversation_controller.dart';
-import 'package:tim_ui_kit_calling_plugin/tim_ui_kit_calling_plugin.dart';
 import 'package:tencent_cloud_chat_demo/src/add_friend.dart';
 import 'package:tencent_cloud_chat_demo/src/add_group.dart';
 import 'package:tencent_cloud_chat_demo/src/chat.dart';
@@ -24,10 +23,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/local_setting.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/login_user_Info.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
-import 'package:tencent_cloud_chat_demo/utils/platform.dart';
 import 'package:tencent_cloud_chat_demo/utils/push/channel/channel_push.dart';
 import 'package:tencent_cloud_chat_demo/utils/push/push_constant.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 
 /// 首页
 class HomePage extends StatefulWidget {
@@ -92,20 +89,26 @@ class HomePageState extends State<HomePage> {
   }
 
   _initTrtc() async {
-    final isAndroidEmulator = await PlatformSimulatorUtils.isAndroidEmulator();
-    if (!isAndroidEmulator) {
-      final TUICalling _calling = TUICalling();
-      final loginInfo = _coreInstance.loginInfo;
-      final userID = loginInfo.userID;
-      final userSig = loginInfo.userSig;
-      final sdkAppId = loginInfo.sdkAppID;
-      _calling.init(sdkAppID: sdkAppId, userID: userID, userSig: userSig);
-      _calling.enableFloatingWindow();
-    }
+    final TUICallKit _callKit = TUICallKit();
+    final _tuiLogin = TUILogin();
+    final loginInfo = _coreInstance.loginInfo;
+    final userID = loginInfo.userID;
+    final userSig = loginInfo.userSig;
+    final sdkAppId = loginInfo.sdkAppID;
+    _callKit.enableFloatWindow(true);
+    _tuiLogin.login(
+        sdkAppId,
+        userID,
+        userSig,
+        TUICallback(onSuccess: () {
+          print("callkit--- success");
+        }, onError: (int code, String message) {
+          print("callkit--- onError $message");
+        }));
   }
 
   uploadOfflinePushInfoToken() async {
-    if (!kIsWeb) {
+    if (PlatformUtils().isMobile) {
       ChannelPush.requestPermission();
       Future.delayed(const Duration(seconds: 5), () async {
         final bool isUploadSuccess =
