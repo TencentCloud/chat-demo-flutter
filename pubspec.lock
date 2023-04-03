@@ -434,7 +434,7 @@ packages:
     source: hosted
     version: "0.2.0"
   dio:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: dio
       sha256: "7d328c4d898a61efc3cd93655a0955858e29a0aa647f0f9e02d59b3bb275e2e8"
@@ -1080,6 +1080,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  modal_bottom_sheet:
+    dependency: "direct overridden"
+    description:
+      name: modal_bottom_sheet
+      sha256: "3bba63c62d35c931bce7f8ae23a47f9a05836d8cb3c11122ada64e0b2f3d718f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0-pre"
   msix:
     dependency: "direct dev"
     description:
@@ -1653,7 +1661,7 @@ packages:
     source: hosted
     version: "1.0.0"
   tencent_extended_text:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       name: tencent_extended_text
       sha256: cf0d283c01a9e63f75666d8b5b1cabd463e18e51802bf1d093d7a65bd369b3d4
@@ -1661,7 +1669,7 @@ packages:
     source: hosted
     version: "1.0.2+1"
   tencent_extended_text_field:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       name: tencent_extended_text_field
       sha256: daa10f3775bfac1cc841b34275c2746ced7764f3b77222a93edb4c13bad1209b
@@ -2101,5 +2109,5 @@ packages:
     source: hosted
     version: "3.1.1"
 sdks:
-  dart: ">=2.19.0 <3.0.0"
-  flutter: ">=3.7.0"
+  dart: ">=2.17.0 <3.0.0"
+  flutter: ">=3.0.0"

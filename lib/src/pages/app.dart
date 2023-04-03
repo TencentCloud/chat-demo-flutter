@@ -38,14 +38,14 @@ import 'package:tencent_cloud_chat_demo/src/launch_page.dart';
 
 bool isInitScreenUtils = false;
 
-class MobileApp extends StatefulWidget {
-  const MobileApp({Key? key}) : super(key: key);
+class TencentChatApp extends StatefulWidget {
+  const TencentChatApp({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _MobileAppState();
+  State<StatefulWidget> createState() => _TencentChatAppState();
 }
 
-class _MobileAppState extends State<MobileApp> with WidgetsBindingObserver {
+class _TencentChatAppState extends State<TencentChatApp> with WidgetsBindingObserver {
   var subscription;
   final CoreServicesImpl _coreInstance = TIMUIKitCore.getInstance();
   final V2TIMManager _sdkInstance = TIMUIKitCore.getSDKInstance();
@@ -120,10 +120,47 @@ class _MobileAppState extends State<MobileApp> with WidgetsBindingObserver {
     } catch (err) {}
   }
 
+  Future<String> getLanguage() async {
+    final String? deviceLocale =
+    WidgetsBinding.instance.window.locale.toLanguageTag();
+    final AppLocale appLocale = I18nUtils.findDeviceLocale(deviceLocale);
+    switch (appLocale) {
+      case AppLocale.zhHans:
+        return "zh-Hans";
+      case AppLocale.zhHant:
+        return "zh-Hant";
+      case AppLocale.en:
+        return "en";
+      case AppLocale.ja:
+        return "ja";
+      case AppLocale.ko:
+        return "ko";
+    }
+  }
+
+  getLoginUserInfo() async {
+    final res = await _sdkInstance.getLoginUser();
+    if (res.code == 0) {
+      final result = await _sdkInstance.getUsersInfo(userIDList: [res.data!]);
+
+      if (result.code == 0) {
+        Provider.of<LoginUserInfo>(context, listen: false)
+            .setLoginUserInfo(result.data![0]);
+      }
+    }
+  }
+
   initIMSDKAndAddIMListeners() async {
     if (_isInitIMSDK) return;
+    final LocalSetting localSetting =
+    Provider.of<LocalSetting>(context, listen: false);
+    await localSetting.loadSettingsFromLocal();
+    localSetting.language ??= await getLanguage();
+    localSetting.updateLanguageWithoutWriteLocal(await getLanguage());
 
     final isInitSuccess = await _coreInstance.init(
+
+      onWebLoginSuccess: getLoginUserInfo,
       config: const TIMUIKitConfig(
         // This status is default to true,
         // its unnecessary to specify this if you tend to use online status.
@@ -131,7 +168,7 @@ class _MobileAppState extends State<MobileApp> with WidgetsBindingObserver {
         isCheckDiskStorageSpace: true,
       ),
       // language: LanguageEnum.zhHans,
-      // extraLanguage: "zh-Hans",
+      extraLanguage: localSetting.language,
       onTUIKitCallbackListener: (TIMCallback callbackValue) {
         switch (callbackValue.type) {
           case TIMCallbackType.INFO:
@@ -146,6 +183,8 @@ class _MobileAppState extends State<MobileApp> with WidgetsBindingObserver {
             if (callbackValue.errorCode == 10004 &&
                 callbackValue.errorMsg!.contains("not support @all")) {
               ToastUtils.toast(TIM_t("当前群组不支持@全体成员"));
+            } else if (callbackValue.errorCode == -4) {
+              return;
             } else if (callbackValue.errorCode == -1) {
               return;
             } else {
@@ -201,6 +240,7 @@ class _MobileAppState extends State<MobileApp> with WidgetsBindingObserver {
   initApp() {
     // 检测登录状态
     InitStep.checkLogin(context, initIMSDKAndAddIMListeners);
+
   }
 
   initScreenUtils() {

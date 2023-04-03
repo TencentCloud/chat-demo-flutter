@@ -45,6 +45,11 @@ class LocalSetting with ChangeNotifier {
     updateSettingsToLocalString("language", value ?? "en");
   }
 
+  updateLanguageWithoutWriteLocal(String? value) {
+    _language ??= value;
+    notifyListeners();
+  }
+
   bool get isShowOnlineStatus => _isShowOnlineStatus ?? true;
 
   set isShowOnlineStatus(bool value) {

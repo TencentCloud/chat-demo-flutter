@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:tencent_cloud_chat_demo/src/pages/cross_platform/wide_screen/home_page.dart';
 import 'package:tencent_cloud_chat_demo/src/pages/home_page.dart';
 import 'package:tencent_cloud_chat_demo/src/pages/login.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/custom_sticker_package.dart';
@@ -8,6 +9,7 @@ import 'package:tencent_cloud_chat_demo/utils/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_demo/utils/unicode_emoji.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
+import 'package:tencent_cloud_chat_uikit/ui/utils/screen_utils.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/emoji.dart';
 
 class InitStep {
@@ -77,6 +79,8 @@ class InitStep {
   }
 
   static directToHomePage(BuildContext context) {
+    final isWideScreen =
+        TUIKitScreenUtils.getFormFactor(context) == ScreenType.Wide;
     Navigator.of(context).pushAndRemoveUntil(
       PageRouteBuilder(
           transitionDuration: const Duration(milliseconds: 500),
@@ -84,7 +88,9 @@ class InitStep {
               Animation secondaryAnimation) {
             return FadeTransition(
               opacity: animation,
-              child: const HomePage(),
+              child: isWideScreen
+                  ? const HomePageWideScreen()
+                  : const HomePage(),
             );
           },
           settings: const RouteSettings(name: '/homePage')),
