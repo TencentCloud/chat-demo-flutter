@@ -1080,14 +1080,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
-  modal_bottom_sheet:
-    dependency: "direct overridden"
-    description:
-      name: modal_bottom_sheet
-      sha256: "3bba63c62d35c931bce7f8ae23a47f9a05836d8cb3c11122ada64e0b2f3d718f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.0-pre"
   msix:
     dependency: "direct dev"
     description:
@@ -1633,10 +1625,10 @@ packages:
     dependency: "direct main"
     description:
       name: tencent_chat_push_for_china
-      sha256: "37007d19c15ce679f5d35d5994a26460a21d66f20cb5e5cb62371168aea2e86e"
+      sha256: "300bd88f86a82ee0e34b8cf9a357ea9645133f038f5298deb7d200593d8ec9b2"
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.0"
+    version: "2.6.0"
   tencent_cloud_chat_sdk:
     dependency: transitive
     description:
@@ -1661,7 +1653,7 @@ packages:
     source: hosted
     version: "1.0.0"
   tencent_extended_text:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: tencent_extended_text
       sha256: cf0d283c01a9e63f75666d8b5b1cabd463e18e51802bf1d093d7a65bd369b3d4
@@ -1669,7 +1661,7 @@ packages:
     source: hosted
     version: "1.0.2+1"
   tencent_extended_text_field:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: tencent_extended_text_field
       sha256: daa10f3775bfac1cc841b34275c2746ced7764f3b77222a93edb4c13bad1209b
@@ -1688,10 +1680,10 @@ packages:
     dependency: transitive
     description:
       name: tencent_im_base
-      sha256: d27c1f0bcec0fe73e5c7dfa64edc8bf9ee07c8e56adeee945d8022e84e4eab46
+      sha256: "347be2489614aacf5e1a0447725b0b9913e0828b129dc027d3d99adf98fe3fd2"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.33"
+    version: "1.0.35"
   tencent_im_sdk_plugin_desktop:
     dependency: "direct main"
     description:
@@ -2109,5 +2101,5 @@ packages:
     source: hosted
     version: "3.1.1"
 sdks:
-  dart: ">=2.17.0 <3.0.0"
-  flutter: ">=3.0.0"
+  dart: ">=2.19.0 <3.0.0"
+  flutter: ">=3.7.0"

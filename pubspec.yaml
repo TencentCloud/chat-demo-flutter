@@ -40,7 +40,9 @@ dependencies:
   # Tencent Cloud Chat dependencies:
   tencent_cloud_chat_uikit: ^2.0.0-preview.3
   tencent_calls_uikit: ^1.5.3
-  tencent_chat_push_for_china: ^2.5.0
+  tencent_chat_push_for_china: ^2.6.0
+  tencent_im_base: ^1.0.35
+
 
   # Location message and Baidu Map:
   tim_ui_kit_lbs_plugin: ^2.0.0+1
