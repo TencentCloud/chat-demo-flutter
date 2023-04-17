@@ -60,7 +60,7 @@ class _GroupCallMessageItemState extends State<GroupCallMessageItem> {
     for (String showName in inviteeList) {
       nameStr = "$nameStr、$showName";
     }
-    nameStr = nameStr.substring(1);
+    nameStr = nameStr.isNotEmpty ? nameStr.substring(1) : nameStr;
     setState(() {
       customMessageShowText = "$nameStr $actionTypeText";
     });

@@ -45,7 +45,8 @@ class TencentChatApp extends StatefulWidget {
   State<StatefulWidget> createState() => _TencentChatAppState();
 }
 
-class _TencentChatAppState extends State<TencentChatApp> with WidgetsBindingObserver {
+class _TencentChatAppState extends State<TencentChatApp>
+    with WidgetsBindingObserver {
   var subscription;
   final CoreServicesImpl _coreInstance = TIMUIKitCore.getInstance();
   final V2TIMManager _sdkInstance = TIMUIKitCore.getSDKInstance();
@@ -96,16 +97,16 @@ class _TencentChatAppState extends State<TencentChatApp> with WidgetsBindingObse
 
   Future<void> _checkIfConnected() async {
     final res = await TencentImSDKPlugin.v2TIMManager.getLoginUser();
-    if(res.data != null && res.data!.isNotEmpty){
+    if (res.data != null && res.data!.isNotEmpty) {
       return;
-    }else if(res.data == null){
+    } else if (res.data == null) {
       await initIMSDKAndAddIMListeners();
       InitStep.checkLogin(context, initIMSDKAndAddIMListeners);
       return;
-    } else if (res.data!.isEmpty){
+    } else if (res.data!.isEmpty) {
       InitStep.checkLogin(context, initIMSDKAndAddIMListeners);
       return;
-    } else{
+    } else {
       return;
     }
   }
@@ -122,7 +123,7 @@ class _TencentChatAppState extends State<TencentChatApp> with WidgetsBindingObse
 
   Future<String> getLanguage() async {
     final String? deviceLocale =
-    WidgetsBinding.instance.window.locale.toLanguageTag();
+        WidgetsBinding.instance.window.locale.toLanguageTag();
     final AppLocale appLocale = I18nUtils.findDeviceLocale(deviceLocale);
     switch (appLocale) {
       case AppLocale.zhHans:
@@ -153,13 +154,12 @@ class _TencentChatAppState extends State<TencentChatApp> with WidgetsBindingObse
   initIMSDKAndAddIMListeners() async {
     if (_isInitIMSDK) return;
     final LocalSetting localSetting =
-    Provider.of<LocalSetting>(context, listen: false);
+        Provider.of<LocalSetting>(context, listen: false);
     await localSetting.loadSettingsFromLocal();
-    localSetting.language ??= await getLanguage();
-    localSetting.updateLanguageWithoutWriteLocal(await getLanguage());
+    final language = localSetting.language ?? await getLanguage();
+    localSetting.updateLanguageWithoutWriteLocal(language);
 
     final isInitSuccess = await _coreInstance.init(
-
       onWebLoginSuccess: getLoginUserInfo,
       config: const TIMUIKitConfig(
         // This status is default to true,
@@ -240,7 +240,6 @@ class _TencentChatAppState extends State<TencentChatApp> with WidgetsBindingObse
   initApp() {
     // 检测登录状态
     InitStep.checkLogin(context, initIMSDKAndAddIMListeners);
-
   }
 
   initScreenUtils() {

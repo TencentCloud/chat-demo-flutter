@@ -30,7 +30,7 @@ class _CreateGroup extends State<CreateGroup> {
 
   _getConversationList() async {
     final res = await _sdkInstance.getFriendshipManager().getFriendList();
-    if (res.code == 0) {
+    if (res.code == 0 && res.data != null) {
       friendList = res.data!;
       setState(() {});
     }

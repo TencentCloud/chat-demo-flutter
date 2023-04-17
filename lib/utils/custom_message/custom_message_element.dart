@@ -3,16 +3,21 @@ import 'dart:async';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+// import 'package:tencent_cloud_chat_demo/src/vote_example/vote_detail_example.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/calling_message/calling_message.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/calling_message/group_call_message_builder.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/calling_message/single_call_message_builder.dart';
+import 'package:tencent_cloud_chat_uikit/data_services/core/%20tim_uikit_wide_modal_operation_key.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
+import 'package:tencent_cloud_chat_uikit/ui/utils/screen_utils.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/link_preview/common/extensions.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/link_preview/common/utils.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/link_message.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/web_link_message.dart';
+import 'package:tencent_cloud_chat_uikit/ui/widgets/wide_popup.dart';
+// import 'package:tencent_cloud_chat_vote_plugin/tencent_cloud_chat_vote_plugin.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomMessageElem extends StatefulWidget {
@@ -87,7 +92,8 @@ class _CustomMessageElemState extends State<CustomMessageElem> {
     final callingMessage = CallingMessage.getCallMessage(customElem);
     final linkMessage = getLinkMessage(customElem);
     final webLinkMessage = getWebLinkMessage(customElem);
-
+    // final isVoteMessage =
+    //     TencentCloudChatVotePlugin.isVoteMessage(widget.message);
     if (callingMessage != null) {
       if (widget.message.groupID != null) {
         // Group Call message
@@ -95,94 +101,139 @@ class _CustomMessageElemState extends State<CustomMessageElem> {
       } else {
         // One-to-one Call message
         return renderMessageItem(
-            CallMessageItem(
-                customElem: customElem,
-                isFromSelf: widget.message.isSelf ?? true,
-                padding: const EdgeInsets.all(0)),
-            theme);
+          CallMessageItem(
+              customElem: customElem,
+              isFromSelf: widget.message.isSelf ?? true,
+              padding: const EdgeInsets.all(0)),
+          theme,
+          false,
+        );
       }
+    } else if (customElem?.data == "group_create") {
+      return renderMessageItem(
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(TIM_t(("群聊创建成功！"))),
+          ],
+        ),
+        theme,
+        false,
+      );
+    // } else if (isVoteMessage) {
+    //   return renderMessageItem(
+    //     TencentCloudChatVoteMessage(
+    //       message: widget.message,
+    //       onTap: (
+    //         TencentCloudChatVoteDataOptoin option,
+    //         TencentCloudChatVoteLogic data,
+    //       ) {
+    //         final isWideScreen =
+    //             TUIKitScreenUtils.getFormFactor(context) == ScreenType.Wide;
+    //         if (isWideScreen) {
+    //           TUIKitWidePopup.showPopupWindow(
+    //             context: context,
+    //             title: option.option,
+    //             operationKey: TUIKitWideModalOperationKey.chooseCountry,
+    //             width: MediaQuery.of(context).size.width * 0.4,
+    //             height: MediaQuery.of(context).size.width * 0.5,
+    //             child: (onClose) => VoteDetailExample(
+    //               option: option,
+    //               data: data,
+    //             ),
+    //           );
+    //         } else {
+    //           Navigator.push(
+    //             context,
+    //             MaterialPageRoute(
+    //               builder: (context) => VoteDetailExample(
+    //                 option: option,
+    //                 data: data,
+    //               ),
+    //             ),
+    //           );
+    //         }
+    //       },
+    //     ),
+    //     theme,
+    //     true,
+    //   );
     } else if (linkMessage != null) {
       final String option1 = linkMessage.link ?? "";
       return renderMessageItem(
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(linkMessage.text ?? ""),
-              MarkdownBody(
-                data:
-                    TIM_t_para("[查看详情 >>]({{option1}})", "[查看详情 >>]($option1)")(
-                        option1: option1),
-                styleSheet: MarkdownStyleSheet.fromTheme(ThemeData(
-                        textTheme: const TextTheme(
-                            bodyText2: TextStyle(fontSize: 16.0))))
-                    .copyWith(
-                  a: TextStyle(color: LinkUtils.hexToColor("015fff")),
-                ),
-                onTapLink: (
-                  String link,
-                  String? href,
-                  String title,
-                ) {
-                  LinkUtils.launchURL(context, linkMessage.link ?? "");
-                },
-              )
-            ],
-          ),
-          theme);
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(linkMessage.text ?? ""),
+            MarkdownBody(
+              data: TIM_t_para("[查看详情 >>]({{option1}})", "[查看详情 >>]($option1)")(
+                  option1: option1),
+              styleSheet: MarkdownStyleSheet.fromTheme(ThemeData(
+                      textTheme: const TextTheme(
+                          bodyText2: TextStyle(fontSize: 16.0))))
+                  .copyWith(
+                a: TextStyle(color: LinkUtils.hexToColor("015fff")),
+              ),
+              onTapLink: (
+                String link,
+                String? href,
+                String title,
+              ) {
+                LinkUtils.launchURL(context, linkMessage.link ?? "");
+              },
+            )
+          ],
+        ),
+        theme,
+        false,
+      );
     } else if (webLinkMessage != null) {
       return renderMessageItem(
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text.rich(TextSpan(
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
-                  children: [
-                    TextSpan(text: webLinkMessage.title),
-                    TextSpan(
-                      text: webLinkMessage.hyperlinks_text?["key"],
-                      style: const TextStyle(
-                        color: Color.fromRGBO(0, 110, 253, 1),
-                      ),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          CustomMessageElem.launchWebURL(
-                            context,
-                            webLinkMessage.hyperlinks_text?["value"],
-                          );
-                        },
-                    )
-                  ])),
-              if (webLinkMessage.description != null &&
-                  webLinkMessage.description!.isNotEmpty)
-                Text(
-                  webLinkMessage.description!,
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
-                )
-            ],
-          ),
-          theme);
-    } else if (customElem?.data == "group_create") {
-      return renderMessageItem(
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(TIM_t(("群聊创建成功！"))),
-            ],
-          ),
-          theme);
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text.rich(TextSpan(
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
+                children: [
+                  TextSpan(text: webLinkMessage.title),
+                  TextSpan(
+                    text: webLinkMessage.hyperlinks_text?["key"],
+                    style: const TextStyle(
+                      color: Color.fromRGBO(0, 110, 253, 1),
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        CustomMessageElem.launchWebURL(
+                          context,
+                          webLinkMessage.hyperlinks_text?["value"],
+                        );
+                      },
+                  )
+                ])),
+            if (webLinkMessage.description != null &&
+                webLinkMessage.description!.isNotEmpty)
+              Text(
+                webLinkMessage.description!,
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
+              )
+          ],
+        ),
+        theme,
+        false,
+      );
     } else {
-      return renderMessageItem(const Text("[自定义]"), theme);
+      return renderMessageItem(const Text("[自定义]"), theme, false);
     }
   }
 
-  Widget renderMessageItem(Widget child, TUITheme theme) {
+  Widget renderMessageItem(Widget child, TUITheme theme, bool isVoteMessage) {
     final isFromSelf = widget.message.isSelf ?? true;
     final borderRadius = isFromSelf
         ? const BorderRadius.only(
@@ -203,12 +254,14 @@ class _CustomMessageElemState extends State<CustomMessageElem> {
         isShowJumpState ? const Color.fromRGBO(245, 166, 35, 1) : defaultStyle;
 
     return Container(
-        padding: widget.textPadding ?? const EdgeInsets.all(10),
-        decoration: BoxDecoration(
+        padding: isVoteMessage ? null : (widget.textPadding ?? const EdgeInsets.all(10)),
+        decoration: isVoteMessage ? null : BoxDecoration(
           color: widget.messageBackgroundColor ?? backgroundColor,
           borderRadius: widget.messageBorderRadius ?? borderRadius,
         ),
-        constraints: const BoxConstraints(maxWidth: 240),
+        constraints: BoxConstraints(
+            maxWidth:
+                isVoteMessage ? 300 : 240), // vote message width need more
         child: child);
   }
 

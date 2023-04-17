@@ -434,9 +434,9 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 2.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tencent.im.electron.demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tencent.im.flutter.uikit;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = com.tencent.im.electron.demo_Production_SignProvision_MAC_OS;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = com.tencent.im.flutter.uikit_Production_SignProvision_MAC_OS;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Profile;
@@ -571,9 +571,9 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 2.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tencent.im.electron.demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tencent.im.flutter.uikit;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = com.tencent.im.electron.demo_Production_SignProvision_MAC_OS;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = com.tencent.im.flutter.uikit_Production_SignProvision_MAC_OS;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
@@ -602,9 +602,9 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 2.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tencent.im.electron.demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tencent.im.flutter.uikit;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = com.tencent.im.electron.demo_Production_SignProvision_MAC_OS;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = com.tencent.im.flutter.uikit_Production_SignProvision_MAC_OS;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

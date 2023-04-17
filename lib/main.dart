@@ -1,6 +1,8 @@
 // ignore_for_file: unused_import, deprecated_member_use
 
 import 'dart:io' show Platform;
+import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:desktop_webview_window_for_is/desktop_webview_window_for_is.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -15,8 +17,14 @@ import 'package:tencent_cloud_chat_demo/src/provider/login_user_Info.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/user_guide_provider.dart';
+import 'package:tencent_cloud_chat_uikit/ui/utils/platform.dart';
 
-void main() {
+void main(List<String> args) {
+  debugPrint('args: $args');
+  if (runWebViewTitleBarWidget(args)) {
+    return;
+  }
+  WidgetsFlutterBinding.ensureInitialized();
   // 设置状态栏样式
   SystemUiOverlayStyle style = SystemUiOverlayStyle(
     statusBarColor: hexToColor('ededed'),
@@ -44,6 +52,13 @@ void main() {
   // }
   // BMFMapSDK.setAgreePrivacy(true);
 
+  if (PlatformUtils().isAndroid) {
+    SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+    );
+    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+  }
+
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
     runApp(
@@ -65,6 +80,16 @@ void main() {
     );
   });
 
+  if(PlatformUtils().isDesktop){
+    doWhenWindowReady(() {
+      const initialSize = Size(1300, 830);
+      appWindow.minSize = const Size(1100, 630);
+      appWindow.size = initialSize;
+      appWindow.alignment = Alignment.center;
+      appWindow.show();
+    });
+  }
+
   // );
 }
 
@@ -74,6 +99,8 @@ class TUIKitDemoApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Provider.of<DefaultThemeData>(context).theme;
     return MaterialApp(
+      title: 'Tencent Cloud Chat - 腾讯云IM - Flutter',
+      debugShowCheckedModeBanner: false,
       locale: TranslationProvider.of(context).flutterLocale, // use provider
       supportedLocales: LocaleSettings.supportedLocales,
       localizationsDelegates: GlobalMaterialLocalizations.delegates,

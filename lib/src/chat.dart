@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_demo/src/group_application_list.dart';
 import 'package:tencent_cloud_chat_demo/src/tencent_page.dart';
+// import 'package:tencent_cloud_chat_demo/src/vote_example/vote_create_example.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/life_cycle/chat_life_cycle.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_chat_global_model.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/core/%20tim_uikit_wide_modal_operation_key.dart';
@@ -14,6 +15,7 @@ import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_chat_controller
 import 'package:tencent_cloud_chat_uikit/ui/utils/message.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/platform.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/screen_utils.dart';
+import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/TIMUIKitTextField/tim_uikit_text_field_layout/wide.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/profile_widget.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/widget/tim_uikit_profile_widget.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/wide_popup.dart';
@@ -213,6 +215,38 @@ class _ChatState extends State<Chat> {
     }
   }
 
+  _createVote(String groupID) {
+    // final isWideScreen =
+    //     TUIKitScreenUtils.getFormFactor(context) == ScreenType.Wide;
+    // if (isWideScreen) {
+    //   TUIKitWidePopup.showPopupWindow(
+    //     context: context,
+    //     title: TIM_t("创建投票"),
+    //     operationKey: TUIKitWideModalOperationKey.chooseCountry,
+    //     width: MediaQuery.of(context).size.width * 0.4,
+    //     height: MediaQuery.of(context).size.width * 0.5,
+    //     child: (onClose) => VoteCreateExample(
+    //       groupID: groupID,
+    //       controller: _chatController,
+    //       onClosed: onClose,
+    //     ),
+    //   );
+    // } else {
+    //   Navigator.push(
+    //     context,
+    //     MaterialPageRoute(
+    //       builder: (context) => VoteCreateExample(
+    //         groupID: groupID,
+    //         controller: _chatController,
+    //         onClosed: () {
+    //           Navigator.pop(context);
+    //         },
+    //       ),
+    //     ),
+    //   );
+    // }
+  }
+
   _buildBottomOperationList(BuildContext context,
       V2TimConversation conversation, VoidCallback closeFunc, TUITheme theme) {
     List operationList = [
@@ -286,12 +320,53 @@ class _ChatState extends State<Chat> {
     }
   }
 
+  getVotePlugin(bool canvote, String groupID) {
+    List<MorePanelItem> wids = [];
+    if (canvote) {
+      wids.add(MorePanelItem(
+        onTap: (c) {
+          _createVote(groupID);
+        },
+        icon: Container(
+          height: 64,
+          width: 64,
+          margin: const EdgeInsets.only(bottom: 4),
+          decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(5))),
+          child: Icon(
+            Icons.menu_sharp,
+            color: hexToColor("5c6168"),
+            size: 32,
+          ),
+        ),
+        id: 'vote',
+        title: TIM_t("投票"),
+      ));
+    }
+    return wids;
+  }
+
   @override
   Widget build(BuildContext context) {
     final LocalSetting localSetting = Provider.of<LocalSetting>(context);
     final isWideScreen =
         TUIKitScreenUtils.getFormFactor(context) == ScreenType.Wide;
     final theme = Provider.of<DefaultThemeData>(context).theme;
+    // bool canAddVotePlugin = widget.selectedConversation.groupID != null &&
+    //     widget.selectedConversation.groupID!.isNotEmpty && ;
+    String groupID = widget.selectedConversation.groupID ?? "";
+    String groupType = widget.selectedConversation.groupType ?? "";
+    List<String> notAllowGroupType = [
+      GroupType.Community,
+      GroupType.AVChatRoom
+    ];
+    bool canAddVotePlugin = false;
+    if (groupID.isNotEmpty &&
+        groupType.isNotEmpty &&
+        !notAllowGroupType.contains(groupType)) {
+      canAddVotePlugin = true;
+    }
     // List customEmojiList =
     //     Const.emojiList.where((element) => element.isEmoji == true).toList();
     return TencentPage(
@@ -361,6 +436,15 @@ class _ChatState extends State<Chat> {
             faceURISuffix: (String path) {
               return "@2x.png";
             },
+            additionalDesktopControlBarItems: [
+              if(canAddVotePlugin) DesktopControlBarItem(
+                  item: "poll",
+                  showName: TIM_t("投票"),
+                  onClick: (offset) {
+                    _createVote(groupID);
+                  },
+                  icon: Icons.ballot_outlined),
+            ]
           ),
           conversationID: _getConvID() ?? '',
           conversationType:
@@ -503,6 +587,7 @@ class _ChatState extends State<Chat> {
                       size: 32,
                     ),
                   )),
+              ...getVotePlugin(canAddVotePlugin, groupID),
             ],
           ),
           customAppBar: isWideScreen
@@ -571,11 +656,6 @@ class _ChatState extends State<Chat> {
                   ))
               : null,
           appBarConfig: AppBar(
-            backgroundColor:
-                isWideScreen ? hexToColor("fafafa") : hexToColor("f2f3f5"),
-            textTheme: TextTheme(
-                titleMedium:
-                    TextStyle(color: hexToColor("010000"), fontSize: 16)),
             actions: [
               IconButton(
                   padding: const EdgeInsets.only(left: 8, right: 16),

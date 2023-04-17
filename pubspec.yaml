@@ -38,10 +38,9 @@ dependencies:
     sdk: flutter
 
   # Tencent Cloud Chat dependencies:
-  tencent_cloud_chat_uikit: ^2.0.0-preview.3
-  tencent_calls_uikit: ^1.5.3
-  tencent_chat_push_for_china: ^2.6.0
-  tencent_im_base: ^1.0.35
+  tencent_cloud_chat_uikit: ^2.0.0-preview.6
+  tencent_calls_uikit: ^1.5.4
+  tencent_chat_push_for_china: ^2.6.2+1
 
 
   # Location message and Baidu Map:
@@ -54,7 +53,6 @@ dependencies:
   # Third party dependencies:
   cupertino_icons: ^1.0.2
   localstorage: ^4.0.0+1
-  archive: ^3.1.6
   expandable: ^5.0.1
   flutter_tags: ^0.4.9+1
   image_picker: ^0.8.4+4
@@ -65,7 +63,6 @@ dependencies:
   adaptive_action_sheet: 2.0.1
   webview_flutter: ^3.0.0
   flutter_easyloading: ^3.0.3
-  i18n: any
   tencent_super_tooltip: ^0.0.1
   flutter_svg: ^1.0.3
   uni_links: ^0.5.1
@@ -73,9 +70,9 @@ dependencies:
   loading_animation_widget: ^1.2.0+2
   path_provider: ^2.0.11
   universal_io: ^2.0.4
-  tencent_im_sdk_plugin_web: ^0.3.6
+  tencent_im_sdk_plugin_web: ^0.3.9
   synchronized: ^3.0.0+3
-  tencent_im_sdk_plugin_desktop: ^0.1.6
+  tencent_im_sdk_plugin_desktop: ^0.1.8
   desktop_webview_window_for_is: ^0.2.0
   bitsdojo_window: ^0.1.2
   flutter_screenutil: ^5.6.1

@@ -75,6 +75,9 @@ what to expect.**
 # Clone the code
 git clone https://github.com/TencentCloud/chat-demo-flutter.git
 
+# Clean. Important
+flutter clean
+
 # Install dependencies
 flutter pub get
 ```

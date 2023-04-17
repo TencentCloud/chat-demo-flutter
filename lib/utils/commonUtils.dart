@@ -15,8 +15,8 @@ class CommonUtils {
     tuiOfflinePushInfo.desc = offlinePush.desc;
     tuiOfflinePushInfo.ignoreIOSBadge = offlinePush.ignoreIOSBadge;
     tuiOfflinePushInfo.iOSSound = offlinePush.iOSSound;
-    tuiOfflinePushInfo.AndroidSound = offlinePush.androidSound;
-    tuiOfflinePushInfo.AndroidOPPOChannelID = offlinePush.androidOPPOChannelID;
+    tuiOfflinePushInfo.androidSound = offlinePush.androidSound;
+    tuiOfflinePushInfo.androidOPPOChannelID = offlinePush.androidOPPOChannelID;
     return tuiOfflinePushInfo;
   }
 

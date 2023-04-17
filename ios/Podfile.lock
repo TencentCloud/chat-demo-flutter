@@ -137,10 +137,10 @@ PODS:
   - SwiftyGif (5.4.4)
   - tencent_calls_engine (0.0.1):
     - Flutter
-    - TUICallEngine (= 1.5.0.307)
+    - TUICallEngine (= 1.5.1.310)
   - tencent_calls_uikit (0.0.1):
     - Flutter
-    - TUICallKit (= 1.5.0.307)
+    - TUICallKit (= 1.5.1.310)
   - tencent_chat_push_for_china (0.0.1):
     - Flutter
   - tencent_cloud_chat_sdk (5.1.2):
@@ -153,19 +153,19 @@ PODS:
   - tencent_open_file (0.0.1):
     - Flutter
   - Toast (4.0.0)
-  - TUICallEngine (1.5.0.307):
-    - TUICallEngine/TRTC (= 1.5.0.307)
+  - TUICallEngine (1.5.1.310):
+    - TUICallEngine/TRTC (= 1.5.1.310)
     - TXIMSDK_Plus_iOS (~> 7.1.3925)
-  - TUICallEngine/TRTC (1.5.0.307):
+  - TUICallEngine/TRTC (1.5.1.310):
     - TXIMSDK_Plus_iOS (~> 7.1.3925)
     - TXLiteAVSDK_TRTC
-  - TUICallKit (1.5.0.307):
+  - TUICallKit (1.5.1.310):
     - Masonry
-    - TUICallKit/TRTC (= 1.5.0.307)
+    - TUICallKit/TRTC (= 1.5.1.310)
     - TUICore (~> 7.1.3925)
-  - TUICallKit/TRTC (1.5.0.307):
+  - TUICallKit/TRTC (1.5.1.310):
     - Masonry
-    - TUICallEngine/TRTC (~> 1.5.0.307)
+    - TUICallEngine/TRTC (~> 1.5.1.310)
     - TUICore (~> 7.1.3925)
     - TXLiteAVSDK_TRTC
   - TUICore (7.1.3925):
@@ -181,9 +181,9 @@ PODS:
     - TUICore/Base
     - TXIMSDK_Plus_iOS (= 7.1.3925)
   - TXIMSDK_Plus_iOS (7.1.3925)
-  - TXLiteAVSDK_TRTC (11.0.14032):
-    - TXLiteAVSDK_TRTC/TRTC (= 11.0.14032)
-  - TXLiteAVSDK_TRTC/TRTC (11.0.14032)
+  - TXLiteAVSDK_TRTC (11.1.14125):
+    - TXLiteAVSDK_TRTC/TRTC (= 11.1.14125)
+  - TXLiteAVSDK_TRTC/TRTC (11.1.14125)
   - uni_links (0.0.1):
     - Flutter
   - url_launcher_ios (0.0.1):
@@ -382,24 +382,24 @@ SPEC CHECKSUMS:
   shared_preferences_foundation: 986fc17f3d3251412d18b0265f9c64113a8c2472
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
   SwiftyGif: 93a1cc87bf3a51916001cf8f3d63835fb64c819f
-  tencent_calls_engine: ec0190d882ba51faa9b494e53981c572116326f4
-  tencent_calls_uikit: 8ca276df3ee2b171a5e79da3e31e19c96f1ee43a
+  tencent_calls_engine: 9dd9a7558623d3396f0c87d4c14243e094589acb
+  tencent_calls_uikit: 6ede4bd4e2b8c98bd419509598990bcfce558625
   tencent_chat_push_for_china: aa983a4716949ae4062c106204e2dc07d34d9f3b
   tencent_cloud_chat_sdk: 17f2ddd7de43495312603e7c9dac04d76352e246
   tencent_cloud_uikit_core: 2c4ccb41c33b45b5c69750b9774fa389fc20cdb2
   tencent_open_file: 1261db508715b8f43ef3b7e31c90824838038165
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
-  TUICallEngine: 1a18e482d4f9b3d9c8a3be7ed6b32d677f203f02
-  TUICallKit: cae3fe18170a55a239ecf1792f78b3c06206e1a7
+  TUICallEngine: 42f441d20c15b1660a097d4ee4599f978fc81d91
+  TUICallKit: ce4a5f95878c406b1bc30d7af5f7e6da6a4fefbd
   TUICore: edc9e0911f6a04224620d7098ff9d7f4b1f0291a
   TXIMSDK_Plus_iOS: 3edf95acc3dff794287ea858b5205ed6f4dd339f
-  TXLiteAVSDK_TRTC: bdcff9c3d1f2fc2398976556692e26d2aba88e62
+  TXLiteAVSDK_TRTC: 7e1f4e80423be519db5ede1bfc2754aaeaa564da
   uni_links: d97da20c7701486ba192624d99bffaaffcfc298a
   url_launcher_ios: ae1517e5e344f5544fb090b079e11f399dfbe4d2
   video_player_avfoundation: 6d971a232d72e6ee25368378d48a079dea01f1cf
   wakelock: d0fc7c864128eac40eba1617cb5264d9c940b46f
   webview_flutter_wkwebview: b7e70ef1ddded7e69c796c7390ee74180182971f
 
-PODFILE CHECKSUM: 5cbe398e84c28c0e26a889f9e452abcac65e8aff
+PODFILE CHECKSUM: f4b5d48b320d8247333ecaa21455cc7f1b97e8cc
 
 COCOAPODS: 1.12.0

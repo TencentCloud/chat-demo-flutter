@@ -87,53 +87,53 @@ class _UserGuideState extends State<UserGuide> {
 
 void judgeGuide(String guideName, BuildContext context) async {
   try{
-    String screenType =
-    MediaQuery.of(context).size.width > 10000 ? 'large' : 'small';
-    final String? deviceLocale =
-        WidgetsBinding.instance.window.locale.toLanguageTag();
-    // TODO
-    final AppLocale appLocale = I18nUtils.findDeviceLocale(deviceLocale);
-    String languageType =
-        (appLocale == AppLocale.zhHans || appLocale == AppLocale.zhHant)
-            ? 'zh'
-            : 'en';
-    List<String> unit = [
-      'conversation',
-      'search',
-      'chat',
-      'userProfile',
-      'concat',
-      'friendProfile',
-      'groupProfile'
-    ];
-    final userGuideList = {
-      "conversation": 3,
-      "search": 1,
-      "chat": 3,
-      "userProfile": 2,
-      "concat": 3,
-      "friendProfile": 3,
-      "groupProfile": 3
-    };
-
-    for (int i = 0; i < unit.length; i++) {
-      int builderLength = userGuideList[unit[i]] ?? 0;
-      for (int j = 1; j < builderLength; j++) {
-        precacheImage(
-            AssetImage(
-                "assets/user_guide/$screenType/$languageType/${unit[i]}-$j.png"),
-            context);
-      }
-    }
-
-    final model = Provider.of<UserGuideProvider>(context, listen: false);
-    Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-    SharedPreferences prefs = await _prefs;
-    List<String> guideList = prefs.getStringList('guidedPage') ?? [];
-    if (!guideList.contains(guideName)) {
-      prefs.setStringList(
-          'guidedPage', [guideName, ...prefs.getStringList('guidedPage') ?? []]);
-      model.guideName = guideName;
-    }
+    // String screenType =
+    // MediaQuery.of(context).size.width > 10000 ? 'large' : 'small';
+    // final String? deviceLocale =
+    //     WidgetsBinding.instance.window.locale.toLanguageTag();
+    //
+    // final AppLocale appLocale = I18nUtils.findDeviceLocale(deviceLocale);
+    // String languageType =
+    //     (appLocale == AppLocale.zhHans || appLocale == AppLocale.zhHant)
+    //         ? 'zh'
+    //         : 'en';
+    // List<String> unit = [
+    //   'conversation',
+    //   'search',
+    //   'chat',
+    //   'userProfile',
+    //   'concat',
+    //   'friendProfile',
+    //   'groupProfile'
+    // ];
+    // final userGuideList = {
+    //   "conversation": 3,
+    //   "search": 1,
+    //   "chat": 3,
+    //   "userProfile": 2,
+    //   "concat": 3,
+    //   "friendProfile": 3,
+    //   "groupProfile": 3
+    // };
+    //
+    // for (int i = 0; i < unit.length; i++) {
+    //   int builderLength = userGuideList[unit[i]] ?? 0;
+    //   for (int j = 1; j < builderLength; j++) {
+    //     precacheImage(
+    //         AssetImage(
+    //             "assets/user_guide/$screenType/$languageType/${unit[i]}-$j.png"),
+    //         context);
+    //   }
+    // }
+    //
+    // final model = Provider.of<UserGuideProvider>(context, listen: false);
+    // Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    // SharedPreferences prefs = await _prefs;
+    // List<String> guideList = prefs.getStringList('guidedPage') ?? [];
+    // if (!guideList.contains(guideName)) {
+    //   prefs.setStringList(
+    //       'guidedPage', [guideName, ...prefs.getStringList('guidedPage') ?? []]);
+    //   model.guideName = guideName;
+    // }
   }catch(e){}
 }

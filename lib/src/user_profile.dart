@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_demo/src/chat.dart';
 import 'package:tencent_cloud_chat_demo/src/tencent_page.dart';
 import 'package:tencent_cloud_chat_demo/utils/commonUtils.dart';
+import 'package:tencent_cloud_chat_demo/utils/toast.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/life_cycle/profile_life_cycle.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/permission.dart';
@@ -11,7 +12,6 @@ import 'package:tencent_cloud_chat_uikit/ui/utils/platform.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/screen_utils.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/profile_widget.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/widget/tim_uikit_profile_widget.dart';
-import 'package:tencent_cloud_chat_uikit/ui/widgets/toast.dart';
 import 'package:tencent_calls_uikit/tuicall_kit.dart';
 import 'package:tencent_calls_engine/tuicall_define.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
@@ -63,13 +63,13 @@ class UserProfileState extends State<UserProfile> {
             throw Error();
           }
           if (res.resultCode == 0) {
-            Toast.showToast(ToastType.success, TIM_t("好友删除成功"), context);
+            ToastUtils.toast(TIM_t("好友删除成功"));
             _timuiKitProfileController.loadData(widget.userID);
           } else {
             throw Error();
           }
         }).catchError((error) {
-          Toast.showToast(ToastType.fail, TIM_t("好友添加失败"), context);
+          ToastUtils.toast(TIM_t("好友添加失败"));
         });
         break;
       case "audioCall":
