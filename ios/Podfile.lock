@@ -1,17 +1,19 @@
 PODS:
   - audioplayers_darwin (0.0.1):
     - Flutter
-  - BaiduMapKit/Base (6.5.1)
-  - BaiduMapKit/Map (6.5.1):
+  - BaiduMapKit/Base (6.5.5)
+  - BaiduMapKit/Map (6.5.5):
     - BaiduMapKit/Base
-  - BaiduMapKit/Search (6.5.1):
+  - BaiduMapKit/Search (6.5.5):
     - BaiduMapKit/Base
-  - BaiduMapKit/Utils (6.5.1):
+  - BaiduMapKit/Utils (6.5.5):
     - BaiduMapKit/Base
   - BMKLocationKit (2.0.7)
   - bugly (0.0.1):
     - Flutter
   - camera_avfoundation (0.0.1):
+    - Flutter
+  - device_info_plus (0.0.1):
     - Flutter
   - disk_space (0.0.1):
     - Flutter
@@ -54,18 +56,18 @@ PODS:
   - Flutter (1.0.0)
   - flutter_apns_only (0.0.1):
     - Flutter
-  - flutter_baidu_mapapi_base (3.1.0):
-    - BaiduMapKit/Utils (= 6.5.1)
+  - flutter_baidu_mapapi_base (3.3.1):
+    - BaiduMapKit/Utils (= 6.5.5)
     - Flutter
-  - flutter_baidu_mapapi_map (3.1.0):
-    - BaiduMapKit/Map (= 6.5.1)
-    - Flutter
-    - flutter_baidu_mapapi_base
-  - flutter_baidu_mapapi_search (3.1.0):
-    - BaiduMapKit/Search (= 6.5.1)
+  - flutter_baidu_mapapi_map (3.3.1):
+    - BaiduMapKit/Map (= 6.5.5)
     - Flutter
     - flutter_baidu_mapapi_base
-  - flutter_bmflocation (2.0.1):
+  - flutter_baidu_mapapi_search (3.3.1):
+    - BaiduMapKit/Search (= 6.5.5)
+    - Flutter
+    - flutter_baidu_mapapi_base
+  - flutter_bmflocation (3.3.1):
     - BMKLocationKit (~> 2.0.4)
     - Flutter
   - flutter_image_compress (1.0.0):
@@ -199,6 +201,7 @@ DEPENDENCIES:
   - audioplayers_darwin (from `.symlinks/plugins/audioplayers_darwin/ios`)
   - bugly (from `.symlinks/plugins/bugly/ios`)
   - camera_avfoundation (from `.symlinks/plugins/camera_avfoundation/ios`)
+  - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
   - disk_space (from `.symlinks/plugins/disk_space/ios`)
   - fc_native_video_thumbnail_for_us (from `.symlinks/plugins/fc_native_video_thumbnail_for_us/ios`)
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
@@ -266,6 +269,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/bugly/ios"
   camera_avfoundation:
     :path: ".symlinks/plugins/camera_avfoundation/ios"
+  device_info_plus:
+    :path: ".symlinks/plugins/device_info_plus/ios"
   disk_space:
     :path: ".symlinks/plugins/disk_space/ios"
   fc_native_video_thumbnail_for_us:
@@ -341,21 +346,22 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   audioplayers_darwin: 877d9a4d06331c5c374595e46e16453ac7eafa40
-  BaiduMapKit: f227cfb43581e91466fb4f1344f655eab5788777
+  BaiduMapKit: 3b79c1d77521fddfebfd62a5ab4663740bee5784
   BMKLocationKit: a68845e2771bb3028feb638186d96124f4f142cd
   bugly: b3674afe180564b5464015d0a8a6b174c2356589
   camera_avfoundation: 82dc5597033fe2dcdcca6e41f7e464d0855e74ad
+  device_info_plus: e5c5da33f982a436e103237c0c85f9031142abed
   disk_space: e94d34bbdf77954adfb39e60bde9cc5c7233eda6
   DKImagePickerController: b512c28220a2b8ac7419f21c491fc8534b7601ac
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
   fc_native_video_thumbnail_for_us: 69559e6500bff0f6340f044ec0847366fa6f6233
-  file_picker: 817ab1d8cd2da9d2da412a417162deee3500fc95
+  file_picker: ce3938a0df3cc1ef404671531facef740d03f920
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   flutter_apns_only: 3d91c0ca9dbef4439874858590909a19f8ed06a4
-  flutter_baidu_mapapi_base: cb406be78c3a949fb58a45dc6627f139d580bd37
-  flutter_baidu_mapapi_map: 81c4e6e93dc668e311d9b521421deaf292390434
-  flutter_baidu_mapapi_search: 13a360334e91abea0bcf820546b2ef4548e42e08
-  flutter_bmflocation: 1bd73181196567fe1529f765aa4f8e2615a8a3cf
+  flutter_baidu_mapapi_base: c9e6042078fbe64edc103393f3ed723ab59d8cf2
+  flutter_baidu_mapapi_map: f2d7fa053404b833918b97a8b685d058fd82bfdb
+  flutter_baidu_mapapi_search: 7a92f9a8c9b480358eaa2c3bfe2bed2e13a005ac
+  flutter_bmflocation: d9349d0de769fc2fa6b665556577c92221403e53
   flutter_image_compress: 5a5e9aee05b6553048b8df1c3bc456d0afaac433
   flutter_plugin_record_plus: 79b8e13ee7ed9a94f6c067018653599528cee1fc
   fluttertoast: eb263d302cc92e04176c053d2385237e9f43fad0

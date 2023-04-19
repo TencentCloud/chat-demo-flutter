@@ -63,7 +63,6 @@ class CallingMessage {
       }
       return null;
     } catch (err) {
-      print(err);
       return null;
     }
   }

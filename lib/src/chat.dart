@@ -470,7 +470,7 @@ class _ChatState extends State<Chat> {
               );
             },
             locationMessageItemBuilder: (message, isShowJump, clearJump) {
-              if (kIsWeb) {
+              if (!PlatformUtils().isMobile) {
                 String dividerForDesc = "/////";
                 String address = message.locationElem?.desc ?? "";
                 String addressName = address;

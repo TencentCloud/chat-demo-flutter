@@ -45,10 +45,9 @@ dependencies:
 
   # Location message and Baidu Map:
   tim_ui_kit_lbs_plugin: ^2.0.0+1
-  flutter_baidu_mapapi_map: 3.2.1
-  flutter_baidu_mapapi_search: 3.2.0
-  flutter_bmflocation: 3.2.1
-  flutter_baidu_mapapi_base: 3.2.0
+  flutter_baidu_mapapi_map: ^3.3.1
+  flutter_baidu_mapapi_search: ^3.3.1
+  flutter_bmflocation: ^3.3.1
 
   # Third party dependencies:
   cupertino_icons: ^1.0.2
@@ -72,8 +71,8 @@ dependencies:
   universal_io: ^2.0.4
   tencent_im_sdk_plugin_web: ^0.3.9
   synchronized: ^3.0.0+3
-  tencent_im_sdk_plugin_desktop: ^0.1.8
-  desktop_webview_window_for_is: ^0.2.0
+  tencent_im_sdk_plugin_desktop: ^0.1.10
+  desktop_webview_window_for_is: ^0.2.4
   bitsdojo_window: ^0.1.2
   flutter_screenutil: ^5.6.1
   fluttertoast: ^8.2.1

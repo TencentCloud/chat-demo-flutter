@@ -125,18 +125,18 @@ packages:
     dependency: transitive
     description:
       name: bitsdojo_window_linux
-      sha256: "3f0eeb07e1af0c7dca08d684b83a375d690cfc13908028bce2ab4a37eb27dd92"
+      sha256: d3804a30315fcbb43b28acc86d1180ce0be22c0c738ad2da9e5ade4d8dbd9655
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.2"
+    version: "0.1.3"
   bitsdojo_window_macos:
     dependency: transitive
     description:
       name: bitsdojo_window_macos
-      sha256: fd2a3068662167bad33ddd2789d1a15c6f6f8d5920bd4f386f5f225385c6a908
+      sha256: d2a9886c74516c5b84c1dd65ab8ee5d1c52055b265ebf0e7d664dee28366b521
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.2"
+    version: "0.1.3"
   bitsdojo_window_platform_interface:
     dependency: transitive
     description:
@@ -149,10 +149,10 @@ packages:
     dependency: transitive
     description:
       name: bitsdojo_window_windows
-      sha256: f4157f8c72013f7169ac62cb15f3d0845f021fb4f6e9a68c4793672c67dc00c1
+      sha256: "8766a40aac84a6d7bdcaa716b24997e028fc9a9a1800495fc031721fd5a22ed0"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.2"
+    version: "0.1.5"
   build:
     dependency: transitive
     description:
@@ -413,18 +413,66 @@ packages:
     dependency: transitive
     description:
       name: dbus
-      sha256: "253bfaa3d340778d8bc755e89c3af38e85ef95e65fd5d5670aa3167f8d4f6577"
+      sha256: "6f07cba3f7b3448d42d015bfd3d53fe12e5b36da2423f23838efc1d5fb31a263"
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.4"
+    version: "0.7.8"
   desktop_webview_window_for_is:
     dependency: "direct main"
     description:
       name: desktop_webview_window_for_is
-      sha256: "06a972062a19271eea16d952035eb31aa6f13f2de6b1fbc90def0948b291ea8f"
+      sha256: f53c9b4a59b382d2402750d6dd476821b7893ae456d2bc7eace38612e2d668cf
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.0"
+    version: "0.2.4"
+  device_info_plus:
+    dependency: transitive
+    description:
+      name: device_info_plus
+      sha256: b809c4ed5f7fcdb325ccc70b80ad934677dc4e2aa414bf46859a42bfdfafcbb6
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.1.3"
+  device_info_plus_linux:
+    dependency: transitive
+    description:
+      name: device_info_plus_linux
+      sha256: "77a8b3c4af06bc46507f89304d9f49dfc64b4ae004b994532ed23b34adeae4b3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
+  device_info_plus_macos:
+    dependency: transitive
+    description:
+      name: device_info_plus_macos
+      sha256: "37961762fbd46d3620c7b69ca606671014db55fc1b7a11e696fd90ed2e8fe03d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
+  device_info_plus_platform_interface:
+    dependency: transitive
+    description:
+      name: device_info_plus_platform_interface
+      sha256: "83fdba24fcf6846d3b10f10dfdc8b6c6d7ada5f8ed21d62ea2909c2dfa043773"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
+  device_info_plus_web:
+    dependency: transitive
+    description:
+      name: device_info_plus_web
+      sha256: "5890f6094df108181c7a29720bc23d0fd6159f17d82787fac093d1fefcaf6325"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
+  device_info_plus_windows:
+    dependency: transitive
+    description:
+      name: device_info_plus_windows
+      sha256: "23a2874af0e23ee6e3a2a0ebcecec3a9da13241f2cb93a93a44c8764df123dd7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.1.0"
   dio:
     dependency: "direct main"
     description:
@@ -485,18 +533,18 @@ packages:
     dependency: transitive
     description:
       name: fc_native_video_thumbnail_for_us
-      sha256: a45030304f1370215cdc38ba026a59f452fb1a64a521ab27f5fa24cbcea21d81
+      sha256: ae9c7f887e5f0e005c4bb010b57a5fa59a404817697475d046f05c13df9eec43
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.0+2"
+    version: "0.4.8"
   ffi:
     dependency: transitive
     description:
       name: ffi
-      sha256: "13a6ccf6a459a125b3fcdb6ec73bd5ff90822e071207c663bfd1f70062d51d18"
+      sha256: a38574032c5f1dd06c4aee541789906c12ccaab8ba01446e800d9c5b79c4a978
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.1"
+    version: "2.0.1"
   file:
     dependency: transitive
     description:
@@ -509,10 +557,10 @@ packages:
     dependency: transitive
     description:
       name: file_picker
-      sha256: "704259669b5e9cb24e15c11cfcf02caf5f20d30901b3916d60b6d1c2d647035f"
+      sha256: dcde5ad1a0cebcf3715ea3f24d0db1888bf77027a26c77d7779e8ef63b8ade62
       url: "https://pub.dev"
     source: hosted
-    version: "4.6.1"
+    version: "5.2.9"
   file_utils:
     dependency: transitive
     description:
@@ -543,29 +591,29 @@ packages:
     source: hosted
     version: "1.6.0"
   flutter_baidu_mapapi_base:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: flutter_baidu_mapapi_base
-      sha256: e0ee788b4e48e4a0f33f321fd45c2375fda2b9f736a6fe32348a272fbb038ba5
+      sha256: "7c8460ea88be4feb70e83fd90b6d0085e9fc647c6302ad80d11ce5b4b2041c3f"
       url: "https://pub.dev"
     source: hosted
-    version: "3.2.0"
+    version: "3.3.1"
   flutter_baidu_mapapi_map:
     dependency: "direct main"
     description:
       name: flutter_baidu_mapapi_map
-      sha256: "7db88c86e4353005477064645200c3070cfd775a97be977b157fa65f67d05354"
+      sha256: d44c880e1a310ba2f239f300ac157207edf91c64cf71cb5f8fdf3693459ef6dd
       url: "https://pub.dev"
     source: hosted
-    version: "3.2.1"
+    version: "3.3.1"
   flutter_baidu_mapapi_search:
     dependency: "direct main"
     description:
       name: flutter_baidu_mapapi_search
-      sha256: "8228f356297a97c6a86229056f01211bc2fd7ee4d57d2e64d4d95b7ccf4d494f"
+      sha256: "233af1457e9d90fc81676613a48ab2cb177412279c54efdbed2a0ae912c4704d"
       url: "https://pub.dev"
     source: hosted
-    version: "3.2.0"
+    version: "3.3.1"
   flutter_blurhash:
     dependency: transitive
     description:
@@ -578,10 +626,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_bmflocation
-      sha256: "1aa324563c3bdfaf08d09dc336599c8a2cbc08053cf74d77903bacf29078a611"
+      sha256: "4720b5a1cbce212f85a96ae23a24e8226e030386fa3f46fc48d72f9d09d6d776"
       url: "https://pub.dev"
     source: hosted
-    version: "3.2.1"
+    version: "3.3.1"
   flutter_cache_manager:
     dependency: transitive
     description:
@@ -1076,10 +1124,10 @@ packages:
     dependency: transitive
     description:
       name: package_info_plus
-      sha256: "7a6114becdf042be2b0777d77ace954d4a205644171a1cbd8712976b9bbb837c"
+      sha256: f62d7253edc197fe3c88d7c2ddab82d68f555e778d55390ccc3537eca8e8d637
       url: "https://pub.dev"
     source: hosted
-    version: "1.4.2"
+    version: "1.4.3+1"
   package_info_plus_linux:
     dependency: transitive
     description:
@@ -1116,10 +1164,10 @@ packages:
     dependency: transitive
     description:
       name: package_info_plus_windows
-      sha256: a6040b8695c82f8dd3c3d4dfab7ef96fbe9c67aac21b9bcf5db272589ef84441
+      sha256: "79524f11c42dd9078b96d797b3cf79c0a2883a50c4920dc43da8562c115089bc"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.5"
+    version: "2.1.0"
   pasteboard:
     dependency: transitive
     description:
@@ -1196,10 +1244,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_windows
-      sha256: a34ecd7fb548f8e57321fd8e50d865d266941b54e6c3b7758cf8f37c24116905
+      sha256: f53720498d5a543f9607db4b0e997c4b5438884de25b0f73098cc2671a51b130
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.7"
+    version: "2.1.5"
   pedantic:
     dependency: transitive
     description:
@@ -1561,10 +1609,10 @@ packages:
     dependency: "direct main"
     description:
       name: tencent_cloud_chat_uikit
-      sha256: ec715a3b672d442f6776be81912d8511f3c57489bcf452f1ad7c78362c3b431a
+      sha256: cd0d643b8df52d5c05e18f2ca0640ed6c1e8ce297f536150f2c34cf6c5206e06
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.0-preview.6"
+    version: "2.0.0-preview.7"
   tencent_cloud_uikit_core:
     dependency: transitive
     description:
@@ -1601,18 +1649,18 @@ packages:
     dependency: transitive
     description:
       name: tencent_im_base
-      sha256: e504bc78ec866164f1bc37d913c44c90cac740e8e209b255778c9a42ea08d020
+      sha256: "1e249654c32b0a68907165a389988d9f07fa6c5125151bbc0fb66adf43a4b5af"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.48"
+    version: "1.0.50"
   tencent_im_sdk_plugin_desktop:
     dependency: "direct main"
     description:
       name: tencent_im_sdk_plugin_desktop
-      sha256: "9367aafea2a548874be1f32f1e22f2b2c68be4c207bd9f8d7a91b54464b16ced"
+      sha256: f1541603a6c45b92aeb02cccabd6886c6330f3836e725c176622fc0b4472d89b
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.9"
+    version: "0.1.10"
   tencent_im_sdk_plugin_platform_interface:
     dependency: transitive
     description:
@@ -1641,10 +1689,10 @@ packages:
     dependency: transitive
     description:
       name: tencent_open_file
-      sha256: "98cbffe55e3245a308fbf76e18c9a0f808e534c624bc1a1cc0a00bd63a418290"
+      sha256: "01f94f618da42e5593bbad0657fcd13cfc1c2360cca805d8cdfefe898cbe5429"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.9+1"
+    version: "4.0.10"
   tencent_super_tooltip:
     dependency: "direct main"
     description:
@@ -1921,10 +1969,10 @@ packages:
     dependency: transitive
     description:
       name: wakelock_windows
-      sha256: "108b1b73711f1664ee462e73af34a9286ff496e27d4d8371e2fb4da8fde4cdac"
+      sha256: "857f77b3fe6ae82dd045455baa626bc4b93cb9bb6c86bf3f27c182167c3a5567"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.0"
+    version: "0.2.1"
   watcher:
     dependency: transitive
     description:
@@ -1985,10 +2033,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: c0e3a4f7be7dae51d8f152230b86627e3397c1ba8c3fa58e63d44a9f3edc9cef
+      sha256: a6f0236dbda0f63aa9a25ad1ff9a9d8a4eaaa5012da0dc59d21afdb1dc361ca4
       url: "https://pub.dev"
     source: hosted
-    version: "2.6.1"
+    version: "3.1.4"
   xdg_directories:
     dependency: transitive
     description:

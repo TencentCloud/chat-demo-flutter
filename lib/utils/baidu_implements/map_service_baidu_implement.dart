@@ -8,6 +8,7 @@ import 'dart:io';
 import 'package:flutter_baidu_mapapi_search/flutter_baidu_mapapi_search.dart';
 import 'package:flutter_bmflocation/flutter_bmflocation.dart';
 import 'package:flutter_baidu_mapapi_base/flutter_baidu_mapapi_base.dart';
+import 'package:tencent_cloud_chat_uikit/ui/utils/platform.dart';
 import 'package:tim_ui_kit_lbs_plugin/abstract/map_service.dart';
 import 'package:tim_ui_kit_lbs_plugin/utils/location_utils.dart';
 import 'package:tim_ui_kit_lbs_plugin/utils/tim_location_model.dart';
@@ -99,7 +100,7 @@ class BaiduMapService extends TIMMapService{
     // 设置是否隐私政策
     myLocPlugin.setAgreePrivacy(true);
     BMFMapSDK.setAgreePrivacy(true);
-    if (Platform.isIOS) {
+    if (PlatformUtils().isIOS) {
       // 设置ios端ak, android端ak可以直接在清单文件中配置
       myLocPlugin.authAK(appKey);
     }

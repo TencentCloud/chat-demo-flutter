@@ -1,4 +1,4 @@
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, empty_catches
 
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_demo/src/multi_platform_widget/search_entry/search_entry_wide.dart';
@@ -67,9 +67,7 @@ class _ConversationState extends State<Conversation> {
     jumpedConversations.clear();
     try{
       _controller.scrollToConversation(conversationList[0]!.conversationID);
-    }catch(e){
-      print(e);
-    }
+    }catch(e){}
   }
 
   void _handleOnConvItemTaped(V2TimConversation? selectedConv) async {
