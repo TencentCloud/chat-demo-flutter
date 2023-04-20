@@ -587,7 +587,7 @@ class _ChatState extends State<Chat> {
                       size: 32,
                     ),
                   )),
-              ...getVotePlugin(canAddVotePlugin, groupID),
+              // ...getVotePlugin(canAddVotePlugin, groupID),
             ],
           ),
           customAppBar: isWideScreen
