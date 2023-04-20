@@ -38,7 +38,7 @@ dependencies:
     sdk: flutter
 
   # Tencent Cloud Chat dependencies:
-  tencent_cloud_chat_uikit: ^2.0.0-preview.6
+  tencent_cloud_chat_uikit: ^2.0.0-preview.7
   tencent_calls_uikit: ^1.5.4
   tencent_chat_push_for_china: ^2.6.2+1
 
