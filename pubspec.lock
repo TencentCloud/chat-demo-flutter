@@ -29,10 +29,10 @@ packages:
     dependency: transitive
     description:
       name: archive
-      sha256: d6347d54a2d8028e0437e3c099f66fdb8ae02c4720c1e7534c9f24c10351f85d
+      sha256: "0c8368c9b3f0abbc193b9d6133649a614204b528982bebc7026372d61677ce3a"
       url: "https://pub.dev"
     source: hosted
-    version: "3.3.6"
+    version: "3.3.7"
   args:
     dependency: transitive
     description:
@@ -153,6 +153,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.1.5"
+  bugly:
+    dependency: "direct main"
+    description:
+      name: bugly
+      sha256: "21137cb213445ab9e11e6dbdaaf459c31b7eb4a111a201a9db02d012b9fc5c37"
+      url: "http://pub.oa.com"
+    source: hosted
+    version: "0.2.3"
   build:
     dependency: transitive
     description:
@@ -417,6 +425,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.8"
+  desktop_drop:
+    dependency: transitive
+    description:
+      name: desktop_drop
+      sha256: "4ca4d960f4b11c032e9adfd2a0a8ac615bc3fddb4cbe73dcf840dd8077582186"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.1"
   desktop_webview_window_for_is:
     dependency: "direct main"
     description:
@@ -473,6 +489,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.0"
+  diff_match_patch:
+    dependency: transitive
+    description:
+      name: diff_match_patch
+      sha256: "2efc9e6e8f449d0abe15be240e2c2a3bcd977c8d126cfd70598aee60af35c0a4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.1"
   dio:
     dependency: "direct main"
     description:
@@ -533,10 +557,10 @@ packages:
     dependency: transitive
     description:
       name: fc_native_video_thumbnail_for_us
-      sha256: ae9c7f887e5f0e005c4bb010b57a5fa59a404817697475d046f05c13df9eec43
+      sha256: db6fa2998195ef5eadac690ae58d6a909ddb5b0283ebbbf9ae4e0e8f99a54902
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.8"
+    version: "0.4.8+1"
   ffi:
     dependency: transitive
     description:
@@ -577,6 +601,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
+  floor:
+    dependency: transitive
+    description:
+      name: floor
+      sha256: "47b30dc15d2415533b6d09b9eaff8250472584db218869530c2b760e607ca7b5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.1"
+  floor_annotation:
+    dependency: transitive
+    description:
+      name: floor_annotation
+      sha256: "7fea065005731da50ab2161a780228615acf6c9931dc32c2cd84298e466fbf3a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -936,6 +976,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+  jce_codec:
+    dependency: transitive
+    description:
+      name: jce_codec
+      sha256: f1896e2adee015570d1e922941529fa1163020d1c24c730fbee75df148af9911
+      url: "http://pub.oa.com"
+    source: hosted
+    version: "0.0.1"
   js:
     dependency: transitive
     description:
@@ -1392,6 +1440,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.1"
+  rmonitor_base:
+    dependency: transitive
+    description:
+      name: rmonitor_base
+      sha256: da075075c75aecab1cdc702b0af5d48389680e275eb1f321de7d8a2c3328aa9c
+      url: "http://pub.oa.com"
+    source: hosted
+    version: "0.2.5"
   rxdart:
     dependency: transitive
     description:
@@ -1425,7 +1481,7 @@ packages:
     source: hosted
     version: "2.1.0"
   shared_preferences_android:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       name: shared_preferences_android
       sha256: "8304d8a1f7d21a429f91dee552792249362b68a331ac5c3c1caf370f658873f6"
@@ -1436,10 +1492,10 @@ packages:
     dependency: transitive
     description:
       name: shared_preferences_foundation
-      sha256: cf2a42fb20148502022861f71698db12d937c7459345a1bdaa88fc91a91b3603
+      sha256: "0c1c16c56c9708aa9c361541a6f0e5cc6fc12a3232d866a687a7b7db30032b07"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.0"
+    version: "2.2.1"
   shared_preferences_linux:
     dependency: transitive
     description:
@@ -1525,6 +1581,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.0"
+  sqflite_common_ffi:
+    dependency: transitive
+    description:
+      name: sqflite_common_ffi
+      sha256: "317f82d743c851f2f1aba6e636abdfbe12d296ce89a6f638fad7f37621e68293"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.1+1"
+  sqlite3:
+    dependency: transitive
+    description:
+      name: sqlite3
+      sha256: "0b19d02e196dd8c9fb96622520bcf7b5e2bcf6d7c748649bb36b1ebee821716b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.8.0"
   stack_trace:
     dependency: transitive
     description:
@@ -1574,7 +1646,7 @@ packages:
     source: hosted
     version: "2.0.4"
   tencent_calls_engine:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: tencent_calls_engine
       sha256: "380eaaa65f83ac0d597e73c3e5793f5ba2af1914008154b290c17e1a42e2a005"
@@ -1608,11 +1680,18 @@ packages:
   tencent_cloud_chat_uikit:
     dependency: "direct main"
     description:
-      name: tencent_cloud_chat_uikit
-      sha256: cd0d643b8df52d5c05e18f2ca0640ed6c1e8ce297f536150f2c34cf6c5206e06
-      url: "https://pub.dev"
+      path: "package_src/tim_ui_kit"
+      relative: true
+    source: path
+    version: "2.0.0"
+  tencent_cloud_chat_vote_plugin:
+    dependency: "direct main"
+    description:
+      name: tencent_cloud_chat_vote_plugin
+      sha256: fbcf3aaf44a7f71359bf9d3e6aff11dcceb98f11af298e833238090a6d3342c6
+      url: "http://pub.oa.com"
     source: hosted
-    version: "2.0.0-preview.7"
+    version: "0.0.5"
   tencent_cloud_uikit_core:
     dependency: transitive
     description:
@@ -1649,18 +1728,18 @@ packages:
     dependency: transitive
     description:
       name: tencent_im_base
-      sha256: "1e249654c32b0a68907165a389988d9f07fa6c5125151bbc0fb66adf43a4b5af"
+      sha256: "516356a80f43b94a6c0719b54e4c641cb1f164830b2b3e887d175ae862ebab3f"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.50"
+    version: "1.0.51"
   tencent_im_sdk_plugin_desktop:
     dependency: "direct main"
     description:
       name: tencent_im_sdk_plugin_desktop
-      sha256: f1541603a6c45b92aeb02cccabd6886c6330f3836e725c176622fc0b4472d89b
+      sha256: a56fdd9ae202493bbf58a0729d26b5190db441711ea9ce1d650fb37c965386b5
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.10"
+    version: "0.1.12"
   tencent_im_sdk_plugin_platform_interface:
     dependency: transitive
     description:
@@ -1897,10 +1976,10 @@ packages:
     dependency: transitive
     description:
       name: video_player
-      sha256: "868a139229acb5018d22aded3eb9cb4767ff43a8216573c086b6c535a4957481"
+      sha256: de95f0e9405f29b5582573d4166132e71f83b3158aac14e8ee5767a54f4f1fbd
       url: "https://pub.dev"
     source: hosted
-    version: "2.6.0"
+    version: "2.6.1"
   video_player_android:
     dependency: transitive
     description:
@@ -1929,10 +2008,10 @@ packages:
     dependency: transitive
     description:
       name: video_player_web
-      sha256: fb3bbeaf0302cb0c31340ebd6075487939aa1fe3b379d1a8784ef852b679940e
+      sha256: "44ce41424d104dfb7cf6982cc6b84af2b007a24d126406025bf40de5d481c74c"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.15"
+    version: "2.0.16"
   wakelock:
     dependency: transitive
     description:
@@ -1985,10 +2064,10 @@ packages:
     dependency: transitive
     description:
       name: web_socket_channel
-      sha256: ca49c0bc209c687b887f30527fb6a9d80040b072cc2990f34b9bec3e7663101b
+      sha256: d88238e5eac9a42bb43ca4e721edba3c08c6354d4a53063afaa568516217621b
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.0"
+    version: "2.4.0"
   webview_flutter:
     dependency: "direct main"
     description:
@@ -2037,6 +2116,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.4"
+  wup_dart:
+    dependency: transitive
+    description:
+      name: wup_dart
+      sha256: a60fa9e3dadb284a1b709073005a589040c2fa75766d6cd390d659533918c34a
+      url: "http://pub.oa.com"
+    source: hosted
+    version: "0.0.2"
   xdg_directories:
     dependency: transitive
     description:

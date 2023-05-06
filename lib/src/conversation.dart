@@ -14,7 +14,6 @@ import 'package:tencent_cloud_chat_demo/src/provider/local_setting.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/custom_last_message.dart';
 import 'package:tencent_cloud_chat_demo/utils/user_guide.dart';
 
-
 GlobalKey<_ConversationState> conversationKey = GlobalKey();
 
 class Conversation extends StatefulWidget {
@@ -29,7 +28,10 @@ class Conversation extends StatefulWidget {
   const Conversation(
       {Key? key,
       required this.conversationController,
-      this.onConversationChanged, this.onClickSearch, this.onClickPlus, this.selectedConversation})
+      this.onConversationChanged,
+      this.onClickSearch,
+      this.onClickPlus,
+      this.selectedConversation})
       : super(key: key);
 
   @override
@@ -51,23 +53,26 @@ class _ConversationState extends State<Conversation> {
   void didUpdateWidget(Conversation oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.selectedConversation != oldWidget.selectedConversation) {
-      _controller.selectedConversation = widget.selectedConversation;
+      Future.delayed(const Duration(milliseconds: 1), () {
+        _controller.selectedConversation = widget.selectedConversation;
+      });
     }
   }
 
-  scrollToNextUnreadConversation(){
+  scrollToNextUnreadConversation() {
     final conversationList = _controller.conversationList;
     for (var element in conversationList) {
-      if((element?.unreadCount ?? 0) > 0 && !jumpedConversations.contains(element!.conversationID)){
+      if ((element?.unreadCount ?? 0) > 0 &&
+          !jumpedConversations.contains(element!.conversationID)) {
         _controller.scrollToConversation(element.conversationID);
         jumpedConversations.add(element.conversationID);
         return;
       }
     }
     jumpedConversations.clear();
-    try{
+    try {
       _controller.scrollToConversation(conversationList[0]!.conversationID);
-    }catch(e){}
+    } catch (e) {}
   }
 
   void _handleOnConvItemTaped(V2TimConversation? selectedConv) async {
@@ -140,9 +145,11 @@ class _ConversationState extends State<Conversation> {
           conversationController: widget.conversationController,
           plusType: PlusType.create,
           onClickSearch: widget.onClickSearch,
-          directToChat: (conversation){
-            _handleOnConvItemTaped(conversation);
-            _controller.selectedConversation = conversation;
+          directToChat: (conversation) {
+            Future.delayed(const Duration(milliseconds: 1), () {
+              _handleOnConvItemTaped(conversation);
+              _controller.selectedConversation = widget.selectedConversation;
+            });
           },
         ),
         Expanded(

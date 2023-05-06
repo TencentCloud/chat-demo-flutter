@@ -45,7 +45,7 @@ class AboutState extends State<About>{
           isEmpty: text.isEmpty,
           operationName: TIM_t(text),
           showAllowEditStatus: !(rightText != null && rightText.isNotEmpty),
-          operationRightWidget: Text(rightText ?? ""),
+          operationRightWidget: Text(rightText ?? "", textAlign: TextAlign.end),
         ),
       ),
     );

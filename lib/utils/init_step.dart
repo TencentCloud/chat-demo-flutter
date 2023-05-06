@@ -80,7 +80,7 @@ class InitStep {
 
   static directToHomePage(BuildContext context) {
     final isWideScreen =
-        TUIKitScreenUtils.getFormFactor(context) == ScreenType.Wide;
+        TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
     Navigator.of(context).pushAndRemoveUntil(
       PageRouteBuilder(
           transitionDuration: const Duration(milliseconds: 500),

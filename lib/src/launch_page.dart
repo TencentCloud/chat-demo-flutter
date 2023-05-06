@@ -14,7 +14,7 @@ class LaunchPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Provider.of<DefaultThemeData>(context).theme;
     final isWideScreen =
-        TUIKitScreenUtils.getFormFactor(context) == ScreenType.Wide;
+        TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
     return Container(
       decoration: BoxDecoration(
         color: hexToColor("ecf3fe"),

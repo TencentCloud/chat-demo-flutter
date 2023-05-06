@@ -13,7 +13,7 @@ class AddGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TUIKitScreenUtils.getDeviceWidget(
-        wideWidget: TIMUIKitAddGroup(
+        desktopWidget: TIMUIKitAddGroup(
           closeFunc: closeFunc,
           onTapExistGroup: (groupID, conversation) {
             if (directToChat != null) {

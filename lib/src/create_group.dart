@@ -184,7 +184,7 @@ class _CreateGroup extends State<CreateGroup> {
   Widget build(BuildContext context) {
     final theme = Provider.of<DefaultThemeData>(context).theme;
     final isWideScreen =
-        TUIKitScreenUtils.getFormFactor(context) == ScreenType.Wide;
+        TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
 
     Widget chooseMembers() {
       return ContactList(
@@ -200,7 +200,7 @@ class _CreateGroup extends State<CreateGroup> {
     }
 
     return TUIKitScreenUtils.getDeviceWidget(
-        wideWidget: Container(
+        desktopWidget: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: chooseMembers(),
         ),

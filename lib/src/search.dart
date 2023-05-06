@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_demo/src/tencent_page.dart';
-import 'package:tencent_cloud_chat_uikit/data_services/core/%20tim_uikit_wide_modal_operation_key.dart';
+import 'package:tencent_cloud_chat_uikit/data_services/core/tim_uikit_wide_modal_operation_key.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
 import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
@@ -35,7 +35,7 @@ class Search extends StatelessWidget {
   Widget build(BuildContext context) {
     final isConversation = (conversation != null);
     final theme = Provider.of<DefaultThemeData>(context).theme;
-    final isWideScreen = TUIKitScreenUtils.getFormFactor(context) == ScreenType.Wide;
+    final isWideScreen = TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
     return TencentPage(
         child: Scaffold(
           appBar: isWideScreen

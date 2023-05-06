@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tencent_cloud_chat_uikit/data_services/core/%20tim_uikit_wide_modal_operation_key.dart';
+import 'package:tencent_cloud_chat_uikit/data_services/core/tim_uikit_wide_modal_operation_key.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/screen_utils.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
@@ -29,7 +29,7 @@ class _ContactState extends State<Contact> {
   }
 
   _topListItemTap(String id) {
-    final isWideScreen = TUIKitScreenUtils.getFormFactor(context) == ScreenType.Wide;
+    final isWideScreen = TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
     switch (id) {
       case "newContact":
         if(isWideScreen){
@@ -100,7 +100,7 @@ class _ContactState extends State<Contact> {
   }
 
   Widget? _topListBuilder(TopListItem item) {
-    final isWideScreen = TUIKitScreenUtils.getFormFactor(context) == ScreenType.Wide;
+    final isWideScreen = TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
     final showName = item.name;
     if (item.id == "newContact") {
       return InkWell(
@@ -155,7 +155,7 @@ class _ContactState extends State<Contact> {
   @override
   Widget build(BuildContext context) {
     final LocalSetting localSetting = Provider.of<LocalSetting>(context);
-    final isWideScreen = TUIKitScreenUtils.getFormFactor(context) == ScreenType.Wide;
+    final isWideScreen = TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
 
     return Column(
       children: [

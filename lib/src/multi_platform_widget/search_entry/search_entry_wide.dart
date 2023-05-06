@@ -4,7 +4,7 @@ import 'package:tencent_cloud_chat_demo/src/add_friend.dart';
 import 'package:tencent_cloud_chat_demo/src/add_group.dart';
 import 'package:tencent_cloud_chat_demo/src/create_group.dart';
 import 'package:tencent_cloud_chat_demo/src/create_group_introduction.dart';
-import 'package:tencent_cloud_chat_uikit/data_services/core/%20tim_uikit_wide_modal_operation_key.dart';
+import 'package:tencent_cloud_chat_uikit/data_services/core/tim_uikit_wide_modal_operation_key.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_conversation_controller.dart';
 import 'package:tencent_cloud_chat_demo/src/chat.dart';

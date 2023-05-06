@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tencent_cloud_chat_uikit/data_services/core/%20tim_uikit_wide_modal_operation_key.dart';
+import 'package:tencent_cloud_chat_uikit/data_services/core/tim_uikit_wide_modal_operation_key.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_demo/src/create_group.dart';
@@ -47,7 +47,7 @@ class CreateGroupIntroduction extends StatefulWidget {
 class _CreateGroupIntroductionState extends State<CreateGroupIntroduction> {
   void createGroupFunc(GroupTypeForUIKit type) {
     final isWideScreen =
-        TUIKitScreenUtils.getFormFactor(context) == ScreenType.Wide;
+        TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
 
     if (isWideScreen) {
       if(widget.closeFunc != null){
@@ -174,7 +174,7 @@ class _CreateGroupIntroductionState extends State<CreateGroupIntroduction> {
     }
 
     return TUIKitScreenUtils.getDeviceWidget(
-        wideWidget: createGroupList(),
+        desktopWidget: createGroupList(),
         defaultWidget: Scaffold(
           appBar: AppBar(
               title: Text(

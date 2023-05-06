@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/calling_message/calling_message.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/calling_message/group_call_message_builder.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/calling_message/single_call_message_builder.dart';
-import 'package:tencent_cloud_chat_uikit/data_services/core/%20tim_uikit_wide_modal_operation_key.dart';
+import 'package:tencent_cloud_chat_uikit/data_services/core/tim_uikit_wide_modal_operation_key.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/screen_utils.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/link_preview/common/extensions.dart';
@@ -121,44 +121,44 @@ class _CustomMessageElemState extends State<CustomMessageElem> {
         theme,
         false,
       );
-    // } else if (isVoteMessage) {
-    //   return renderMessageItem(
-    //     TencentCloudChatVoteMessage(
-    //       message: widget.message,
-    //       onTap: (
-    //         TencentCloudChatVoteDataOptoin option,
-    //         TencentCloudChatVoteLogic data,
-    //       ) {
-    //         final isWideScreen =
-    //             TUIKitScreenUtils.getFormFactor(context) == ScreenType.Wide;
-    //         if (isWideScreen) {
-    //           TUIKitWidePopup.showPopupWindow(
-    //             context: context,
-    //             title: option.option,
-    //             operationKey: TUIKitWideModalOperationKey.chooseCountry,
-    //             width: MediaQuery.of(context).size.width * 0.4,
-    //             height: MediaQuery.of(context).size.width * 0.5,
-    //             child: (onClose) => VoteDetailExample(
-    //               option: option,
-    //               data: data,
-    //             ),
-    //           );
-    //         } else {
-    //           Navigator.push(
-    //             context,
-    //             MaterialPageRoute(
-    //               builder: (context) => VoteDetailExample(
-    //                 option: option,
-    //                 data: data,
-    //               ),
-    //             ),
-    //           );
-    //         }
-    //       },
-    //     ),
-    //     theme,
-    //     true,
-    //   );
+      // } else if (isVoteMessage) {
+      //   return renderMessageItem(
+      //     TencentCloudChatVoteMessage(
+      //       message: widget.message,
+      //       onTap: (
+      //         TencentCloudChatVoteDataOptoin option,
+      //         TencentCloudChatVoteLogic data,
+      //       ) {
+      //         final isWideScreen =
+      //             TUIKitScreenUtils.getFormFactor(context) == ScreenType.Wide;
+      //         if (isWideScreen) {
+      //           TUIKitWidePopup.showPopupWindow(
+      //             context: context,
+      //             title: option.option,
+      //             operationKey: TUIKitWideModalOperationKey.chooseCountry,
+      //             width: MediaQuery.of(context).size.width * 0.4,
+      //             height: MediaQuery.of(context).size.width * 0.5,
+      //             child: (onClose) => VoteDetailExample(
+      //               option: option,
+      //               data: data,
+      //             ),
+      //           );
+      //         } else {
+      //           Navigator.push(
+      //             context,
+      //             MaterialPageRoute(
+      //               builder: (context) => VoteDetailExample(
+      //                 option: option,
+      //                 data: data,
+      //               ),
+      //             ),
+      //           );
+      //         }
+      //       },
+      //     ),
+      //     theme,
+      //     true,
+      //   );
     } else if (linkMessage != null) {
       final String option1 = linkMessage.link ?? "";
       return renderMessageItem(
@@ -172,6 +172,7 @@ class _CustomMessageElemState extends State<CustomMessageElem> {
                   option1: option1),
               styleSheet: MarkdownStyleSheet.fromTheme(ThemeData(
                       textTheme: const TextTheme(
+                          // ignore: deprecated_member_use
                           bodyText2: TextStyle(fontSize: 16.0))))
                   .copyWith(
                 a: TextStyle(color: LinkUtils.hexToColor("015fff")),
@@ -254,14 +255,20 @@ class _CustomMessageElemState extends State<CustomMessageElem> {
         isShowJumpState ? const Color.fromRGBO(245, 166, 35, 1) : defaultStyle;
 
     return Container(
-        padding: isVoteMessage ? null : (widget.textPadding ?? const EdgeInsets.all(10)),
-        decoration: isVoteMessage ? null : BoxDecoration(
-          color: widget.messageBackgroundColor ?? backgroundColor,
-          borderRadius: widget.messageBorderRadius ?? borderRadius,
-        ),
+        padding: isVoteMessage
+            ? null
+            : (widget.textPadding ?? const EdgeInsets.all(10)),
+        decoration: isVoteMessage
+            ? BoxDecoration(
+                border: Border.all(
+                    width: 1, color: theme.weakDividerColor ?? Colors.grey))
+            : BoxDecoration(
+                color: widget.messageBackgroundColor ?? backgroundColor,
+                borderRadius: widget.messageBorderRadius ?? borderRadius,
+              ),
         constraints: BoxConstraints(
             maxWidth:
-                isVoteMessage ? 300 : 240), // vote message width need more
+                isVoteMessage ? 298 : 240), // vote message width need more
         child: child);
   }
 

@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
 class Const {

@@ -9,7 +9,7 @@ import 'package:tencent_cloud_chat_demo/src/pages/cross_platform/wide_screen/con
 import 'package:tencent_cloud_chat_demo/src/pages/cross_platform/wide_screen/settings.dart';
 import 'package:tencent_cloud_chat_demo/src/routes.dart';
 import 'package:tencent_cloud_chat_demo/utils/toast.dart';
-import 'package:tencent_cloud_chat_uikit/data_services/core/%20tim_uikit_wide_modal_operation_key.dart';
+import 'package:tencent_cloud_chat_uikit/data_services/core/tim_uikit_wide_modal_operation_key.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/screen_utils.dart';
 
@@ -161,7 +161,7 @@ class MyProfileDetailState extends State<MyProfileDetail> {
   Widget build(BuildContext context) {
     final theme = Provider.of<DefaultThemeData>(context).theme;
     final isWideScreen =
-        TUIKitScreenUtils.getFormFactor(context) == ScreenType.Wide;
+        TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
     return Scaffold(
       appBar: isWideScreen
           ? null
@@ -211,7 +211,8 @@ class MyProfileDetailState extends State<MyProfileDetail> {
             TIMUIKitProfileWidget.operationDivider(
                 color: theme.weakDividerColor,
                 height: 1,
-                margin: const EdgeInsets.symmetric(vertical: 20)),
+                margin: const EdgeInsets.symmetric(vertical: 20)
+            ),
             InkWell(
               onTapDown: (details) async {
                 widget.controller?.showTextInputBottomSheet(
@@ -237,12 +238,13 @@ class MyProfileDetailState extends State<MyProfileDetail> {
               child: TIMUIKitOperationItem(
                 isEmpty: !TencentUtils.isTextNotEmpty(userProfile?.nickName),
                 operationName: TIM_t("昵称"),
-                operationRightWidget:
-                    Text(TencentUtils.isTextNotEmpty(userProfile?.nickName)
+                operationRightWidget: Text(
+                    TencentUtils.isTextNotEmpty(userProfile?.nickName)
                         ? userProfile!.nickName!
                         : isWideScreen
                             ? ""
-                            : TIM_t("未填写")),
+                            : TIM_t("未填写"),
+                    textAlign: isWideScreen ? null : TextAlign.end),
               ),
             ),
             TIMUIKitProfileWidget.userAccountBar(
@@ -284,42 +286,49 @@ class MyProfileDetailState extends State<MyProfileDetail> {
                             ? userProfile!.selfSignature!
                             : isWideScreen
                                 ? ""
-                                : TIM_t("未填写")))),
+                                : TIM_t("未填写"),
+                        textAlign: isWideScreen ? null : TextAlign.end))),
             InkWell(
                 onTapDown: (details) {
-                  if(isWideScreen){
+                  if (isWideScreen) {
                     TUIKitWidePopup.showPopupWindow(
                         isDarkBackground: false,
-                        operationKey: TUIKitWideModalOperationKey.secondaryClickUserAvatar,
-                        borderRadius: const BorderRadius.all(
-                            Radius.circular(4)
-                        ),
+                        operationKey: TUIKitWideModalOperationKey
+                            .secondaryClickUserAvatar,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(4)),
                         context: context,
-                        offset: Offset(details.globalPosition.dx, details.globalPosition.dy),
+                        offset: Offset(details.globalPosition.dx,
+                            details.globalPosition.dy),
                         child: (closeFunc) => TUIKitColumnMenu(
-                          data: [
-                            ColumnMenuItem(label: TIM_t("男"), onClick: () async {
-                              final res = await widget.controller?.updateGender(1);
-                              if (res?.code == 0) {
-                                setState(() {
-                                  userProfile?.gender = 1;
-                                });
-                              }
-                              closeFunc();
-                            }),
-                            ColumnMenuItem(label: TIM_t("女"), onClick: () async {
-                              final res = await widget.controller?.updateGender(2);
-                              if (res?.code == 0) {
-                                setState(() {
-                                  userProfile?.gender = 2;
-                                });
-                              }
-                              closeFunc();
-                            }),
-                          ],
-                        )
-                    );
-                  }else{
+                              data: [
+                                ColumnMenuItem(
+                                    label: TIM_t("男"),
+                                    onClick: () async {
+                                      final res = await widget.controller
+                                          ?.updateGender(1);
+                                      if (res?.code == 0) {
+                                        setState(() {
+                                          userProfile?.gender = 1;
+                                        });
+                                      }
+                                      closeFunc();
+                                    }),
+                                ColumnMenuItem(
+                                    label: TIM_t("女"),
+                                    onClick: () async {
+                                      final res = await widget.controller
+                                          ?.updateGender(2);
+                                      if (res?.code == 0) {
+                                        setState(() {
+                                          userProfile?.gender = 2;
+                                        });
+                                      }
+                                      closeFunc();
+                                    }),
+                              ],
+                            ));
+                  } else {
                     showGenderChoseSheet(context, theme);
                   }
                 },

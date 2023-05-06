@@ -25,11 +25,11 @@ class _SearchEntryState extends State<SearchEntry> {
     return TUIKitScreenUtils.getDeviceWidget(
         defaultWidget: SearchEntryNarrow(
             conversationController: widget.conversationController),
-        wideWidget: SearchEntryWide(
+        desktopWidget: SearchEntryWide(
           onClickSearch: widget.onClickSearch,
             directToChat: widget.directToChat,
             conversationController: widget.conversationController, plusType: widget.plusType),
-        narrowWidget: SearchEntryNarrow(
+        mobileWidget: SearchEntryNarrow(
             conversationController: widget.conversationController));
   }
 }

@@ -24,7 +24,7 @@ class BlackList extends StatelessWidget {
         },
         onTapItem: (V2TimFriendInfo friendInfo) {
           final isWideScreen =
-              TUIKitScreenUtils.getFormFactor(context) == ScreenType.Wide;
+              TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
           if (isWideScreen) {
             // TODO
           } else {
@@ -39,7 +39,7 @@ class BlackList extends StatelessWidget {
     }
 
     return TUIKitScreenUtils.getDeviceWidget(
-        wideWidget: blockedUsers(),
+        desktopWidget: blockedUsers(),
         defaultWidget: Scaffold(
           appBar: AppBar(
               title: Text(

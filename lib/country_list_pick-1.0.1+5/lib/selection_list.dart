@@ -61,7 +61,7 @@ class _SelectionListState extends State<SelectionList> {
   }
 
   void _sendDataBack(BuildContext context, CountryCode initialSelection) {
-    final isWideScreen = TUIKitScreenUtils.getFormFactor(context) == ScreenType.Wide;
+    final isWideScreen = TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
     if(isWideScreen){
       widget.onChange!(initialSelection);
     }else{

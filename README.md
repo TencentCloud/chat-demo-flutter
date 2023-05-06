@@ -82,7 +82,21 @@ flutter clean
 flutter pub get
 ```
 
-2. Run it:
+2. [Optional] Running or Deploying on the Web
+
+If you prefer to run or deploy this sample app on the web, you'll need to complete a few additional steps first.
+
+Navigate to the `web/` directory of your project and use npm or Yarn to install the required JavaScript dependencies.
+
+```bash
+cd web
+
+npm install
+```
+
+Once you've completed these steps, you'll be ready to run or deploy the sample app on the web.
+
+3. Run it:
 ```shell
 # Start the sample app. Replace `SDK_APPID` and `KEY`
 flutter run --dart-define=SDK_APPID={YOUR_SDKAPPID} --dart-define=ISPRODUCT_ENV=false --dart-define=KEY={YOUR_KEY}
@@ -91,7 +105,7 @@ flutter run --dart-define=SDK_APPID={YOUR_SDKAPPID} --dart-define=ISPRODUCT_ENV=
 
 >- `--dart-define=SDK_APPID={YOUR_SDKAPPID}`. Here, `{YOUR_SDKAPPID}` needs to be replaced with the `SDKAppID` of your application.
 >- `--dart-define=ISPRODUCT_ENV=false`. Set it to `false` for a development environment.
->- `--dart-define=KEY={YOUR_KEY}`. Here, `{YOUR_KEY}` needs to be replaced with the `Key` recorded in [Part 1. Creating a Test User](#part1).
+>- `--dart-define=KEY={YOUR_KEY}`. Here, `{YOUR_KEY}` needs to be replaced with the `Key` recorded in [Tencent Cloud Console](https://console.tencentcloud.com/im/detail).
 >
 
 ## (Optional) Using the IDE

@@ -19,7 +19,7 @@ class SkinPage extends StatelessWidget {
     final theme = Provider.of<DefaultThemeData>(context).theme;
 
     return TUIKitScreenUtils.getDeviceWidget(
-        wideWidget: Row(
+        desktopWidget: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: skinBuilder()
               .map((e) => Container(
@@ -78,7 +78,7 @@ class SkinCube extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeType = Provider.of<DefaultThemeData>(context).currentThemeType;
     final isWideScreen =
-        TUIKitScreenUtils.getFormFactor(context) == ScreenType.Wide;
+        TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
 
     return SizedBox(
         height: 128,

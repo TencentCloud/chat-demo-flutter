@@ -107,7 +107,7 @@ class UserProfileState extends State<UserProfile> {
   _buildBottomOperationList(
       BuildContext context, V2TimConversation conversation, theme) {
     final isWideScreen =
-        TUIKitScreenUtils.getFormFactor(context) == ScreenType.Wide;
+        TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
 
     List operationList = [
       {
@@ -178,7 +178,7 @@ class UserProfileState extends State<UserProfile> {
   Widget build(BuildContext context) {
     final theme = Provider.of<DefaultThemeData>(context).theme;
     final isWideScreen =
-        TUIKitScreenUtils.getFormFactor(context) == ScreenType.Wide;
+        TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
     return TencentPage(
         child: Scaffold(
           appBar: isWideScreen

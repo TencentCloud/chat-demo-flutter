@@ -29,7 +29,7 @@ class _MeAndTencentState extends State<MeAndTencent> {
   Widget build(BuildContext context) {
     final loginUserInfoModel = Provider.of<LoginUserInfo>(context);
     final V2TimUserFullInfo loginUserInfo = loginUserInfoModel.loginUserInfo;
-    final isWideScreen = TUIKitScreenUtils.getFormFactor(context) == ScreenType.Wide;
+    final isWideScreen = TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
     final theme = Provider.of<DefaultThemeData>(context).theme;
 
     return Column(

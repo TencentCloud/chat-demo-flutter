@@ -3,7 +3,7 @@ import 'package:tencent_cloud_chat_demo/src/pages/cross_platform/wide_screen/abo
 import 'package:tencent_cloud_chat_demo/src/pages/cross_platform/wide_screen/contact_us.dart';
 import 'package:tencent_cloud_chat_demo/src/pages/cross_platform/wide_screen/settings.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
-import 'package:tencent_cloud_chat_uikit/data_services/core/%20tim_uikit_wide_modal_operation_key.dart';
+import 'package:tencent_cloud_chat_uikit/data_services/core/tim_uikit_wide_modal_operation_key.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/login_user_Info.dart';

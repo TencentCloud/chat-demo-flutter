@@ -16,6 +16,7 @@ import 'package:tencent_cloud_chat_demo/src/routes.dart';
 import 'package:tencent_cloud_chat_demo/utils/theme.dart';
 import 'package:tencent_cloud_chat_demo/utils/toast.dart';
 import 'package:adaptive_action_sheet/adaptive_action_sheet.dart';
+import 'package:tencent_cloud_chat_uikit/ui/utils/screen_utils.dart';
 
 class MyProfile extends StatefulWidget {
   const MyProfile({Key? key}) : super(key: key);
@@ -134,6 +135,8 @@ class _ProfileState extends State<MyProfile> {
     final themeType = Provider.of<DefaultThemeData>(context).currentThemeType;
     final theme = Provider.of<DefaultThemeData>(context).theme;
     final loginUserInfoModel = Provider.of<LoginUserInfo>(context);
+    final bool isWideScreen =
+        TUIKitScreenUtils.getFormFactor() == DeviceType.Desktop;
     final V2TimUserFullInfo loginUserInfo = loginUserInfoModel.loginUserInfo;
     return TIMUIKitProfile(
       isSelf: true,
@@ -171,7 +174,10 @@ class _ProfileState extends State<MyProfile> {
                 child: TIMUIKitOperationItem(
                   isEmpty: false,
                   operationName: TIM_t("加我为好友的方式"),
-                  operationRightWidget: Text(allowText),
+                  operationRightWidget: Text(
+                    allowText,
+                    textAlign: isWideScreen ? null : TextAlign.end,
+                  ),
                 ),
               ),
             ),
@@ -189,6 +195,7 @@ class _ProfileState extends State<MyProfile> {
                 operationName: TIM_t("更换皮肤"),
                 operationRightWidget: Text(
                     DefTheme.defaultThemeName[themeType]!,
+                    textAlign: isWideScreen ? null : TextAlign.end,
                     style: TextStyle(color: theme.primaryColor)),
               ),
             ),

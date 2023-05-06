@@ -2,14 +2,13 @@
 
 import 'dart:math';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_demo/src/group_application_list.dart';
 import 'package:tencent_cloud_chat_demo/src/tencent_page.dart';
 // import 'package:tencent_cloud_chat_demo/src/vote_example/vote_create_example.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/life_cycle/chat_life_cycle.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_chat_global_model.dart';
-import 'package:tencent_cloud_chat_uikit/data_services/core/%20tim_uikit_wide_modal_operation_key.dart';
+import 'package:tencent_cloud_chat_uikit/data_services/core/tim_uikit_wide_modal_operation_key.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_chat_controller.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/message.dart';
@@ -83,7 +82,7 @@ class _ChatState extends State<Chat> {
 
   _onTapAvatar(String userID, TapDownDetails tapDetails, TUITheme theme) {
     final isWideScreen =
-        TUIKitScreenUtils.getFormFactor(context) == ScreenType.Wide;
+        TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
     if (isWideScreen) {
       onClickUserName(
           Offset(
@@ -163,7 +162,7 @@ class _ChatState extends State<Chat> {
     final customStickerPackageList =
         Provider.of<CustomStickerPackageData>(context).customStickerPackageList;
     final isWideScreen =
-        TUIKitScreenUtils.getFormFactor(context) == ScreenType.Wide;
+        TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
 
     final defaultEmojiList =
         defaultCustomEmojiStickerList.map((customEmojiPackage) {
@@ -351,7 +350,7 @@ class _ChatState extends State<Chat> {
   Widget build(BuildContext context) {
     final LocalSetting localSetting = Provider.of<LocalSetting>(context);
     final isWideScreen =
-        TUIKitScreenUtils.getFormFactor(context) == ScreenType.Wide;
+        TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
     final theme = Provider.of<DefaultThemeData>(context).theme;
     // bool canAddVotePlugin = widget.selectedConversation.groupID != null &&
     //     widget.selectedConversation.groupID!.isNotEmpty && ;
@@ -382,14 +381,26 @@ class _ChatState extends State<Chat> {
             return message;
           }),
           onDealWithGroupApplication: (String groupId) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => GroupApplicationList(
-                  groupID: groupId,
+            if (!isWideScreen) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => GroupApplicationList(
+                    groupID: groupId,
+                  ),
                 ),
-              ),
-            );
+              );
+            } else {
+              TUIKitWidePopup.showPopupWindow(
+                operationKey: TUIKitWideModalOperationKey.addGroup,
+                context: context,
+                width: MediaQuery.of(context).size.width * 0.55,
+                height: MediaQuery.of(context).size.width * 0.45,
+                title: TIM_t("进群申请列表"),
+                child: (closeFuncSendApplication) =>
+                    TIMUIKitGroupApplicationList(groupID: groupID),
+              );
+            }
           },
           groupAtInfoList: widget.selectedConversation.groupAtInfoList,
           key: tuiChatField,
@@ -397,55 +408,55 @@ class _ChatState extends State<Chat> {
           showTotalUnReadCount: true,
           // customEmojiStickerList: customEmojiList,
           config: TIMUIKitChatConfig(
-            showC2cMessageEditStatus: true,
-            isUseDefaultEmoji: true,
-            isAllowClickAvatar: true,
-            isAllowLongPressMessage: true,
-            isShowReadingStatus: localSetting.isShowReadingStatus,
-            isShowGroupReadingStatus: localSetting.isShowReadingStatus,
-            notificationTitle: "",
-            isSupportMarkdownForTextMessage: false,
-            urlPreviewType: UrlPreviewType.previewCardAndHyperlink,
-            isUseMessageReaction: true,
-            notificationOPPOChannelID: PushConfig.OPPOChannelID,
-            groupReadReceiptPermissionList: [
-              GroupReceiptAllowType.work,
-              GroupReceiptAllowType.meeting,
-              GroupReceiptAllowType.public
-            ],
-            faceURIPrefix: (String path) {
-              if (path.contains("assets/custom_face_resource/")) {
-                return "";
-              }
-              int? dirNumber;
-              if (path.contains("yz")) {
-                dirNumber = 4350;
-              }
-              if (path.contains("ys")) {
-                dirNumber = 4351;
-              }
-              if (path.contains("gcs")) {
-                dirNumber = 4352;
-              }
-              if (dirNumber != null) {
-                return "assets/custom_face_resource/$dirNumber/";
-              } else {
-                return "";
-              }
-            },
-            faceURISuffix: (String path) {
-              return "@2x.png";
-            },
-            additionalDesktopControlBarItems: [
-              if(canAddVotePlugin) DesktopControlBarItem(
-                  item: "poll",
-                  showName: TIM_t("投票"),
-                  onClick: (offset) {
-                    _createVote(groupID);
-                  },
-                  icon: Icons.ballot_outlined),
-            ]
-          ),
+              showC2cMessageEditStatus: true,
+              isUseDefaultEmoji: true,
+              isAllowClickAvatar: true,
+              isAllowLongPressMessage: true,
+              isShowReadingStatus: localSetting.isShowReadingStatus,
+              isShowGroupReadingStatus: localSetting.isShowReadingStatus,
+              notificationTitle: "",
+              isSupportMarkdownForTextMessage: false,
+              urlPreviewType: UrlPreviewType.previewCardAndHyperlink,
+              isUseMessageReaction: true,
+              notificationOPPOChannelID: PushConfig.OPPOChannelID,
+              groupReadReceiptPermissionList: [
+                GroupReceiptAllowType.work,
+                GroupReceiptAllowType.meeting,
+                GroupReceiptAllowType.public
+              ],
+              faceURIPrefix: (String path) {
+                if (path.contains("assets/custom_face_resource/")) {
+                  return "";
+                }
+                int? dirNumber;
+                if (path.contains("yz")) {
+                  dirNumber = 4350;
+                }
+                if (path.contains("ys")) {
+                  dirNumber = 4351;
+                }
+                if (path.contains("gcs")) {
+                  dirNumber = 4352;
+                }
+                if (dirNumber != null) {
+                  return "assets/custom_face_resource/$dirNumber/";
+                } else {
+                  return "";
+                }
+              },
+              faceURISuffix: (String path) {
+                return "@2x.png";
+              },
+              additionalDesktopControlBarItems: [
+                if (canAddVotePlugin)
+                  DesktopControlBarItem(
+                      item: "poll",
+                      showName: TIM_t("投票"),
+                      onClick: (offset) {
+                        _createVote(groupID);
+                      },
+                      icon: Icons.ballot_outlined),
+              ]),
           conversationID: _getConvID() ?? '',
           conversationType:
               ConvType.values[widget.selectedConversation.type ?? 1],
