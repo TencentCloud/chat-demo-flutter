@@ -89,8 +89,8 @@ class _ChatV2State extends State<ChatV2> {
                           //     messageBackgroundColor: Colors.black,
                           //     messageTextStyle: TextStyle(color: Colors.redAccent)),
                           topRowBuilder: (context, message) {
-                            return Row(
-                              children: const [Text("this is top Raw builder")],
+                            return const Row(
+                              children: [Text("this is top Raw builder")],
                             );
                           },
                           showMessageReadRecipt: false,

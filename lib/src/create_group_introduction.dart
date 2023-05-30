@@ -174,6 +174,7 @@ class _CreateGroupIntroductionState extends State<CreateGroupIntroduction> {
     }
 
     return TUIKitScreenUtils.getDeviceWidget(
+        context: context,
         desktopWidget: createGroupList(),
         defaultWidget: Scaffold(
           appBar: AppBar(

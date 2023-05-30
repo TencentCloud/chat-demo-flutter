@@ -23,6 +23,7 @@ class _SearchEntryState extends State<SearchEntry> {
   @override
   Widget build(BuildContext context) {
     return TUIKitScreenUtils.getDeviceWidget(
+        context: context,
         defaultWidget: SearchEntryNarrow(
             conversationController: widget.conversationController),
         desktopWidget: SearchEntryWide(

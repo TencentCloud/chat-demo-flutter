@@ -194,7 +194,7 @@ class _SearchEntryWideState extends State<SearchEntryWide> {
             ),
           ));
     });
-    Overlay.of(context)?.insert(entry!);
+    Overlay.of(context).insert(entry!);
   }
 
   @override

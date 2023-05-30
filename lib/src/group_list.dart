@@ -57,6 +57,7 @@ class GroupList extends StatelessWidget {
     }
 
     return TUIKitScreenUtils.getDeviceWidget(
+        context: context,
         desktopWidget: groupList(),
         defaultWidget: Scaffold(
           appBar: AppBar(

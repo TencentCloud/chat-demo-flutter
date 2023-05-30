@@ -124,9 +124,9 @@ PODS:
   - rmonitor_base (0.0.1):
     - Flutter
     - ReachabilitySwift
-  - SDWebImage (5.15.5):
-    - SDWebImage/Core (= 5.15.5)
-  - SDWebImage/Core (5.15.5)
+  - SDWebImage (5.15.8):
+    - SDWebImage/Core (= 5.15.8)
+  - SDWebImage/Core (5.15.8)
   - SDWebImageWebPCoder (0.11.0):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.15)
@@ -139,60 +139,53 @@ PODS:
   - SwiftyGif (5.4.4)
   - tencent_calls_engine (0.0.1):
     - Flutter
-    - TUICallEngine (= 1.5.1.310)
+    - TUICallEngine/Professional (= 1.6.0.360)
   - tencent_calls_uikit (0.0.1):
     - Flutter
-    - TUICallKit (= 1.5.1.310)
+    - TUICallKit/Professional (= 1.6.0.360)
   - tencent_chat_push_for_china (0.0.1):
     - Flutter
   - tencent_cloud_chat_sdk (5.1.2):
     - Flutter
     - HydraAsync
-    - TXIMSDK_Plus_iOS (= 7.1.3925)
+    - TXIMSDK_Plus_iOS (>= 7.2.4146)
   - tencent_cloud_uikit_core (0.0.1):
     - Flutter
-    - TUICore (= 7.1.3925)
+    - TUICore (~> 7.2.4123)
   - tencent_open_file (0.0.1):
     - Flutter
   - Toast (4.0.0)
-  - TUICallEngine (1.5.1.310):
-    - TUICallEngine/TRTC (= 1.5.1.310)
-    - TXIMSDK_Plus_iOS (~> 7.1.3925)
-  - TUICallEngine/TRTC (1.5.1.310):
-    - TXIMSDK_Plus_iOS (~> 7.1.3925)
-    - TXLiteAVSDK_TRTC
-  - TUICallKit (1.5.1.310):
+  - TUICallEngine/Professional (1.6.0.360):
+    - TXIMSDK_Plus_iOS (~> 7.2.4123)
+    - TXLiteAVSDK_Professional
+  - TUICallKit/Professional (1.6.0.360):
     - Masonry
-    - TUICallKit/TRTC (= 1.5.1.310)
-    - TUICore (~> 7.1.3925)
-  - TUICallKit/TRTC (1.5.1.310):
-    - Masonry
-    - TUICallEngine/TRTC (~> 1.5.1.310)
-    - TUICore (~> 7.1.3925)
-    - TXLiteAVSDK_TRTC
-  - TUICore (7.1.3925):
+    - TUICallEngine/Professional (~> 1.6.0.360)
+    - TUICore (~> 7.2.4123)
+    - TXLiteAVSDK_Professional
+  - TUICore (7.2.4146):
     - ReactiveObjC
     - SDWebImage
-    - TUICore/ImSDK_Plus (= 7.1.3925)
-  - TUICore/Base (7.1.3925):
+    - TUICore/ImSDK_Plus (= 7.2.4146)
+  - TUICore/Base (7.2.4146):
     - ReactiveObjC
     - SDWebImage
-  - TUICore/ImSDK_Plus (7.1.3925):
+  - TUICore/ImSDK_Plus (7.2.4146):
     - ReactiveObjC
     - SDWebImage
     - TUICore/Base
-    - TXIMSDK_Plus_iOS (= 7.1.3925)
-  - TXIMSDK_Plus_iOS (7.1.3925)
-  - TXLiteAVSDK_TRTC (11.1.14125):
-    - TXLiteAVSDK_TRTC/TRTC (= 11.1.14125)
-  - TXLiteAVSDK_TRTC/TRTC (11.1.14125)
+    - TXIMSDK_Plus_iOS (= 7.2.4146)
+  - TXIMSDK_Plus_iOS (7.2.4146)
+  - TXLiteAVSDK_Professional (11.1.14143):
+    - TXLiteAVSDK_Professional/Professional (= 11.1.14143)
+  - TXLiteAVSDK_Professional/Professional (11.1.14143)
   - uni_links (0.0.1):
     - Flutter
   - url_launcher_ios (0.0.1):
     - Flutter
   - video_player_avfoundation (0.0.1):
     - Flutter
-  - wakelock (0.0.1):
+  - wakelock_for_us (0.0.1):
     - Flutter
   - webview_flutter_wkwebview (0.0.1):
     - Flutter
@@ -220,12 +213,12 @@ DEPENDENCIES:
   - location (from `.symlinks/plugins/location/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - pasteboard (from `.symlinks/plugins/pasteboard/ios`)
-  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - photo_manager (from `.symlinks/plugins/photo_manager/ios`)
   - plain_notification_token_for_us (from `.symlinks/plugins/plain_notification_token_for_us/ios`)
   - rmonitor_base (from `.symlinks/plugins/rmonitor_base/ios`)
-  - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/ios`)
+  - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - tencent_calls_engine (from `.symlinks/plugins/tencent_calls_engine/ios`)
   - tencent_calls_uikit (from `.symlinks/plugins/tencent_calls_uikit/ios`)
@@ -236,7 +229,7 @@ DEPENDENCIES:
   - uni_links (from `.symlinks/plugins/uni_links/ios`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
   - video_player_avfoundation (from `.symlinks/plugins/video_player_avfoundation/ios`)
-  - wakelock (from `.symlinks/plugins/wakelock/ios`)
+  - wakelock_for_us (from `.symlinks/plugins/wakelock_for_us/ios`)
   - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/ios`)
 
 SPEC REPOS:
@@ -260,7 +253,7 @@ SPEC REPOS:
     - TUICallKit
     - TUICore
     - TXIMSDK_Plus_iOS
-    - TXLiteAVSDK_TRTC
+    - TXLiteAVSDK_Professional
 
 EXTERNAL SOURCES:
   audioplayers_darwin:
@@ -308,7 +301,7 @@ EXTERNAL SOURCES:
   pasteboard:
     :path: ".symlinks/plugins/pasteboard/ios"
   path_provider_foundation:
-    :path: ".symlinks/plugins/path_provider_foundation/ios"
+    :path: ".symlinks/plugins/path_provider_foundation/darwin"
   permission_handler_apple:
     :path: ".symlinks/plugins/permission_handler_apple/ios"
   photo_manager:
@@ -318,7 +311,7 @@ EXTERNAL SOURCES:
   rmonitor_base:
     :path: ".symlinks/plugins/rmonitor_base/ios"
   shared_preferences_foundation:
-    :path: ".symlinks/plugins/shared_preferences_foundation/ios"
+    :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
   sqflite:
     :path: ".symlinks/plugins/sqflite/ios"
   tencent_calls_engine:
@@ -339,8 +332,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
   video_player_avfoundation:
     :path: ".symlinks/plugins/video_player_avfoundation/ios"
-  wakelock:
-    :path: ".symlinks/plugins/wakelock/ios"
+  wakelock_for_us:
+    :path: ".symlinks/plugins/wakelock_for_us/ios"
   webview_flutter_wkwebview:
     :path: ".symlinks/plugins/webview_flutter_wkwebview/ios"
 
@@ -350,7 +343,7 @@ SPEC CHECKSUMS:
   BMKLocationKit: a68845e2771bb3028feb638186d96124f4f142cd
   bugly: b3674afe180564b5464015d0a8a6b174c2356589
   camera_avfoundation: 82dc5597033fe2dcdcca6e41f7e464d0855e74ad
-  device_info_plus: e5c5da33f982a436e103237c0c85f9031142abed
+  device_info_plus: 7545d84d8d1b896cb16a4ff98c19f07ec4b298ea
   disk_space: e94d34bbdf77954adfb39e60bde9cc5c7233eda6
   DKImagePickerController: b512c28220a2b8ac7419f21c491fc8534b7601ac
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
@@ -374,7 +367,7 @@ SPEC CHECKSUMS:
   location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
   Mantle: c5aa8794a29a022dfbbfc9799af95f477a69b62d
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  package_info_plus: 6c92f08e1f853dc01228d6f553146438dafcd14e
+  package_info_plus: fd030dabf36271f146f1f3beacd48f564b0f17f7
   pasteboard: 982969ebaa7c78af3e6cc7761e8f5e77565d9ce0
   path_provider_foundation: c68054786f1b4f3343858c1e1d0caaded73f0be9
   permission_handler_apple: 44366e37eaf29454a1e7b1b7d736c2cceaeb17ce
@@ -383,27 +376,27 @@ SPEC CHECKSUMS:
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
   rmonitor_base: 63e3a81285479c232541536a44f16b62f9373f87
-  SDWebImage: fd7e1a22f00303e058058278639bf6196ee431fe
+  SDWebImage: cb032eba469c54e0000e78bcb0a13cdde0a52798
   SDWebImageWebPCoder: 295a6573c512f54ad2dd58098e64e17dcf008499
   shared_preferences_foundation: 986fc17f3d3251412d18b0265f9c64113a8c2472
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
   SwiftyGif: 93a1cc87bf3a51916001cf8f3d63835fb64c819f
-  tencent_calls_engine: 9dd9a7558623d3396f0c87d4c14243e094589acb
-  tencent_calls_uikit: 6ede4bd4e2b8c98bd419509598990bcfce558625
+  tencent_calls_engine: a7584d750569fb9e37da72ccdd99bdca48ec95a4
+  tencent_calls_uikit: 719a44b9f6d9304915c3b3298a09ad9821f92d82
   tencent_chat_push_for_china: aa983a4716949ae4062c106204e2dc07d34d9f3b
-  tencent_cloud_chat_sdk: 17f2ddd7de43495312603e7c9dac04d76352e246
-  tencent_cloud_uikit_core: 2c4ccb41c33b45b5c69750b9774fa389fc20cdb2
+  tencent_cloud_chat_sdk: 8a2bceccaf81e7f922e7b6509ab93c39c3884dda
+  tencent_cloud_uikit_core: d9ec9de7506192ad4af806eab14f2f6d6dd35b01
   tencent_open_file: 1261db508715b8f43ef3b7e31c90824838038165
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
-  TUICallEngine: 42f441d20c15b1660a097d4ee4599f978fc81d91
-  TUICallKit: ce4a5f95878c406b1bc30d7af5f7e6da6a4fefbd
-  TUICore: edc9e0911f6a04224620d7098ff9d7f4b1f0291a
-  TXIMSDK_Plus_iOS: 3edf95acc3dff794287ea858b5205ed6f4dd339f
-  TXLiteAVSDK_TRTC: 7e1f4e80423be519db5ede1bfc2754aaeaa564da
+  TUICallEngine: 546be1a5a8661cfc751bea394c277f35ab8feabe
+  TUICallKit: 3137d27bf95d2c77cd35b2ff4a31fe81f780057b
+  TUICore: 4133d303a749d5c29aa1f7e03f5d787855b2c4e9
+  TXIMSDK_Plus_iOS: 560464285b93add271d5fd7a2a26434293821c11
+  TXLiteAVSDK_Professional: a20fdf458f2e9c1c24cc4219310707c74d410d1c
   uni_links: d97da20c7701486ba192624d99bffaaffcfc298a
   url_launcher_ios: ae1517e5e344f5544fb090b079e11f399dfbe4d2
   video_player_avfoundation: 6d971a232d72e6ee25368378d48a079dea01f1cf
-  wakelock: d0fc7c864128eac40eba1617cb5264d9c940b46f
+  wakelock_for_us: f38d5266db2b4efdf52f99632282320d6a52ffb7
   webview_flutter_wkwebview: b7e70ef1ddded7e69c796c7390ee74180182971f
 
 PODFILE CHECKSUM: f4b5d48b320d8247333ecaa21455cc7f1b97e8cc

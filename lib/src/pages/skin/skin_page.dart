@@ -19,6 +19,7 @@ class SkinPage extends StatelessWidget {
     final theme = Provider.of<DefaultThemeData>(context).theme;
 
     return TUIKitScreenUtils.getDeviceWidget(
+        context: context,
         desktopWidget: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: skinBuilder()

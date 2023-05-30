@@ -39,6 +39,7 @@ class BlackList extends StatelessWidget {
     }
 
     return TUIKitScreenUtils.getDeviceWidget(
+        context: context,
         desktopWidget: blockedUsers(),
         defaultWidget: Scaffold(
           appBar: AppBar(

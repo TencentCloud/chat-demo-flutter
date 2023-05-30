@@ -13,6 +13,7 @@ class AddFriend extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TUIKitScreenUtils.getDeviceWidget(
+        context: context,
         desktopWidget: TIMUIKitAddFriend(
           closeFunc: closeFunc,
           onTapAlreadyFriendsItem: (String userID) async {

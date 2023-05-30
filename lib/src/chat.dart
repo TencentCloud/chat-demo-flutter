@@ -57,15 +57,10 @@ class _ChatState extends State<Chat> {
   final TIMUIKitChatController _chatController = TIMUIKitChatController();
   String? backRemark;
   final V2TIMManager sdkInstance = TIMUIKitCore.getSDKInstance();
-  GlobalKey<dynamic> tuiChatField = GlobalKey();
   String? conversationName;
 
   String _getTitle() {
     return backRemark ?? widget.selectedConversation.showName ?? "Chat";
-  }
-
-  String? _getDraftText() {
-    return widget.selectedConversation.draftText;
   }
 
   String? _getConvID() {
@@ -113,7 +108,7 @@ class _ChatState extends State<Chat> {
       ToastUtils.toast(TIM_t("百度地图插件暂不支持网页版，请使用手机APP DEMO体验位置消息能力。"));
       return;
     }
-    tuiChatField.currentState.textFieldController.hideAllPanel();
+    _chatController.hideAllBottomPanelOnMobile();
     Navigator.push(
         context,
         MaterialPageRoute(
@@ -352,22 +347,18 @@ class _ChatState extends State<Chat> {
     final isWideScreen =
         TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
     final theme = Provider.of<DefaultThemeData>(context).theme;
-    // bool canAddVotePlugin = widget.selectedConversation.groupID != null &&
-    //     widget.selectedConversation.groupID!.isNotEmpty && ;
-    String groupID = widget.selectedConversation.groupID ?? "";
-    String groupType = widget.selectedConversation.groupType ?? "";
+    final groupID = widget.selectedConversation.groupID;
+    final groupType = widget.selectedConversation.groupType;
     List<String> notAllowGroupType = [
       GroupType.Community,
       GroupType.AVChatRoom
     ];
     bool canAddVotePlugin = false;
-    if (groupID.isNotEmpty &&
-        groupType.isNotEmpty &&
+    if (TencentUtils.checkString(groupID) != null &&
+        TencentUtils.checkString(groupType) != null &&
         !notAllowGroupType.contains(groupType)) {
       canAddVotePlugin = true;
     }
-    // List customEmojiList =
-    //     Const.emojiList.where((element) => element.isEmoji == true).toList();
     return TencentPage(
       name: 'chat',
       child: TIMUIKitChat(
@@ -398,12 +389,11 @@ class _ChatState extends State<Chat> {
                 height: MediaQuery.of(context).size.width * 0.45,
                 title: TIM_t("进群申请列表"),
                 child: (closeFuncSendApplication) =>
-                    TIMUIKitGroupApplicationList(groupID: groupID),
+                    TIMUIKitGroupApplicationList(groupID: groupID ?? ""),
               );
             }
           },
           groupAtInfoList: widget.selectedConversation.groupAtInfoList,
-          key: tuiChatField,
           customStickerPanel: renderCustomStickerPanel,
           showTotalUnReadCount: true,
           // customEmojiStickerList: customEmojiList,
@@ -448,14 +438,14 @@ class _ChatState extends State<Chat> {
                 return "@2x.png";
               },
               additionalDesktopControlBarItems: [
-                if (canAddVotePlugin)
-                  DesktopControlBarItem(
-                      item: "poll",
-                      showName: TIM_t("投票"),
-                      onClick: (offset) {
-                        _createVote(groupID);
-                      },
-                      icon: Icons.ballot_outlined),
+                // if (canAddVotePlugin)
+                //   DesktopControlBarItem(
+                //       item: "poll",
+                //       showName: TIM_t("投票"),
+                //       onClick: (offset) {
+                //         _createVote(groupID ?? "");
+                //       },
+                //       svgPath: "assets/send_poll.svg"),
               ]),
           conversationID: _getConvID() ?? '',
           conversationType:
@@ -463,7 +453,6 @@ class _ChatState extends State<Chat> {
           onTapAvatar: (userID, tapDetails) =>
               _onTapAvatar(userID, tapDetails, theme),
           initFindingMsg: widget.initFindingMsg,
-          draftText: _getDraftText(),
           messageItemBuilder: MessageItemBuilder(
             messageRowBuilder: (message, messageWidget, onScrollToIndex,
                 isNeedShowJumpStatus, clearJumpStatus, onScrollToIndexBegin) {
@@ -640,10 +629,10 @@ class _ChatState extends State<Chat> {
                                         size: 20,
                                       ))
                                 ],
-                                textTheme: TextTheme(
-                                    titleMedium: TextStyle(
-                                        color: hexToColor("010000"),
-                                        fontSize: 16)),
+                                // textTheme: TextTheme(
+                                //     titleMedium: TextStyle(
+                                //         color: hexToColor("010000"),
+                                //         fontSize: 16)),
                               ),
                               conversationShowName: _getTitle(),
                               conversationID: _getConvID() ?? "",

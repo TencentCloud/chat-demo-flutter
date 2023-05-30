@@ -13,6 +13,7 @@ class AddGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TUIKitScreenUtils.getDeviceWidget(
+        context: context,
         desktopWidget: TIMUIKitAddGroup(
           closeFunc: closeFunc,
           onTapExistGroup: (groupID, conversation) {

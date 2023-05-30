@@ -25,6 +25,7 @@ class NewContact extends StatelessWidget {
     }
 
     return TUIKitScreenUtils.getDeviceWidget(
+        context: context,
         desktopWidget: newContactWidget(),
         defaultWidget: Scaffold(
           appBar: AppBar(
