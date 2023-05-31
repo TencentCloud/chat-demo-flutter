@@ -82,7 +82,7 @@ PODS:
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
   - HydraAsync (2.0.6)
-  - image_gallery_saver (1.5.0):
+  - image_gallery_saver (2.0.1):
     - Flutter
   - image_picker_ios (0.0.1):
     - Flutter
@@ -354,7 +354,7 @@ SPEC CHECKSUMS:
   fluttertoast: eb263d302cc92e04176c053d2385237e9f43fad0
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   HydraAsync: 8d589bd725b0224f899afafc9a396327405f8063
-  image_gallery_saver: 259eab68fb271cfd57d599904f7acdc7832e7ef2
+  image_gallery_saver: 6eb11e5a866e9ac2c8a98c74ef99a04fc62878b2
   image_picker_ios: 58b9c4269cb176f89acea5e5d043c9358f2d25f8
   libwebp: f62cb61d0a484ba548448a4bd52aabf150ff6eef
   local_notifications_for_us: d4bb63b93eb429c4697edd0ee66bbe8bade29633

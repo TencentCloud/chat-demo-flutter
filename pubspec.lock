@@ -687,10 +687,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_plugin_record_plus
-      sha256: e75a5265d37617327d8756d1c4eb7766625489fc1c5bc437fdfd827538285ee4
+      sha256: "6e515bb54b996b64d177d7e8d252e0b03109e70f38b11bc1172aa56f530950c9"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.15"
+    version: "0.0.16"
   flutter_screenutil:
     dependency: "direct main"
     description:
@@ -836,10 +836,10 @@ packages:
     dependency: transitive
     description:
       name: image_gallery_saver
-      sha256: be812580c7a320d3bf583af89cac6b376f170d48000aca75215a73285a3223a0
+      sha256: "009b7722cd8507fd72c7f2cb7cbc46d6e15ad0895469cfcc39a10f86e3556979"
       url: "https://pub.dev"
     source: hosted
-    version: "1.7.1"
+    version: "2.0.1"
   image_picker:
     dependency: "direct main"
     description:
@@ -1513,10 +1513,10 @@ packages:
     dependency: "direct main"
     description:
       name: tencent_cloud_chat_uikit
-      sha256: e955c7b828bd5a90c5ae6195eaa83a313269a0ef711c73c5149ec9fd337d364b
+      sha256: df565045033082590637857afb0d791228e34d8b31515a4deb4aeaf9df2105d7
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.0+1"
+    version: "2.1.0+2"
   tencent_cloud_uikit_core:
     dependency: transitive
     description:
