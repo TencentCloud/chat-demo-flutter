@@ -39,16 +39,16 @@ dependencies:
     sdk: flutter
 
   # Tencent Cloud Chat dependencies:
-  tencent_cloud_chat_uikit: ^2.1.0
+  tencent_cloud_chat_uikit: ^2.1.0+1
   tencent_calls_uikit: ^1.6.0
   tencent_chat_push_for_china: ^2.6.2+1
 
 
   # Location message and Baidu Map:
-  tim_ui_kit_lbs_plugin: ^2.0.0+1
-  flutter_baidu_mapapi_map: ^3.3.1
-  flutter_baidu_mapapi_search: ^3.3.1
-  flutter_bmflocation: ^3.3.1
+#  tim_ui_kit_lbs_plugin: ^2.0.0+1
+#  flutter_baidu_mapapi_map: ^3.3.1
+#  flutter_baidu_mapapi_search: ^3.3.1
+#  flutter_bmflocation: ^3.3.1
 
   # Third party dependencies:
   cupertino_icons: ^1.0.2
@@ -64,7 +64,6 @@ dependencies:
   webview_flutter: ^3.0.0
   flutter_easyloading: ^3.0.3
   tencent_super_tooltip: ^0.0.1
-  flutter_svg: ^1.0.3
   uni_links: ^0.5.1
   flutter_launcher_icons: ^0.9.2
   loading_animation_widget: ^1.2.0+2

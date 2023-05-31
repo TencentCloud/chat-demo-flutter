@@ -15,8 +15,6 @@ PODS:
     - Flutter
   - device_info_plus (0.0.1):
     - Flutter
-  - disk_space (0.0.1):
-    - Flutter
   - DKImagePickerController/Core (4.3.4):
     - DKImagePickerController/ImageDataManager
     - DKImagePickerController/Resource
@@ -48,7 +46,7 @@ PODS:
   - DKPhotoGallery/Resource (0.0.17):
     - SDWebImage
     - SwiftyGif
-  - fc_native_video_thumbnail_for_us (0.0.1):
+  - fc_native_video_thumbnail (0.0.1):
     - Flutter
   - file_picker (0.0.1):
     - DKImagePickerController/PhotoGallery
@@ -195,8 +193,7 @@ DEPENDENCIES:
   - bugly (from `.symlinks/plugins/bugly/ios`)
   - camera_avfoundation (from `.symlinks/plugins/camera_avfoundation/ios`)
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
-  - disk_space (from `.symlinks/plugins/disk_space/ios`)
-  - fc_native_video_thumbnail_for_us (from `.symlinks/plugins/fc_native_video_thumbnail_for_us/ios`)
+  - fc_native_video_thumbnail (from `.symlinks/plugins/fc_native_video_thumbnail/ios`)
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - Flutter (from `Flutter`)
   - flutter_apns_only (from `.symlinks/plugins/flutter_apns_only/ios`)
@@ -264,10 +261,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/camera_avfoundation/ios"
   device_info_plus:
     :path: ".symlinks/plugins/device_info_plus/ios"
-  disk_space:
-    :path: ".symlinks/plugins/disk_space/ios"
-  fc_native_video_thumbnail_for_us:
-    :path: ".symlinks/plugins/fc_native_video_thumbnail_for_us/ios"
+  fc_native_video_thumbnail:
+    :path: ".symlinks/plugins/fc_native_video_thumbnail/ios"
   file_picker:
     :path: ".symlinks/plugins/file_picker/ios"
   Flutter:
@@ -344,10 +339,9 @@ SPEC CHECKSUMS:
   bugly: b3674afe180564b5464015d0a8a6b174c2356589
   camera_avfoundation: 82dc5597033fe2dcdcca6e41f7e464d0855e74ad
   device_info_plus: 7545d84d8d1b896cb16a4ff98c19f07ec4b298ea
-  disk_space: e94d34bbdf77954adfb39e60bde9cc5c7233eda6
   DKImagePickerController: b512c28220a2b8ac7419f21c491fc8534b7601ac
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
-  fc_native_video_thumbnail_for_us: 69559e6500bff0f6340f044ec0847366fa6f6233
+  fc_native_video_thumbnail: acf173eee42a60561203851e02b38a5202adc206
   file_picker: ce3938a0df3cc1ef404671531facef740d03f920
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   flutter_apns_only: 3d91c0ca9dbef4439874858590909a19f8ed06a4

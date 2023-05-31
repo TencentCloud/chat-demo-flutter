@@ -9,7 +9,7 @@ PODS:
     - FlutterMacOS
   - device_info_plus (0.0.1):
     - FlutterMacOS
-  - fc_native_video_thumbnail_for_us (0.0.1):
+  - fc_native_video_thumbnail (0.0.1):
     - FlutterMacOS
   - FlutterMacOS (1.0.0)
   - FMDB (2.7.5):
@@ -37,8 +37,6 @@ PODS:
     - FMDB (>= 2.7.5)
   - url_launcher_macos (0.0.1):
     - FlutterMacOS
-  - wakelock_macos (0.0.1):
-    - FlutterMacOS
 
 DEPENDENCIES:
   - audioplayers_darwin (from `Flutter/ephemeral/.symlinks/plugins/audioplayers_darwin/macos`)
@@ -46,7 +44,7 @@ DEPENDENCIES:
   - desktop_drop (from `Flutter/ephemeral/.symlinks/plugins/desktop_drop/macos`)
   - desktop_webview_window_for_is (from `Flutter/ephemeral/.symlinks/plugins/desktop_webview_window_for_is/macos`)
   - device_info_plus (from `Flutter/ephemeral/.symlinks/plugins/device_info_plus/macos`)
-  - fc_native_video_thumbnail_for_us (from `Flutter/ephemeral/.symlinks/plugins/fc_native_video_thumbnail_for_us/macos`)
+  - fc_native_video_thumbnail (from `Flutter/ephemeral/.symlinks/plugins/fc_native_video_thumbnail/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
   - local_notifications_for_us (from `Flutter/ephemeral/.symlinks/plugins/local_notifications_for_us/macos`)
   - location (from `Flutter/ephemeral/.symlinks/plugins/location/macos`)
@@ -57,7 +55,6 @@ DEPENDENCIES:
   - shared_preferences_foundation (from `Flutter/ephemeral/.symlinks/plugins/shared_preferences_foundation/darwin`)
   - sqflite (from `Flutter/ephemeral/.symlinks/plugins/sqflite/macos`)
   - url_launcher_macos (from `Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos`)
-  - wakelock_macos (from `Flutter/ephemeral/.symlinks/plugins/wakelock_macos/macos`)
 
 SPEC REPOS:
   trunk:
@@ -74,8 +71,8 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/desktop_webview_window_for_is/macos
   device_info_plus:
     :path: Flutter/ephemeral/.symlinks/plugins/device_info_plus/macos
-  fc_native_video_thumbnail_for_us:
-    :path: Flutter/ephemeral/.symlinks/plugins/fc_native_video_thumbnail_for_us/macos
+  fc_native_video_thumbnail:
+    :path: Flutter/ephemeral/.symlinks/plugins/fc_native_video_thumbnail/macos
   FlutterMacOS:
     :path: Flutter/ephemeral
   local_notifications_for_us:
@@ -96,8 +93,6 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/sqflite/macos
   url_launcher_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos
-  wakelock_macos:
-    :path: Flutter/ephemeral/.symlinks/plugins/wakelock_macos/macos
 
 SPEC CHECKSUMS:
   audioplayers_darwin: dcad41de4fbd0099cb3749f7ab3b0cb8f70b810c
@@ -105,7 +100,7 @@ SPEC CHECKSUMS:
   desktop_drop: 69eeff437544aa619c8db7f4481b3a65f7696898
   desktop_webview_window_for_is: 173eb6a1bcdf3e54b54a16649e23fe83cbef8f13
   device_info_plus: 5401765fde0b8d062a2f8eb65510fb17e77cf07f
-  fc_native_video_thumbnail_for_us: 899da612ab0c5d969758912dc0fd00f273666c0e
+  fc_native_video_thumbnail: 828487c6e1509b0ba74f6741b2788ac47aa0285b
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   local_notifications_for_us: 298235563270c19b8c44dc556db001b3346fd76a
@@ -117,7 +112,6 @@ SPEC CHECKSUMS:
   shared_preferences_foundation: 986fc17f3d3251412d18b0265f9c64113a8c2472
   sqflite: a5789cceda41d54d23f31d6de539d65bb14100ea
   url_launcher_macos: 5335912b679c073563f29d89d33d10d459f95451
-  wakelock_macos: bc3f2a9bd8d2e6c89fee1e1822e7ddac3bd004a9
 
 PODFILE CHECKSUM: dac0ddf03d136db544afc27b87cc6c08492e67b9
 
