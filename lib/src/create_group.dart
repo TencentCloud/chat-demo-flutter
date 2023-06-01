@@ -44,15 +44,17 @@ class _CreateGroup extends State<CreateGroup> {
         .getConversation(conversationID: conversationID);
 
     if (res.code == 0) {
-      final conversation = res.data;
-      if (widget.directToChat != null && conversation != null) {
+      final V2TimConversation conversation = res.data ??
+          V2TimConversation(
+              conversationID: conversationID, userID: userID, type: 1);
+      if (widget.directToChat != null) {
         widget.directToChat!(conversation);
       } else {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    Chat(selectedConversation: conversation!)));
+                    Chat(selectedConversation: conversation)));
       }
     }
   }
@@ -131,13 +133,13 @@ class _CreateGroup extends State<CreateGroup> {
           .getConversationManager()
           .getConversation(conversationID: conversationID);
       if (convRes.code == 0) {
-        final conversation = convRes.data ?? V2TimConversation(
-            conversationID: conversationID,
-          type: 2,
-          showName: groupName,
-          groupType: groupType,
-          groupID: groupID
-        );
+        final conversation = convRes.data ??
+            V2TimConversation(
+                conversationID: conversationID,
+                type: 2,
+                showName: groupName,
+                groupType: groupType,
+                groupID: groupID);
 
         if (widget.directToChat != null) {
           widget.directToChat!(conversation);
