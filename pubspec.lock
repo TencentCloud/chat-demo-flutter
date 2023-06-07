@@ -153,14 +153,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.1.5"
-  bugly:
-    dependency: "direct main"
-    description:
-      name: bugly
-      sha256: "21137cb213445ab9e11e6dbdaaf459c31b7eb4a111a201a9db02d012b9fc5c37"
-      url: "http://pub.oa.com"
-    source: hosted
-    version: "0.2.3"
   build:
     dependency: transitive
     description:
@@ -585,22 +577,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
-  floor:
-    dependency: transitive
-    description:
-      name: floor
-      sha256: "47b30dc15d2415533b6d09b9eaff8250472584db218869530c2b760e607ca7b5"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.4.1"
-  floor_annotation:
-    dependency: transitive
-    description:
-      name: floor_annotation
-      sha256: "7fea065005731da50ab2161a780228615acf6c9931dc32c2cd84298e466fbf3a"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.4.1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -614,30 +590,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.6.0"
-  flutter_baidu_mapapi_base:
-    dependency: transitive
-    description:
-      name: flutter_baidu_mapapi_base
-      sha256: "7c8460ea88be4feb70e83fd90b6d0085e9fc647c6302ad80d11ce5b4b2041c3f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.3.1"
-  flutter_baidu_mapapi_map:
-    dependency: "direct main"
-    description:
-      name: flutter_baidu_mapapi_map
-      sha256: d44c880e1a310ba2f239f300ac157207edf91c64cf71cb5f8fdf3693459ef6dd
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.3.1"
-  flutter_baidu_mapapi_search:
-    dependency: "direct main"
-    description:
-      name: flutter_baidu_mapapi_search
-      sha256: "233af1457e9d90fc81676613a48ab2cb177412279c54efdbed2a0ae912c4704d"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.3.1"
   flutter_blurhash:
     dependency: transitive
     description:
@@ -646,14 +598,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.0"
-  flutter_bmflocation:
-    dependency: "direct main"
-    description:
-      name: flutter_bmflocation
-      sha256: "4720b5a1cbce212f85a96ae23a24e8226e030386fa3f46fc48d72f9d09d6d776"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.3.1"
   flutter_cache_manager:
     dependency: transitive
     description:
@@ -952,14 +896,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
-  jce_codec:
-    dependency: transitive
-    description:
-      name: jce_codec
-      sha256: f1896e2adee015570d1e922941529fa1163020d1c24c730fbee75df148af9911
-      url: "http://pub.oa.com"
-    source: hosted
-    version: "0.0.1"
   js:
     dependency: transitive
     description:
@@ -1024,30 +960,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.1+2"
-  location:
-    dependency: transitive
-    description:
-      name: location
-      sha256: "9051959f6f2ccadd887b28b66e9cbbcc25b6838e37cf9e894c421ccc0ebf80b5"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.4.0"
-  location_platform_interface:
-    dependency: transitive
-    description:
-      name: location_platform_interface
-      sha256: "62eeaf1658e92e4459b727f55a3c328eccbac8ba043fa6d262ac5286ad48384c"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.0"
-  location_web:
-    dependency: transitive
-    description:
-      name: location_web
-      sha256: "6c08c408a040534c0269c4ff9fe17eebb5a36dea16512fbaf116b9c8bc21545b"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.1.1"
   logging:
     dependency: transitive
     description:
@@ -1068,10 +980,10 @@ packages:
     dependency: transitive
     description:
       name: markdown
-      sha256: b3c60dee8c2af50ad0e6e90cceba98e47718a6ee0a7a6772c77846a0cc21f78b
+      sha256: "8e332924094383133cee218b676871f42db2514f1f6ac617b6cf6152a7faab8e"
       url: "https://pub.dev"
     source: hosted
-    version: "7.0.1"
+    version: "7.1.0"
   matcher:
     dependency: transitive
     description:
@@ -1384,14 +1296,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.1"
-  rmonitor_base:
-    dependency: transitive
-    description:
-      name: rmonitor_base
-      sha256: da075075c75aecab1cdc702b0af5d48389680e275eb1f321de7d8a2c3328aa9c
-      url: "http://pub.oa.com"
-    source: hosted
-    version: "0.2.5"
   rxdart:
     dependency: transitive
     description:
@@ -1525,22 +1429,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.0"
-  sqflite_common_ffi:
-    dependency: transitive
-    description:
-      name: sqflite_common_ffi
-      sha256: "317f82d743c851f2f1aba6e636abdfbe12d296ce89a6f638fad7f37621e68293"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.1+1"
-  sqlite3:
-    dependency: transitive
-    description:
-      name: sqlite3
-      sha256: "0b19d02e196dd8c9fb96622520bcf7b5e2bcf6d7c748649bb36b1ebee821716b"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.8.0"
   stack_trace:
     dependency: transitive
     description:
@@ -1624,18 +1512,11 @@ packages:
   tencent_cloud_chat_uikit:
     dependency: "direct main"
     description:
-      path: "package_src/tim_ui_kit"
-      relative: true
-    source: path
-    version: "2.1.0+2"
-  tencent_cloud_chat_vote_plugin:
-    dependency: "direct main"
-    description:
-      name: tencent_cloud_chat_vote_plugin
-      sha256: fbcf3aaf44a7f71359bf9d3e6aff11dcceb98f11af298e833238090a6d3342c6
-      url: "http://pub.oa.com"
+      name: tencent_cloud_chat_uikit
+      sha256: df565045033082590637857afb0d791228e34d8b31515a4deb4aeaf9df2105d7
+      url: "https://pub.dev"
     source: hosted
-    version: "0.0.5"
+    version: "2.1.0+2"
   tencent_cloud_uikit_core:
     dependency: transitive
     description:
@@ -1708,14 +1589,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.1"
-  tim_ui_kit_lbs_plugin:
-    dependency: "direct main"
-    description:
-      name: tim_ui_kit_lbs_plugin
-      sha256: "1c8f5908e4b42d25e61c90f3da092f7e53e44e4b8718cc585ff6626fdfd72dbc"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.0"
   tim_ui_kit_sticker_plugin:
     dependency: transitive
     description:
@@ -2044,14 +1917,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.1"
-  wup_dart:
-    dependency: transitive
-    description:
-      name: wup_dart
-      sha256: a60fa9e3dadb284a1b709073005a589040c2fa75766d6cd390d659533918c34a
-      url: "http://pub.oa.com"
-    source: hosted
-    version: "0.0.2"
   xdg_directories:
     dependency: transitive
     description:
