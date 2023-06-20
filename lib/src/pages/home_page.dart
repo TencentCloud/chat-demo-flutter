@@ -129,8 +129,10 @@ class HomePageState extends State<HomePage> {
   }
 
   initOfflinePush() async {
-    await ChannelPush.init(handleClickNotification);
-    uploadOfflinePushInfoToken();
+    if(PlatformUtils().isMobile){
+      await ChannelPush.init(handleClickNotification);
+      uploadOfflinePushInfoToken();
+    }
   }
 
   @override

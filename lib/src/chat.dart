@@ -400,6 +400,7 @@ class _ChatState extends State<Chat> {
           config: TIMUIKitChatConfig(
               showC2cMessageEditStatus: true,
               isUseDefaultEmoji: true,
+              isGroupAdminRecallEnabled: true,
               isAllowClickAvatar: true,
               isAllowLongPressMessage: true,
               isShowReadingStatus: localSetting.isShowReadingStatus,

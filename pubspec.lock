@@ -1513,10 +1513,10 @@ packages:
     dependency: "direct main"
     description:
       name: tencent_cloud_chat_uikit
-      sha256: df565045033082590637857afb0d791228e34d8b31515a4deb4aeaf9df2105d7
+      sha256: fa2b080a790892ae542ee60b1467f13a2e78e4b108bff055bedcee2608814dce
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.0+2"
+    version: "2.1.2"
   tencent_cloud_uikit_core:
     dependency: transitive
     description:
