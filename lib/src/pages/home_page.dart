@@ -129,7 +129,7 @@ class HomePageState extends State<HomePage> {
   }
 
   initOfflinePush() async {
-    if(PlatformUtils().isMobile){
+    if (PlatformUtils().isMobile) {
       await ChannelPush.init(handleClickNotification);
       uploadOfflinePushInfoToken();
     }
@@ -141,7 +141,9 @@ class HomePageState extends State<HomePage> {
   }
 
   void handleClickNotification(Map<String, dynamic> msg) async {
-    String ext = msg['ext'] ?? "";
+    String ext = TencentUtils.checkString(msg['ext']) ??
+        TencentUtils.checkString(msg['data']['ext']) ??
+        "";
     Map<String, dynamic> extMsp = jsonDecode(ext);
     String convId = extMsp["conversationID"] ?? "";
     final currentConvID = _timuiKitChatController.getCurrentConversation();

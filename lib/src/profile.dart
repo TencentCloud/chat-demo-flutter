@@ -92,7 +92,7 @@ class _ProfileState extends State<MyProfile> {
           ),
           onPressed: () {
             changeFriendVerificationMethod(allowAny);
-            Navigator.pop(context);
+            Navigator.of(context, rootNavigator: true).pop();
           },
         ),
         BottomSheetAction(
@@ -102,7 +102,7 @@ class _ProfileState extends State<MyProfile> {
             ),
             onPressed: () {
               changeFriendVerificationMethod(neddConfirm);
-              Navigator.pop(context);
+              Navigator.of(context, rootNavigator: true).pop();
             }),
         BottomSheetAction(
           title: Text(
@@ -111,7 +111,7 @@ class _ProfileState extends State<MyProfile> {
           ),
           onPressed: () {
             changeFriendVerificationMethod(denyAny);
-            Navigator.pop(context);
+            Navigator.of(context, rootNavigator: true).pop();
           },
         ),
       ],

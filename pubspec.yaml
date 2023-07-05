@@ -40,7 +40,7 @@ dependencies:
 
   # Tencent Cloud Chat dependencies:
   tencent_cloud_chat_uikit: ^2.1.2
-  tencent_calls_uikit: ^1.6.0
+  tencent_calls_uikit: ^1.7.1
   tencent_chat_push_for_china: ^2.6.2+1
 
 
@@ -65,7 +65,7 @@ dependencies:
   flutter_easyloading: ^3.0.3
   tencent_super_tooltip: ^0.0.1
   uni_links: ^0.5.1
-  flutter_launcher_icons: ^0.9.2
+  flutter_launcher_icons: ^0.13.1
   loading_animation_widget: ^1.2.0+2
   path_provider: ^2.0.11
   universal_io: ^2.0.4
@@ -76,6 +76,7 @@ dependencies:
   bitsdojo_window: ^0.1.5
   flutter_screenutil: ^5.6.1
   fluttertoast: ^8.2.1
+  tencent_cloud_uikit_core: ^1.0.7
   dio: ^4.0.0
 
 dependency_overrides:
@@ -93,7 +94,7 @@ dev_dependencies:
   # package. See that file for information about deactivating localMsgspecific lint
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
-  msix: ^3.7.0
+  msix: ^3.14.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
