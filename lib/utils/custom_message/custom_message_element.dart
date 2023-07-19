@@ -9,6 +9,7 @@ import 'package:tencent_cloud_chat_demo/utils/custom_message/calling_message/gro
 import 'package:tencent_cloud_chat_demo/utils/custom_message/calling_message/single_call_message_builder.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/core/tim_uikit_wide_modal_operation_key.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
+import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_chat_controller.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/screen_utils.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/link_preview/common/extensions.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/link_preview/common/utils.dart';
@@ -19,6 +20,7 @@ import 'package:tencent_cloud_chat_demo/utils/custom_message/web_link_message.da
 import 'package:tencent_cloud_chat_uikit/ui/widgets/wide_popup.dart';
 // import 'package:tencent_cloud_chat_vote_plugin/tencent_cloud_chat_vote_plugin.dart';
 import 'package:url_launcher/url_launcher.dart';
+// import 'package:tencent_cloud_chat_customer_service_plugin/tencent_cloud_chat_customer_service_plugin.dart';
 
 class CustomMessageElem extends StatefulWidget {
   final TextStyle? messageFontStyle;
@@ -28,11 +30,13 @@ class CustomMessageElem extends StatefulWidget {
   final V2TimMessage message;
   final bool isShowJump;
   final VoidCallback? clearJump;
+  final TIMUIKitChatController chatController;
 
   const CustomMessageElem({
     Key? key,
     required this.message,
     required this.isShowJump,
+    required this.chatController,
     this.clearJump,
     this.messageFontStyle,
     this.messageBorderRadius,

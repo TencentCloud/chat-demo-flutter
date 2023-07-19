@@ -3,7 +3,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tencent_calls_uikit/tuicall_kit.dart';
+// import 'package:tencent_calls_uikit/tuicall_kit.dart';
 import 'package:tencent_cloud_chat_demo/src/tencent_page.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/platform.dart';
 import 'package:tencent_super_tooltip/tencent_super_tooltip.dart';
@@ -88,24 +88,24 @@ class HomePageState extends State<HomePage> {
     }
   }
 
-  _initTrtc() async {
-    final TUICallKit _callKit = TUICallKit();
-    final _tuiLogin = TUILogin();
-    final loginInfo = _coreInstance.loginInfo;
-    final userID = loginInfo.userID;
-    final userSig = loginInfo.userSig;
-    final sdkAppId = loginInfo.sdkAppID;
-    _callKit.enableFloatWindow(true);
-    _tuiLogin.login(
-        sdkAppId,
-        userID,
-        userSig,
-        TUICallback(onSuccess: () {
-          print("callkit--- success");
-        }, onError: (int code, String message) {
-          print("callkit--- onError $message");
-        }));
-  }
+  // _initTrtc() async {
+  //   final TUICallKit _callKit = TUICallKit();
+  //   final _tuiLogin = TUILogin();
+  //   final loginInfo = _coreInstance.loginInfo;
+  //   final userID = loginInfo.userID;
+  //   final userSig = loginInfo.userSig;
+  //   final sdkAppId = loginInfo.sdkAppID;
+  //   _callKit.enableFloatWindow(true);
+  //   _tuiLogin.login(
+  //       sdkAppId,
+  //       userID,
+  //       userSig,
+  //       TUICallback(onSuccess: () {
+  //         print("callkit--- success");
+  //       }, onError: (int code, String message) {
+  //         print("callkit--- onError $message");
+  //       }));
+  // }
 
   uploadOfflinePushInfoToken() async {
     if (PlatformUtils().isMobile) {
@@ -122,7 +122,7 @@ class HomePageState extends State<HomePage> {
   initState() {
     super.initState();
     currentIndex = widget.pageIndex;
-    _initTrtc();
+    // _initTrtc();
     setState(() {});
     getLoginUserInfo();
     initOfflinePush();

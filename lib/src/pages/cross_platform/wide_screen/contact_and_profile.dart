@@ -1,9 +1,12 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_demo/src/contact.dart';
 import 'package:tencent_cloud_chat_demo/src/group_list.dart';
 import 'package:tencent_cloud_chat_demo/src/multi_platform_widget/search_entry/search_entry.dart';
 import 'package:tencent_cloud_chat_demo/src/multi_platform_widget/search_entry/search_entry_wide.dart';
 import 'package:tencent_cloud_chat_demo/src/pages/cross_platform/wide_screen/empty_widget.dart';
+import 'package:tencent_cloud_chat_demo/src/pages/customer_service_example/customerServiceList_wide.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
 import 'package:tencent_cloud_chat_demo/src/search.dart';
 import 'package:tencent_cloud_chat_demo/src/user_profile.dart';
@@ -138,6 +141,15 @@ class _ContactsAndProfileState extends State<ContactsAndProfile> {
                                     const EdgeInsets.symmetric(horizontal: 10),
                                 margin: const EdgeInsets.only(bottom: 6),
                               ),
+                              // if (TencentCloudChatCustomerServicePlugin.hasInited) {
+                              //   return;
+                              // }
+                              // Container(
+                              //   child: Text(TIM_t("在线客服")),
+                              //   padding:
+                              //       const EdgeInsets.symmetric(horizontal: 10),
+                              //   margin: const EdgeInsets.only(bottom: 6),
+                              // ),
                             ],
                           ),
                         ),
@@ -155,6 +167,21 @@ class _ContactsAndProfileState extends State<ContactsAndProfile> {
                                 V2TimConversation conversation) {
                               widget.onNavigateToChat(conversation);
                             }),
+                            // if (!TencentCloudChatCustomerServicePlugin.hasInited) {
+                            //   return;
+                            // }
+                            // CustomerServiceListWide(
+                            //   onTapItem: (V2TimUserFullInfo userInfo) {
+                            //     setState(() {
+                            //       selectedItem = userInfo.userID;
+                            //     });
+                            //   },
+                            //   emptyBuilder: (_) {
+                            //     return Center(
+                            //       child: Text(TIM_t("暂无在线客服")),
+                            //     );
+                            //   },
+                            // )
                           ],
                         ))
                       ],

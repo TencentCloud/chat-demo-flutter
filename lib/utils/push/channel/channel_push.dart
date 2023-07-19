@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:tencent_chat_push_for_china/model/appInfo.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_chat_push_for_china/tencent_chat_push_for_china.dart';
@@ -41,19 +43,5 @@ class ChannelPush {
 
   static Future<bool> uploadToken(PushAppInfo appInfo) async {
     return cPush.uploadToken(appInfo);
-  }
-
-  static displayNotification(String title, String body, [String? ext]) {
-    cPush.displayNotification(
-        channelID: "new_message",
-        channelName: "消息推送",
-        title: title,
-        body: body,
-        ext: ext);
-  }
-
-  static displayDefaultNotificationForMessage(V2TimMessage message) {
-    cPush.displayDefaultNotificationForMessage(
-        message: message, channelID: "new_message", channelName: "消息推送");
   }
 }

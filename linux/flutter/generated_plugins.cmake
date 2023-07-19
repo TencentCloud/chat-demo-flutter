@@ -7,6 +7,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   bitsdojo_window_linux
   desktop_drop
   desktop_webview_window_for_is
+  file_selector_linux
   pasteboard
   url_launcher_linux
 )

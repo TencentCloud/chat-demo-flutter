@@ -39,9 +39,9 @@ dependencies:
     sdk: flutter
 
   # Tencent Cloud Chat dependencies:
-  tencent_cloud_chat_uikit: ^2.1.2
-  tencent_calls_uikit: ^1.7.1
-  tencent_chat_push_for_china: ^2.6.2+1
+  tencent_cloud_chat_uikit: ^2.1.3
+  # tencent_calls_uikit: ^1.7.2
+  tencent_chat_push_for_china: ^3.1.0
 
 
   # Location message and Baidu Map:

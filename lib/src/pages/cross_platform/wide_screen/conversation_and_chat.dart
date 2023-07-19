@@ -41,13 +41,10 @@ class _ConversationAndChatState extends State<ConversationAndChat> {
   @override
   void didUpdateWidget(ConversationAndChat oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.conversation?.conversationID !=
-        widget.conversation?.conversationID) {
       setState(() {
         isShowGroupProfile = false;
         currentConversation = widget.conversation;
       });
-    }
   }
 
   void onClickUserName(Offset? offset, String user) {

@@ -1,5 +1,8 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tencent_cloud_chat_demo/src/pages/customer_service_example/customerServicePage.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/core/tim_uikit_wide_modal_operation_key.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/screen_utils.dart';
@@ -22,27 +25,26 @@ class Contact extends StatefulWidget {
 }
 
 class _ContactState extends State<Contact> {
-
   @override
   void initState() {
     super.initState();
   }
 
   _topListItemTap(String id) {
-    final isWideScreen = TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
+    final isWideScreen =
+        TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
     switch (id) {
       case "newContact":
-        if(isWideScreen){
+        if (isWideScreen) {
           TUIKitWidePopup.showPopupWindow(
             operationKey: TUIKitWideModalOperationKey.addNewContact,
             context: context,
             width: MediaQuery.of(context).size.width * 0.6,
             title: TIM_t("新的联系人"),
             height: MediaQuery.of(context).size.height * 0.6,
-            child: (onClose) =>
-            const NewContact(),
+            child: (onClose) => const NewContact(),
           );
-        }else{
+        } else {
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -51,9 +53,8 @@ class _ContactState extends State<Contact> {
         }
         break;
       case "groupList":
-        if(isWideScreen){
-
-        }else {
+        if (isWideScreen) {
+        } else {
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -62,23 +63,34 @@ class _ContactState extends State<Contact> {
         }
         break;
       case "blackList":
-        if(isWideScreen){
+        if (isWideScreen) {
           TUIKitWidePopup.showPopupWindow(
             operationKey: TUIKitWideModalOperationKey.showBlockedUsers,
             context: context,
             width: MediaQuery.of(context).size.width * 0.6,
             title: TIM_t("黑名单"),
             height: MediaQuery.of(context).size.height * 0.6,
-            child: (onClose) =>
-            const BlackList(),
+            child: (onClose) => const BlackList(),
           );
-        }else {
+        } else {
           Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => const BlackList(),
               ));
         }
+      // case "customerService":
+      //   if (isWideScreen) {
+      //   } else {
+      //     // if (!TencentCloudChatCustomerServicePlugin.hasInited) {
+      //     //   return;
+      //     // }
+      //     Navigator.push(
+      //         context,
+      //         MaterialPageRoute(
+      //           builder: (context) => const CustomerServicePage(),
+      //         ));
+      //   }
     }
   }
 
@@ -94,13 +106,16 @@ class _ContactState extends State<Contact> {
         return "assets/groupList_$themeTypeSuffix.png";
       case "blackList":
         return "assets/blackList_$themeTypeSuffix.png";
+      case "customerService":
+        return "assets/customerService.png";
       default:
         return "";
     }
   }
 
   Widget? _topListBuilder(TopListItem item) {
-    final isWideScreen = TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
+    final isWideScreen =
+        TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
     final showName = item.name;
     if (item.id == "newContact") {
       return InkWell(
@@ -155,7 +170,8 @@ class _ContactState extends State<Contact> {
   @override
   Widget build(BuildContext context) {
     final LocalSetting localSetting = Provider.of<LocalSetting>(context);
-    final isWideScreen = TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
+    final isWideScreen =
+        TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
 
     return Column(
       children: [
@@ -170,33 +186,41 @@ class _ContactState extends State<Contact> {
                 onTap: () {
                   _topListItemTap("newContact");
                 }),
-            if(!isWideScreen) TopListItem(
-                name: TIM_t("我的群聊"),
-                id: "groupList",
-                icon: Image.asset(_getImagePathByID("groupList")),
-                onTap: () {
-                  _topListItemTap("groupList");
-                }),
+            if (!isWideScreen)
+              TopListItem(
+                  name: TIM_t("我的群聊"),
+                  id: "groupList",
+                  icon: Image.asset(_getImagePathByID("groupList")),
+                  onTap: () {
+                    _topListItemTap("groupList");
+                  }),
             TopListItem(
                 name: TIM_t("黑名单"),
                 id: "blackList",
                 icon: Image.asset(_getImagePathByID("blackList")),
                 onTap: () {
                   _topListItemTap("blackList");
-                })
+                }),
+            if (!isWideScreen)
+              TopListItem(
+                  name: TIM_t("在线客服"),
+                  id: "customerService",
+                  icon: Image.asset(_getImagePathByID("customerService")),
+                  onTap: () {
+                    _topListItemTap("customerService");
+                  }),
           ],
           topListItemBuilder: _topListBuilder,
           onTapItem: (item) {
-            if(widget.onTapItem != null){
+            if (widget.onTapItem != null) {
               widget.onTapItem!(item.userID);
-            }else{
+            } else {
               Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => UserProfile(userID: item.userID),
                   ));
             }
-
           },
           emptyBuilder: (context) => Center(
             child: Text(TIM_t("无联系人")),
