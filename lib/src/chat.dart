@@ -4,8 +4,10 @@ import 'dart:math';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_demo/src/group_application_list.dart';
+import 'package:tencent_cloud_chat_demo/src/pages/customer_service_example/card_create_example.dart';
+import 'package:tencent_cloud_chat_demo/src/pages/customer_service_example/customerServeiceProfile.dart';
 import 'package:tencent_cloud_chat_demo/src/tencent_page.dart';
-// import 'package:tencent_cloud_chat_demo/src/vote_example/vote_create_example.dart';
+import 'package:tencent_cloud_chat_demo/src/vote_example/vote_create_example.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/life_cycle/chat_life_cycle.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_chat_global_model.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/core/tim_uikit_wide_modal_operation_key.dart';
@@ -14,7 +16,7 @@ import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_chat_controller
 import 'package:tencent_cloud_chat_uikit/ui/utils/message.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/platform.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/screen_utils.dart';
-// import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/TIMUIKitTextField/tim_uikit_text_field_layout/wide.dart';
+import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/TIMUIKitTextField/tim_uikit_text_field_layout/wide.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/profile_widget.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/widget/tim_uikit_profile_widget.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/wide_popup.dart';
@@ -26,7 +28,6 @@ import 'package:tencent_cloud_chat_demo/src/group_profile.dart';
 // import 'package:tencent_cloud_chat_demo/utils/baidu_implements/map_service_baidu_implement.dart';
 // import 'package:tencent_cloud_chat_demo/utils/baidu_implements/map_widget_baidu_implement.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/custom_message_element.dart';
-// import 'package:tencent_cloud_chat_demo/utils/toast.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/custom_sticker_package.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/local_setting.dart';
@@ -78,7 +79,8 @@ class _ChatState extends State<Chat> {
         : ConvType.group;
   }
 
-  _onTapAvatar(String userID, TapDownDetails tapDetails, TUITheme theme) {
+  _onTapAvatar(String userID, TapDownDetails tapDetails, TUITheme theme,
+      bool isCustomerServiceChat) {
     final isWideScreen =
         TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
     if (isWideScreen) {
@@ -89,7 +91,7 @@ class _ChatState extends State<Chat> {
               min(tapDetails.globalPosition.dy,
                   MediaQuery.of(context).size.height - 490)),
           theme,
-          false,
+          isCustomerServiceChat,
           userID);
     } else {
       Navigator.push(
@@ -140,6 +142,11 @@ class _ChatState extends State<Chat> {
   @override
   void initState() {
     super.initState();
+    if (IMDemoConfig.customerServiceUserList
+        .contains(widget.selectedConversation.userID)) {
+      // TencentCloudChatCustomerServicePlugin.sendCustomerServiceStartMessage(
+      //     _chatController.sendMessage);
+    }
   }
 
   @override
@@ -152,6 +159,12 @@ class _ChatState extends State<Chat> {
     super.didUpdateWidget(oldWidget);
     final isWideScreen =
         TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
+    if (isWideScreen &&
+        IMDemoConfig.customerServiceUserList
+            .contains(widget.selectedConversation.userID)) {
+      // TencentCloudChatCustomerServicePlugin.sendCustomerServiceStartMessage(
+      //     _chatController.sendMessage);
+    }
   }
 
   Widget renderCustomStickerPanel({
@@ -221,35 +234,35 @@ class _ChatState extends State<Chat> {
   }
 
   _createVote(String groupID) {
-    // final isWideScreen =
-    //     TUIKitScreenUtils.getFormFactor(context) == ScreenType.Wide;
-    // if (isWideScreen) {
-    //   TUIKitWidePopup.showPopupWindow(
-    //     context: context,
-    //     title: TIM_t("创建投票"),
-    //     operationKey: TUIKitWideModalOperationKey.chooseCountry,
-    //     width: MediaQuery.of(context).size.width * 0.4,
-    //     height: MediaQuery.of(context).size.width * 0.5,
-    //     child: (onClose) => VoteCreateExample(
-    //       groupID: groupID,
-    //       controller: _chatController,
-    //       onClosed: onClose,
-    //     ),
-    //   );
-    // } else {
-    //   Navigator.push(
-    //     context,
-    //     MaterialPageRoute(
-    //       builder: (context) => VoteCreateExample(
-    //         groupID: groupID,
-    //         controller: _chatController,
-    //         onClosed: () {
-    //           Navigator.pop(context);
-    //         },
-    //       ),
-    //     ),
-    //   );
-    // }
+    final isWideScreen =
+        TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
+    if (isWideScreen) {
+      TUIKitWidePopup.showPopupWindow(
+        context: context,
+        title: TIM_t("创建投票"),
+        operationKey: TUIKitWideModalOperationKey.chooseCountry,
+        width: MediaQuery.of(context).size.width * 0.4,
+        height: MediaQuery.of(context).size.width * 0.5,
+        child: (onClose) => VoteCreateExample(
+          groupID: groupID,
+          controller: _chatController,
+          onClosed: onClose,
+        ),
+      );
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => VoteCreateExample(
+            groupID: groupID,
+            controller: _chatController,
+            onClosed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
+      );
+    }
   }
 
   _buildBottomOperationList(BuildContext context,
@@ -357,6 +370,116 @@ class _ChatState extends State<Chat> {
     return wids;
   }
 
+  _createCustomerServiceCardMessage() {
+    final isWideScreen =
+        TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
+    if (isWideScreen) {
+      TUIKitWidePopup.showPopupWindow(
+        context: context,
+        title: TIM_t("请填写商品信息"),
+        operationKey: TUIKitWideModalOperationKey.custom,
+        width: 400,
+        height: 350,
+        child: (onClose) => CardCreateExample(
+          controller: _chatController,
+          onClosed: onClose,
+        ),
+      );
+    } else {
+      return showModalBottomSheet<void>(
+        context: context,
+        isDismissible: false,
+        isScrollControlled: true,
+        builder: (BuildContext context) {
+          return Container(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
+            margin: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      TIM_t("请填写商品信息"),
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700),
+                    ),
+                    TextButton(
+                        onPressed: () => {Navigator.of(context).pop()},
+                        child: Text(
+                          TIM_t("关闭"),
+                          style: const TextStyle(color: Colors.orange),
+                        ))
+                  ],
+                ),
+                CardCreateExample(
+                  controller: _chatController,
+                  onClosed: () => {Navigator.of(context).pop()},
+                )
+              ],
+            ),
+          );
+        },
+      );
+    }
+  }
+
+  // getCustomerServicePlugin() {
+  //   List<MorePanelItem> wids = [];
+  //   if (IMDemoConfig.customerServiceUserList
+  //       .contains(widget.selectedConversation.userID)) {
+  //     wids.addAll([
+  //       if (canSendEvaluate)
+  //         MorePanelItem(
+  //           onTap: (c) {
+  //             TencentCloudChatCustomerServicePlugin.getEvaluateMessage(
+  //                 _chatController.sendMessage);
+  //           },
+  //           icon: Container(
+  //             height: 64,
+  //             width: 64,
+  //             margin: const EdgeInsets.only(bottom: 4),
+  //             decoration: const BoxDecoration(
+  //                 color: Colors.white,
+  //                 borderRadius: BorderRadius.all(Radius.circular(5))),
+  //             child: Icon(
+  //               Icons.comment,
+  //               color: hexToColor("5c6168"),
+  //               size: 32,
+  //             ),
+  //           ),
+  //           id: 'evaluate',
+  //           title: TIM_t("服务评价"),
+  //         ),
+  //       MorePanelItem(
+  //         onTap: (c) {
+  //           _createCustomerServiceCardMessage();
+  //         },
+  //         icon: Container(
+  //           height: 64,
+  //           width: 64,
+  //           margin: const EdgeInsets.only(bottom: 4),
+  //           decoration: const BoxDecoration(
+  //               color: Colors.white,
+  //               borderRadius: BorderRadius.all(Radius.circular(5))),
+  //           child: Icon(
+  //             Icons.card_giftcard,
+  //             color: hexToColor("5c6168"),
+  //             size: 32,
+  //           ),
+  //         ),
+  //         id: 'cardMessage',
+  //         title: TIM_t("卡片消息"),
+  //       )
+  //     ]);
+  //   }
+  //   return wids;
+  // }
+
   @override
   Widget build(BuildContext context) {
     final LocalSetting localSetting = Provider.of<LocalSetting>(context);
@@ -375,6 +498,8 @@ class _ChatState extends State<Chat> {
         !notAllowGroupType.contains(groupType)) {
       canAddVotePlugin = true;
     }
+    bool isCustomerServiceChat = IMDemoConfig.customerServiceUserList
+        .contains(widget.selectedConversation.userID);
     return TencentPage(
       name: 'chat',
       child: TIMUIKitChat(
@@ -495,20 +620,20 @@ class _ChatState extends State<Chat> {
                 return "@2x.png";
               },
               additionalDesktopControlBarItems: [
-                // if (canAddVotePlugin)
-                //   DesktopControlBarItem(
-                //       item: "poll",
-                //       showName: TIM_t("投票"),
-                //       onClick: (offset) {
-                //         _createVote(groupID ?? "");
-                //       },
-                //       svgPath: "assets/send_poll.svg"),
+                if (canAddVotePlugin)
+                  DesktopControlBarItem(
+                      item: "poll",
+                      showName: TIM_t("投票"),
+                      onClick: (offset) {
+                        _createVote(groupID ?? "");
+                      },
+                      svgPath: "assets/send_poll.svg"),
               ]),
           conversationID: _getConvID() ?? '',
           conversationType:
               ConvType.values[widget.selectedConversation.type ?? 1],
           onTapAvatar: (userID, tapDetails) =>
-              _onTapAvatar(userID, tapDetails, theme),
+              _onTapAvatar(userID, tapDetails, theme, isCustomerServiceChat),
           initFindingMsg: widget.initFindingMsg,
           messageItemBuilder: MessageItemBuilder(
             messageRowBuilder: (message, messageWidget, onScrollToIndex,
@@ -628,6 +753,8 @@ class _ChatState extends State<Chat> {
             },
           ),
           morePanelConfig: MorePanelConfig(
+            showVideoCall: !isCustomerServiceChat,
+            showVoiceCall: !isCustomerServiceChat,
             extraAction: [
               // 隐私协议中没有位置消息，暂时下掉
               // MorePanelItem(
@@ -649,7 +776,7 @@ class _ChatState extends State<Chat> {
               //         size: 32,
               //       ),
               //     )),
-              // ...getVotePlugin(canAddVotePlugin, groupID),
+              ...getVotePlugin(canAddVotePlugin, groupID ?? ""),
             ],
           ),
           customAppBar: isWideScreen
@@ -666,7 +793,7 @@ class _ChatState extends State<Chat> {
                                     Offset(details.globalPosition.dx,
                                         details.globalPosition.dy),
                                     theme,
-                                    false);
+                                    isCustomerServiceChat);
                               },
                               config: AppBar(
                                 backgroundColor: isWideScreen
@@ -685,7 +812,7 @@ class _ChatState extends State<Chat> {
                                                     380,
                                                 30),
                                             theme,
-                                            false);
+                                            isCustomerServiceChat);
                                       },
                                       icon: Icon(
                                         Icons.more_horiz,
@@ -719,13 +846,48 @@ class _ChatState extends State<Chat> {
                     ],
                   ))
               : null,
+          inputTopBuilder: isCustomerServiceChat
+              ? Container(
+                  padding: const EdgeInsets.fromLTRB(5, 3, 0, 5),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          OutlinedButton(
+                            style: ButtonStyle(
+                              textStyle: MaterialStateProperty.all(
+                                  const TextStyle(fontSize: 12)),
+                              shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20))),
+                            ),
+                            child: Text(TIM_t("卡片消息")),
+                            onPressed: () {
+                              _createCustomerServiceCardMessage();
+                            },
+                          )
+                        ]),
+                  ),
+                )
+              : null,
           appBarConfig: AppBar(
             actions: [
               IconButton(
                   padding: const EdgeInsets.only(left: 8, right: 16),
                   onPressed: () async {
                     final conversationType = widget.selectedConversation.type;
-                    if (conversationType == 1) {
+                    if (isCustomerServiceChat) {
+                      final userID = widget.selectedConversation.userID;
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CustomerServeiceProfile(
+                              userID: userID!,
+                            ),
+                          ));
+                    } else if (conversationType == 1) {
                       final userID = widget.selectedConversation.userID;
                       // if had remark modified its will back new remark
                       String? newRemark = await Navigator.push(

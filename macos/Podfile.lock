@@ -11,6 +11,8 @@ PODS:
     - FlutterMacOS
   - fc_native_video_thumbnail (0.0.1):
     - FlutterMacOS
+  - file_selector_macos (0.0.1):
+    - FlutterMacOS
   - FlutterMacOS (1.0.0)
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
@@ -45,6 +47,7 @@ DEPENDENCIES:
   - desktop_webview_window_for_is (from `Flutter/ephemeral/.symlinks/plugins/desktop_webview_window_for_is/macos`)
   - device_info_plus (from `Flutter/ephemeral/.symlinks/plugins/device_info_plus/macos`)
   - fc_native_video_thumbnail (from `Flutter/ephemeral/.symlinks/plugins/fc_native_video_thumbnail/macos`)
+  - file_selector_macos (from `Flutter/ephemeral/.symlinks/plugins/file_selector_macos/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
   - local_notifications_for_us (from `Flutter/ephemeral/.symlinks/plugins/local_notifications_for_us/macos`)
   - location (from `Flutter/ephemeral/.symlinks/plugins/location/macos`)
@@ -73,6 +76,8 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/device_info_plus/macos
   fc_native_video_thumbnail:
     :path: Flutter/ephemeral/.symlinks/plugins/fc_native_video_thumbnail/macos
+  file_selector_macos:
+    :path: Flutter/ephemeral/.symlinks/plugins/file_selector_macos/macos
   FlutterMacOS:
     :path: Flutter/ephemeral
   local_notifications_for_us:
@@ -101,6 +106,7 @@ SPEC CHECKSUMS:
   desktop_webview_window_for_is: 173eb6a1bcdf3e54b54a16649e23fe83cbef8f13
   device_info_plus: 5401765fde0b8d062a2f8eb65510fb17e77cf07f
   fc_native_video_thumbnail: 828487c6e1509b0ba74f6741b2788ac47aa0285b
+  file_selector_macos: 468fb6b81fac7c0e88d71317f3eec34c3b008ff9
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   local_notifications_for_us: 298235563270c19b8c44dc556db001b3346fd76a
@@ -109,10 +115,10 @@ SPEC CHECKSUMS:
   pasteboard: 9b69dba6fedbb04866be632205d532fe2f6b1d99
   path_provider_foundation: eaf5b3e458fc0e5fbb9940fb09980e853fe058b8
   photo_manager: 4f6810b7dfc4feb03b461ac1a70dacf91fba7604
-  shared_preferences_foundation: e2dae3258e06f44cc55f49d42024fd8dd03c590c
+  shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
   sqflite: a5789cceda41d54d23f31d6de539d65bb14100ea
   url_launcher_macos: 5335912b679c073563f29d89d33d10d459f95451
 
 PODFILE CHECKSUM: dac0ddf03d136db544afc27b87cc6c08492e67b9
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.12.0

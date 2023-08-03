@@ -6,6 +6,7 @@ import 'package:tencent_cloud_chat_demo/src/group_list.dart';
 import 'package:tencent_cloud_chat_demo/src/multi_platform_widget/search_entry/search_entry.dart';
 import 'package:tencent_cloud_chat_demo/src/multi_platform_widget/search_entry/search_entry_wide.dart';
 import 'package:tencent_cloud_chat_demo/src/pages/cross_platform/wide_screen/empty_widget.dart';
+import 'package:tencent_cloud_chat_demo/src/pages/customer_service_example/customerServiceList_wide.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
 import 'package:tencent_cloud_chat_demo/src/search.dart';
 import 'package:tencent_cloud_chat_demo/src/user_profile.dart';
