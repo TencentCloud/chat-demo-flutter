@@ -32,7 +32,6 @@ import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
 import 'package:tencent_cloud_chat_demo/src/user_profile.dart';
 import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_demo/utils/push/push_constant.dart';
-import 'package:tencent_cloud_chat_demo/src/config.dart';
 
 class Chat extends StatefulWidget {
   final V2TimConversation selectedConversation;
@@ -139,11 +138,11 @@ class _ChatState extends State<Chat> {
   @override
   void initState() {
     super.initState();
-    if (IMDemoConfig.customerServiceUserList
-        .contains(widget.selectedConversation.userID)) {
-      // TencentCloudChatCustomerServicePlugin.sendCustomerServiceStartMessage(
-      //     _chatController.sendMessage);
-    }
+    // if (IMDemoConfig.customerServiceUserList
+    //     .contains(widget.selectedConversation.userID)) {
+    //   // TencentCloudChatCustomerServicePlugin.sendCustomerServiceStartMessage(
+    //   //     _chatController.sendMessage);
+    // }
   }
 
   @override
@@ -156,12 +155,12 @@ class _ChatState extends State<Chat> {
     super.didUpdateWidget(oldWidget);
     final isWideScreen =
         TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
-    if (isWideScreen &&
-        IMDemoConfig.customerServiceUserList
-            .contains(widget.selectedConversation.userID)) {
-      // TencentCloudChatCustomerServicePlugin.sendCustomerServiceStartMessage(
-      //     _chatController.sendMessage);
-    }
+    // if (isWideScreen &&
+    //     IMDemoConfig.customerServiceUserList
+    //         .contains(widget.selectedConversation.userID)) {
+    //   // TencentCloudChatCustomerServicePlugin.sendCustomerServiceStartMessage(
+    //   //     _chatController.sendMessage);
+    // }
   }
 
   Widget renderCustomStickerPanel({
@@ -385,8 +384,9 @@ class _ChatState extends State<Chat> {
         !notAllowGroupType.contains(groupType)) {
       canAddVotePlugin = true;
     }
-    bool isCustomerServiceChat = IMDemoConfig.customerServiceUserList
-        .contains(widget.selectedConversation.userID);
+    // bool isCustomerServiceChat = IMDemoConfig.customerServiceUserList
+    //     .contains(widget.selectedConversation.userID);
+    bool isCustomerServiceChat = false;
     return TencentPage(
       name: 'chat',
       child: TIMUIKitChat(
