@@ -44,7 +44,6 @@ dependencies:
   tencent_chat_push_for_china: ^3.1.0
   tencent_cloud_chat_vote_plugin: ^1.0.1
 
-
   # Location message and Baidu Map:
 #  tim_ui_kit_lbs_plugin: ^2.0.0+1
 #  flutter_baidu_mapapi_map: ^3.3.1

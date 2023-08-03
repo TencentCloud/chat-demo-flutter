@@ -90,7 +90,7 @@ class HomePageState extends State<HomePage> {
 
   _initTrtc() async {
     final TUICallKit _callKit = TUICallKit.instance;
-    final _tuiLogin = TUILogin();
+    final _tuiLogin = TUILogin.instance;
     final loginInfo = _coreInstance.loginInfo;
     final userID = loginInfo.userID;
     final userSig = loginInfo.userSig;
