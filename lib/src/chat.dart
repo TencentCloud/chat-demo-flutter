@@ -22,12 +22,12 @@ import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/TIMUIKitTextField
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/profile_widget.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/widget/tim_uikit_profile_widget.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/wide_popup.dart';
-import 'package:tim_ui_kit_lbs_plugin/pages/location_picker.dart';
-import 'package:tim_ui_kit_lbs_plugin/utils/location_utils.dart';
-import 'package:tim_ui_kit_lbs_plugin/utils/tim_location_model.dart';
-import 'package:tim_ui_kit_lbs_plugin/widget/location_msg_element.dart';
-import 'package:tencent_cloud_chat_demo/utils/baidu_implements/map_service_baidu_implement.dart';
-import 'package:tencent_cloud_chat_demo/utils/baidu_implements/map_widget_baidu_implement.dart';
+// import 'package:tim_ui_kit_lbs_plugin/pages/location_picker.dart';
+// import 'package:tim_ui_kit_lbs_plugin/utils/location_utils.dart';
+// import 'package:tim_ui_kit_lbs_plugin/utils/tim_location_model.dart';
+// import 'package:tim_ui_kit_lbs_plugin/widget/location_msg_element.dart';
+// import 'package:tencent_cloud_chat_demo/utils/baidu_implements/map_service_baidu_implement.dart';
+// import 'package:tencent_cloud_chat_demo/utils/baidu_implements/map_widget_baidu_implement.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/custom_message_element.dart';
 import 'package:tencent_cloud_chat_demo/utils/toast.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -110,35 +110,35 @@ class _ChatState extends State<Chat> {
     }
   }
 
-  _onTapLocation() {
-    if (!PlatformUtils().isMobile) {
-      ToastUtils.toast(TIM_t("百度地图插件暂不支持网页版，请使用手机APP DEMO体验位置消息能力。"));
-      return;
-    }
-    _chatController.hideAllBottomPanelOnMobile();
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => LocationPicker(
-            isUseMapSDKLocation: true,
-            onChange: (LocationMessage location) async {
-              final locationMessageInfo = await sdkInstance.v2TIMMessageManager
-                  .createLocationMessage(
-                      desc: location.desc,
-                      longitude: location.longitude,
-                      latitude: location.latitude);
-              final messageInfo = locationMessageInfo.data!.messageInfo;
-              _chatController.sendMessage(messageInfo: messageInfo);
-            },
-            mapBuilder: (onMapLoadDone, mapKey, onMapMoveEnd) => BaiduMap(
-              onMapMoveEnd: onMapMoveEnd,
-              onMapLoadDone: onMapLoadDone,
-              key: mapKey,
-            ),
-            locationUtils: LocationUtils(BaiduMapService()),
-          ),
-        ));
-  }
+  // _onTapLocation() {
+  //   if (!PlatformUtils().isMobile) {
+  //     ToastUtils.toast(TIM_t("百度地图插件暂不支持网页版，请使用手机APP DEMO体验位置消息能力。"));
+  //     return;
+  //   }
+  //   _chatController.hideAllBottomPanelOnMobile();
+  //   Navigator.push(
+  //       context,
+  //       MaterialPageRoute(
+  //         builder: (context) => LocationPicker(
+  //           isUseMapSDKLocation: true,
+  //           onChange: (LocationMessage location) async {
+  //             final locationMessageInfo = await sdkInstance.v2TIMMessageManager
+  //                 .createLocationMessage(
+  //                     desc: location.desc,
+  //                     longitude: location.longitude,
+  //                     latitude: location.latitude);
+  //             final messageInfo = locationMessageInfo.data!.messageInfo;
+  //             _chatController.sendMessage(messageInfo: messageInfo);
+  //           },
+  //           mapBuilder: (onMapLoadDone, mapKey, onMapMoveEnd) => BaiduMap(
+  //             onMapMoveEnd: onMapMoveEnd,
+  //             onMapLoadDone: onMapLoadDone,
+  //             key: mapKey,
+  //           ),
+  //           locationUtils: LocationUtils(BaiduMapService()),
+  //         ),
+  //       ));
+  // }
 
   @override
   void initState() {
@@ -628,7 +628,7 @@ class _ChatState extends State<Chat> {
             );
           },
           locationMessageItemBuilder: (message, isShowJump, clearJump) {
-            if (!PlatformUtils().isMobile) {
+            if (true) {
               String dividerForDesc = "/////";
               String address = message.locationElem?.desc ?? "";
               String addressName = address;
@@ -704,23 +704,23 @@ class _ChatState extends State<Chat> {
                 ),
               );
             }
-            return LocationMsgElement(
-              isAllowCurrentLocation: false,
-              messageID: message.msgID,
-              locationElem: LocationMessage(
-                longitude: message.locationElem!.longitude,
-                latitude: message.locationElem!.latitude,
-                desc: message.locationElem?.desc ?? "",
-              ),
-              isFromSelf: message.isSelf ?? true,
-              isShowJump: isShowJump,
-              clearJump: clearJump,
-              mapBuilder: (onMapLoadDone, mapKey) => BaiduMap(
-                onMapLoadDone: onMapLoadDone,
-                key: mapKey,
-              ),
-              locationUtils: LocationUtils(BaiduMapService()),
-            );
+            // return LocationMsgElement(
+            //   isAllowCurrentLocation: false,
+            //   messageID: message.msgID,
+            //   locationElem: LocationMessage(
+            //     longitude: message.locationElem!.longitude,
+            //     latitude: message.locationElem!.latitude,
+            //     desc: message.locationElem?.desc ?? "",
+            //   ),
+            //   isFromSelf: message.isSelf ?? true,
+            //   isShowJump: isShowJump,
+            //   clearJump: clearJump,
+            //   mapBuilder: (onMapLoadDone, mapKey) => BaiduMap(
+            //     onMapLoadDone: onMapLoadDone,
+            //     key: mapKey,
+            //   ),
+            //   locationUtils: LocationUtils(BaiduMapService()),
+            // );
           },
         ),
         morePanelConfig: MorePanelConfig(
@@ -728,26 +728,26 @@ class _ChatState extends State<Chat> {
           showVoiceCall: !isCustomerServiceChat,
           extraAction: [
             // 隐私协议中没有位置消息，暂时下掉
-            if (!isCustomerServiceChat)
-              MorePanelItem(
-                  id: "location",
-                  title: TIM_t("位置"),
-                  onTap: (c) {
-                    _onTapLocation();
-                  },
-                  icon: Container(
-                    height: 64,
-                    width: 64,
-                    margin: const EdgeInsets.only(bottom: 4),
-                    decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(5))),
-                    child: Icon(
-                      Icons.location_on,
-                      color: hexToColor("5c6168"),
-                      size: 32,
-                    ),
-                  )),
+            // if (!isCustomerServiceChat)
+            //   MorePanelItem(
+            //       id: "location",
+            //       title: TIM_t("位置"),
+            //       onTap: (c) {
+            //         _onTapLocation();
+            //       },
+            //       icon: Container(
+            //         height: 64,
+            //         width: 64,
+            //         margin: const EdgeInsets.only(bottom: 4),
+            //         decoration: const BoxDecoration(
+            //             color: Colors.white,
+            //             borderRadius: BorderRadius.all(Radius.circular(5))),
+            //         child: Icon(
+            //           Icons.location_on,
+            //           color: hexToColor("5c6168"),
+            //           size: 32,
+            //         ),
+            //       )),
             ...getVotePlugin(canAddVotePlugin, groupID ?? ""),
             ...getCustomerServicePlugin(),
           ],
