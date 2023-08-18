@@ -20,7 +20,7 @@ import 'package:tencent_cloud_chat_demo/utils/custom_message/web_link_message.da
 import 'package:tencent_cloud_chat_uikit/ui/widgets/wide_popup.dart';
 import 'package:tencent_cloud_chat_vote_plugin/tencent_cloud_chat_vote_plugin.dart';
 import 'package:url_launcher/url_launcher.dart';
-// import 'package:tencent_cloud_chat_customer_service_plugin/tencent_cloud_chat_customer_service_plugin.dart';
+import 'package:tencent_cloud_chat_customer_service_plugin/tencent_cloud_chat_customer_service_plugin.dart';
 
 class CustomMessageElem extends StatefulWidget {
   final TextStyle? messageFontStyle;
@@ -98,6 +98,9 @@ class _CustomMessageElemState extends State<CustomMessageElem> {
     final webLinkMessage = getWebLinkMessage(customElem);
     final isVoteMessage =
         TencentCloudChatVotePlugin.isVoteMessage(widget.message);
+    final isCustomerServiceMessage =
+        TencentCloudChatCustomerServicePlugin.isCustomerServiceMessage(
+            widget.message);
     if (callingMessage != null) {
       if (widget.message.groupID != null) {
         // Group Call message
@@ -125,44 +128,51 @@ class _CustomMessageElemState extends State<CustomMessageElem> {
         theme,
         false,
       );
-      } else if (isVoteMessage) {
-        return renderMessageItem(
-          TencentCloudChatVoteMessage(
-            message: widget.message,
-            onTap: (
-              TencentCloudChatVoteDataOptoin option,
-              TencentCloudChatVoteLogic data,
-            ) {
-              final isWideScreen =
-                  TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
-              if (isWideScreen) {
-                TUIKitWidePopup.showPopupWindow(
-                  context: context,
-                  title: option.option,
-                  operationKey: TUIKitWideModalOperationKey.chooseCountry,
-                  width: MediaQuery.of(context).size.width * 0.4,
-                  height: MediaQuery.of(context).size.width * 0.5,
-                  child: (onClose) => VoteDetailExample(
+    } else if (isCustomerServiceMessage) {
+      return MessageCustomerService(
+        message: widget.message,
+        theme: theme,
+        isShowJumpState: isShowJumpState,
+        sendMessage: widget.chatController.sendMessage,
+      );
+    } else if (isVoteMessage) {
+      return renderMessageItem(
+        TencentCloudChatVoteMessage(
+          message: widget.message,
+          onTap: (
+            TencentCloudChatVoteDataOptoin option,
+            TencentCloudChatVoteLogic data,
+          ) {
+            final isWideScreen =
+                TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
+            if (isWideScreen) {
+              TUIKitWidePopup.showPopupWindow(
+                context: context,
+                title: option.option,
+                operationKey: TUIKitWideModalOperationKey.chooseCountry,
+                width: MediaQuery.of(context).size.width * 0.4,
+                height: MediaQuery.of(context).size.width * 0.5,
+                child: (onClose) => VoteDetailExample(
+                  option: option,
+                  data: data,
+                ),
+              );
+            } else {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => VoteDetailExample(
                     option: option,
                     data: data,
                   ),
-                );
-              } else {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => VoteDetailExample(
-                      option: option,
-                      data: data,
-                    ),
-                  ),
-                );
-              }
-            },
-          ),
-          theme,
-          true,
-        );
+                ),
+              );
+            }
+          },
+        ),
+        theme,
+        true,
+      );
     } else if (linkMessage != null) {
       final String option1 = linkMessage.link ?? "";
       return renderMessageItem(

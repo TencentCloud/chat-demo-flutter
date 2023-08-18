@@ -3,27 +3,20 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_demo/src/chat.dart';
 import 'package:tencent_cloud_chat_demo/src/tencent_page.dart';
-import 'package:tencent_cloud_chat_demo/utils/commonUtils.dart';
-import 'package:tencent_cloud_chat_demo/utils/toast.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/life_cycle/profile_life_cycle.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/permission.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/platform.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/screen_utils.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/profile_widget.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/widget/tim_uikit_profile_widget.dart';
-import 'package:tencent_calls_uikit/tuicall_kit.dart';
-import 'package:tencent_calls_engine/tencent_calls_engine.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
 import 'package:tencent_cloud_chat_demo/src/search.dart';
-import 'package:tencent_cloud_chat_demo/utils/push/push_constant.dart';
 
-class UserProfile extends StatefulWidget {
+class CustomerServeiceProfile extends StatefulWidget {
   final String userID;
   final ValueChanged<V2TimConversation>? onClickSendMessage;
   final ValueChanged<String>? onRemarkUpdate;
 
-  const UserProfile(
+  const CustomerServeiceProfile(
       {Key? key,
       required this.userID,
       this.onRemarkUpdate,
@@ -31,15 +24,12 @@ class UserProfile extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => UserProfileState();
+  State<StatefulWidget> createState() => CustomerServeiceProfileState();
 }
 
-class UserProfileState extends State<UserProfile> {
+class CustomerServeiceProfileState extends State<CustomerServeiceProfile> {
   final TIMUIKitProfileController _timuiKitProfileController =
       TIMUIKitProfileController();
-  TUICallKit? _calling;
-  final V2TIMManager sdkInstance = TIMUIKitCore.getSDKInstance();
-  String? newUserMARK;
 
   _itemClick(
       String id, BuildContext context, V2TimConversation conversation) async {
@@ -57,56 +47,6 @@ class UserProfileState extends State<UserProfile> {
               ));
         }
         break;
-      case "deleteFriend":
-        _timuiKitProfileController.deleteFriend(widget.userID).then((res) {
-          if (res == null) {
-            throw Error();
-          }
-          if (res.resultCode == 0) {
-            ToastUtils.toast(TIM_t("好友删除成功"));
-            _timuiKitProfileController.loadData(widget.userID);
-          } else {
-            throw Error();
-          }
-        }).catchError((error) {
-          ToastUtils.toast(TIM_t("好友添加失败"));
-        });
-        break;
-      case "audioCall":
-        OfflinePushInfo offlinePush = OfflinePushInfo(
-          title: "",
-          desc: TIM_t("邀请你语音通话"),
-          ext: "{\"conversationID\": \"\"}",
-          disablePush: false,
-          androidOPPOChannelID: PushConfig.OPPOChannelID,
-          ignoreIOSBadge: false,
-        );
-
-        await Permissions.checkPermission(context, Permission.microphone.value);
-        TUIOfflinePushInfo tuiOfflinePushInfo =
-            CommonUtils.convertTUIOfflinePushInfo(offlinePush);
-        TUICallParams params =  TUICallParams();
-        params.offlinePushInfo = tuiOfflinePushInfo;
-        await _calling?.call(widget.userID, TUICallMediaType.audio, params);
-        break;
-      case "videoCall":
-        OfflinePushInfo offlinePush = OfflinePushInfo(
-          title: "",
-          desc: TIM_t("邀请你视频通话"),
-          ext: "{\"conversationID\": \"\"}",
-          androidOPPOChannelID: PushConfig.OPPOChannelID,
-          disablePush: false,
-          ignoreIOSBadge: false,
-        );
-
-        await Permissions.checkPermission(context, Permission.camera.value);
-        await Permissions.checkPermission(context, Permission.microphone.value);
-        TUIOfflinePushInfo tuiOfflinePushInfo =
-            CommonUtils.convertTUIOfflinePushInfo(offlinePush);
-        TUICallParams params =  TUICallParams();
-        params.offlinePushInfo = tuiOfflinePushInfo;
-        _calling?.call(widget.userID, TUICallMediaType.video, params);
-        break;
     }
   }
 
@@ -120,24 +60,7 @@ class UserProfileState extends State<UserProfile> {
         "label": TIM_t("发送消息"),
         "id": "sendMsg",
       },
-      {
-        "label": TIM_t("语音通话"),
-        "id": "audioCall",
-      },
-      {
-        "label": TIM_t("视频通话"),
-        "id": "videoCall",
-      },
     ];
-
-    if (PlatformUtils().isWeb || PlatformUtils().isDesktop) {
-      operationList = [
-        {
-          "label": TIM_t("发送消息"),
-          "id": "sendMsg",
-        }
-      ];
-    }
 
     return operationList.map((e) {
       return isWideScreen
@@ -170,14 +93,9 @@ class UserProfileState extends State<UserProfile> {
     }).toList();
   }
 
-  _initTUICalling() async {
-    _calling = TUICallKit.instance;
-  }
-
   @override
   void initState() {
     super.initState();
-    _initTUICalling();
   }
 
   @override
@@ -207,7 +125,7 @@ class UserProfileState extends State<UserProfile> {
                       size: 20,
                     ),
                     onPressed: () {
-                      Navigator.pop(context, newUserMARK);
+                      Navigator.pop(context);
                     },
                   ),
                 ),
@@ -268,12 +186,6 @@ class UserProfileState extends State<UserProfile> {
                       customBuilderOne: (bool isFriend,
                           V2TimFriendInfo friendInfo,
                           V2TimConversation conversation) {
-                        // If you don't allow sending message when friendship not exist,
-                        // please not comment the following lines.
-
-                        // if(!isFriend){
-                        //   return Container();
-                        // }
                         return Container(
                           margin: isWideScreen
                               ? const EdgeInsets.only(top: 30)
@@ -288,31 +200,18 @@ class UserProfileState extends State<UserProfile> {
                       ? [
                           ProfileWidgetEnum.userInfoCard,
                           ProfileWidgetEnum.operationDivider,
-                          ProfileWidgetEnum.remarkBar,
-                          ProfileWidgetEnum.genderBar,
-                          ProfileWidgetEnum.birthdayBar,
-                          ProfileWidgetEnum.operationDivider,
-                          ProfileWidgetEnum.addToBlockListBar,
                           ProfileWidgetEnum.pinConversationBar,
                           ProfileWidgetEnum.messageMute,
                           ProfileWidgetEnum.customBuilderOne,
-                          ProfileWidgetEnum.addAndDeleteArea
                         ]
                       : [
                           ProfileWidgetEnum.userInfoCard,
                           ProfileWidgetEnum.operationDivider,
-                          ProfileWidgetEnum.remarkBar,
-                          ProfileWidgetEnum.genderBar,
-                          ProfileWidgetEnum.birthdayBar,
-                          ProfileWidgetEnum.operationDivider,
                           ProfileWidgetEnum.searchBar,
-                          ProfileWidgetEnum.operationDivider,
-                          ProfileWidgetEnum.addToBlockListBar,
                           ProfileWidgetEnum.pinConversationBar,
                           ProfileWidgetEnum.messageMute,
                           ProfileWidgetEnum.operationDivider,
                           ProfileWidgetEnum.customBuilderOne,
-                          ProfileWidgetEnum.addAndDeleteArea
                         ],
                 ),
               ))

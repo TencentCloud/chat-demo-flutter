@@ -3,9 +3,13 @@
 import 'dart:math';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+import 'package:tencent_cloud_chat_demo/src/config.dart';
 import 'package:tencent_cloud_chat_demo/src/group_application_list.dart';
+import 'package:tencent_cloud_chat_demo/src/group_profile.dart';
+import 'package:tencent_cloud_chat_demo/src/pages/customer_service_example/card_create_example.dart';
 import 'package:tencent_cloud_chat_demo/src/tencent_page.dart';
 import 'package:tencent_cloud_chat_demo/src/vote_example/vote_create_example.dart';
+import 'package:tencent_cloud_chat_customer_service_plugin/tencent_cloud_chat_customer_service_plugin.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/life_cycle/chat_life_cycle.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_chat_global_model.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/core/tim_uikit_wide_modal_operation_key.dart';
@@ -18,13 +22,14 @@ import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/TIMUIKitTextField
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/profile_widget.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/widget/tim_uikit_profile_widget.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/wide_popup.dart';
-// import 'package:tim_ui_kit_lbs_plugin/pages/location_picker.dart';
-// import 'package:tim_ui_kit_lbs_plugin/utils/location_utils.dart';
-// import 'package:tim_ui_kit_lbs_plugin/utils/tim_location_model.dart';
-// import 'package:tim_ui_kit_lbs_plugin/widget/location_msg_element.dart';
-// import 'package:tencent_cloud_chat_demo/utils/baidu_implements/map_service_baidu_implement.dart';
-// import 'package:tencent_cloud_chat_demo/utils/baidu_implements/map_widget_baidu_implement.dart';
+import 'package:tim_ui_kit_lbs_plugin/pages/location_picker.dart';
+import 'package:tim_ui_kit_lbs_plugin/utils/location_utils.dart';
+import 'package:tim_ui_kit_lbs_plugin/utils/tim_location_model.dart';
+import 'package:tim_ui_kit_lbs_plugin/widget/location_msg_element.dart';
+import 'package:tencent_cloud_chat_demo/utils/baidu_implements/map_service_baidu_implement.dart';
+import 'package:tencent_cloud_chat_demo/utils/baidu_implements/map_widget_baidu_implement.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/custom_message_element.dart';
+import 'package:tencent_cloud_chat_demo/utils/toast.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/custom_sticker_package.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/local_setting.dart';
@@ -105,44 +110,44 @@ class _ChatState extends State<Chat> {
     }
   }
 
-  // _onTapLocation() {
-  //   if (!PlatformUtils().isMobile) {
-  //     ToastUtils.toast(TIM_t("百度地图插件暂不支持网页版，请使用手机APP DEMO体验位置消息能力。"));
-  //     return;
-  //   }
-  //   _chatController.hideAllBottomPanelOnMobile();
-  //   Navigator.push(
-  //       context,
-  //       MaterialPageRoute(
-  //         builder: (context) => LocationPicker(
-  //           isUseMapSDKLocation: true,
-  //           onChange: (LocationMessage location) async {
-  //             final locationMessageInfo = await sdkInstance.v2TIMMessageManager
-  //                 .createLocationMessage(
-  //                     desc: location.desc,
-  //                     longitude: location.longitude,
-  //                     latitude: location.latitude);
-  //             final messageInfo = locationMessageInfo.data!.messageInfo;
-  //             _chatController.sendMessage(messageInfo: messageInfo);
-  //           },
-  //           mapBuilder: (onMapLoadDone, mapKey, onMapMoveEnd) => BaiduMap(
-  //             onMapMoveEnd: onMapMoveEnd,
-  //             onMapLoadDone: onMapLoadDone,
-  //             key: mapKey,
-  //           ),
-  //           locationUtils: LocationUtils(BaiduMapService()),
-  //         ),
-  //       ));
-  // }
+  _onTapLocation() {
+    if (!PlatformUtils().isMobile) {
+      ToastUtils.toast(TIM_t("百度地图插件暂不支持网页版，请使用手机APP DEMO体验位置消息能力。"));
+      return;
+    }
+    _chatController.hideAllBottomPanelOnMobile();
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LocationPicker(
+            isUseMapSDKLocation: true,
+            onChange: (LocationMessage location) async {
+              final locationMessageInfo = await sdkInstance.v2TIMMessageManager
+                  .createLocationMessage(
+                      desc: location.desc,
+                      longitude: location.longitude,
+                      latitude: location.latitude);
+              final messageInfo = locationMessageInfo.data!.messageInfo;
+              _chatController.sendMessage(messageInfo: messageInfo);
+            },
+            mapBuilder: (onMapLoadDone, mapKey, onMapMoveEnd) => BaiduMap(
+              onMapMoveEnd: onMapMoveEnd,
+              onMapLoadDone: onMapLoadDone,
+              key: mapKey,
+            ),
+            locationUtils: LocationUtils(BaiduMapService()),
+          ),
+        ));
+  }
 
   @override
   void initState() {
     super.initState();
-    // if (IMDemoConfig.customerServiceUserList
-    //     .contains(widget.selectedConversation.userID)) {
-    //   // TencentCloudChatCustomerServicePlugin.sendCustomerServiceStartMessage(
-    //   //     _chatController.sendMessage);
-    // }
+    if (IMDemoConfig.customerServiceUserList
+        .contains(widget.selectedConversation.userID)) {
+      TencentCloudChatCustomerServicePlugin.sendCustomerServiceStartMessage(
+          _chatController.sendMessage);
+    }
   }
 
   @override
@@ -155,66 +160,12 @@ class _ChatState extends State<Chat> {
     super.didUpdateWidget(oldWidget);
     final isWideScreen =
         TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
-    // if (isWideScreen &&
-    //     IMDemoConfig.customerServiceUserList
-    //         .contains(widget.selectedConversation.userID)) {
-    //   // TencentCloudChatCustomerServicePlugin.sendCustomerServiceStartMessage(
-    //   //     _chatController.sendMessage);
-    // }
-  }
-
-  Widget renderCustomStickerPanel({
-    sendTextMessage,
-    sendFaceMessage,
-    deleteText,
-    addCustomEmojiText,
-    addText,
-    List<CustomEmojiFaceData> defaultCustomEmojiStickerList = const [],
-    double? width,
-    double? height,
-  }) {
-    final theme = Provider.of<DefaultThemeData>(context).theme;
-    final customStickerPackageList =
-        Provider.of<CustomStickerPackageData>(context).customStickerPackageList;
-    final isWideScreen =
-        TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
-
-    final defaultEmojiList =
-        defaultCustomEmojiStickerList.map((customEmojiPackage) {
-      return CustomStickerPackage(
-          name: customEmojiPackage.name,
-          baseUrl: "assets/custom_face_resource/${customEmojiPackage.name}",
-          isEmoji: customEmojiPackage.isEmoji,
-          isDefaultEmoji: true,
-          stickerList: customEmojiPackage.list
-              .asMap()
-              .keys
-              .map((idx) =>
-                  CustomSticker(index: idx, name: customEmojiPackage.list[idx]))
-              .toList(),
-          menuItem: CustomSticker(
-            index: 0,
-            name: customEmojiPackage.icon,
-          ));
-    }).toList();
-
-    return StickerPanel(
-        isWideScreen: isWideScreen,
-        height: height,
-        width: width,
-        sendTextMsg: isWideScreen ? null : sendTextMessage,
-        sendFaceMsg: (index, data) =>
-            sendFaceMessage(index + 1, (data.split("/")[3]).split("@")[0]),
-        deleteText: deleteText,
-        addText: addText,
-        addCustomEmojiText: addCustomEmojiText,
-        customStickerPackageList: [
-          ...defaultEmojiList,
-          ...customStickerPackageList
-        ],
-        bottomColor: isWideScreen ? theme.weakBackgroundColor : null,
-        backgroundColor: isWideScreen ? theme.wideBackgroundColor : null,
-        lightPrimaryColor: theme.lightPrimaryColor);
+    if (isWideScreen &&
+        IMDemoConfig.customerServiceUserList
+            .contains(widget.selectedConversation.userID)) {
+      TencentCloudChatCustomerServicePlugin.sendCustomerServiceStartMessage(
+          _chatController.sendMessage);
+    }
   }
 
   _itemClick(String id, BuildContext context, V2TimConversation conversation,
@@ -366,6 +317,116 @@ class _ChatState extends State<Chat> {
     return wids;
   }
 
+  _createCustomerServiceCardMessage() {
+    final isWideScreen =
+        TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
+    if (isWideScreen) {
+      TUIKitWidePopup.showPopupWindow(
+        context: context,
+        title: TIM_t("请填写商品信息"),
+        operationKey: TUIKitWideModalOperationKey.custom,
+        width: 400,
+        height: 350,
+        child: (onClose) => CardCreateExample(
+          controller: _chatController,
+          onClosed: onClose,
+        ),
+      );
+    } else {
+      return showModalBottomSheet<void>(
+        context: context,
+        isDismissible: false,
+        isScrollControlled: true,
+        builder: (BuildContext context) {
+          return Container(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
+            margin: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      TIM_t("请填写商品信息"),
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700),
+                    ),
+                    TextButton(
+                        onPressed: () => {Navigator.of(context).pop()},
+                        child: Text(
+                          TIM_t("关闭"),
+                          style: const TextStyle(color: Colors.orange),
+                        ))
+                  ],
+                ),
+                CardCreateExample(
+                  controller: _chatController,
+                  onClosed: () => {Navigator.of(context).pop()},
+                )
+              ],
+            ),
+          );
+        },
+      );
+    }
+  }
+
+  getCustomerServicePlugin() {
+    List<MorePanelItem> wids = [];
+    if (IMDemoConfig.customerServiceUserList
+        .contains(widget.selectedConversation.userID)) {
+      wids.addAll([
+        if (canSendEvaluate)
+          MorePanelItem(
+            onTap: (c) {
+              TencentCloudChatCustomerServicePlugin.getEvaluateMessage(
+                  _chatController.sendMessage);
+            },
+            icon: Container(
+              height: 64,
+              width: 64,
+              margin: const EdgeInsets.only(bottom: 4),
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(5))),
+              child: Icon(
+                Icons.comment,
+                color: hexToColor("5c6168"),
+                size: 32,
+              ),
+            ),
+            id: 'evaluate',
+            title: TIM_t("服务评价"),
+          ),
+        MorePanelItem(
+          onTap: (c) {
+            _createCustomerServiceCardMessage();
+          },
+          icon: Container(
+            height: 64,
+            width: 64,
+            margin: const EdgeInsets.only(bottom: 4),
+            decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(5))),
+            child: Icon(
+              Icons.card_giftcard,
+              color: hexToColor("5c6168"),
+              size: 32,
+            ),
+          ),
+          id: 'cardMessage',
+          title: TIM_t("卡片消息"),
+        )
+      ]);
+    }
+    return wids;
+  }
+
   @override
   Widget build(BuildContext context) {
     final LocalSetting localSetting = Provider.of<LocalSetting>(context);
@@ -384,9 +445,8 @@ class _ChatState extends State<Chat> {
         !notAllowGroupType.contains(groupType)) {
       canAddVotePlugin = true;
     }
-    // bool isCustomerServiceChat = IMDemoConfig.customerServiceUserList
-    //     .contains(widget.selectedConversation.userID);
-    bool isCustomerServiceChat = false;
+    bool isCustomerServiceChat = IMDemoConfig.customerServiceUserList
+        .contains(widget.selectedConversation.userID);
     return TencentPage(
       name: 'chat',
       child: TIMUIKitChat(
@@ -398,45 +458,45 @@ class _ChatState extends State<Chat> {
         lifeCycle:
             ChatLifeCycle(newMessageWillMount: (V2TimMessage message) async {
           // ChannelPush.displayDefaultNotificationForMessage(message);
-          // if (TencentCloudChatCustomerServicePlugin.isCustomerServiceMessage(
-          //     message)) {
-          //   if (TencentCloudChatCustomerServicePlugin
-          //       .isTypingCustomerServiceMessage(message)) {
-          //     setState(() {
-          //       customerServiceTyping = TIM_t("对方正在输入中...");
-          //     });
-          //   }
-          //   if (TencentCloudChatCustomerServicePlugin
-          //           .isCanSendEvaluateMessage(message) &&
-          //       !TencentCloudChatCustomerServicePlugin.isCanSendEvaluate(
-          //           message) &&
-          //       canSendEvaluate == true) {
-          //     setState(() {
-          //       canSendEvaluate = false;
-          //     });
-          //   } else if (TencentCloudChatCustomerServicePlugin
-          //           .isCanSendEvaluateMessage(message) &&
-          //       TencentCloudChatCustomerServicePlugin.isCanSendEvaluate(
-          //           message) &&
-          //       canSendEvaluate == false) {
-          //     setState(() {
-          //       canSendEvaluate = true;
-          //     });
-          //   }
-          // } else {
-          //   setState(() {
-          //     customerServiceTyping = null;
-          //   });
-          // }
+          if (TencentCloudChatCustomerServicePlugin.isCustomerServiceMessage(
+              message)) {
+            if (TencentCloudChatCustomerServicePlugin
+                .isTypingCustomerServiceMessage(message)) {
+              setState(() {
+                customerServiceTyping = TIM_t("对方正在输入中...");
+              });
+            }
+            if (TencentCloudChatCustomerServicePlugin.isCanSendEvaluateMessage(
+                    message) &&
+                !TencentCloudChatCustomerServicePlugin.isCanSendEvaluate(
+                    message) &&
+                canSendEvaluate == true) {
+              setState(() {
+                canSendEvaluate = false;
+              });
+            } else if (TencentCloudChatCustomerServicePlugin
+                    .isCanSendEvaluateMessage(message) &&
+                TencentCloudChatCustomerServicePlugin.isCanSendEvaluate(
+                    message) &&
+                canSendEvaluate == false) {
+              setState(() {
+                canSendEvaluate = true;
+              });
+            }
+          } else {
+            setState(() {
+              customerServiceTyping = null;
+            });
+          }
 
           return message;
         }, messageShouldMount: (V2TimMessage message) {
-          // if (TencentCloudChatCustomerServicePlugin
-          //         .isCustomerServiceMessageInvisible(message) &&
-          //     TencentCloudChatCustomerServicePlugin.isCustomerServiceMessage(
-          //         message)) {
-          //   return false;
-          // }
+          if (TencentCloudChatCustomerServicePlugin
+                  .isCustomerServiceMessageInvisible(message) &&
+              TencentCloudChatCustomerServicePlugin.isCustomerServiceMessage(
+                  message)) {
+            return false;
+          }
           return true;
         }),
         onDealWithGroupApplication: (String groupId) {
@@ -462,13 +522,17 @@ class _ChatState extends State<Chat> {
           }
         },
         groupAtInfoList: widget.selectedConversation.groupAtInfoList,
-        customStickerPanel: renderCustomStickerPanel,
         showTotalUnReadCount: true,
-        // customEmojiStickerList: customEmojiList,
         config: TIMUIKitChatConfig(
+            stickerPanelConfig: StickerPanelConfig(
+              useQQStickerPackage: true,
+              useTencentCloudChatStickerPackage: true,
+              customStickerPackages:
+                  Provider.of<CustomStickerPackageData>(context)
+                      .customStickerPackageList,
+            ),
             showC2cMessageEditStatus: true,
             isUseDefaultEmoji: true,
-            isGroupAdminRecallEnabled: true,
             isAllowClickAvatar: true,
             isAllowLongPressMessage: true,
             isShowReadingStatus: localSetting.isShowReadingStatus,
@@ -504,7 +568,10 @@ class _ChatState extends State<Chat> {
               }
             },
             faceURISuffix: (String path) {
-              return "@2x.png";
+              if (!path.contains("@2x.png")) {
+                return "@2x.png";
+              }
+              return "";
             },
             additionalDesktopControlBarItems: [
               if (canAddVotePlugin)
@@ -515,6 +582,23 @@ class _ChatState extends State<Chat> {
                       _createVote(groupID ?? "");
                     },
                     svgPath: "assets/send_poll.svg"),
+              if (canSendEvaluate)
+                DesktopControlBarItem(
+                    item: 'evaluate',
+                    showName: TIM_t("服务评价"),
+                    onClick: (offset) {
+                      TencentCloudChatCustomerServicePlugin.getEvaluateMessage(
+                          _chatController.sendMessage);
+                    },
+                    icon: Icons.comment),
+              if (isCustomerServiceChat)
+                DesktopControlBarItem(
+                    item: 'evaluate',
+                    showName: TIM_t("卡片消息"),
+                    onClick: (offset) {
+                      _createCustomerServiceCardMessage();
+                    },
+                    icon: Icons.card_giftcard)
             ]),
         conversationID: _getConvID() ?? '',
         conversationType:
@@ -525,10 +609,10 @@ class _ChatState extends State<Chat> {
         messageItemBuilder: MessageItemBuilder(
           messageRowBuilder: (message, messageWidget, onScrollToIndex,
               isNeedShowJumpStatus, clearJumpStatus, onScrollToIndexBegin) {
-            // if (TencentCloudChatCustomerServicePlugin
-            //     .isRowCustomerServiceMessage(message)) {
-            //   return messageWidget;
-            // }
+            if (TencentCloudChatCustomerServicePlugin
+                .isRowCustomerServiceMessage(message)) {
+              return messageWidget;
+            }
             if (MessageUtils.isGroupCallingMessage(message)) {
               // If group call message, not use default layout.
               return messageWidget;
@@ -544,99 +628,99 @@ class _ChatState extends State<Chat> {
             );
           },
           locationMessageItemBuilder: (message, isShowJump, clearJump) {
-            // if (!PlatformUtils().isMobile) {
-            String dividerForDesc = "/////";
-            String address = message.locationElem?.desc ?? "";
-            String addressName = address;
-            String? addressLocation;
-            if (RegExp(dividerForDesc).hasMatch(address)) {
-              addressName = address.split(dividerForDesc)[0];
-              addressLocation = address.split(dividerForDesc)[1] != "null"
-                  ? address.split(dividerForDesc)[1]
-                  : null;
-            }
-            final borderRadius = (message.isSelf ?? true)
-                ? const BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(2),
-                    bottomLeft: Radius.circular(10),
-                    bottomRight: Radius.circular(10))
-                : const BorderRadius.only(
-                    topLeft: Radius.circular(2),
-                    topRight: Radius.circular(10),
-                    bottomLeft: Radius.circular(10),
-                    bottomRight: Radius.circular(10));
-            const backgroundColor = Colors.white;
-            return GestureDetector(
-              onTap: () {
-                launchUrl(
-                  Uri.parse(
-                      "http://api.map.baidu.com/marker?location=${message.locationElem?.latitude},${message.locationElem?.longitude}&title=$addressName&content=$addressLocation&output=html"),
-                  mode: LaunchMode.externalApplication,
-                );
-              },
-              child: Material(
-                color: Colors.transparent,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: backgroundColor,
-                    borderRadius: borderRadius,
-                    border: Border.all(color: hexToColor("DDDDDD")),
-                  ),
-                  constraints: const BoxConstraints(maxWidth: 240),
-                  padding: const EdgeInsets.fromLTRB(6, 10, 6, 10),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.location_on,
-                        color: hexToColor("5c6168"),
-                        size: 32,
-                      ),
-                      const SizedBox(width: 4),
-                      Expanded(
-                          child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          if (addressName.isNotEmpty)
-                            Text(
-                              addressName,
-                              softWrap: true,
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                          if (addressLocation != null &&
-                              addressLocation.isNotEmpty)
-                            Text(
-                              addressLocation,
-                              softWrap: true,
-                              style: const TextStyle(
-                                  fontSize: 12,
-                                  color: CommonColor.weakTextColor),
-                            ),
-                        ],
-                      ))
-                    ],
+            if (!PlatformUtils().isMobile) {
+              String dividerForDesc = "/////";
+              String address = message.locationElem?.desc ?? "";
+              String addressName = address;
+              String? addressLocation;
+              if (RegExp(dividerForDesc).hasMatch(address)) {
+                addressName = address.split(dividerForDesc)[0];
+                addressLocation = address.split(dividerForDesc)[1] != "null"
+                    ? address.split(dividerForDesc)[1]
+                    : null;
+              }
+              final borderRadius = (message.isSelf ?? true)
+                  ? const BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(2),
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10))
+                  : const BorderRadius.only(
+                      topLeft: Radius.circular(2),
+                      topRight: Radius.circular(10),
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10));
+              const backgroundColor = Colors.white;
+              return GestureDetector(
+                onTap: () {
+                  launchUrl(
+                    Uri.parse(
+                        "http://api.map.baidu.com/marker?location=${message.locationElem?.latitude},${message.locationElem?.longitude}&title=$addressName&content=$addressLocation&output=html"),
+                    mode: LaunchMode.externalApplication,
+                  );
+                },
+                child: Material(
+                  color: Colors.transparent,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: backgroundColor,
+                      borderRadius: borderRadius,
+                      border: Border.all(color: hexToColor("DDDDDD")),
+                    ),
+                    constraints: const BoxConstraints(maxWidth: 240),
+                    padding: const EdgeInsets.fromLTRB(6, 10, 6, 10),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.location_on,
+                          color: hexToColor("5c6168"),
+                          size: 32,
+                        ),
+                        const SizedBox(width: 4),
+                        Expanded(
+                            child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            if (addressName.isNotEmpty)
+                              Text(
+                                addressName,
+                                softWrap: true,
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                            if (addressLocation != null &&
+                                addressLocation.isNotEmpty)
+                              Text(
+                                addressLocation,
+                                softWrap: true,
+                                style: const TextStyle(
+                                    fontSize: 12,
+                                    color: CommonColor.weakTextColor),
+                              ),
+                          ],
+                        ))
+                      ],
+                    ),
                   ),
                 ),
+              );
+            }
+            return LocationMsgElement(
+              isAllowCurrentLocation: false,
+              messageID: message.msgID,
+              locationElem: LocationMessage(
+                longitude: message.locationElem!.longitude,
+                latitude: message.locationElem!.latitude,
+                desc: message.locationElem?.desc ?? "",
               ),
+              isFromSelf: message.isSelf ?? true,
+              isShowJump: isShowJump,
+              clearJump: clearJump,
+              mapBuilder: (onMapLoadDone, mapKey) => BaiduMap(
+                onMapLoadDone: onMapLoadDone,
+                key: mapKey,
+              ),
+              locationUtils: LocationUtils(BaiduMapService()),
             );
-            // }
-            // return LocationMsgElement(
-            //   isAllowCurrentLocation: false,
-            //   messageID: message.msgID,
-            //   locationElem: LocationMessage(
-            //     longitude: message.locationElem!.longitude,
-            //     latitude: message.locationElem!.latitude,
-            //     desc: message.locationElem?.desc ?? "",
-            //   ),
-            //   isFromSelf: message.isSelf ?? true,
-            //   isShowJump: isShowJump,
-            //   clearJump: clearJump,
-            //   mapBuilder: (onMapLoadDone, mapKey) => BaiduMap(
-            //     onMapLoadDone: onMapLoadDone,
-            //     key: mapKey,
-            //   ),
-            //   locationUtils: LocationUtils(BaiduMapService()),
-            // );
           },
         ),
         morePanelConfig: MorePanelConfig(
@@ -644,28 +728,75 @@ class _ChatState extends State<Chat> {
           showVoiceCall: !isCustomerServiceChat,
           extraAction: [
             // 隐私协议中没有位置消息，暂时下掉
-            // MorePanelItem(
-            //     id: "location",
-            //     title: TIM_t("位置"),
-            //     onTap: (c) {
-            //       _onTapLocation();
-            //     },
-            //     icon: Container(
-            //       height: 64,
-            //       width: 64,
-            //       margin: const EdgeInsets.only(bottom: 4),
-            //       decoration: const BoxDecoration(
-            //           color: Colors.white,
-            //           borderRadius: BorderRadius.all(Radius.circular(5))),
-            //       child: Icon(
-            //         Icons.location_on,
-            //         color: hexToColor("5c6168"),
-            //         size: 32,
-            //       ),
-            //     )),
+            if (!isCustomerServiceChat)
+              MorePanelItem(
+                  id: "location",
+                  title: TIM_t("位置"),
+                  onTap: (c) {
+                    _onTapLocation();
+                  },
+                  icon: Container(
+                    height: 64,
+                    width: 64,
+                    margin: const EdgeInsets.only(bottom: 4),
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(5))),
+                    child: Icon(
+                      Icons.location_on,
+                      color: hexToColor("5c6168"),
+                      size: 32,
+                    ),
+                  )),
             ...getVotePlugin(canAddVotePlugin, groupID ?? ""),
+            ...getCustomerServicePlugin(),
           ],
         ),
+          appBarConfig: AppBar(
+            actions: [
+              IconButton(
+                  padding: const EdgeInsets.only(left: 8, right: 16),
+                  onPressed: () async {
+                    final conversationType = widget.selectedConversation.type;
+
+                    if (conversationType == 1) {
+                      final userID = widget.selectedConversation.userID;
+                      // if had remark modified its will back new remark
+                      String? newRemark = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => UserProfile(
+                              userID: userID!,
+                              onRemarkUpdate: (String newRemark) {
+                                setState(() {
+                                  conversationName = newRemark;
+                                });
+                              },
+                            ),
+                          ));
+                      setState(() {
+                        backRemark = newRemark;
+                      });
+                    } else {
+                      final groupID = widget.selectedConversation.groupID;
+                      if (groupID != null) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => GroupProfilePage(
+                                groupID: groupID,
+                              ),
+                            ));
+                      }
+                    }
+                  },
+                  icon: Icon(
+                    Icons.more_horiz,
+                    color: hexToColor("010000"),
+                    size: 20,
+                  ))
+            ],
+          ),
         customAppBar: isWideScreen
             ? ConstrainedBox(
                 constraints: const BoxConstraints(maxHeight: 60),

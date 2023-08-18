@@ -82,7 +82,10 @@ class AppLogo extends StatelessWidget {
                     theme.primaryColor ?? CommonColor.primaryColor
                   ]),
             ),
-            child: Image.asset("assets/hero_image.png")),
+            child: Image.asset("assets/hero_image.png",
+                color: Colors.transparent,
+                width: MediaQuery.of(context).size.width,
+                height: 500)),
         Positioned(
           child: Container(
             padding: EdgeInsets.only(top: height / 30, left: 24),
@@ -99,29 +102,29 @@ class AppLogo extends StatelessWidget {
                 ),
                 Expanded(
                     child: Container(
-                  margin: const EdgeInsets.only(right: 5),
-                  height: CommonUtils.adaptHeight(220),
-                  padding: const EdgeInsets.only(top: 10, left: 12, right: 15),
-                  child: Column(
-                    children: <Widget>[
-                      Text(
-                        TIM_t("腾讯云即时通信IM"),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: CommonUtils.adaptFontSize(58),
-                        ),
+                      margin: const EdgeInsets.only(right: 5),
+                      height: CommonUtils.adaptHeight(180),
+                      padding: const EdgeInsets.only(top: 10, left: 12, right: 15),
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            TIM_t("腾讯云即时通信IM"),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: CommonUtils.adaptFontSize(58),
+                            ),
+                          ),
+                          Text(
+                            TIM_t("欢迎使用本 APP 体验腾讯云 IM 产品服务"),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: CommonUtils.adaptFontSize(26),
+                            ),
+                          ),
+                        ],
+                        crossAxisAlignment: CrossAxisAlignment.start,
                       ),
-                      Text(
-                        TIM_t("欢迎使用本 APP 体验腾讯云 IM 产品服务"),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: CommonUtils.adaptFontSize(26),
-                        ),
-                      ),
-                    ],
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                  ),
-                )),
+                    )),
               ],
             ),
           ),

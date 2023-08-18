@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -32,9 +33,11 @@ import 'package:tencent_cloud_chat_demo/utils/push/channel/channel_push.dart';
 import 'package:tencent_cloud_chat_demo/utils/push/push_constant.dart';
 import 'package:tencent_cloud_chat_demo/utils/theme.dart';
 import 'package:tencent_cloud_chat_demo/utils/toast.dart';
-import 'package:tencent_cloud_chat_demo/utils/unicode_emoji.dart';
+import 'package:tencent_cloud_chat_vote_plugin/tencent_cloud_chat_vote_plugin.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:tencent_cloud_chat_demo/src/launch_page.dart';
+import 'package:path/path.dart' as p;
+import 'package:package_info_plus/package_info_plus.dart';
 
 bool isInitScreenUtils = false;
 
@@ -159,8 +162,23 @@ class _TencentChatAppState extends State<TencentChatApp>
     final language = localSetting.language ?? await getLanguage();
     localSetting.updateLanguageWithoutWriteLocal(language);
 
+    // The log path provided here is for demonstration purposes only.
+    // You may customize the path according to your project requirements.
+    String? logPath;
+    if(!PlatformUtils().isWeb){
+      final String documentsDirectoryPath =
+          "${Platform.environment['USERPROFILE']}";
+      PackageInfo packageInfo = await PackageInfo.fromPlatform();
+      String pkgName = packageInfo.packageName;
+      var timeName =
+          "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}";
+      logPath = p.join(documentsDirectoryPath, "Documents", ".TencentCloudChat",
+          pkgName, "uikit_log", 'Flutter-TUIKit-$timeName.log');
+    }
+
     final isInitSuccess = await _coreInstance.init(
       onWebLoginSuccess: getLoginUserInfo,
+      uikitLogPath: logPath,
       config: const TIMUIKitConfig(
         // This status is default to true,
         // its unnecessary to specify this if you tend to use online status.

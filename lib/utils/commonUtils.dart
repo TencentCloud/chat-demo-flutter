@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tencent_calls_engine/tuicall_define.dart';
+import 'package:tencent_calls_engine/tencent_calls_engine.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
 class CommonUtils {

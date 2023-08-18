@@ -112,7 +112,7 @@ class _SearchEntryWideState extends State<SearchEntryWide> {
           context: context,
           width: MediaQuery.of(context).size.width * 0.3,
           height: MediaQuery.of(context).size.width * 0.4,
-          title: TIM_t("添加好友"),
+          title: TIM_t("选择好友"),
           onSubmit: () {
             createGroupKey.currentState?.onSubmit();
           },

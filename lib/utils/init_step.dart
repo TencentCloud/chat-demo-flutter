@@ -7,10 +7,8 @@ import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
 import 'package:tencent_cloud_chat_demo/utils/constant.dart';
 import 'package:tencent_cloud_chat_demo/utils/theme.dart';
 import 'package:provider/provider.dart';
-import 'package:tencent_cloud_chat_demo/utils/unicode_emoji.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/screen_utils.dart';
-import 'package:tencent_cloud_chat_uikit/ui/widgets/emoji.dart';
 
 class InitStep {
   static setTheme(String themeTypeString, BuildContext context) {
@@ -26,17 +24,6 @@ class InitStep {
   static setCustomSticker(BuildContext context) async {
     // 添加自定义表情包
     List<CustomStickerPackage> customStickerPackageList = [];
-
-    // 不使用emoji
-    final defEmojiList = emojiData.asMap().keys.map((emojiIndex) {
-      final emo = Emoji.fromJson(emojiData[emojiIndex]);
-      return CustomSticker(
-          index: emojiIndex, name: emo.name, unicode: emo.unicode);
-    }).toList();
-    customStickerPackageList.add(CustomStickerPackage(
-        name: "defaultEmoji",
-        stickerList: defEmojiList,
-        menuItem: defEmojiList[0]));
 
     customStickerPackageList.addAll(Const.emojiList.map((customEmojiPackage) {
       return CustomStickerPackage(

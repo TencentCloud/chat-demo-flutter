@@ -40,15 +40,6 @@ class Const {
   };
 
   static final List<CustomEmojiFaceData> emojiList = [
-    // CustomEmojiFaceData(
-    //     name: '4349',
-    //     icon: "aircraft.png",
-    //     isEmoji: true,
-    //     list: [
-    //       "aircraft.png",
-    //       "alarmClock.png",
-    //       "anger.png",
-    //     ]),
     CustomEmojiFaceData(name: '4350', icon: "menu@2x.png", list: [
       "yz00@2x.png",
       "yz01@2x.png",

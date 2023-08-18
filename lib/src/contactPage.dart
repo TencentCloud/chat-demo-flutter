@@ -8,9 +8,35 @@ import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
 import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
 import 'package:tencent_cloud_chat_demo/utils/toast.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class ContactPage extends StatelessWidget {
+class ContactPage extends StatefulWidget {
   const ContactPage({Key? key}) : super(key: key);
+
+  @override
+  State<ContactPage> createState() => _ContactPageState();
+}
+
+class _ContactPageState extends State<ContactPage> {
+  bool isInternational = true;
+
+  @override
+  void initState() {
+    super.initState();
+    setLanguage();
+  }
+
+  void setLanguage(){
+    final String? deviceLocale = WidgetsBinding.instance.window.locale.toLanguageTag();
+    final AppLocale appLocale = I18nUtils.findDeviceLocale(deviceLocale);
+    String languageType =
+    (appLocale == AppLocale.zhHans || appLocale == AppLocale.zhHant)
+        ? 'zh'
+        : 'other';
+    setState(() {
+      isInternational = (languageType == "zh") ? false : true;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +75,7 @@ class ContactPage extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      TIM_t("反馈及建议可以加入QQ群"),
+                      TIM_t("欢迎前往知聊社区参与讨论"),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 18,
@@ -57,9 +83,9 @@ class ContactPage extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      margin: const EdgeInsets.only(top: 20, bottom: 20),
-                      child: Text(
-                        "788910197",
+                      margin: const EdgeInsets.only(top: 20, bottom: 100),
+                      child: SelectableText(
+                        TIM_t("zhiliao.qq.com"),
                         style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.w600,
@@ -67,19 +93,28 @@ class ContactPage extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      TIM_t("在线时间: 周一到周五，早上10点 - 晚上8点"),
+                      TIM_t("此社区使用本 App 同款 Flutter UIKit 完成全平台开发"),
                       style: TextStyle(
                         color: theme.darkTextColor,
                       ),
                     ),
                     Container(
-                      margin: const EdgeInsets.only(top: 40),
+                      margin: const EdgeInsets.only(top: 20),
                       child: ElevatedButton(
                         onPressed: () {
-                          Clipboard.setData(const ClipboardData(text: '788910197'));
-                          ToastUtils.toast(TIM_t("QQ群号复制成功"));
+                          if(isInternational){
+                            launchUrl(
+                              Uri.parse("https://t.me/+1doS9AUBmndhNGNl"),
+                              mode: LaunchMode.externalApplication,
+                            );
+                          } else {
+                            launchUrl(
+                              Uri.parse("https://zhiliao.qq.com/s/c5GY7HIM62CK/c6RDBIIM62CQ"),
+                              mode: LaunchMode.externalApplication,
+                            );
+                          }
                         },
-                        child: Text(TIM_t("复制群号")),
+                        child: Text(TIM_t("前往知聊社区")),
                       ),
                     ),
                   ],
