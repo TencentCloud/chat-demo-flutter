@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:tencent_calls_uikit/tuicall_kit.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_demo/custom_animation.dart';
 import 'package:tencent_cloud_chat_demo/src/config.dart';
@@ -117,6 +118,7 @@ class TUIKitDemoApp extends StatelessWidget {
       ),
       home: const TencentChatApp(),
       builder: EasyLoading.init(),
+      navigatorObservers: !PlatformUtils().isMobile ? [] : [TUICallKit.navigatorObserver],
     );
   }
 }
