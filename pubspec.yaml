@@ -44,6 +44,7 @@ dependencies:
   tencent_chat_push_for_china: ^3.1.1
   tencent_cloud_chat_vote_plugin: ^1.0.2
   tencent_cloud_chat_customer_service_plugin: ^0.0.2
+  tencent_cloud_av_chat_room: ^0.0.4
 
   # Location message and Baidu Map:
 #  tim_ui_kit_lbs_plugin: ^2.0.0+1
@@ -86,6 +87,7 @@ dependency_overrides:
   shared_preferences_android: 2.1.0
   device_info_plus: ^9.0.1
   win32: ^3.0.0
+  tencent_chat_i18n_tool: ^2.2.0+1
 
 dev_dependencies:
   build_runner: any
@@ -114,6 +116,7 @@ flutter:
     - assets/user_guide/small/zh/
     - assets/user_guide/small/en/
     - assets/user_guide/
+    - assets/live/
     - lib/country_list_pick-1.0.1+5/flags/
     - assets/calling_message/
   # To add assets to your application, add an assets section, like this:
@@ -157,3 +160,4 @@ flutter_icons:
 flutter_native_splash:
   background_image: "assets/splash_new.png"
   android_gravity: center
+
