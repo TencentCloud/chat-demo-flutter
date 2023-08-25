@@ -22,6 +22,7 @@ import 'package:tencent_cloud_chat_demo/utils/push/channel/channel_push.dart';
 import 'package:tencent_cloud_chat_demo/utils/push/push_constant.dart';
 import 'package:tencent_cloud_chat_demo/utils/toast.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tencent_cloud_chat_vote_plugin/tencent_cloud_chat_vote_plugin.dart';
 
 class LoginPage extends StatelessWidget {
   final Function? initIMSDK;
@@ -291,6 +292,10 @@ class _LoginFormState extends State<LoginForm> {
           TIM_t_para("登录失败{{option1}}", "登录失败$option1")(option1: option1));
       return;
     }
+    
+    // Initialize the poll plug-in
+    TencentCloudChatVotePlugin.initPlugin();
+
     directToHomePage();
   }
 
