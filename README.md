@@ -56,11 +56,13 @@ what to expect.**
 
 ## Environment Requirements
 
-|   | Version |
-|---------|---------|
-| Flutter | Flutter 2.2.0 or later for the IM SDK; Flutter 2.10.0 or later for the TUIKit integration component library. |
-| Android | Android Studio 3.5 or later; devices with Android 4.1 or later for apps |
-| iOS | Xcode 11.0 or later. Ensure that your project has a valid developer signature. |
+|   | Version                                                                                                     |
+|---------|-------------------------------------------------------------------------------------------------------------|
+| Flutter | Flutter 3.0.0 or later for the IM SDK; Flutter 3.13.0 or later for the TUIKit component library. |
+| Android | Android Studio 3.5 or later; devices with Android 4.1 or later for apps                                     |
+| iOS | Xcode 11.0 or later. Ensure that your project has a valid developer signature.                              |
+
+Please note that if you are using a version of Flutter lower than 3.13.0, you can continue using version 2.2.1 of our Chat UIKit.
 
 ## Preparation
 
@@ -174,3 +176,10 @@ Below are main files:
 The navigation redirect method needs to be imported into most TUIKit components; therefore, the sample app layer needs to process `Navigator`.
 
 You can modify the above sample app for secondary development or implement your business needs based on it.
+
+## Recommended Resources
+
+For those who require real-time voice and video call capabilities alongside our Chat UIKit,
+we highly recommend our dedicated voice and video call UI component package, [tencent\_calls\_uikit](https://pub.dev/packages/tencent_calls_uikit).
+This robust and feature-rich package is specifically designed to complement our existing solution and seamlessly integrate with it,
+providing a comprehensive, unified communication experience for your users.

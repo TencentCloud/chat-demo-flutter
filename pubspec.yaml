@@ -24,7 +24,7 @@ version: 1.0.0+1
 #  tencent_extended_text: ^1.0.2
 environment:
   sdk: '>=3.0.0 <4.0.0'
-  flutter: ">=3.10.0"
+  flutter: ">=3.13.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -39,7 +39,7 @@ dependencies:
     sdk: flutter
 
   # Tencent Cloud Chat dependencies:
-  tencent_cloud_chat_uikit: ^2.2.1
+  tencent_cloud_chat_uikit: ^2.3.0
   tencent_calls_uikit: ^1.8.2
   tencent_chat_push_for_china: ^3.1.1
   tencent_cloud_chat_vote_plugin: ^1.0.2
@@ -87,6 +87,7 @@ dependency_overrides:
   shared_preferences_android: 2.1.0
   device_info_plus: ^9.0.1
   win32: ^3.0.0
+  http: ^1.0.0
   tencent_chat_i18n_tool: ^2.2.0+1
 
 dev_dependencies:

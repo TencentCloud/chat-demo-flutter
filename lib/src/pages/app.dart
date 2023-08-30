@@ -82,8 +82,18 @@ class _TencentChatAppState extends State<TencentChatApp>
             status: AppStatus.background, totalCount: unreadCount);
         break;
       case AppLifecycleState.detached:
-        // ignore: todo
-        // TODO: Handle this case.
+        _coreInstance.setOfflinePushStatus(
+            status: AppStatus.background, totalCount: unreadCount);
+        if (unreadCount != null) {
+          ChannelPush.setBadgeNum(unreadCount);
+        }
+        break;
+      case AppLifecycleState.hidden:
+        _coreInstance.setOfflinePushStatus(
+            status: AppStatus.background, totalCount: unreadCount);
+        if (unreadCount != null) {
+          ChannelPush.setBadgeNum(unreadCount);
+        }
         break;
     }
   }

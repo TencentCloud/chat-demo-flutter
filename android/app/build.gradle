@@ -28,7 +28,7 @@ apply plugin: 'com.huawei.agconnect'
 
 android {
     compileSdkVersion 33
-
+    namespace 'com.tencent.flutter.tuikit'
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
