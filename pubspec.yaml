@@ -77,7 +77,7 @@ dependencies:
   tencent_im_sdk_plugin_desktop: ^0.1.19
   desktop_webview_window_for_is: ^0.2.4
   bitsdojo_window: ^0.1.5
-  flutter_screenutil: ^5.6.1
+  flutter_screenutil: ^5.9.0
   fluttertoast: ^8.2.1
   dio: ^4.0.0
   dotted_line: ^3.2.2
@@ -161,4 +161,3 @@ flutter_icons:
 flutter_native_splash:
   background_image: "assets/splash_new.png"
   android_gravity: center
-
