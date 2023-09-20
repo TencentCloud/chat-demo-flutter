@@ -203,7 +203,6 @@ class _TencentChatAppState extends State<TencentChatApp>
             // Shows the recommend text for info callback directly
             ToastUtils.toast(callbackValue.infoRecommendText!);
             break;
-
           case TIMCallbackType.API_ERROR:
             //Prints the API error to console, and shows the error message.
             print(
