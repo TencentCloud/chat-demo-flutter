@@ -1,18 +1,16 @@
 // ignore_for_file: unused_element, empty_catches
 
 import 'package:flutter/material.dart';
-import 'package:tencent_cloud_chat_demo/src/multi_platform_widget/search_entry/search_entry_wide.dart';
-import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_conversation_controller.dart';
-
-import 'package:tencent_cloud_chat_uikit/ui/utils/platform.dart';
-import 'package:tencent_cloud_chat_demo/src/chat.dart';
-
 import 'package:provider/provider.dart';
+import 'package:tencent_cloud_chat_demo/src/chat.dart';
 import 'package:tencent_cloud_chat_demo/src/multi_platform_widget/search_entry/search_entry.dart';
+import 'package:tencent_cloud_chat_demo/src/multi_platform_widget/search_entry/search_entry_wide.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/local_setting.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/custom_last_message.dart';
 import 'package:tencent_cloud_chat_demo/utils/user_guide.dart';
+import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
+import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_conversation_controller.dart';
+import 'package:tencent_cloud_chat_uikit/ui/utils/platform.dart';
 
 GlobalKey<_ConversationState> conversationKey = GlobalKey();
 
@@ -25,14 +23,7 @@ class Conversation extends StatefulWidget {
   /// Used for specify the current conversation, usually used for showing the conversation indicator background color on wide screen.
   final V2TimConversation? selectedConversation;
 
-  const Conversation(
-      {Key? key,
-      required this.conversationController,
-      this.onConversationChanged,
-      this.onClickSearch,
-      this.onClickPlus,
-      this.selectedConversation})
-      : super(key: key);
+  const Conversation({Key? key, required this.conversationController, this.onConversationChanged, this.onClickSearch, this.onClickPlus, this.selectedConversation}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _ConversationState();
@@ -62,8 +53,7 @@ class _ConversationState extends State<Conversation> {
   scrollToNextUnreadConversation() {
     final conversationList = _controller.conversationList;
     for (var element in conversationList) {
-      if ((element?.unreadCount ?? 0) > 0 &&
-          !jumpedConversations.contains(element!.conversationID)) {
+      if ((element?.unreadCount ?? 0) > 0 && !jumpedConversations.contains(element!.conversationID)) {
         _controller.scrollToConversation(element.conversationID);
         jumpedConversations.add(element.conversationID);
         return;
@@ -94,17 +84,14 @@ class _ConversationState extends State<Conversation> {
   }
 
   _pinConversation(V2TimConversation conversation) {
-    _controller.pinConversation(
-        conversationID: conversation.conversationID,
-        isPinned: !conversation.isPinned!);
+    _controller.pinConversation(conversationID: conversation.conversationID, isPinned: !conversation.isPinned!);
   }
 
   _deleteConversation(V2TimConversation conversation) {
     _controller.deleteConversation(conversationID: conversation.conversationID);
   }
 
-  List<ConversationItemSlidePanel> _itemSlidableBuilder(
-      V2TimConversation conversationItem) {
+  List<ConversationItemSlidePanel> _itemSlidableBuilder(V2TimConversation conversationItem) {
     return [
       if (!PlatformUtils().isWeb)
         ConversationItemSlidePanel(
@@ -157,8 +144,7 @@ class _ConversationState extends State<Conversation> {
             onTapItem: _handleOnConvItemTaped,
             isShowOnlineStatus: localSetting.isShowOnlineStatus,
             lastMessageBuilder: (lastMsg, groupAtInfoList) {
-              if (lastMsg != null &&
-                  lastMsg.elemType == MessageElemType.V2TIM_ELEM_TYPE_CUSTOM) {
+              if (lastMsg != null && lastMsg.elemType == MessageElemType.V2TIM_ELEM_TYPE_CUSTOM) {
                 return renderCustomMessage(lastMsg, context);
               }
               return null;
