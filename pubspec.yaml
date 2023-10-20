@@ -82,6 +82,7 @@ dependencies:
   dio: ^4.0.0
   dotted_line: ^3.2.2
   photo_manager: ^2.7.1
+  tencent_chat_i18n_tool: ^2.2.0+2
 
 dependency_overrides:
   shared_preferences_android: 2.1.0

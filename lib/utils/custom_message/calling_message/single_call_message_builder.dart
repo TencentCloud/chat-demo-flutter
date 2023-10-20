@@ -39,7 +39,7 @@ class CallMessageItem extends StatelessWidget {
       if (!isShowIcon) {
         return isCallEnd
             ? Text(TIM_t_para("通话时间：{{option1}}", "通话时间：$option1")(option1: option1))
-            : Text(CallingMessage.getActionType(callingMessage.actionType!));
+            : Text(CallingMessage.getActionType(callingMessage));
       }
 
       return Row(
@@ -56,7 +56,7 @@ class CallMessageItem extends StatelessWidget {
             ),
           isCallEnd
               ? Text(TIM_t_para("通话时间：{{option1}}", "通话时间：$option1")(option1: option1))
-              : Text(CallingMessage.getActionType(callingMessage.actionType!)),
+              : Text(CallingMessage.getActionType(callingMessage)),
           if (isFromSelf)
             Padding(
               padding: const EdgeInsets.only(left: 4),

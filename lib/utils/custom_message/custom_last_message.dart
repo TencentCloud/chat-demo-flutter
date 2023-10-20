@@ -32,7 +32,7 @@ String handleCustomMessage(V2TimMessage message) {
     final option3 = callTime;
     customLastMsgShow = isCallEnd
         ? TIM_t_para("通话时间：{{option3}}", "通话时间：$option3")(option3: option3)
-        : CallingMessage.getActionType(callingMessage.actionType!);
+        : CallingMessage.getActionType(callingMessage);
 
     final option1 = customLastMsgShow;
     final option2 = customLastMsgShow;

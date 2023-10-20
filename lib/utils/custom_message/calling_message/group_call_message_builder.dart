@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/calling_message/calling_message.dart';
+import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_im_base/tencent_im_base.dart';
 
 class GroupCallMessageItem extends StatefulWidget {
@@ -16,6 +17,8 @@ class GroupCallMessageItem extends StatefulWidget {
 
 class _GroupCallMessageItemState extends State<GroupCallMessageItem> {
 
+  // 并不是所有的消息都需要展示
+  bool isShow = true;
   // CustomMessage最终展示的内容
   String customMessageShowText = TIM_t("[自定义]");
 
@@ -97,8 +100,18 @@ class _GroupCallMessageItemState extends State<GroupCallMessageItem> {
   }
 
   getShowActionType(CallingMessage callingMessage, {String? groupId}) async {
+    final isEnd = CallingMessage.isGroupCallEndExist(callingMessage);
+    if (isEnd && !widget.customMessage!.isSelf!) {
+      isShow = true;
+      customMessageShowText = TIM_t('通话结束');
+      return;
+    }
+
+    isShow = CallingMessage.isShowInGroup(callingMessage);
+    if (!isShow) { return; }
+
     final actionType = callingMessage.actionType!;
-    final actionTypeText = CallingMessage.getActionType(actionType);
+    final actionTypeText = CallingMessage.getActionType(callingMessage);
     // 1发起通话
     if (actionType == 1 && groupId != null) {
       String nameStr = "";
@@ -124,6 +137,21 @@ class _GroupCallMessageItemState extends State<GroupCallMessageItem> {
     }
     // 3为接受
     if (actionType == 3 && groupId != null) {
+      List<String> inviteeShowNameList = [];
+      V2TimValueCallback<List<V2TimGroupMemberFullInfo>>
+      getGroupMembersInfoRes = await TencentImSDKPlugin.v2TIMManager
+          .getGroupManager()
+          .getGroupMembersInfo(
+        groupID: groupId, // 需要获取的群组id
+        memberList: callingMessage.inviteeList ?? [], // 需要获取的用户id列表
+      );
+      if (getGroupMembersInfoRes.code == 0) {
+        // 获取成功
+        getGroupMembersInfoRes.data?.forEach((element) {
+          inviteeShowNameList.add(getShowName(element));
+        });
+      }
+      callingMessage.inviteeList = inviteeShowNameList;
       handleThrottleGetShowName(groupId, actionTypeText, callingMessage);
     }
     // 4为拒绝
@@ -217,6 +245,6 @@ class _GroupCallMessageItemState extends State<GroupCallMessageItem> {
 
   @override
   Widget build(BuildContext context) {
-    return wrapMessageTips(_callElemBuilder(context));
+    return isShow ? wrapMessageTips(_callElemBuilder(context)) : const SizedBox();
   }
 }
