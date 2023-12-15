@@ -77,21 +77,7 @@ class HomePageState extends State<HomePage> {
 
   _initTrtc() async {
     final TUICallKit _callKit = TUICallKit.instance;
-    final _tuiLogin = TUILogin.instance;
-    final loginInfo = _coreInstance.loginInfo;
-    final userID = loginInfo.userID;
-    final userSig = loginInfo.userSig;
-    final sdkAppId = loginInfo.sdkAppID;
     _callKit.enableFloatWindow(true);
-    _tuiLogin.login(
-        sdkAppId,
-        userID,
-        userSig,
-        TUICallback(onSuccess: () {
-          print("callkit--- success");
-        }, onError: (int code, String message) {
-          print("callkit--- onError $message");
-        }));
   }
 
   uploadOfflinePushInfoToken() async {
