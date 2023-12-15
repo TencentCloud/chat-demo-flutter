@@ -8,6 +8,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tencent_calls_uikit/tencent_calls_uikit.dart';
 import 'package:tencent_chat_push_for_china/tencent_chat_push_for_china.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
@@ -281,6 +282,8 @@ class _LoginFormState extends State<LoginForm> {
 
     String userSig =
         generateTestUserSig.genSig(identifier: userID, expire: 99999);
+
+    await TUICallKit.instance.login(sdkAppId, userID, userSig);
 
     var data = await coreInstance.login(
       userID: userID,
