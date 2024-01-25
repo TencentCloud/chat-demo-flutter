@@ -1,6 +1,6 @@
 {
-    "name": "timuikit",
-    "short_name": "timuikit",
+    "name": "tencent_cloud_chat_demo",
+    "short_name": "tencent_cloud_chat_demo",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

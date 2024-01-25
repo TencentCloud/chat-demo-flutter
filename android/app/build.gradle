@@ -1,14 +1,18 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+    id "com.google.gms.google-services" // Add here
+    id "com.huawei.agconnect" // Add here
+    id 'com.hihonor.mcs.asplugin' // Add here
+}
+
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
     localPropertiesFile.withReader('UTF-8') { reader ->
         localProperties.load(reader)
     }
-}
-
-def flutterRoot = localProperties.getProperty('flutter.sdk')
-if (flutterRoot == null) {
-    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
 }
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
@@ -21,14 +25,12 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-apply plugin: 'com.huawei.agconnect'
 
 android {
-    compileSdkVersion 33
-    namespace 'com.tencent.flutter.tuikit'
+    namespace "com.tencent.flutter.tuikit"
+    compileSdkVersion flutter.compileSdkVersion
+    ndkVersion flutter.ndkVersion
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -43,15 +45,18 @@ android {
     }
 
     defaultConfig {
+        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.tencent.flutter.tuikit"
+        // You can update the following values to match your application needs.
+        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion 21
-        targetSdkVersion 33
+        targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         manifestPlaceholders = [
-            VIVO_APPID:"",
-            VIVO_APPKEY:"",
-            applicationName : "timuikit"
+                "VIVO_APPID" : "105558479",
+                "VIVO_APPKEY": "c702255c2379fdcc28c381d7986d338b",
+                "HONOR_APPID": "220709752",
         ]
     }
 
@@ -64,13 +69,12 @@ android {
         }
     }
 
+
     buildTypes {
         debug {
             signingConfig signingConfigs.release
         }
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -82,5 +86,24 @@ flutter {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    // Huawei
+    implementation 'com.tencent.timpush:huawei:7.7.5283'
+
+    // XiaoMi
+    implementation 'com.tencent.timpush:xiaomi:7.7.5283'
+
+    // OPPO
+    implementation 'com.tencent.timpush:oppo:7.7.5283'
+
+    // vivo
+    implementation 'com.tencent.timpush:vivo:7.7.5283'
+
+    // Honor
+    implementation 'com.tencent.timpush:honor:7.7.5283'
+
+    // Meizu
+    implementation 'com.tencent.timpush:meizu:7.7.5283'
+
+    // Google Firebase Cloud Messaging (Google FCM)
+    implementation 'com.tencent.timpush:fcm:7.7.5283'
 }

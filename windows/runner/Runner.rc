@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.tencent.im.flutter" "\0"
-            VALUE "FileDescription", "im_flutter_uikit_full_platform" "\0"
+            VALUE "CompanyName", "com.tencent.chat.flutter" "\0"
+            VALUE "FileDescription", "tencent_cloud_chat_demo" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "im_flutter_uikit_full_platform" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2023 com.tencent.im.flutter. All rights reserved." "\0"
-            VALUE "OriginalFilename", "im_flutter_uikit_full_platform.exe" "\0"
-            VALUE "ProductName", "im_flutter_uikit_full_platform" "\0"
+            VALUE "InternalName", "tencent_cloud_chat_demo" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2023 com.tencent.chat.flutter. All rights reserved." "\0"
+            VALUE "OriginalFilename", "tencent_cloud_chat_demo.exe" "\0"
+            VALUE "ProductName", "tencent_cloud_chat_demo" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

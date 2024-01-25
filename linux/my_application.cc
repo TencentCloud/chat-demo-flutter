@@ -4,7 +4,7 @@
 #ifdef GDK_WINDOWING_X11
 #include <gdk/gdkx.h>
 #endif
-#include <bitsdojo_window_linux/bitsdojo_window_plugin.h>
+
 #include "flutter/generated_plugin_registrant.h"
 
 struct _MyApplication {
@@ -40,15 +40,14 @@ static void my_application_activate(GApplication* application) {
   if (use_header_bar) {
     GtkHeaderBar* header_bar = GTK_HEADER_BAR(gtk_header_bar_new());
     gtk_widget_show(GTK_WIDGET(header_bar));
-    gtk_header_bar_set_title(header_bar, "im_flutter_uikit_full_platform");
+    gtk_header_bar_set_title(header_bar, "tencent_cloud_chat_demo");
     gtk_header_bar_set_show_close_button(header_bar, TRUE);
     gtk_window_set_titlebar(window, GTK_WIDGET(header_bar));
   } else {
-    gtk_window_set_title(window, "im_flutter_uikit_full_platform");
+    gtk_window_set_title(window, "tencent_cloud_chat_demo");
   }
 
-  auto bdw = bitsdojo_window_from(window);
-  bdw->setCustomFrame(true);
+  gtk_window_set_default_size(window, 1280, 720);
   gtk_widget_show(GTK_WIDGET(window));
 
   g_autoptr(FlDartProject) project = fl_dart_project_new();

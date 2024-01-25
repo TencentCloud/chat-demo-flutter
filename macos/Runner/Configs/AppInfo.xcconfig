@@ -5,10 +5,10 @@
 // 'flutter create' template.
 
 // The application's name. By default this is also the title of the Flutter window.
-PRODUCT_NAME = Tencent Cloud Chat
+PRODUCT_NAME = tencent_cloud_chat_demo
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.tencent.flutter.tuikit
+PRODUCT_BUNDLE_IDENTIFIER = com.tencent.im.flutter.tencentCloudChatDemo
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2013-2023 Tencent Cloud. All Rights Reserved.
+PRODUCT_COPYRIGHT = Copyright © 2023 com.tencent.im.flutter. All rights reserved.

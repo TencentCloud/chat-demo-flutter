@@ -1,0 +1,238 @@
+{
+  "album": "相册",
+  "chat": "傾偈",
+  "chats": "傾偈",
+  "calls": "通話",
+  "search": "搜尋",
+  "contacts": "聯繫人",
+  "settings": "設定",
+  "online": "在線",
+  "offline": "離線",
+  "sendAMessage": "發信息",
+  "done": "完成",
+  "archive": "歸檔",
+  "read": "已讀",
+  "readAll": "全部已讀",
+  "delete": "刪除",
+  "newChat": "新傾偈",
+  "newGroup": "新群組",
+  "frequentlyContacted": "常聯繫人",
+  "addParticipants": "加成員",
+  "addMembers": "加成員",
+  "cancel": "取消",
+  "next": "下一步",
+  "back": "返回",
+  "groupID": "群組ID",
+  "groupIDCertificate": "群組ID（證書）",
+  "groupOfType": "群組類型",
+  "typeOfGroup": "群組類型",
+  "work": "工作",
+  "public": "公開",
+  "meeting": "會議",
+  "avChatRoom": "視頻聊天室",
+  "groupPortrait": "群組頭像",
+  "participants": "參與者",
+  "seeDocs": "查看文檔",
+  "you": "你",
+  "today": "今日",
+  "yesterday": "昨日",
+  "youCreatedGroup": "你創建咗群組 {groupName}",
+  "@youCreatedGroup": {
+    "description": "你創建咗群組",
+    "placeholders": {
+      "groupName": {
+        "type": "String",
+        "example": "新群組"
+      }
+    }
+  },
+  "groups": "群組",
+  "chatRecord": "訊息",
+  "messages": "訊息",
+  "more": "更多",
+  "noConversationsContactsOrMessagesFound": "冇搜尋到傾偈、聯繫人或訊息",
+  "contactInfo": "聯繫人信息",
+  "exportChat": "導出傾偈",
+  "clearChat": "清除傾偈",
+  "deleteChat": "刪除傾偈",
+  "video": "視頻",
+  "videoCall": "視頻通話",
+  "missedVideoCall": "未接視頻通話",
+  "voice": "語音",
+  "voiceCall": "語音通話",
+  "missedVoiceCall": "未接語音通話",
+  "location": "位置",
+  "youStartedACall": "你發起咗個通話",
+  "star": "星標",
+  "copy": "複製",
+  "forward": "轉發",
+  "multiSelect": "選擇",
+  "select": "選擇",
+  "quote": "引用",
+  "reply": "回覆",
+  "all": "全部",
+  "tapToRemove": "點擊移除",
+  "messageInfo": "訊息信息",
+  "delivered": "已送達",
+  "readBy": "已讀",
+  "deliveredTo": "已送達",
+  "numSelect": "{num, plural, zero {選擇訊息} other {{num} 已選擇}}",
+  "@numSelect": {
+    "description": "選擇咗幾條訊息",
+    "placeholders": {
+      "num": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "numChats": "{num, plural, zero {冇選擇傾偈} one {1 個傾偈} other {{num} 個傾偈}}",
+  "@numChats": {
+    "description": "選擇咗幾個傾偈",
+    "placeholders": {
+      "num": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "recentChats": "最近傾偈",
+  "numThreadQuote": "{num, plural, one {{num} 綫程引用} other {{num} 綫程引用}}",
+  "@numThreadQuote": {
+    "description": "綫程引用數量",
+    "placeholders": {
+      "num": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "swipeLeftToCancelOrReleaseToSend": "向左滑取消或放開發送",
+  "releaseToCancel": "放開取消",
+  "camera": "相機",
+  "document": "檔案",
+  "file": "文件",
+  "photos": "相片",
+  "contact": "聯繫人",
+  "custom": "自定義",
+  "message": "訊息",
+  "doNotDisturb": "免打擾",
+  "mute": "靜音",
+  "topChat": "置頂",
+  "pin": "置頂",
+  "blackUser": "拉黑用戶",
+  "blockUser": "封鎖用戶",
+  "saveContact": "保存聯繫人",
+  "call": "通話",
+  "clearingChatHistory": "清除訊息",
+  "clearMessages": "清除訊息",
+  "firstName": "名",
+  "lastName": "姓",
+  "groupNotice": "群通知",
+  "groupOfAnnouncement": "群通知",
+  "groupManagement": "管理群組",
+  "groupType": "群組類型",
+  "addGroupWay": "加群方式",
+  "myAliasInGroup": "我在群裡嘅別名",
+  "myGroupNickName": "我在群裡嘅別名",
+  "groupMembers": "群成員",
+  "admin": "管理員",
+  "adminNum": "管理員 ({num})",
+  "@adminNum": {
+    "description": "管理員數量",
+    "placeholders": {
+      "num": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "info": "信息",
+  "setAsAdmin": "設為管理員",
+  "announcement": "群通知",
+  "totalSilence": "全員禁言",
+  "silenceAll": "全員禁言",
+  "addSilencedMember": "加禁言成員",
+  "onlyGroupOwnerAndAdminsCanSendMessages": "開啟後，只有群主同管理員可以發訊息。",
+  "someoneEnabledSilenceAll": "{name} 開啟咗「全員禁言」",
+  "@someoneEnabledSilenceAll": {
+    "description": "某人開啟咗全員禁言",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "馬化腾"
+      }
+    }
+  },
+  "someoneDisabledSilenceAll": "{name} 關閉咗「全員禁言」",
+  "@someoneDisabledSilenceAll": {
+    "description": "某人關閉咗全員禁言",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "馬化腾"
+      }
+    }
+  },
+  "newContacts": "新聯繫人",
+  "myGroup": "我嘅群組",
+  "theBlackList": "黑名單",
+  "blockList": "封鎖用戶",
+  "groupChatNotifications": "群傾偈通知",
+  "userID": "用戶ID",
+  "myUserID": "我嘅用戶ID: {userID}",
+  "@myUserID": {
+    "description": "我嘅用戶ID",
+    "placeholders": {
+      "userID": {
+        "type": "String",
+        "example": "123456"
+      }
+    }
+  },
+  "searchUserID": "搜尋用戶ID",
+  "none": "無",
+  "iDis": "ID: {userID}",
+  "@iDis": {
+    "description": "用戶ID",
+    "placeholders": {
+      "userID": {
+        "type": "String",
+        "example": "123456"
+      }
+    }
+  },
+  "addToContacts": "加到聯繫人",
+  "addContact": "加聯繫人",
+  "bio": "簡介",
+  "bioIs": "簡介: {bio}",
+  "@bioIs": {
+    "description": "簡介: ",
+    "placeholders": {
+      "bio": {
+        "type": "String",
+        "example": "開心"
+      }
+    }
+  },
+  "fillInTheVerificationInformation": "發送請求",
+  "remarkAndGrouping": "備註同分組",
+  "remark": "備註",
+  "group": "分組",
+  "send": "發送",
+  "contactAddedSuccessfully": "成功加聯繫人",
+  "requestSent": "請求已發送",
+  "cannotAddContact": "唔可以加聯繫人",
+  "addGroup": "加群組",
+  "typeIs": "類型: {type}",
+  "@typeIs": {
+    "description": "類型: ",
+    "placeholders": {
+      "type": {
+        "type": "String",
+        "example": "工作"
+      }
+    }
+  },
+  "groupNotAcceptingRequests": "群組唔接受請求"
+}

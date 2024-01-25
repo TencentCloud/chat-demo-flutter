@@ -1,141 +1,410 @@
-// ignore_for_file: unused_import, deprecated_member_use
+import 'dart:convert';
+import 'dart:io';
 
-import 'dart:io' show Platform;
 import 'package:bitsdojo_window/bitsdojo_window.dart';
-import 'package:desktop_webview_window_for_is/desktop_webview_window_for_is.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:tencent_calls_uikit/tuicall_kit.dart';
-import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_demo/custom_animation.dart';
-import 'package:tencent_cloud_chat_demo/src/config.dart';
-import 'package:tencent_cloud_chat_demo/src/pages/app.dart';
-import 'package:tencent_cloud_chat_demo/src/provider/custom_sticker_package.dart';
-import 'package:tencent_cloud_chat_demo/src/provider/local_setting.dart';
-import 'package:tencent_cloud_chat_demo/src/provider/login_user_Info.dart';
-import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
-import 'package:provider/provider.dart';
-import 'package:tencent_cloud_chat_demo/src/provider/user_guide_provider.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/platform.dart';
+import 'package:tencent_cloud_chat/components/component_config/tencent_cloud_chat_user_config.dart';
+import 'package:tencent_cloud_chat/components/components_options/tencent_cloud_chat_message_options.dart';
+import 'package:tencent_cloud_chat/cross_platforms_adapter/tencent_cloud_chat_screen_adapter.dart';
+import 'package:tencent_cloud_chat/data/basic/tencent_cloud_chat_basic_data.dart';
+import 'package:tencent_cloud_chat/models/tencent_cloud_chat_init_data_config.dart';
+import 'package:tencent_cloud_chat/models/tencent_cloud_chat_models.dart';
+import 'package:tencent_cloud_chat/router/tencent_cloud_chat_navigator.dart';
+import 'package:tencent_cloud_chat/tencent_cloud_chat.dart';
+import 'package:tencent_cloud_chat/utils/tencent_cloud_chat_utils.dart';
+import 'package:tencent_cloud_chat/widget/app/material_app.dart';
+import 'package:tencent_cloud_chat_common/base/tencent_cloud_chat_state_widget.dart';
+import 'package:tencent_cloud_chat_common/base/tencent_cloud_chat_theme_widget.dart';
+import 'package:tencent_cloud_chat_contact/tencent_cloud_chat_contact.dart';
+import 'package:tencent_cloud_chat_conversation/tencent_cloud_chat_conversation.dart';
+import 'package:tencent_cloud_chat_conversation/tencent_cloud_chat_conversation_tatal_unread_count.dart';
+import 'package:tencent_cloud_chat_demo/config.dart';
+import 'package:tencent_cloud_chat_demo/desktop/app_layout.dart';
+import 'package:tencent_cloud_chat_demo/login/login.dart';
+import 'package:tencent_cloud_chat_demo/setting/tencent_cloud_chat_settings.dart';
+import 'package:tencent_cloud_chat_demo/vote_detail_example.dart';
+import 'package:tencent_cloud_chat_group_profile/tencent_cloud_chat_group_profile.dart';
+import 'package:tencent_cloud_chat_message/tencent_cloud_chat_message.dart';
+import 'package:tencent_cloud_chat_push/tencent_cloud_chat_push.dart';
+import 'package:tencent_cloud_chat_robot/tencent_cloud_chat_robot.dart';
+import 'package:tencent_cloud_chat_user_profile/tencent_cloud_chat_user_profile.dart';
+import 'package:tencent_cloud_chat_vote_plugin/tencent_cloud_chat_vote_plugin.dart';
 
-void main(List<String> args) {
-  debugPrint('args: $args');
-  if (runWebViewTitleBarWidget(args)) {
-    return;
+void main() {
+  if (kIsWeb || Platform.isMacOS || Platform.isWindows) {
+    runApp(const MyApp());
+    try {
+      doWhenWindowReady(() {
+        const initialSize = Size(1300, 830);
+        appWindow.minSize = const Size(1100, 630);
+        appWindow.size = initialSize;
+        appWindow.alignment = Alignment.center;
+        appWindow.show();
+      });
+    } catch (err) {
+      //err
+    }
+  } else {
+    WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+    FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+    runApp(const MyApp());
   }
-  WidgetsFlutterBinding.ensureInitialized();
-  // 设置状态栏样式
-  SystemUiOverlayStyle style = SystemUiOverlayStyle(
-    statusBarColor: hexToColor('ededed'),
-  );
-  SystemChrome.setSystemUIOverlayStyle(style);
-  // 全局loading
-  configLoading();
-  // AutoSizeUtil.setStandard(375, isAutoTextSize: true);
-  // fast i18n use device locale
-  WidgetsFlutterBinding.ensureInitialized();
-  LocaleSettings.useDeviceLocale();
+}
 
-  // 这里打开后可以用Google FCM推送
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-  // 这里打开后可以用百度地图
-  // if (Platform.isIOS) {
-  //   BMFMapSDK.setApiKeyAndCoordType(
-  //       IMDemoConfig.baiduMapIOSAppKey, BMF_COORD_TYPE.BD09LL);
-  // } else if (Platform.isAndroid) {
-  //   BMFMapSDK.setCoordType(BMF_COORD_TYPE.BD09LL);
-  // }
-  // BMFMapSDK.setAgreePrivacy(true);
-
-  if (PlatformUtils().isAndroid) {
-    SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
+  @override
+  Widget build(BuildContext context) {
+    FlutterNativeSplash.remove();
+    return TencentCloudChatMaterialApp(
+      title: 'Tencent Cloud Chat',
+      navigatorObservers: [TUICallKit.navigatorObserver],
+      home: const MyHomePage(),
     );
-    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
+  int currentIndex = 0;
+
+  var pages = [];
+
+  _MyHomePageState() : super(needFPSMonitor: true);
+
+  String sdkappid = IMConfig.sdkappid;
+  String userid = IMConfig.userid;
+  String usersig = IMConfig.usersig;
+  bool isInit = false;
+  bool isLogin = false;
+  bool isFirstTimeUser = false;
+  String appId = "";
+
+  changeLoginState(bool loginState) {
+    safeSetState(() {
+      currentIndex = 0;
+      isLogin = loginState;
+    });
+    if (loginState == true) {
+      initTencentCloudChat();
+    }
   }
 
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-      .then((_) {
-    runApp(
-      // runAutoApp(
-      TranslationProvider(
-        child: MultiProvider(
-          providers: [
-            ChangeNotifierProvider(create: (_) => LoginUserInfo()),
-            ChangeNotifierProvider(create: (_) => DefaultThemeData()),
-            ChangeNotifierProvider(create: (_) => CustomStickerPackageData()),
-            ChangeNotifierProvider(
-              create: (_) => LocalSetting(),
-            ),
-            ChangeNotifierProvider(create: (_) => UserGuideProvider()),
-          ],
-          child: const TUIKitDemoApp(),
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    initTencentCloudChat();
+  }
+
+  initTencentCloudChat() async {
+    if (isInit) {
+      return;
+    }
+
+    TencentCloudChatPush().registerOnNotificationClickedEvent(onNotificationClicked: _onNotificationClicked);
+
+    debugPrint("initTencentCloudChatConfig, ${IMConfig.sdkappid},${IMConfig.userid},${IMConfig.usersig}");
+    if (IMConfig.sdkappid.isEmpty || IMConfig.userid.isEmpty || IMConfig.usersig.isEmpty) {
+      debugPrint("Please specify `sdkappid`, `userid` and `usersig` in the `tencent_cloud_chat_demo/lib/config.dart` file before using this sample app.");
+      return;
+    }
+    isInit = true;
+
+    TencentCloudChatPush().setApnsCertificateID(apnsCertificateID: 40628);
+
+    await TencentCloudChat.controller.initUIKit(
+      context: context,
+      config: TencentCloudChatConfig(
+        usedComponentsRegister: [
+          TencentCloudChatConversationInstance.register,
+          TencentCloudChatMessageInstance.register,
+          TencentCloudChatUserProfileInstance.register,
+          TencentCloudChatGroupProfileInstance.register,
+          TencentCloudChatContactInstance.register,
+        ],
+        preloadDataConfig: TencentCloudChatInitDataConfig(
+          getConversationDataAfterInit: true,
+        ),
+        userConfig: TencentCloudChatUserConfig(
+          useUserOnlineStatus: true,
+          autoDownloadMultimediaMessage: true,
         ),
       ),
-    );
-  });
+      options: TencentCloudChatInitOptions(
+        sdkAppID: int.parse(IMConfig.sdkappid),
+        userID: IMConfig.userid,
+        userSig: IMConfig.usersig,
+        sdkListener: V2TimSDKListener(
+          onKickedOffline: _handleLogout,
+          onUserSigExpired: _handleLogout,
+          onUIKitEventEmited: (event) {
+            final type = event.type;
+            switch (type) {
+              case "navigateToChat":
+                final isDesktopScreen = TencentCloudChatScreenAdapter.deviceScreenType == DeviceScreenType.desktop;
+                if (isDesktopScreen) {
+                  desktopAppLayoutKey.currentState?.navigateToChat(
+                    groupID: event.detail["groupID"],
+                    userID: event.detail["userID"],
+                  );
+                }
+                break;
 
-  if(PlatformUtils().isDesktop){
-    doWhenWindowReady(() {
-      const initialSize = Size(1300, 830);
-      appWindow.minSize = const Size(1100, 630);
-      appWindow.size = initialSize;
-      appWindow.alignment = Alignment.center;
-      appWindow.show();
+              default:
+                break;
+            }
+          },
+        ),
+      ),
+      plugins: [
+        TencentCloudChatPluginItem(
+          name: "poll",
+          pluginInstance: TencentCloudChatVotePlugin(),
+          tapFn: (data) {
+            var optionStr = data["option"];
+            var dataStr = data["data"];
+            if (optionStr == null) {
+              return false;
+            }
+            if (dataStr == null) {
+              return false;
+            }
+            var option = TencentCloudChatVoteDataOptoin.fromJson(json.decode(optionStr));
+            var message = TencentCloudChatVoteLogic(message: V2TimMessage.fromJson(json.decode(dataStr)));
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => VoteDetailExample(
+                  option: option,
+                  data: message,
+                ),
+              ),
+            );
+            return true;
+          },
+        ),
+        TencentCloudChatPluginItem(
+          name: "robot",
+          pluginInstance: TencentCloudChatRobotPlugin(),
+        )
+      ],
+    );
+
+    _initPush();
+    _initCallkit();
+
+    safeSetState(() {
+      isLogin = true;
     });
   }
 
-  // );
-}
-
-class TUIKitDemoApp extends StatelessWidget {
-  const TUIKitDemoApp({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    final theme = Provider.of<DefaultThemeData>(context).theme;
-    return MaterialApp(
-      title: 'Tencent Cloud Chat - 腾讯云IM - Flutter',
-      debugShowCheckedModeBanner: false,
-      locale: TranslationProvider.of(context).flutterLocale, // use provider
-      supportedLocales: LocaleSettings.supportedLocales,
-      localizationsDelegates: GlobalMaterialLocalizations.delegates,
-      theme: ThemeData(
-        platform: TargetPlatform.iOS,
-        pageTransitionsTheme: const PageTransitionsTheme(builders: {
-          TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-          TargetPlatform.android: CupertinoPageTransitionsBuilder(),
-        }),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ElevatedButton.styleFrom(
-          primary: theme.primaryColor,
-        )),
-      ),
-      home: const TencentChatApp(),
-      builder: EasyLoading.init(),
-      navigatorObservers: !PlatformUtils().isMobile ? [] : [TUICallKit.navigatorObserver],
+  _initCallkit() async {
+    final TUICallKit callKit = TUICallKit.instance;
+    callKit.enableFloatWindow(true);
+    callKit.login(
+      int.parse(IMConfig.sdkappid),
+      IMConfig.userid,
+      IMConfig.usersig,
     );
+  }
+
+  void _handleLogout() {
+    TencentCloudChat.controller.logout();
+    safeSetState(() {
+      isLogin = false;
+    });
+  }
+
+  void _onNotificationClicked({required String ext, String? userID, String? groupID}) {
+    debugPrint("_onNotificationClicked: $ext, userID: $userID, groupID: $groupID");
+    if (TencentCloudChatUtils.checkString(userID) != null || TencentCloudChatUtils.checkString(groupID) != null) {
+      navigateToMessage(
+        context: context,
+        options: TencentCloudChatMessageOptions(
+          userID: TencentCloudChatUtils.checkString(userID),
+          groupID: TencentCloudChatUtils.checkString(groupID),
+        ),
+      );
+    }
+  }
+
+  void _initPush() async {
+    final TencentCloudChatPush tencentCloudChatPush = TencentCloudChatPush();
+    tencentCloudChatPush.registerPush(onNotificationClicked: _onNotificationClicked);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    currentIndex = 0;
+    eventbus.on<TencentCloudChatBasicData<TencentCloudChatBasicDataKeys>>()?.listen((event) {});
+    pages = [
+      const TencentCloudChatConversation(),
+      const TencentCloudChatContact(),
+      TencentCloudChatSettings(
+        removeSettings: () {},
+        setLoginState: changeLoginState,
+      )
+    ];
+  }
+
+  void getConversation(BuildContext context) {
+    navigateToConversation(context: context);
+  }
+
+  @override
+  Widget defaultBuilder(BuildContext context) {
+    TencentCloudChatIntl().init(context);
+    // TencentCloudChatIntl.init(context);
+    // This method is rerun every time setState is called, for instance as done
+    // by the _incrementCounter method above.
+    //
+    // The Flutter framework has been optimized to make rerunning build methods
+    // fast, so that you can just rebuild anything that needs updating rather
+    // than having to individually change instances of widgets.
+    if (!isLogin) {
+      debugPrint("Not login");
+      return const LoginPage();
+    }
+    return Material(
+      color: Colors.transparent,
+      child: TencentCloudChatThemeWidget(
+        build: (context, colorTheme, textStyle) => Container(
+          color: colorTheme.backgroundColor,
+          child: Center(
+            child: Text(
+              tL10n.tencentCloudChat,
+              style: TextStyle(color: colorTheme.primaryColor, fontSize: textStyle.fontsize_20),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget desktopBuilder(BuildContext context) {
+    TencentCloudChatIntl().init(context);
+    // TencentCloudChatIntl.init(context);
+    // This method is rerun every time setState is called, for instance as done
+    // by the _incrementCounter method above.
+    //
+    // The Flutter framework has been optimized to make rerunning build methods
+    // fast, so that you can just rebuild anything that needs updating rather
+    // than having to individually change instances of widgets.
+    if (!isLogin) {
+      debugPrint("Not login");
+      return const LoginPage();
+    }
+    return TencentCloudChatDemoDesktopAppLayout(
+      key: desktopAppLayoutKey,
+      removeSettings: () {},
+      setLoginState: changeLoginState,
+    );
+  }
+
+  @override
+  Widget mobileBuilder(BuildContext context) {
+    TencentCloudChatIntl().init(context);
+    // TencentCloudChatIntl.init(context);
+    // This method is rerun every time setState is called, for instance as done
+    // by the _incrementCounter method above.
+    //
+    // The Flutter framework has been optimized to make rerunning build methods
+    // fast, so that you can just rebuild anything that needs updating rather
+    // than having to individually change instances of widgets.
+    if (!isLogin) {
+      debugPrint("Not login");
+      return const LoginPage();
+    }
+    return TencentCloudChatThemeWidget(
+        build: (context, colorTheme, textStyle) => Scaffold(
+              bottomNavigationBar: BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
+                currentIndex: currentIndex,
+                onTap: (index) async {
+                  // final res = await TencentCloudChatPush().getAndroidPushToken();
+                  // print(res.data);
+                  // print(res.data);
+
+                  if (index != currentIndex) {
+                    setState(
+                      () {
+                        currentIndex = index;
+                      },
+                    );
+                  }
+                },
+                items: [
+                  BottomNavigationBarItem(
+                    icon: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        const Icon(Icons.chat_bubble_outline),
+                        Positioned(
+                          top: -5,
+                          right: -10,
+                          child: TencentCloudChatConversationTotalUnreadCount(
+                            builder: (BuildContext _, int totalUnreadCount) {
+                              if (totalUnreadCount == 0) {
+                                return Container();
+                              }
+                              return UnconstrainedBox(
+                                child: Container(
+                                  width: 20,
+                                  height: 20,
+                                  decoration: const BoxDecoration(
+                                    color: Colors.red,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Text(
+                                    "$totalUnreadCount",
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      color: colorTheme.appBarBackgroundColor,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    label: tL10n.chats,
+                  ),
+                  BottomNavigationBarItem(icon: const Icon(Icons.contacts), label: tL10n.contacts),
+                  BottomNavigationBarItem(icon: const Icon(Icons.settings), label: tL10n.settings),
+                ],
+              ),
+              body: pages[currentIndex],
+            ));
   }
 }
 
-void configLoading() {
-  EasyLoading.instance
-    ..displayDuration = const Duration(milliseconds: 2000)
-    ..indicatorType = EasyLoadingIndicatorType.fadingCircle
-    ..loadingStyle = EasyLoadingStyle.dark
-    ..indicatorSize = 45.0
-    ..radius = 10.0
-    ..progressColor = Colors.yellow
-    ..backgroundColor = Colors.green
-    ..indicatorColor = Colors.yellow
-    ..textColor = Colors.yellow
-    ..maskColor = Colors.blue.withOpacity(0.5)
-    ..userInteractions = true
-    ..dismissOnTap = false
-    ..customAnimation = CustomAnimation();
+class MyHomePageData {
+  final String title;
+
+  MyHomePageData({required this.title});
+
+  Map<String, dynamic> toMap() {
+    return {'title': title};
+  }
+
+  static MyHomePageData fromMap(Map<String, dynamic> map) {
+    return MyHomePageData(title: map['title'] as String);
+  }
 }

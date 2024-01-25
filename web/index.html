@@ -1,103 +1,169 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
+      If you are serving your web app in a path other than the root, change the
+      href value below to reflect the base path you are serving from.
 
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
+      The path provided below has to start and end with a slash "/" in order for
+      it to work correctly.
 
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+      For more details:
+      * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
 
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
-    <base href="/flutter/" />
+      This is a placeholder for base href that will be replaced by the value of
+      the `--base-href` argument provided to `flutter build`.
+    -->
+    <base href="$FLUTTER_BASE_HREF">
 
-    <meta charset="UTF-8" />
-    <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
-    <meta
-      name="description"
-      content="Demonstrate the TUIKit and SDK of Tencent Cloud Chat on Flutter. 腾讯云IM Flutter SDK 及 TUIKit 组件库体验。"
-    />
-    <meta
-      name="keywords"
-      content="Chat SDK, Tencent Cloud Chat, 腾讯云IM, Flutter Chat, Flutter IM, Chat API, 腾讯云即时通信IM"
-    />
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta name="description" content="A new Flutter project.">
 
     <!-- iOS meta tags & icons -->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-title" content="Tencent Cloud Chat - 腾讯云IM - Flutter" />
-    <link rel="apple-touch-icon" href="./favicon.ico" />
-    <script src="./node_modules/tim-upload-plugin/index.js"></script>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="tencent_cloud_chat_demo">
+    <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <title>Tencent Cloud Chat</title>
+    <link rel="manifest" href="manifest.json">
     <script src="./node_modules/@tencentcloud/chat/index.js"></script>
-    <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
-    <script src="./trtc-wrapper.js"></script>
-    <title>Tencent Cloud Chat - 腾讯云IM - Flutter</title>
-    <link rel="manifest" href="manifest.json" />
+    <script src="./node_modules/@tencentcloud/chat/modules/group-module.js"></script>
+    <script src="./node_modules/@tencentcloud/chat/modules/relationship-module.js"></script>
+    <script src="./node_modules/@tencentcloud/chat/modules/signaling-module.js"></script>
+
     <link
-      rel="icon"
-      href="./favicon.ico"
-      mce_href="/favicon.ico"
-      type="image/x-icon"
+            rel="icon"
+            href="./favicon.ico"
+            mce_href="/favicon.ico"
+            type="image/x-icon"
     />
-    <link
-      rel="shortcut icon"
-      href="./favicon.ico"
-      mce_href="/favicon.ico"
-      type="image/x-icon"
-    />
-    <script src="splash/splash.js"></script>
+
     <meta
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-      name="viewport"
+            name="description"
+            content="Showcase the TUIKit and SDK of Tencent Cloud Chat on Flutter. 腾讯云IM Flutter SDK 及 TUIKit 组件库体验。"
     />
-    <link rel="stylesheet" type="text/css" href="splash/style.css" />
-  </head>
+    <meta
+            name="keywords"
+            content="Chat SDK, Tencent Cloud Chat, 腾讯云IM, Flutter Chat, Flutter IM, Chat API, 腾讯云即时通信IM"
+    />
 
-  <body oncontextmenu="return false">
-    <!-- This script installs service_worker.js to provide PWA functionality to
-       application. For more information, see:
-       https://developers.google.com/web/fundamentals/primers/service-workers -->
     <script>
-    document.oncontextmenu = function (event) {
-            if (window.event) {
-                event =
-                    window.event;
-            } try {
-                var the = event.srcElement; if (!((the.tagName == "INPUT" && the.type.toLowerCase() ==
-                    "text") || the.tagName == "TEXTAREA")) { return false; } return true;
-            } catch (e) {
-                return false;
-            }
-        }
+    // The value below is injected by flutter build, do not touch.
+    const serviceWorkerVersion = null;
 
-      var serviceWorkerVersion = null;
-      var scriptLoaded = false;
-      function loadMainDartJs() {
-        if (scriptLoaded) {
-          return;
-        }
-        scriptLoaded = true;
-        var scriptTag = document.createElement("script");
-        scriptTag.src = "main.dart.js";
-        scriptTag.type = "application/javascript";
-        document.body.append(scriptTag);
-      }
-      loadMainDartJs();
 
-      let el = document.documentElement;
-      if (el.requestFullScreen) {
-        el.requestFullScreen();
-      } else if (el.webkitRequestFullScreen) {
-        el.webkitRequestFullScreen();
-      } else if (el.mozRequestFullScreen) {
-        el.mozRequestFullScreen();
-      } else if (el.msRequestFullScreen) {
-        el.msRequestFullScreen();
-      }
+
+
     </script>
-  </body>
+    <!-- This script adds the flutter initialization JS code -->
+    <script src="flutter.js" defer=""></script>
+
+
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+          name="viewport">
+
+
+    <style id="splash-screen-style">
+    html {
+      height: 100%
+    }
+
+    body {
+      margin: 0;
+      min-height: 100%;
+      background-color: #ffffff;
+      background-image: url("splash/img/light-background.png");
+      background-size: 100% 100%;
+    }
+
+    .center {
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+
+    .contain {
+      display:block;
+      width:100%; height:100%;
+      object-fit: contain;
+    }
+
+    .stretch {
+      display:block;
+      width:100%; height:100%;
+    }
+
+    .cover {
+      display:block;
+      width:100%; height:100%;
+      object-fit: cover;
+    }
+
+    .bottom {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      -ms-transform: translate(-50%, 0);
+      transform: translate(-50%, 0);
+    }
+
+    .bottomLeft {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+
+    .bottomRight {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+
+
+
+
+    </style>
+    <script id="splash-screen-script">
+    function removeSplashFromWeb() {
+      document.getElementById("splash")?.remove();
+      document.getElementById("splash-branding")?.remove();
+      document.body.style.background = "transparent";
+    }
+
+
+
+
+    </script>
+</head>
+<body>
+<script>
+    window.addEventListener('load', function(ev) {
+      // Download main.dart.js
+      _flutter.loader.loadEntrypoint({
+        serviceWorker: {
+          serviceWorkerVersion: serviceWorkerVersion,
+        },
+        onEntrypointLoaded: function(engineInitializer) {
+          engineInitializer.initializeEngine().then(function(appRunner) {
+            appRunner.runApp();
+          });
+        }
+      });
+    });
+
+
+
+
+</script>
+
+
+</body>
 </html>

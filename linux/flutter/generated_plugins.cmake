@@ -3,12 +3,12 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  audioplayers_linux
   bitsdojo_window_linux
   desktop_drop
-  desktop_webview_window_for_is
   file_selector_linux
-  image_clipboard
   pasteboard
+  record_linux
   url_launcher_linux
 )
 
