@@ -44,7 +44,6 @@ class HomePageState extends State<HomePage> {
   bool hasInternet = true;
   int currentIndex = 0;
   SuperTooltip? tooltip;
-  final CoreServicesImpl _coreInstance = TIMUIKitCore.getInstance();
   final V2TIMManager _sdkInstance = TIMUIKitCore.getSDKInstance();
   final TIMUIKitConversationController _conversationController = TIMUIKitConversationController();
   final TIMUIKitChatController _timuiKitChatController = TIMUIKitChatController();

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tencent_cloud_chat_demo/utils/custom_message/calling_message/calling_message.dart';
+import 'package:tencent_cloud_chat_demo/utils/custom_message/calling_message/calling_message_data_provider.dart';
 import 'package:tencent_im_base/tencent_im_base.dart';
 
 class CallMessageItem extends StatelessWidget {
-  final V2TimCustomElem? customElem;
-  final bool isFromSelf;
+  final CallingMessageDataProvider callingMessageDataProvider;
   final Color? backgroundColor;
   final BorderRadiusGeometry? borderRadius;
   final EdgeInsetsGeometry? padding;
@@ -12,8 +11,7 @@ class CallMessageItem extends StatelessWidget {
 
   const CallMessageItem({
     Key? key,
-    this.customElem,
-    this.isFromSelf = false,
+    required this.callingMessageDataProvider,
     this.backgroundColor,
     this.borderRadius,
     this.padding,
@@ -21,63 +19,42 @@ class CallMessageItem extends StatelessWidget {
   }) : super(key: key);
 
   Widget _callElemBuilder(BuildContext context) {
-    final callingMessage = CallingMessage.getCallMessage(customElem);
 
-    if (callingMessage != null) {
-      // 如果是结束消息
-      final isCallEnd = CallingMessage.isCallEndExist(callingMessage);
-
-      final isVoiceCall = callingMessage.callType == 1;
-
-      String? callTime = "";
-      if (isCallEnd) {
-        callTime = CallingMessage.getShowTime(callingMessage.callEnd!);
-      }
-
-      final option1 = callTime;
-
-      if (!isShowIcon) {
-        return isCallEnd
-            ? Text(TIM_t_para("通话时间：{{option1}}", "通话时间：$option1")(option1: option1))
-            : Text(CallingMessage.getActionType(callingMessage));
-      }
-
-      return Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (!isFromSelf)
-            Padding(
-              padding: const EdgeInsets.only(right: 4),
-              child: Image.asset(
-                isVoiceCall ? "assets/calling_message/voice_call.png" : "assets/calling_message/video_call.png",
-                height: 16,
-                width: 16,
-              ),
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (callingMessageDataProvider.direction == CallMessageDirection.incoming)
+          Padding(
+            padding: const EdgeInsets.only(right: 4),
+            child: Image.asset(
+              callingMessageDataProvider.streamMediaType == CallStreamMediaType.audio
+                  ? "assets/calling_message/voice_call.png"
+                  : "assets/calling_message/video_call.png",
+              height: 16,
+              width: 16,
             ),
-          isCallEnd
-              ? Text(TIM_t_para("通话时间：{{option1}}", "通话时间：$option1")(option1: option1))
-              : Text(CallingMessage.getActionType(callingMessage)),
-          if (isFromSelf)
-            Padding(
-              padding: const EdgeInsets.only(left: 4),
-              child: Image.asset(
-                isVoiceCall
-                    ? "assets/calling_message/voice_call.png"
-                    : "assets/calling_message/video_call_self.png",
-                height: 16,
-                width: 16,
-              ),
+          ),
+
+        Text(callingMessageDataProvider.content),
+
+        if (callingMessageDataProvider.direction == CallMessageDirection.outcoming)
+          Padding(
+            padding: const EdgeInsets.only(left: 4),
+            child: Image.asset(
+              callingMessageDataProvider.streamMediaType == CallStreamMediaType.audio
+                  ? "assets/calling_message/voice_call.png"
+                  : "assets/calling_message/video_call_self.png",
+              height: 16,
+              width: 16,
             ),
-        ],
-      );
-    } else {
-      return Text(TIM_t("[自定义]"));
-    }
+          ),
+      ],
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    final borderRadiusDefault = isFromSelf
+    final borderRadiusDefault = callingMessageDataProvider.direction == CallMessageDirection.incoming
         ? const BorderRadius.only(
         topLeft: Radius.circular(10),
         topRight: Radius.circular(2),

@@ -6,6 +6,7 @@ import 'package:tencent_cloud_chat_demo/src/chat.dart';
 import 'package:tencent_cloud_chat_demo/src/multi_platform_widget/search_entry/search_entry.dart';
 import 'package:tencent_cloud_chat_demo/src/multi_platform_widget/search_entry/search_entry_wide.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/local_setting.dart';
+import 'package:tencent_cloud_chat_demo/utils/custom_message/calling_message/calling_message_data_provider.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/custom_last_message.dart';
 import 'package:tencent_cloud_chat_demo/utils/user_guide.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
@@ -145,7 +146,7 @@ class _ConversationState extends State<Conversation> {
             isShowOnlineStatus: localSetting.isShowOnlineStatus,
             lastMessageBuilder: (lastMsg, groupAtInfoList) {
               if (lastMsg != null && lastMsg.elemType == MessageElemType.V2TIM_ELEM_TYPE_CUSTOM) {
-                return renderCustomMessage(lastMsg, context);
+                return RenderCustomMessage(message: lastMsg, context: context);
               }
               return null;
             },

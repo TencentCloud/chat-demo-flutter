@@ -4,7 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_demo/src/vote_example/vote_detail_example.dart';
-import 'package:tencent_cloud_chat_demo/utils/custom_message/calling_message/calling_message.dart';
+import 'package:tencent_cloud_chat_demo/utils/custom_message/calling_message/calling_message_data_provider.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/calling_message/group_call_message_builder.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/calling_message/single_call_message_builder.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/core/tim_uikit_wide_modal_operation_key.dart';
@@ -93,7 +93,11 @@ class _CustomMessageElemState extends State<CustomMessageElem> {
 
   Widget _callElemBuilder(BuildContext context, TUITheme theme) {
     final customElem = widget.message.customElem;
-    final callingMessage = CallingMessage.getCallMessage(customElem);
+
+
+    final callingMessageDataProvider = CallingMessageDataProvider(widget.message);
+
+
     final linkMessage = getLinkMessage(customElem);
     final webLinkMessage = getWebLinkMessage(customElem);
     final isVoteMessage =
@@ -101,16 +105,16 @@ class _CustomMessageElemState extends State<CustomMessageElem> {
     final isCustomerServiceMessage =
         TencentCloudChatCustomerServicePlugin.isCustomerServiceMessage(
             widget.message);
-    if (callingMessage != null) {
-      if (widget.message.groupID != null) {
+
+    if (!callingMessageDataProvider.excludeFromHistory) {
+      if (callingMessageDataProvider.participantType == CallParticipantType.group) {
         // Group Call message
-        return GroupCallMessageItem(customMessage: widget.message);
+        return GroupCallMessageItem(callingMessageDataProvider: callingMessageDataProvider);
       } else {
         // One-to-one Call message
         return renderMessageItem(
           CallMessageItem(
-              customElem: customElem,
-              isFromSelf: widget.message.isSelf ?? true,
+              callingMessageDataProvider: callingMessageDataProvider,
               padding: const EdgeInsets.all(0)),
           theme,
           false,
