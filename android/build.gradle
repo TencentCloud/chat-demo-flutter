@@ -7,8 +7,8 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.android.tools.build:gradle:7.3.1'
+        classpath 'com.google.gms:google-services:4.3.14'
         classpath 'com.huawei.agconnect:agcp:1.6.0.300'
     }
 }
@@ -24,6 +24,8 @@ allprojects {
 rootProject.buildDir = '../build'
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
     project.evaluationDependsOn(':app')
 }
 

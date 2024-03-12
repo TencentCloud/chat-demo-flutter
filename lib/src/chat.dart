@@ -1,5 +1,6 @@
 // ignore_for_file: unused_field, unused_element, avoid_print, deprecated_member_use
 
+import 'dart:convert';
 import 'dart:math';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ import 'package:tencent_cloud_chat_demo/src/pages/customer_service_example/card_
 import 'package:tencent_cloud_chat_demo/src/tencent_page.dart';
 import 'package:tencent_cloud_chat_demo/src/vote_example/vote_create_example.dart';
 import 'package:tencent_cloud_chat_customer_service_plugin/tencent_cloud_chat_customer_service_plugin.dart';
+import 'package:tencent_cloud_chat_demo/utils/custom_message/calling_message/calling_message_data_provider.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/life_cycle/chat_life_cycle.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_chat_global_model.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/core/tim_uikit_wide_modal_operation_key.dart';
@@ -21,6 +23,7 @@ import 'package:tencent_cloud_chat_uikit/ui/utils/screen_utils.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/TIMUIKitTextField/tim_uikit_text_field_layout/wide.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/profile_widget.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/widget/tim_uikit_profile_widget.dart';
+import 'package:tencent_cloud_chat_uikit/ui/widgets/link_preview/common/utils.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/wide_popup.dart';
 // import 'package:tim_ui_kit_lbs_plugin/pages/location_picker.dart';
 // import 'package:tim_ui_kit_lbs_plugin/utils/location_utils.dart';
@@ -402,26 +405,26 @@ class _ChatState extends State<Chat> {
             id: 'evaluate',
             title: TIM_t("服务评价"),
           ),
-        MorePanelItem(
-          onTap: (c) {
-            _createCustomerServiceCardMessage();
-          },
-          icon: Container(
-            height: 64,
-            width: 64,
-            margin: const EdgeInsets.only(bottom: 4),
-            decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(5))),
-            child: Icon(
-              Icons.card_giftcard,
-              color: hexToColor("5c6168"),
-              size: 32,
-            ),
-          ),
-          id: 'cardMessage',
-          title: TIM_t("卡片消息"),
-        )
+        // MorePanelItem(
+        //   onTap: (c) {
+        //     _createCustomerServiceCardMessage();
+        //   },
+        //   icon: Container(
+        //     height: 64,
+        //     width: 64,
+        //     margin: const EdgeInsets.only(bottom: 4),
+        //     decoration: const BoxDecoration(
+        //         color: Colors.white,
+        //         borderRadius: BorderRadius.all(Radius.circular(5))),
+        //     child: Icon(
+        //       Icons.card_giftcard,
+        //       color: hexToColor("5c6168"),
+        //       size: 32,
+        //     ),
+        //   ),
+        //   id: 'cardMessage',
+        //   title: TIM_t("卡片消息"),
+        // )
       ]);
     }
     return wids;
@@ -498,7 +501,17 @@ class _ChatState extends State<Chat> {
             return false;
           }
           return true;
-        }),
+        },
+          messageListShouldMount: (messageList) {
+            List<V2TimMessage> list = [];
+            for (V2TimMessage message in messageList) {
+              CallingMessageDataProvider provide = CallingMessageDataProvider(message);
+              if (!provide.isCallingSignal || !provide.excludeFromHistory) {
+                list.add(message);
+              }
+            }
+            return list;
+          }),
         onDealWithGroupApplication: (String groupId) {
           if (!isWideScreen) {
             Navigator.push(
@@ -531,12 +544,18 @@ class _ChatState extends State<Chat> {
                   Provider.of<CustomStickerPackageData>(context)
                       .customStickerPackageList,
             ),
+            onTapLink: PlatformUtils().isWeb
+                ? (link) {
+                    LinkUtils.launchURL(context,
+                        "https://comm.qq.com/link_page/index.html?target=$link");
+                  }
+                : null,
             showC2cMessageEditStatus: true,
             isUseDefaultEmoji: true,
             isAllowClickAvatar: true,
             isAllowLongPressMessage: true,
             isShowReadingStatus: localSetting.isShowReadingStatus,
-            isShowGroupReadingStatus: localSetting.isShowReadingStatus,
+            isShowGroupReadingStatus: true,
             notificationTitle: "",
             isSupportMarkdownForTextMessage: false,
             urlPreviewType: UrlPreviewType.previewCardAndHyperlink,
@@ -591,14 +610,14 @@ class _ChatState extends State<Chat> {
                           _chatController.sendMessage);
                     },
                     icon: Icons.comment),
-              if (isCustomerServiceChat)
-                DesktopControlBarItem(
-                    item: 'evaluate',
-                    showName: TIM_t("卡片消息"),
-                    onClick: (offset) {
-                      _createCustomerServiceCardMessage();
-                    },
-                    icon: Icons.card_giftcard)
+              // if (isCustomerServiceChat)
+              //   DesktopControlBarItem(
+              //       item: 'evaluate',
+              //       showName: TIM_t("卡片消息"),
+              //       onClick: (offset) {
+              //         _createCustomerServiceCardMessage();
+              //       },
+              //       icon: Icons.card_giftcard)
             ]),
         conversationID: _getConvID() ?? '',
         conversationType:
@@ -752,51 +771,51 @@ class _ChatState extends State<Chat> {
             ...getCustomerServicePlugin(),
           ],
         ),
-          appBarConfig: AppBar(
-            actions: [
-              IconButton(
-                  padding: const EdgeInsets.only(left: 8, right: 16),
-                  onPressed: () async {
-                    final conversationType = widget.selectedConversation.type;
+        appBarConfig: AppBar(
+          actions: [
+            IconButton(
+                padding: const EdgeInsets.only(left: 8, right: 16),
+                onPressed: () async {
+                  final conversationType = widget.selectedConversation.type;
 
-                    if (conversationType == 1) {
-                      final userID = widget.selectedConversation.userID;
-                      // if had remark modified its will back new remark
-                      String? newRemark = await Navigator.push(
+                  if (conversationType == 1) {
+                    final userID = widget.selectedConversation.userID;
+                    // if had remark modified its will back new remark
+                    String? newRemark = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => UserProfile(
+                            userID: userID!,
+                            onRemarkUpdate: (String newRemark) {
+                              setState(() {
+                                conversationName = newRemark;
+                              });
+                            },
+                          ),
+                        ));
+                    setState(() {
+                      backRemark = newRemark;
+                    });
+                  } else {
+                    final groupID = widget.selectedConversation.groupID;
+                    if (groupID != null) {
+                      Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => UserProfile(
-                              userID: userID!,
-                              onRemarkUpdate: (String newRemark) {
-                                setState(() {
-                                  conversationName = newRemark;
-                                });
-                              },
+                            builder: (context) => GroupProfilePage(
+                              groupID: groupID,
                             ),
                           ));
-                      setState(() {
-                        backRemark = newRemark;
-                      });
-                    } else {
-                      final groupID = widget.selectedConversation.groupID;
-                      if (groupID != null) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => GroupProfilePage(
-                                groupID: groupID,
-                              ),
-                            ));
-                      }
                     }
-                  },
-                  icon: Icon(
-                    Icons.more_horiz,
-                    color: hexToColor("010000"),
-                    size: 20,
-                  ))
-            ],
-          ),
+                  }
+                },
+                icon: Icon(
+                  Icons.more_horiz,
+                  color: hexToColor("010000"),
+                  size: 20,
+                ))
+          ],
+        ),
         customAppBar: isWideScreen
             ? ConstrainedBox(
                 constraints: const BoxConstraints(maxHeight: 60),

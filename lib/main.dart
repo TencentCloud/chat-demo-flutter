@@ -1,14 +1,15 @@
 // ignore_for_file: unused_import, deprecated_member_use
 
 import 'dart:io' show Platform;
+
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:desktop_webview_window_for_is/desktop_webview_window_for_is.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 import 'package:tencent_calls_uikit/tuicall_kit.dart';
-import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_demo/custom_animation.dart';
 import 'package:tencent_cloud_chat_demo/src/config.dart';
 import 'package:tencent_cloud_chat_demo/src/pages/app.dart';
@@ -16,8 +17,8 @@ import 'package:tencent_cloud_chat_demo/src/provider/custom_sticker_package.dart
 import 'package:tencent_cloud_chat_demo/src/provider/local_setting.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/login_user_Info.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
-import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/user_guide_provider.dart';
+import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/platform.dart';
 
 void main(List<String> args) {
@@ -60,8 +61,7 @@ void main(List<String> args) {
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   }
 
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-      .then((_) {
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) {
     runApp(
       // runAutoApp(
       TranslationProvider(
@@ -81,7 +81,7 @@ void main(List<String> args) {
     );
   });
 
-  if(PlatformUtils().isDesktop){
+  if (PlatformUtils().isDesktop) {
     doWhenWindowReady(() {
       const initialSize = Size(1300, 830);
       appWindow.minSize = const Size(1100, 630);
@@ -113,7 +113,7 @@ class TUIKitDemoApp extends StatelessWidget {
         }),
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
-          primary: theme.primaryColor,
+          backgroundColor: theme.primaryColor,
         )),
       ),
       home: const TencentChatApp(),

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tencent_cloud_chat_demo/src/add_friend.dart';
 import 'package:tencent_cloud_chat_demo/src/add_group.dart';
+import 'package:tencent_cloud_chat_demo/src/chat.dart';
 import 'package:tencent_cloud_chat_demo/src/create_group.dart';
 import 'package:tencent_cloud_chat_demo/src/create_group_introduction.dart';
+import 'package:tencent_cloud_chat_demo/src/search.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/core/tim_uikit_wide_modal_operation_key.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_conversation_controller.dart';
-import 'package:tencent_cloud_chat_demo/src/chat.dart';
-import 'package:tencent_cloud_chat_demo/src/search.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/drag_widget.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/wide_popup.dart';
 
@@ -20,13 +20,7 @@ class SearchEntryWide extends StatefulWidget {
   final VoidCallback? onClickSearch;
   final ValueChanged<V2TimConversation>? directToChat;
 
-  const SearchEntryWide(
-      {Key? key,
-      required this.conversationController,
-      this.plusType = PlusType.create,
-      required this.onClickSearch,
-      this.directToChat})
-      : super(key: key);
+  const SearchEntryWide({Key? key, required this.conversationController, this.plusType = PlusType.create, required this.onClickSearch, this.directToChat}) : super(key: key);
 
   @override
   State<SearchEntryWide> createState() => _SearchEntryWideState();
@@ -44,29 +38,16 @@ class _SearchEntryWideState extends State<SearchEntryWide> {
   }
 
   final contactTooltip = [
-    {
-      "id": "addFriend",
-      "asset": "assets/add_friend.png",
-      "label": TIM_t("添加好友")
-    },
+    {"id": "addFriend", "asset": "assets/add_friend.png", "label": TIM_t("添加好友")},
     {"id": "addGroup", "asset": "assets/add_group.png", "label": TIM_t("添加群聊")}
   ];
 
   final conversationTooltip = [
-    {
-      "id": "createConv",
-      "asset": "assets/c2c_conv.png",
-      "label": TIM_t("发起会话")
-    },
-    {
-      "id": "createGroup",
-      "asset": "assets/group_conv.png",
-      "label": TIM_t("创建群聊")
-    },
+    {"id": "createConv", "asset": "assets/c2c_conv.png", "label": TIM_t("发起会话")},
+    {"id": "createGroup", "asset": "assets/group_conv.png", "label": TIM_t("创建群聊")},
   ];
 
-  void _handleOnConvItemTapedWithPlace(V2TimConversation? selectedConv,
-      [V2TimMessage? toMessage]) async {
+  void _handleOnConvItemTapedWithPlace(V2TimConversation? selectedConv, [V2TimMessage? toMessage]) async {
     await Navigator.push(
         context,
         MaterialPageRoute(
@@ -89,7 +70,12 @@ class _SearchEntryWideState extends State<SearchEntryWide> {
           title: TIM_t("添加好友"),
           child: (closeFunc) => AddFriend(
             closeFunc: closeFunc,
-            directToChat: widget.directToChat,
+            directToChat: (_) {
+              closeFunc();
+              if (widget.directToChat != null) {
+                widget.directToChat!(_);
+              }
+            },
           ),
         );
         break;
@@ -102,7 +88,12 @@ class _SearchEntryWideState extends State<SearchEntryWide> {
           title: TIM_t("添加群聊"),
           child: (closeFunc) => AddGroup(
             closeFunc: closeFunc,
-            directToChat: widget.directToChat,
+            directToChat: (_) {
+              closeFunc();
+              if (widget.directToChat != null) {
+                widget.directToChat!(_);
+              }
+            },
           ),
         );
         break;
@@ -119,7 +110,12 @@ class _SearchEntryWideState extends State<SearchEntryWide> {
           child: (closeFunc) => CreateGroup(
             key: createGroupKey,
             convType: GroupTypeForUIKit.single,
-            directToChat: widget.directToChat,
+            directToChat: (_) {
+              // closeFunc();
+              if (widget.directToChat != null) {
+                widget.directToChat!(_);
+              }
+            },
           ),
         );
         break;
@@ -131,7 +127,12 @@ class _SearchEntryWideState extends State<SearchEntryWide> {
           height: MediaQuery.of(context).size.width * 0.5,
           title: TIM_t("选择群类型"),
           child: (closeFunc) => CreateGroupIntroduction(
-            directToChat: widget.directToChat,
+            directToChat: (_) {
+              closeFunc();
+              if (widget.directToChat != null) {
+                widget.directToChat!(_);
+              }
+            },
             closeFunc: closeFunc,
           ),
         );
@@ -140,8 +141,7 @@ class _SearchEntryWideState extends State<SearchEntryWide> {
   }
 
   List<ColumnMenuItem> _getTooltipContent(BuildContext context) {
-    List toolTipList =
-        widget.plusType == PlusType.add ? contactTooltip : conversationTooltip;
+    List toolTipList = widget.plusType == PlusType.add ? contactTooltip : conversationTooltip;
     return toolTipList.map((e) {
       return ColumnMenuItem(
         label: e['label']!,
@@ -171,9 +171,7 @@ class _SearchEntryWideState extends State<SearchEntryWide> {
               entry = null;
             }
           },
-          initOffset: offset ??
-              Offset(MediaQuery.of(context).size.height * 0.5,
-                  MediaQuery.of(context).size.height * 0.5),
+          initOffset: offset ?? Offset(MediaQuery.of(context).size.height * 0.5, MediaQuery.of(context).size.height * 0.5),
           child: Container(
             decoration: const BoxDecoration(
               boxShadow: [
@@ -216,11 +214,9 @@ class _SearchEntryWideState extends State<SearchEntryWide> {
                   if (widget.onClickSearch != null) {
                     widget.onClickSearch!();
                   } else {
-                    Future<SharedPreferences> _prefs =
-                        SharedPreferences.getInstance();
+                    Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
                     SharedPreferences prefs = await _prefs;
-                    List<String> guideList =
-                        prefs.getStringList('guidedPage') ?? [];
+                    List<String> guideList = prefs.getStringList('guidedPage') ?? [];
                     bool isFocus = guideList.contains('search');
                     await Navigator.push(
                         context,
@@ -262,16 +258,11 @@ class _SearchEntryWideState extends State<SearchEntryWide> {
             ),
             InkWell(
               onTap: () {
-                final alignBox =
-                    plusKey.currentContext?.findRenderObject() as RenderBox?;
+                final alignBox = plusKey.currentContext?.findRenderObject() as RenderBox?;
                 var offset = alignBox?.localToGlobal(Offset.zero);
                 final double? dx = (offset?.dx != null) ? offset!.dx : null;
-                final double? dy =
-                    (offset?.dy != null && alignBox?.size.height != null)
-                        ? offset!.dy + alignBox!.size.height + 2
-                        : null;
-                showStartConversation(
-                    (dx != null && dy != null) ? Offset(dx, dy) : null);
+                final double? dy = (offset?.dy != null && alignBox?.size.height != null) ? offset!.dy + alignBox!.size.height + 2 : null;
+                showStartConversation((dx != null && dy != null) ? Offset(dx, dy) : null);
               },
               child: Container(
                 key: plusKey,
@@ -282,9 +273,7 @@ class _SearchEntryWideState extends State<SearchEntryWide> {
                   borderRadius: const BorderRadius.all(Radius.circular(4)),
                 ),
                 child: Icon(
-                  widget.plusType == PlusType.create
-                      ? Icons.add
-                      : Icons.person_add_alt,
+                  widget.plusType == PlusType.create ? Icons.add : Icons.person_add_alt,
                   color: hexToColor("838383"),
                   size: 18,
                 ),

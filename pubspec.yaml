@@ -24,7 +24,7 @@ version: 1.0.0+1
 #  tencent_extended_text: ^1.0.2
 environment:
   sdk: '>=3.0.0 <4.0.0'
-  flutter: ">=3.13.0"
+  flutter: ">=3.19.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -39,9 +39,10 @@ dependencies:
     sdk: flutter
 
   # Tencent Cloud Chat dependencies:
-  tencent_cloud_chat_uikit: ^2.3.0
-  tencent_calls_uikit: ^1.8.2
-  tencent_chat_push_for_china: ^3.1.1
+  tencent_cloud_chat_uikit: ^2.5.0
+  tencent_calls_uikit: ^2.2.1
+#  tencent_chat_push_for_china: ^3.1.1
+  tim_ui_kit_push_plugin: ^3.1.1
   tencent_cloud_chat_vote_plugin: ^1.0.2
   tencent_cloud_chat_customer_service_plugin: ^0.0.2
   tencent_cloud_av_chat_room: ^0.0.4
@@ -72,20 +73,21 @@ dependencies:
   loading_animation_widget: ^1.2.0+2
   path_provider: ^2.0.11
   universal_io: ^2.0.4
-  tencent_im_sdk_plugin_web: ^0.3.15
+  tencent_im_sdk_plugin_web: ^0.3.24
   synchronized: ^3.0.0+3
-  tencent_im_sdk_plugin_desktop: ^0.1.19
+  tencent_im_sdk_plugin_desktop: ^0.2.5
   desktop_webview_window_for_is: ^0.2.4
   bitsdojo_window: ^0.1.5
   flutter_screenutil: ^5.9.0
   fluttertoast: ^8.2.1
   dio: ^4.0.0
   dotted_line: ^3.2.2
-  photo_manager: ^2.7.1
+  tencent_chat_i18n_tool: ^2.2.0+2
 
 dependency_overrides:
   shared_preferences_android: 2.1.0
   device_info_plus: ^9.0.1
+  location: ^5.0.3
   win32: ^3.0.0
   http: ^1.0.0
   tencent_chat_i18n_tool: ^2.2.0+1

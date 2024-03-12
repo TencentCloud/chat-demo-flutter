@@ -427,7 +427,7 @@
 				INFOPLIST_KEY_UIStatusBarHidden = NO;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -467,8 +467,6 @@
 					"-framework",
 					"\"DKPhotoGallery\"",
 					"-framework",
-					"\"FMDB\"",
-					"-framework",
 					"\"Foundation\"",
 					"-framework",
 					"\"Hydra\"",
@@ -488,8 +486,6 @@
 					"\"PhotosUI\"",
 					"-framework",
 					"\"QuartzCore\"",
-					"-framework",
-					"\"ReactiveObjC\"",
 					"-framework",
 					"\"ReplayKit\"",
 					"-framework",
@@ -558,8 +554,6 @@
 					"\"tencent_cloud_chat_sdk\"",
 					"-framework",
 					"\"tencent_cloud_uikit_core\"",
-					"-framework",
-					"\"tencent_open_file\"",
 					"-framework",
 					"\"uni_links\"",
 					"-framework",
@@ -726,7 +720,7 @@
 				INFOPLIST_KEY_UIStatusBarHidden = NO;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -766,8 +760,6 @@
 					"-framework",
 					"\"DKPhotoGallery\"",
 					"-framework",
-					"\"FMDB\"",
-					"-framework",
 					"\"Foundation\"",
 					"-framework",
 					"\"Hydra\"",
@@ -787,8 +779,6 @@
 					"\"PhotosUI\"",
 					"-framework",
 					"\"QuartzCore\"",
-					"-framework",
-					"\"ReactiveObjC\"",
 					"-framework",
 					"\"ReplayKit\"",
 					"-framework",
@@ -857,8 +847,6 @@
 					"\"tencent_cloud_chat_sdk\"",
 					"-framework",
 					"\"tencent_cloud_uikit_core\"",
-					"-framework",
-					"\"tencent_open_file\"",
 					"-framework",
 					"\"uni_links\"",
 					"-framework",
@@ -912,7 +900,7 @@
 				INFOPLIST_KEY_UIStatusBarHidden = NO;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -952,8 +940,6 @@
 					"-framework",
 					"\"DKPhotoGallery\"",
 					"-framework",
-					"\"FMDB\"",
-					"-framework",
 					"\"Foundation\"",
 					"-framework",
 					"\"Hydra\"",
@@ -973,8 +959,6 @@
 					"\"PhotosUI\"",
 					"-framework",
 					"\"QuartzCore\"",
-					"-framework",
-					"\"ReactiveObjC\"",
 					"-framework",
 					"\"ReplayKit\"",
 					"-framework",
@@ -1043,8 +1027,6 @@
 					"\"tencent_cloud_chat_sdk\"",
 					"-framework",
 					"\"tencent_cloud_uikit_core\"",
-					"-framework",
-					"\"tencent_open_file\"",
 					"-framework",
 					"\"uni_links\"",
 					"-framework",
