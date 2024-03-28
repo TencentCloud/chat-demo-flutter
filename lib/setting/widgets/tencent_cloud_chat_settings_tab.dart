@@ -424,6 +424,7 @@ class _TencentCloudChatSettingTabThemeState extends TencentCloudChatState<Tencen
 
 class TencentCloudChatSettingsInfoAbout extends StatefulWidget {
   final Function(Widget widget, String title)? setWidget;
+
   const TencentCloudChatSettingsInfoAbout({super.key, this.setWidget});
 
   @override
@@ -562,8 +563,10 @@ class TencentCloudChatSettingsTabLogout extends StatefulWidget {
 
 class TencentCloudChatSettingsTabLogoutState extends TencentCloudChatState<TencentCloudChatSettingsTabLogout> {
   onLogout() async {
-    bool res = await TencentCloudChat.controller.logout();
-    if (res == false) {
+    bool res = await TencentCloudChat.controller.resetUIKit(
+      shouldLogout: true,
+    );
+    if (res == true) {
       widget.removeSettings();
       widget.setLoginState(false);
       // navigateToLoginPage(context: context);

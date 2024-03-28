@@ -44,4 +44,7 @@
             android:value="220709752" />
 
     </application>
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
 </manifest>

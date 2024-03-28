@@ -1,0 +1,12 @@
+{
+  "title": "Tencent Cloud Chat",
+  "icon": "./icon.icns",
+  "contents": [
+    { "x": 448, "y": 344, "type": "link", "path": "/Applications" },
+    { "x": 192, "y": 344, "type": "file", "path": "/Volumes/data/workspace/tencent_cloud_chat_demo/build/macos/Build/Products/Release/Tencent Cloud Chat.app" }
+  ],
+  "code-sign": {
+    "signing-identity" : "Developer ID Application: Tencent Technology (Shanghai) Co., Ltd (FN2V63AD2J)",
+    "identifier" : "com.tencent.im.electron.demo"
+  }
+}

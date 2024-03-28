@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat/tencent_cloud_chat.dart';
 import 'package:tencent_cloud_chat_common/base/tencent_cloud_chat_state_widget.dart';
 import 'package:tencent_cloud_chat_common/base/tencent_cloud_chat_theme_widget.dart';
+import 'package:tencent_cloud_chat_common/widgets/dialog/tencent_cloud_chat_dialog.dart';
 import 'package:tencent_cloud_chat_demo/config.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DesktopAboutUs extends StatefulWidget {
   final VoidCallback closeFunc;
+
   const DesktopAboutUs({Key? key, required this.closeFunc}) : super(key: key);
 
   @override
@@ -16,10 +18,13 @@ class DesktopAboutUs extends StatefulWidget {
 
 class _DesktopAboutUsState extends TencentCloudChatState<DesktopAboutUs> {
   final V2TIMManager sdkInstance = TencentImSDKPlugin.v2TIMManager;
-  String sdkVersion = TencentCloudChat.dataInstance.basic.version;
+  String sdkVersion = TencentCloudChat().dataInstance.basic.version;
 
   @override
   Widget defaultBuilder(BuildContext context) {
+    final locale = TencentCloudChatIntl().getCurrentLocale(context);
+    final isChinese = locale.languageCode == "zh";
+
     TextSpan webViewLink(String title, [String? url]) {
       return TextSpan(
         text: title,
@@ -56,11 +61,19 @@ class _DesktopAboutUsState extends TencentCloudChatState<DesktopAboutUs> {
                     webViewLink("  |  "),
                     webViewLink(tL10n.allSDKs, "https://pub.dev/publishers/comm.qq.com/packages"),
                     webViewLink("  |  "),
-                    webViewLink(tL10n.sourceCode, "https://github.com/TencentCloud/chat-demo-flutter"),
+                    webViewLink(tL10n.sourceCode, "https://github.com/TencentCloud/chat-demo-flutter/tree/v2"),
                   ])),
                   const SizedBox(
                     height: 4,
                   ),
+                  if (isChinese)
+                    Text.rich(TextSpan(children: [
+                      if (isChinese) webViewLink("ICP备案号: 粤B2-20090059-2674A", "https://beian.miit.gov.cn"),
+                    ])),
+                  if (isChinese)
+                    const SizedBox(
+                      height: 4,
+                    ),
                   Text.rich(TextSpan(children: [
                     webViewLink(tL10n.privacyPolicy, "https://privacy.qq.com/document/preview/1cfe904fb7004b8ab1193a55857f7272"),
                     webViewLink("  |  "),
@@ -141,27 +154,23 @@ class _DesktopAboutUsState extends TencentCloudChatState<DesktopAboutUs> {
                 ),
                 ElevatedButton(
                     onPressed: () {
-                      showDialog<void>(
+                      TencentCloudChatDialog.showAdaptiveDialog(
                         context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text(tL10n.disclaimer),
-                            content: const Text(
-                                "Tencent Cloud Chat APP ('this product') is a sample app provided by Tencent Cloud. Tencent Cloud owns the copyright and ownership of this product. This product is for functional experience only and may not be used for any commercial purposes. It is strictly prohibited to spread any pornographic, abusive, violent, terrorist, political-related and other illegal content during use."),
-                            actions: <Widget>[
-                              TextButton(
-                                child: Text(tL10n.cancel),
-                                onPressed: () => Navigator.of(context).pop(), // 关闭对话框
-                              ),
-                              TextButton(
-                                child: Text(tL10n.confirm),
-                                onPressed: () {
-                                  Navigator.of(context).pop(true);
-                                },
-                              ),
-                            ],
-                          );
-                        },
+                        title: Text(tL10n.disclaimer),
+                        content: const Text(
+                            "Tencent Cloud Chat APP ('this product') is a sample app provided by Tencent Cloud. Tencent Cloud owns the copyright and ownership of this product. This product is for functional experience only and may not be used for any commercial purposes. It is strictly prohibited to spread any pornographic, abusive, violent, terrorist, political-related and other illegal content during use."),
+                        actions: <Widget>[
+                          TextButton(
+                            child: Text(tL10n.cancel),
+                            onPressed: () => Navigator.of(context).pop(), // 关闭对话框
+                          ),
+                          TextButton(
+                            child: Text(tL10n.confirm),
+                            onPressed: () {
+                              Navigator.of(context).pop(true);
+                            },
+                          ),
+                        ],
                       );
                     },
                     child: Text(tL10n.disclaimer)),

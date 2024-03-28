@@ -28,7 +28,7 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.tencent.flutter.tuikit"
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 33
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -49,8 +49,8 @@ android {
         applicationId "com.tencent.flutter.tuikit"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion 21
-        targetSdkVersion flutter.targetSdkVersion
+        minSdkVersion 24
+        targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         manifestPlaceholders = [
@@ -86,24 +86,32 @@ flutter {
 }
 
 dependencies {
-    // Huawei
-    implementation 'com.tencent.timpush:huawei:7.7.5283'
+//    // Huawei
+//    implementation 'com.tencent.timpush:huawei:7.7.5283'
+//
+//    // XiaoMi
+//    implementation 'com.tencent.timpush:xiaomi:7.7.5283'
+//
+//    // OPPO
+//    implementation 'com.tencent.timpush:oppo:7.7.5283'
+//
+//    // vivo
+//    implementation 'com.tencent.timpush:vivo:7.7.5283'
+//
+//    // Honor
+//    implementation 'com.tencent.timpush:honor:7.7.5283'
+//
+//    // Meizu
+//    implementation 'com.tencent.timpush:meizu:7.7.5283'
+//
+//    // Google Firebase Cloud Messaging (Google FCM)
+//    implementation 'com.tencent.timpush:fcm:7.7.5283'
 
-    // XiaoMi
-    implementation 'com.tencent.timpush:xiaomi:7.7.5283'
-
-    // OPPO
-    implementation 'com.tencent.timpush:oppo:7.7.5283'
-
-    // vivo
-    implementation 'com.tencent.timpush:vivo:7.7.5283'
-
-    // Honor
-    implementation 'com.tencent.timpush:honor:7.7.5283'
-
-    // Meizu
-    implementation 'com.tencent.timpush:meizu:7.7.5283'
-
-    // Google Firebase Cloud Messaging (Google FCM)
-    implementation 'com.tencent.timpush:fcm:7.7.5283'
+    implementation 'com.tencent.timpush:huawei:7.8.5484'
+    implementation 'com.tencent.timpush:xiaomi:7.8.5484'
+    implementation 'com.tencent.timpush:oppo:7.8.5484'
+    implementation 'com.tencent.timpush:vivo:7.8.5484'
+    implementation 'com.tencent.timpush:honor:7.8.5484'
+    implementation 'com.tencent.timpush:meizu:7.8.5484'
+    implementation 'com.tencent.timpush:fcm:7.8.5484'
 }

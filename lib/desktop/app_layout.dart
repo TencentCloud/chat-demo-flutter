@@ -18,6 +18,7 @@ final GlobalKey<TencentCloudChatDemoDesktopAppLayoutState> desktopAppLayoutKey =
 class TencentCloudChatDemoDesktopAppLayout extends StatefulWidget {
   final Function removeSettings;
   final Function setLoginState;
+
   const TencentCloudChatDemoDesktopAppLayout({super.key, required this.removeSettings, required this.setLoginState});
 
   @override
@@ -38,7 +39,7 @@ class TencentCloudChatDemoDesktopAppLayoutState extends TencentCloudChatState<Te
     setState(() {
       homePageIndex = 0;
     });
-    TencentCloudChat.dataInstance.conversation.currentConversation = conv;
+    TencentCloudChat().dataInstance.conversation.currentConversation = conv;
   }
 
   navigateToSettings({String? groupID, String? userID, V2TimConversation? conversation}) async {
@@ -50,76 +51,77 @@ class TencentCloudChatDemoDesktopAppLayoutState extends TencentCloudChatState<Te
   @override
   Widget defaultBuilder(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         body: TencentCloudChatThemeWidget(
-      build: (BuildContext context, TencentCloudChatThemeColors colorTheme, TencentCloudChatTextStyle textStyle) => Row(
-        children: [
-          Container(
-            width: 64,
-            decoration: BoxDecoration(color: colorTheme.desktopBackgroundColorLinearGradientOne),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Expanded(
-                  child: LeftBar(
-                    index: homePageIndex,
-                    onChange: (index) {
-                      setState(() {
-                        homePageIndex = index;
-                      });
-                    },
-                  ),
-                )
-              ],
-            ),
-          ),
-          Expanded(
-            child: Column(
-              children: [
-                if (TencentCloudChatPlatformAdapter().isWindows)
-                  Container(
-                    height: 40,
-                    decoration: BoxDecoration(color: colorTheme.desktopBackgroundColorLinearGradientOne),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: MoveWindow(
-                            child: Center(
-                              child: Text(
-                                tL10n.tencentCloudChat,
-                                style: TextStyle(color: colorTheme.onBackground, fontSize: textStyle.fontsize_14),
-                              ),
-                            ),
-                          ),
-                        ),
-                        MinimizeWindowButton(
-                          colors: WindowButtonColors(iconNormal: colorTheme.onBackground),
-                        ),
-                        MaximizeWindowButton(
-                          colors: WindowButtonColors(iconNormal: colorTheme.onBackground),
-                        ),
-                        CloseWindowButton(
-                          colors: WindowButtonColors(iconNormal: colorTheme.onBackground),
-                        )
-                      ],
-                    ),
-                  ),
-                Expanded(
-                    child: IndexedStack(
-                  index: homePageIndex,
+          build: (BuildContext context, TencentCloudChatThemeColors colorTheme, TencentCloudChatTextStyle textStyle) => Row(
+            children: [
+              Container(
+                width: 64,
+                decoration: BoxDecoration(color: colorTheme.desktopBackgroundColorLinearGradientOne),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
                   children: [
-                    const TencentCloudChatConversation(),
-                    const TencentCloudChatContact(),
-                    TencentCloudChatSettings(
-                      removeSettings: widget.removeSettings,
-                      setLoginState: widget.setLoginState,
+                    Expanded(
+                      child: LeftBar(
+                        index: homePageIndex,
+                        onChange: (index) {
+                          setState(() {
+                            homePageIndex = index;
+                          });
+                        },
+                      ),
                     )
                   ],
-                ))
-              ],
-            ),
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  children: [
+                    if (TencentCloudChatPlatformAdapter().isWindows)
+                      Container(
+                        height: 40,
+                        decoration: BoxDecoration(color: colorTheme.desktopBackgroundColorLinearGradientOne),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: MoveWindow(
+                                child: Center(
+                                  child: Text(
+                                    tL10n.tencentCloudChat,
+                                    style: TextStyle(color: colorTheme.onBackground, fontSize: textStyle.fontsize_14),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            MinimizeWindowButton(
+                              colors: WindowButtonColors(iconNormal: colorTheme.onBackground),
+                            ),
+                            MaximizeWindowButton(
+                              colors: WindowButtonColors(iconNormal: colorTheme.onBackground),
+                            ),
+                            CloseWindowButton(
+                              colors: WindowButtonColors(iconNormal: colorTheme.onBackground),
+                            )
+                          ],
+                        ),
+                      ),
+                    Expanded(
+                        child: IndexedStack(
+                      index: homePageIndex,
+                      children: [
+                        const TencentCloudChatConversation(),
+                        const TencentCloudChatContact(),
+                        TencentCloudChatSettings(
+                          removeSettings: widget.removeSettings,
+                          setLoginState: widget.setLoginState,
+                        )
+                      ],
+                    ))
+                  ],
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
-    ));
+        ));
   }
 }

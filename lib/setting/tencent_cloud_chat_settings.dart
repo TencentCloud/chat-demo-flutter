@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tencent_cloud_chat/data/basic/tencent_cloud_chat_basic_data.dart';
 import 'package:tencent_cloud_chat/tencent_cloud_chat.dart';
 import 'package:tencent_cloud_chat_common/base/tencent_cloud_chat_theme_widget.dart';
 import 'package:tencent_cloud_chat_common/tencent_cloud_chat_common.dart';
@@ -16,8 +17,8 @@ class TencentCloudChatSettings extends StatefulWidget {
 }
 
 class TencentCloudChatSettingsState extends TencentCloudChatState<TencentCloudChatSettings> {
-  V2TimUserFullInfo userFullInfo = V2TimUserFullInfo();
-  String version = "";
+  V2TimUserFullInfo? _userFullInfo;
+  String _sdkVersion = "";
 
   Widget? _settingModule;
   String? _title;
@@ -26,8 +27,27 @@ class TencentCloudChatSettingsState extends TencentCloudChatState<TencentCloudCh
   void initState() {
     super.initState();
 
-    userFullInfo = TencentCloudChat.dataInstance.basic.currentUser!;
-    version = TencentCloudChat.dataInstance.basic.version;
+    _addEventListener();
+    _userFullInfo = TencentCloudChat().dataInstance.basic.currentUser;
+    _sdkVersion = TencentCloudChat().dataInstance.basic.version;
+  }
+
+  void _addEventListener() {
+    TencentCloudChat.eventBusInstance.on<TencentCloudChatBasicData<TencentCloudChatBasicDataKeys>>()?.listen((event) {
+      if (event.currentUpdatedFields == TencentCloudChatBasicDataKeys.selfInfo) {
+        safeSetState(() {
+          _userFullInfo = event.currentUser;
+        });
+      }
+    });
+  }
+
+  @override
+  Widget tabletAppBuilder(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(top: MediaQuery.paddingOf(context).top),
+      child: desktopBuilder(context),
+    );
   }
 
   @override
@@ -49,11 +69,13 @@ class TencentCloudChatSettingsState extends TencentCloudChatState<TencentCloudCh
             ],
           ),
         ),
-        body: TencentCloudChatSettingBody(
-          userFullInfo: userFullInfo,
-          removeSettings: widget.removeSettings,
-          setLoginState: widget.setLoginState,
-        ),
+        body: _userFullInfo != null
+            ? TencentCloudChatSettingBody(
+                userFullInfo: _userFullInfo!,
+                removeSettings: widget.removeSettings,
+                setLoginState: widget.setLoginState,
+              )
+            : Container(),
       ),
     );
   }
@@ -95,17 +117,19 @@ class TencentCloudChatSettingsState extends TencentCloudChatState<TencentCloudCh
                 children: [
                   ConstrainedBox(
                     constraints: BoxConstraints(maxWidth: getWidth(280)),
-                    child: TencentCloudChatSettingBody(
-                      userFullInfo: userFullInfo,
-                      removeSettings: widget.removeSettings,
-                      setLoginState: widget.setLoginState,
-                      setWidget: (widget, title) {
-                        setState(() {
-                          _settingModule = widget;
-                          _title = title;
-                        });
-                      },
-                    ),
+                    child: _userFullInfo != null
+                        ? TencentCloudChatSettingBody(
+                            userFullInfo: _userFullInfo!,
+                            removeSettings: widget.removeSettings,
+                            setLoginState: widget.setLoginState,
+                            setWidget: (widget, title) {
+                              setState(() {
+                                _settingModule = widget;
+                                _title = title;
+                              });
+                            },
+                          )
+                        : Container(),
                   ),
                   Expanded(
                     child: _settingModule ??

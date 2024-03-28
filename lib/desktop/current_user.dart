@@ -85,7 +85,7 @@ class _CurrentUserAvatarState extends State<CurrentUserAvatar> {
                 width: 36,
                 height: 36,
                 imageList: [
-                  TencentCloudChatUtils.checkString(TencentCloudChat.dataInstance.basic.currentUser?.faceUrl) ?? "https://comm.qq.com/im/static-files/im-demo/im_virtual_customer.png",
+                  TencentCloudChatUtils.checkString(TencentCloudChat().dataInstance.basic.currentUser?.faceUrl) ?? "https://comm.qq.com/im/static-files/im-demo/im_virtual_customer.png",
                 ],
               ),
             ),

@@ -5,19 +5,23 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:tencent_calls_uikit/tuicall_kit.dart';
 import 'package:tencent_cloud_chat/components/component_config/tencent_cloud_chat_user_config.dart';
 import 'package:tencent_cloud_chat/components/components_options/tencent_cloud_chat_message_options.dart';
+import 'package:tencent_cloud_chat/components/tencent_cloud_chat_components_utils.dart';
 import 'package:tencent_cloud_chat/cross_platforms_adapter/tencent_cloud_chat_screen_adapter.dart';
-import 'package:tencent_cloud_chat/data/basic/tencent_cloud_chat_basic_data.dart';
+import 'package:tencent_cloud_chat/models/tencent_cloud_chat_callbacks.dart';
 import 'package:tencent_cloud_chat/models/tencent_cloud_chat_init_data_config.dart';
 import 'package:tencent_cloud_chat/models/tencent_cloud_chat_models.dart';
 import 'package:tencent_cloud_chat/router/tencent_cloud_chat_navigator.dart';
 import 'package:tencent_cloud_chat/tencent_cloud_chat.dart';
+import 'package:tencent_cloud_chat/utils/tencent_cloud_chat_code_info.dart';
 import 'package:tencent_cloud_chat/utils/tencent_cloud_chat_utils.dart';
 import 'package:tencent_cloud_chat/widget/app/material_app.dart';
 import 'package:tencent_cloud_chat_common/base/tencent_cloud_chat_state_widget.dart';
 import 'package:tencent_cloud_chat_common/base/tencent_cloud_chat_theme_widget.dart';
+import 'package:tencent_cloud_chat_common/widgets/dialog/tencent_cloud_chat_dialog.dart';
 import 'package:tencent_cloud_chat_contact/tencent_cloud_chat_contact.dart';
 import 'package:tencent_cloud_chat_conversation/tencent_cloud_chat_conversation.dart';
 import 'package:tencent_cloud_chat_conversation/tencent_cloud_chat_conversation_tatal_unread_count.dart';
@@ -79,7 +83,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
   int currentIndex = 0;
 
-  var pages = [];
+  List<Widget> pages = [];
 
   _MyHomePageState() : super(needFPSMonitor: true);
 
@@ -101,12 +105,6 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
     }
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    initTencentCloudChat();
-  }
-
   initTencentCloudChat() async {
     if (isInit) {
       return;
@@ -122,6 +120,8 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
     isInit = true;
 
     TencentCloudChatPush().setApnsCertificateID(apnsCertificateID: 40628);
+
+    TencentCloudChatPush().registerOnAppWakeUpEvent(onAppWakeUpEvent: () {});
 
     await TencentCloudChat.controller.initUIKit(
       context: context,
@@ -146,8 +146,8 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
         userID: IMConfig.userid,
         userSig: IMConfig.usersig,
         sdkListener: V2TimSDKListener(
-          onKickedOffline: _handleLogout,
-          onUserSigExpired: _handleLogout,
+          onKickedOffline: _resetUIKit,
+          onUserSigExpired: _resetUIKit,
           onUIKitEventEmited: (event) {
             final type = event.type;
             switch (type) {
@@ -166,6 +166,28 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
             }
           },
         ),
+      ),
+      callbacks: TencentCloudChatCallbacks(
+        onTencentCloudChatSDKFailedCallback: (apiName, code, desc) {},
+        onTencentCloudChatUIKitUserNotificationEvent: (TencentCloudChatComponentsEnum component, TencentCloudChatUserNotificationEvent event) {
+          switch (event.eventCode) {
+            case -10301:
+              TencentCloudChatDialog.showAdaptiveDialog(
+                context: context,
+                content: Text(event.text),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(tL10n.confirm),
+                  ),
+                ],
+              );
+            default:
+              TDToast.showText(event.text, context: context);
+          }
+        },
       ),
       plugins: [
         TencentCloudChatPluginItem(
@@ -219,8 +241,8 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
     );
   }
 
-  void _handleLogout() {
-    TencentCloudChat.controller.logout();
+  void _resetUIKit() {
+    TencentCloudChat.controller.resetUIKit();
     safeSetState(() {
       isLogin = false;
     });
@@ -248,14 +270,14 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
   void initState() {
     super.initState();
     currentIndex = 0;
-    eventbus.on<TencentCloudChatBasicData<TencentCloudChatBasicDataKeys>>()?.listen((event) {});
+    // eventbus.on<TencentCloudChatBasicData<TencentCloudChatBasicDataKeys>>()?.listen((event) {});
     pages = [
       const TencentCloudChatConversation(),
       const TencentCloudChatContact(),
       TencentCloudChatSettings(
         removeSettings: () {},
         setLoginState: changeLoginState,
-      )
+      ),
     ];
   }
 
@@ -266,17 +288,11 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
   @override
   Widget defaultBuilder(BuildContext context) {
     TencentCloudChatIntl().init(context);
-    // TencentCloudChatIntl.init(context);
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     if (!isLogin) {
       debugPrint("Not login");
       return const LoginPage();
     }
+
     return Material(
       color: Colors.transparent,
       child: TencentCloudChatThemeWidget(
@@ -296,13 +312,6 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
   @override
   Widget desktopBuilder(BuildContext context) {
     TencentCloudChatIntl().init(context);
-    // TencentCloudChatIntl.init(context);
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     if (!isLogin) {
       debugPrint("Not login");
       return const LoginPage();
@@ -317,13 +326,6 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
   @override
   Widget mobileBuilder(BuildContext context) {
     TencentCloudChatIntl().init(context);
-    // TencentCloudChatIntl.init(context);
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     if (!isLogin) {
       debugPrint("Not login");
       return const LoginPage();
