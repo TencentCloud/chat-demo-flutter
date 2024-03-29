@@ -244,6 +244,7 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
   void _resetUIKit() {
     TencentCloudChat.controller.resetUIKit();
     safeSetState(() {
+      isInit = false;
       isLogin = false;
     });
   }
@@ -279,6 +280,8 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
         setLoginState: changeLoginState,
       ),
     ];
+
+    Future.delayed(const Duration(milliseconds: 10), initTencentCloudChat);
   }
 
   void getConversation(BuildContext context) {
