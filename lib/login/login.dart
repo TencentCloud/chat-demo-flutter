@@ -20,6 +20,17 @@ class LoginPageState extends TencentCloudChatState<LoginPage> {
       build: (context, colorTheme, textStyle) => Material(
         child: MoveWindow(
           child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: FractionalOffset.topLeft,
+                end: FractionalOffset.bottomRight,
+                colors: <Color>[
+                  colorTheme.desktopBackgroundColorLinearGradientOne,
+                  colorTheme.desktopBackgroundColorLinearGradientTwo,
+                  colorTheme.desktopBackgroundColorLinearGradientOne
+                ],
+              ),
+            ),
             padding: const EdgeInsets.all(20),
             child: Center(
               child: Column(
@@ -36,7 +47,7 @@ class LoginPageState extends TencentCloudChatState<LoginPage> {
                   ),
                   Text(
                     tL10n.tencentCloudChat,
-                    style: const TextStyle(fontSize: 24),
+                    style: TextStyle(fontSize: 24, color: colorTheme.primaryColor.withOpacity(0.7)),
                   ),
                   const SizedBox(
                     height: 40,

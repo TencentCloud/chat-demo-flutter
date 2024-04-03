@@ -7,16 +7,16 @@ import 'package:tencent_cloud_chat_common/widgets/empty_page/tencent_cloud_chat_
 import 'package:tencent_cloud_chat_demo/setting/widgets/tencent_cloud_chat_settings_body.dart';
 
 class TencentCloudChatSettings extends StatefulWidget {
-  final Function removeSettings;
-  final Function setLoginState;
+  final VoidCallback onLogOut;
 
-  const TencentCloudChatSettings({super.key, required this.removeSettings, required this.setLoginState});
+  const TencentCloudChatSettings({super.key, required this.onLogOut});
 
   @override
   State<StatefulWidget> createState() => TencentCloudChatSettingsState();
 }
 
-class TencentCloudChatSettingsState extends TencentCloudChatState<TencentCloudChatSettings> {
+class TencentCloudChatSettingsState
+    extends TencentCloudChatState<TencentCloudChatSettings> {
   V2TimUserFullInfo? _userFullInfo;
   String _sdkVersion = "";
 
@@ -33,8 +33,11 @@ class TencentCloudChatSettingsState extends TencentCloudChatState<TencentCloudCh
   }
 
   void _addEventListener() {
-    TencentCloudChat.eventBusInstance.on<TencentCloudChatBasicData<TencentCloudChatBasicDataKeys>>()?.listen((event) {
-      if (event.currentUpdatedFields == TencentCloudChatBasicDataKeys.selfInfo) {
+    TencentCloudChat.eventBusInstance
+        .on<TencentCloudChatBasicData<TencentCloudChatBasicDataKeys>>()
+        ?.listen((event) {
+      if (event.currentUpdatedFields ==
+          TencentCloudChatBasicDataKeys.selfInfo) {
         safeSetState(() {
           _userFullInfo = event.currentUser;
         });
@@ -64,7 +67,10 @@ class TencentCloudChatSettingsState extends TencentCloudChatState<TencentCloudCh
               Expanded(
                   child: Text(
                 tL10n.settings,
-                style: TextStyle(color: colorTheme.settingTitleColor, fontSize: textStyle.fontsize_34, fontWeight: FontWeight.w600),
+                style: TextStyle(
+                    color: colorTheme.settingTitleColor,
+                    fontSize: textStyle.fontsize_34,
+                    fontWeight: FontWeight.w600),
               )),
             ],
           ),
@@ -72,8 +78,7 @@ class TencentCloudChatSettingsState extends TencentCloudChatState<TencentCloudCh
         body: _userFullInfo != null
             ? TencentCloudChatSettingBody(
                 userFullInfo: _userFullInfo!,
-                removeSettings: widget.removeSettings,
-                setLoginState: widget.setLoginState,
+                onLogOut: widget.onLogOut,
               )
             : Container(),
       ),
@@ -106,7 +111,10 @@ class TencentCloudChatSettingsState extends TencentCloudChatState<TencentCloudCh
                     ),
                     child: Text(
                       _title ?? tL10n.settings,
-                      style: TextStyle(color: colorTheme.settingTitleColor, fontSize: textStyle.fontsize_24 + 4, fontWeight: FontWeight.w600),
+                      style: TextStyle(
+                          color: colorTheme.settingTitleColor,
+                          fontSize: textStyle.fontsize_24 + 4,
+                          fontWeight: FontWeight.w600),
                     ),
                   ),
                 ),
@@ -120,8 +128,7 @@ class TencentCloudChatSettingsState extends TencentCloudChatState<TencentCloudCh
                     child: _userFullInfo != null
                         ? TencentCloudChatSettingBody(
                             userFullInfo: _userFullInfo!,
-                            removeSettings: widget.removeSettings,
-                            setLoginState: widget.setLoginState,
+                            onLogOut: widget.onLogOut,
                             setWidget: (widget, title) {
                               setState(() {
                                 _settingModule = widget;

@@ -99,7 +99,7 @@ class TencentCloudChatSettingsInfoAvatarState extends TencentCloudChatState<Tenc
   Widget defaultBuilder(BuildContext context) {
     return TencentCloudChatAvatar(
       scene: TencentCloudChatAvatarScene.custom,
-      imageList: [widget.userFullInfo.faceUrl ?? "https://comm.qq.com/im/static-files/im-demo/im_virtual_customer.png"],
+      imageList: [widget.userFullInfo.faceUrl],
       width: getSquareSize(66),
       height: getSquareSize(66),
       borderRadius: getSquareSize(66),
@@ -110,7 +110,7 @@ class TencentCloudChatSettingsInfoAvatarState extends TencentCloudChatState<Tenc
   Widget desktopBuilder(BuildContext context) {
     return TencentCloudChatAvatar(
       scene: TencentCloudChatAvatarScene.custom,
-      imageList: [widget.userFullInfo.faceUrl ?? "https://comm.qq.com/im/static-files/im-demo/im_virtual_customer.png"],
+      imageList: [widget.userFullInfo.faceUrl],
       width: getSquareSize(48),
       height: getSquareSize(48),
       borderRadius: getSquareSize(48),

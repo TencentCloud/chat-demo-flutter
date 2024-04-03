@@ -46,7 +46,7 @@ class _DesktopContactUsState extends TencentCloudChatState<DesktopContactUs> {
                   tL10n.channelSwitch,
                   style: TextStyle(fontSize: 18, color: colorTheme.primaryTextColor),
                 ),
-                SizedBox(width: 8,),
+                const SizedBox(width: 8,),
                 ElevatedButton(
                     onPressed: () {
                       setState(() {

@@ -7,17 +7,21 @@ import 'package:tencent_cloud_chat_demo/setting/widgets/tencent_cloud_chat_setti
 
 class TencentCloudChatSettingBody extends StatefulWidget {
   final V2TimUserFullInfo userFullInfo;
-  final Function removeSettings;
-  final Function setLoginState;
+  final VoidCallback onLogOut;
   final Function(Widget widget, String title)? setWidget;
 
-  const TencentCloudChatSettingBody({super.key, required this.userFullInfo, required this.removeSettings, required this.setLoginState, this.setWidget});
+  const TencentCloudChatSettingBody(
+      {super.key,
+      required this.userFullInfo,
+      required this.onLogOut,
+      this.setWidget});
 
   @override
   State<StatefulWidget> createState() => TencentCloudChatSettingBodyState();
 }
 
-class TencentCloudChatSettingBodyState extends TencentCloudChatState<TencentCloudChatSettingBody> {
+class TencentCloudChatSettingBodyState
+    extends TencentCloudChatState<TencentCloudChatSettingBody> {
   @override
   Widget defaultBuilder(BuildContext context) {
     return TencentCloudChatThemeWidget(
@@ -31,8 +35,7 @@ class TencentCloudChatSettingBodyState extends TencentCloudChatState<TencentClou
             ),
             TencentCloudChatSettingsTab(
               userFullInfo: widget.userFullInfo,
-              removeSettings: widget.removeSettings,
-              setLoginState: widget.setLoginState,
+              onLogOut: widget.onLogOut,
             )
           ],
         ),
@@ -61,8 +64,7 @@ class TencentCloudChatSettingBodyState extends TencentCloudChatState<TencentClou
             ),
             TencentCloudChatSettingsTab(
               userFullInfo: widget.userFullInfo,
-              removeSettings: widget.removeSettings,
-              setLoginState: widget.setLoginState,
+              onLogOut: widget.onLogOut,
               setWidget: widget.setWidget,
             )
           ],

@@ -5,5 +5,6 @@ class IMConfig {
   static String sdkappid = "";
   static String userid = "";
   static String usersig = "";
+
   static const appVersion = "2.0.0";
 }

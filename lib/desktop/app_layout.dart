@@ -13,24 +13,34 @@ import 'package:tencent_cloud_chat_conversation/tencent_cloud_chat_conversation.
 import 'package:tencent_cloud_chat_demo/desktop/left_bar.dart';
 import 'package:tencent_cloud_chat_demo/setting/tencent_cloud_chat_settings.dart';
 
-final GlobalKey<TencentCloudChatDemoDesktopAppLayoutState> desktopAppLayoutKey = GlobalKey<TencentCloudChatDemoDesktopAppLayoutState>();
+final GlobalKey<TencentCloudChatDemoDesktopAppLayoutState> desktopAppLayoutKey =
+    GlobalKey<TencentCloudChatDemoDesktopAppLayoutState>();
 
 class TencentCloudChatDemoDesktopAppLayout extends StatefulWidget {
-  final Function removeSettings;
-  final Function setLoginState;
+  final VoidCallback onLogOut;
 
-  const TencentCloudChatDemoDesktopAppLayout({super.key, required this.removeSettings, required this.setLoginState});
+  const TencentCloudChatDemoDesktopAppLayout({
+    super.key,
+    required this.onLogOut,
+  });
 
   @override
-  State<TencentCloudChatDemoDesktopAppLayout> createState() => TencentCloudChatDemoDesktopAppLayoutState();
+  State<TencentCloudChatDemoDesktopAppLayout> createState() =>
+      TencentCloudChatDemoDesktopAppLayoutState();
 }
 
-class TencentCloudChatDemoDesktopAppLayoutState extends TencentCloudChatState<TencentCloudChatDemoDesktopAppLayout> {
+class TencentCloudChatDemoDesktopAppLayoutState
+    extends TencentCloudChatState<TencentCloudChatDemoDesktopAppLayout> {
   int homePageIndex = 0;
 
-  navigateToChat({String? groupID, String? userID, V2TimConversation? conversation}) async {
+  navigateToChat(
+      {String? groupID,
+      String? userID,
+      V2TimConversation? conversation}) async {
     V2TimConversation? conv = conversation;
-    if (conversation == null && (TencentCloudChatUtils.checkString(groupID) != null || TencentCloudChatUtils.checkString(userID) != null)) {
+    if (conversation == null &&
+        (TencentCloudChatUtils.checkString(groupID) != null ||
+            TencentCloudChatUtils.checkString(userID) != null)) {
       conv = await TencentCloudChatConversationSDK.getConversation(
         userID: userID,
         groupID: groupID,
@@ -42,7 +52,10 @@ class TencentCloudChatDemoDesktopAppLayoutState extends TencentCloudChatState<Te
     TencentCloudChat().dataInstance.conversation.currentConversation = conv;
   }
 
-  navigateToSettings({String? groupID, String? userID, V2TimConversation? conversation}) async {
+  navigateToSettings(
+      {String? groupID,
+      String? userID,
+      V2TimConversation? conversation}) async {
     setState(() {
       homePageIndex = 2;
     });
@@ -53,11 +66,14 @@ class TencentCloudChatDemoDesktopAppLayoutState extends TencentCloudChatState<Te
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: TencentCloudChatThemeWidget(
-          build: (BuildContext context, TencentCloudChatThemeColors colorTheme, TencentCloudChatTextStyle textStyle) => Row(
+          build: (BuildContext context, TencentCloudChatThemeColors colorTheme,
+                  TencentCloudChatTextStyle textStyle) =>
+              Row(
             children: [
               Container(
                 width: 64,
-                decoration: BoxDecoration(color: colorTheme.desktopBackgroundColorLinearGradientOne),
+                decoration: BoxDecoration(
+                    color: colorTheme.desktopBackgroundColorLinearGradientOne),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -80,7 +96,9 @@ class TencentCloudChatDemoDesktopAppLayoutState extends TencentCloudChatState<Te
                     if (TencentCloudChatPlatformAdapter().isWindows)
                       Container(
                         height: 40,
-                        decoration: BoxDecoration(color: colorTheme.desktopBackgroundColorLinearGradientOne),
+                        decoration: BoxDecoration(
+                            color: colorTheme
+                                .desktopBackgroundColorLinearGradientOne),
                         child: Row(
                           children: [
                             Expanded(
@@ -88,19 +106,24 @@ class TencentCloudChatDemoDesktopAppLayoutState extends TencentCloudChatState<Te
                                 child: Center(
                                   child: Text(
                                     tL10n.tencentCloudChat,
-                                    style: TextStyle(color: colorTheme.onBackground, fontSize: textStyle.fontsize_14),
+                                    style: TextStyle(
+                                        color: colorTheme.onBackground,
+                                        fontSize: textStyle.fontsize_14),
                                   ),
                                 ),
                               ),
                             ),
                             MinimizeWindowButton(
-                              colors: WindowButtonColors(iconNormal: colorTheme.onBackground),
+                              colors: WindowButtonColors(
+                                  iconNormal: colorTheme.onBackground),
                             ),
                             MaximizeWindowButton(
-                              colors: WindowButtonColors(iconNormal: colorTheme.onBackground),
+                              colors: WindowButtonColors(
+                                  iconNormal: colorTheme.onBackground),
                             ),
                             CloseWindowButton(
-                              colors: WindowButtonColors(iconNormal: colorTheme.onBackground),
+                              colors: WindowButtonColors(
+                                  iconNormal: colorTheme.onBackground),
                             )
                           ],
                         ),
@@ -112,8 +135,7 @@ class TencentCloudChatDemoDesktopAppLayoutState extends TencentCloudChatState<Te
                         const TencentCloudChatConversation(),
                         const TencentCloudChatContact(),
                         TencentCloudChatSettings(
-                          removeSettings: widget.removeSettings,
-                          setLoginState: widget.setLoginState,
+                          onLogOut: widget.onLogOut,
                         )
                       ],
                     ))

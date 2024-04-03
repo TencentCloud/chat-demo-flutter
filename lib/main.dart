@@ -25,8 +25,8 @@ import 'package:tencent_cloud_chat_common/widgets/dialog/tencent_cloud_chat_dial
 import 'package:tencent_cloud_chat_contact/tencent_cloud_chat_contact.dart';
 import 'package:tencent_cloud_chat_conversation/tencent_cloud_chat_conversation.dart';
 import 'package:tencent_cloud_chat_conversation/tencent_cloud_chat_conversation_tatal_unread_count.dart';
-import 'package:tencent_cloud_chat_demo/config.dart';
 import 'package:tencent_cloud_chat_demo/desktop/app_layout.dart';
+import 'package:tencent_cloud_chat_demo/launching_page.dart';
 import 'package:tencent_cloud_chat_demo/login/login.dart';
 import 'package:tencent_cloud_chat_demo/setting/tencent_cloud_chat_settings.dart';
 import 'package:tencent_cloud_chat_demo/vote_detail_example.dart';
@@ -64,9 +64,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    FlutterNativeSplash.remove();
     return TencentCloudChatMaterialApp(
       title: 'Tencent Cloud Chat',
+      debugShowCheckedModeBanner: false,
       navigatorObservers: [TUICallKit.navigatorObserver],
       home: const MyHomePage(),
     );
@@ -87,34 +87,21 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
 
   _MyHomePageState() : super(needFPSMonitor: true);
 
-  String sdkappid = IMConfig.sdkappid;
-  String userid = IMConfig.userid;
-  String usersig = IMConfig.usersig;
-  bool isInit = false;
   bool isLogin = false;
-  bool isFirstTimeUser = false;
-  String appId = "";
+  bool isInit = false;
 
-  changeLoginState(bool loginState) {
-    safeSetState(() {
-      currentIndex = 0;
-      isLogin = loginState;
-    });
-    if (loginState == true) {
-      initTencentCloudChat();
-    }
-  }
-
-  initTencentCloudChat() async {
+  _initTencentCloudChat() async {
     if (isInit) {
       return;
     }
 
-    TencentCloudChatPush().registerOnNotificationClickedEvent(onNotificationClicked: _onNotificationClicked);
-
-    debugPrint("initTencentCloudChatConfig, ${IMConfig.sdkappid},${IMConfig.userid},${IMConfig.usersig}");
-    if (IMConfig.sdkappid.isEmpty || IMConfig.userid.isEmpty || IMConfig.usersig.isEmpty) {
-      debugPrint("Please specify `sdkappid`, `userid` and `usersig` in the `tencent_cloud_chat_demo/lib/config.dart` file before using this sample app.");
+    TencentCloudChatPush().registerOnNotificationClickedEvent(
+        onNotificationClicked: _onNotificationClicked);
+    if (TencentCloudChatLoginData.sdkAppID.isEmpty ||
+        TencentCloudChatLoginData.userID.isEmpty ||
+        TencentCloudChatLoginData.userSig.isEmpty) {
+      debugPrint(
+          "Please specify `sdkappid`, `userid` and `usersig` in the `tencent_cloud_chat_demo/lib/config.dart` file before using this sample app.");
       return;
     }
     isInit = true;
@@ -142,17 +129,19 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
         ),
       ),
       options: TencentCloudChatInitOptions(
-        sdkAppID: int.parse(IMConfig.sdkappid),
-        userID: IMConfig.userid,
-        userSig: IMConfig.usersig,
+        sdkAppID: int.parse(TencentCloudChatLoginData.sdkAppID),
+        userID: TencentCloudChatLoginData.userID,
+        userSig: TencentCloudChatLoginData.userSig,
         sdkListener: V2TimSDKListener(
-          onKickedOffline: _resetUIKit,
-          onUserSigExpired: _resetUIKit,
+          onKickedOffline: _resetSampleApp,
+          onUserSigExpired: _resetSampleApp,
           onUIKitEventEmited: (event) {
             final type = event.type;
             switch (type) {
               case "navigateToChat":
-                final isDesktopScreen = TencentCloudChatScreenAdapter.deviceScreenType == DeviceScreenType.desktop;
+                final isDesktopScreen =
+                    TencentCloudChatScreenAdapter.deviceScreenType ==
+                        DeviceScreenType.desktop;
                 if (isDesktopScreen) {
                   desktopAppLayoutKey.currentState?.navigateToChat(
                     groupID: event.detail["groupID"],
@@ -169,7 +158,9 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
       ),
       callbacks: TencentCloudChatCallbacks(
         onTencentCloudChatSDKFailedCallback: (apiName, code, desc) {},
-        onTencentCloudChatUIKitUserNotificationEvent: (TencentCloudChatComponentsEnum component, TencentCloudChatUserNotificationEvent event) {
+        onTencentCloudChatUIKitUserNotificationEvent:
+            (TencentCloudChatComponentsEnum component,
+                TencentCloudChatUserNotificationEvent event) {
           switch (event.eventCode) {
             case -10301:
               TencentCloudChatDialog.showAdaptiveDialog(
@@ -202,8 +193,10 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
             if (dataStr == null) {
               return false;
             }
-            var option = TencentCloudChatVoteDataOptoin.fromJson(json.decode(optionStr));
-            var message = TencentCloudChatVoteLogic(message: V2TimMessage.fromJson(json.decode(dataStr)));
+            var option =
+                TencentCloudChatVoteDataOptoin.fromJson(json.decode(optionStr));
+            var message = TencentCloudChatVoteLogic(
+                message: V2TimMessage.fromJson(json.decode(dataStr)));
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -235,23 +228,31 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
     final TUICallKit callKit = TUICallKit.instance;
     callKit.enableFloatWindow(true);
     callKit.login(
-      int.parse(IMConfig.sdkappid),
-      IMConfig.userid,
-      IMConfig.usersig,
+      int.parse(TencentCloudChatLoginData.sdkAppID),
+      TencentCloudChatLoginData.userID,
+      TencentCloudChatLoginData.userSig,
     );
   }
 
-  void _resetUIKit() {
-    TencentCloudChat.controller.resetUIKit();
+  void _resetSampleApp({
+    bool shouldLogout = false,
+  }) async {
+    await TencentCloudChat.controller.resetUIKit(
+      shouldLogout: shouldLogout,
+    );
     safeSetState(() {
       isInit = false;
       isLogin = false;
+      isInit = false;
     });
   }
 
-  void _onNotificationClicked({required String ext, String? userID, String? groupID}) {
-    debugPrint("_onNotificationClicked: $ext, userID: $userID, groupID: $groupID");
-    if (TencentCloudChatUtils.checkString(userID) != null || TencentCloudChatUtils.checkString(groupID) != null) {
+  void _onNotificationClicked(
+      {required String ext, String? userID, String? groupID}) {
+    debugPrint(
+        "_onNotificationClicked: $ext, userID: $userID, groupID: $groupID");
+    if (TencentCloudChatUtils.checkString(userID) != null ||
+        TencentCloudChatUtils.checkString(groupID) != null) {
       navigateToMessage(
         context: context,
         options: TencentCloudChatMessageOptions(
@@ -264,73 +265,50 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
 
   void _initPush() async {
     final TencentCloudChatPush tencentCloudChatPush = TencentCloudChatPush();
-    tencentCloudChatPush.registerPush(onNotificationClicked: _onNotificationClicked);
+    tencentCloudChatPush.registerPush(
+        onNotificationClicked: _onNotificationClicked);
   }
 
   @override
   void initState() {
     super.initState();
     currentIndex = 0;
-    // eventbus.on<TencentCloudChatBasicData<TencentCloudChatBasicDataKeys>>()?.listen((event) {});
     pages = [
       const TencentCloudChatConversation(),
       const TencentCloudChatContact(),
       TencentCloudChatSettings(
-        removeSettings: () {},
-        setLoginState: changeLoginState,
+        onLogOut: () => _resetSampleApp(
+          shouldLogout: true,
+        ),
       ),
     ];
 
-    Future.delayed(const Duration(milliseconds: 10), initTencentCloudChat);
-  }
-
-  void getConversation(BuildContext context) {
-    navigateToConversation(context: context);
+    Future.delayed(const Duration(milliseconds: 10), _initTencentCloudChat);
   }
 
   @override
   Widget defaultBuilder(BuildContext context) {
-    TencentCloudChatIntl().init(context);
-    if (!isLogin) {
-      debugPrint("Not login");
-      return const LoginPage();
-    }
-
-    return Material(
-      color: Colors.transparent,
-      child: TencentCloudChatThemeWidget(
-        build: (context, colorTheme, textStyle) => Container(
-          color: colorTheme.backgroundColor,
-          child: Center(
-            child: Text(
-              tL10n.tencentCloudChat,
-              style: TextStyle(color: colorTheme.primaryColor, fontSize: textStyle.fontsize_20),
-            ),
-          ),
-        ),
-      ),
-    );
+    return Container();
   }
 
   @override
   Widget desktopBuilder(BuildContext context) {
-    TencentCloudChatIntl().init(context);
+    FlutterNativeSplash.remove();
     if (!isLogin) {
-      debugPrint("Not login");
       return const LoginPage();
     }
     return TencentCloudChatDemoDesktopAppLayout(
       key: desktopAppLayoutKey,
-      removeSettings: () {},
-      setLoginState: changeLoginState,
+      onLogOut: () => _resetSampleApp(
+        shouldLogout: true,
+      ),
     );
   }
 
   @override
   Widget mobileBuilder(BuildContext context) {
-    TencentCloudChatIntl().init(context);
+    FlutterNativeSplash.remove();
     if (!isLogin) {
-      debugPrint("Not login");
       return const LoginPage();
     }
     return TencentCloudChatThemeWidget(
@@ -339,10 +317,6 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
                 type: BottomNavigationBarType.fixed,
                 currentIndex: currentIndex,
                 onTap: (index) async {
-                  // final res = await TencentCloudChatPush().getAndroidPushToken();
-                  // print(res.data);
-                  // print(res.data);
-
                   if (index != currentIndex) {
                     setState(
                       () {
@@ -391,8 +365,10 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
                     ),
                     label: tL10n.chats,
                   ),
-                  BottomNavigationBarItem(icon: const Icon(Icons.contacts), label: tL10n.contacts),
-                  BottomNavigationBarItem(icon: const Icon(Icons.settings), label: tL10n.settings),
+                  BottomNavigationBarItem(
+                      icon: const Icon(Icons.contacts), label: tL10n.contacts),
+                  BottomNavigationBarItem(
+                      icon: const Icon(Icons.settings), label: tL10n.settings),
                 ],
               ),
               body: pages[currentIndex],

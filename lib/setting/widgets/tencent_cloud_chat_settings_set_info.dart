@@ -83,12 +83,12 @@ class TencentCloudChatSettingsSetInfoAvatar extends StatefulWidget {
 }
 
 class TencentCloudChatSettingsSetInfoAvatarState extends TencentCloudChatState<TencentCloudChatSettingsSetInfoAvatar> {
-  String image = "";
+  String? image = "";
 
   @override
   void initState() {
     super.initState();
-    image = widget.userFullInfo.faceUrl ?? "https://comm.qq.com/im/static-files/im-demo/im_virtual_customer.png";
+    image = widget.userFullInfo.faceUrl;
   }
 
   void _pickAvatar() async {

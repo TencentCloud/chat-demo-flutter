@@ -11,15 +11,14 @@ import 'package:tencent_cloud_chat_demo/setting/widgets/tencent_cloud_chat_setti
 
 class TencentCloudChatSettingsTab extends StatefulWidget {
   final V2TimUserFullInfo userFullInfo;
-  final Function removeSettings;
-  final Function setLoginState;
+
+  final VoidCallback onLogOut;
   final Function(Widget widget, String title)? setWidget;
 
   const TencentCloudChatSettingsTab({
     super.key,
     required this.userFullInfo,
-    required this.removeSettings,
-    required this.setLoginState,
+    required this.onLogOut,
     this.setWidget,
   });
 
@@ -27,19 +26,20 @@ class TencentCloudChatSettingsTab extends StatefulWidget {
   State<StatefulWidget> createState() => TencentCloudChatSettingsTabState();
 }
 
-class TencentCloudChatSettingsTabState extends TencentCloudChatState<TencentCloudChatSettingsTab> {
+class TencentCloudChatSettingsTabState
+    extends TencentCloudChatState<TencentCloudChatSettingsTab> {
   @override
   Widget defaultBuilder(BuildContext context) {
     return Column(
       children: [
-        TencentCloudChatSettingTabFriendPermission(userFullInfo: widget.userFullInfo),
+        TencentCloudChatSettingTabFriendPermission(
+            userFullInfo: widget.userFullInfo),
         const TencentCloudChatSettingTabTheme(),
         TencentCloudChatSettingsInfoAbout(
           setWidget: widget.setWidget,
         ),
         TencentCloudChatSettingsTabLogout(
-          removeSettings: widget.removeSettings,
-          setLoginState: widget.setLoginState,
+          onLogOut: widget.onLogOut,
         ),
       ],
     );
@@ -49,14 +49,14 @@ class TencentCloudChatSettingsTabState extends TencentCloudChatState<TencentClou
   Widget desktopBuilder(BuildContext context) {
     return Column(
       children: [
-        TencentCloudChatSettingTabFriendPermission(userFullInfo: widget.userFullInfo),
+        TencentCloudChatSettingTabFriendPermission(
+            userFullInfo: widget.userFullInfo),
         const TencentCloudChatSettingTabTheme(),
         TencentCloudChatSettingsInfoAbout(
           setWidget: widget.setWidget,
         ),
         TencentCloudChatSettingsTabLogout(
-          removeSettings: widget.removeSettings,
-          setLoginState: widget.setLoginState,
+          onLogOut: widget.onLogOut,
         ),
       ],
     );
@@ -66,14 +66,22 @@ class TencentCloudChatSettingsTabState extends TencentCloudChatState<TencentClou
 class TencentCloudChatSettingTabFriendPermission extends StatefulWidget {
   final V2TimUserFullInfo userFullInfo;
 
-  const TencentCloudChatSettingTabFriendPermission({super.key, required this.userFullInfo});
+  const TencentCloudChatSettingTabFriendPermission(
+      {super.key, required this.userFullInfo});
 
   @override
-  State<StatefulWidget> createState() => TencentCloudChatSettingTabFriendPermissionState();
+  State<StatefulWidget> createState() =>
+      TencentCloudChatSettingTabFriendPermissionState();
 }
 
-class TencentCloudChatSettingTabFriendPermissionState extends TencentCloudChatState<TencentCloudChatSettingTabFriendPermission> {
-  static List<String> permission = [tL10n.allowAny, tL10n.denyAny, tL10n.requireRequest, tL10n.none];
+class TencentCloudChatSettingTabFriendPermissionState
+    extends TencentCloudChatState<TencentCloudChatSettingTabFriendPermission> {
+  static List<String> permission = [
+    tL10n.allowAny,
+    tL10n.denyAny,
+    tL10n.requireRequest,
+    tL10n.none
+  ];
   String dropdownValue = permission.first;
 
   @override
@@ -92,12 +100,16 @@ class TencentCloudChatSettingTabFriendPermissionState extends TencentCloudChatSt
     return TencentCloudChatThemeWidget(
         build: (context, colorTheme, textStyle) => Container(
             margin: EdgeInsets.only(top: getHeight(23), bottom: getHeight(20)),
-            padding: EdgeInsets.symmetric(vertical: getHeight(12), horizontal: getWidth(16)),
+            padding: EdgeInsets.symmetric(
+                vertical: getHeight(12), horizontal: getWidth(16)),
             color: colorTheme.settingTabBackgroundColor,
             child: Row(
               children: [
                 Expanded(
-                  child: Text(tL10n.friendsPermission, style: TextStyle(fontSize: textStyle.fontsize_16, color: colorTheme.settingTabTitleColor)),
+                  child: Text(tL10n.friendsPermission,
+                      style: TextStyle(
+                          fontSize: textStyle.fontsize_16,
+                          color: colorTheme.settingTabTitleColor)),
                 ),
                 DropdownButton<String>(
                   alignment: Alignment.centerRight,
@@ -109,7 +121,10 @@ class TencentCloudChatSettingTabFriendPermissionState extends TencentCloudChatSt
                       size: getSquareSize(12),
                     ),
                   ),
-                  style: TextStyle(fontSize: textStyle.fontsize_16, fontWeight: FontWeight.w400, color: colorTheme.contactItemFriendNameColor),
+                  style: TextStyle(
+                      fontSize: textStyle.fontsize_16,
+                      fontWeight: FontWeight.w400,
+                      color: colorTheme.contactItemFriendNameColor),
                   elevation: 16,
                   underline: Container(),
                   isDense: true,
@@ -120,7 +135,8 @@ class TencentCloudChatSettingTabFriendPermissionState extends TencentCloudChatSt
                       onPermissionChanged(value);
                     });
                   },
-                  items: permission.map<DropdownMenuItem<String>>((String value) {
+                  items:
+                      permission.map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
                       child: Text(value),
@@ -136,12 +152,16 @@ class TencentCloudChatSettingTabFriendPermissionState extends TencentCloudChatSt
     return TencentCloudChatThemeWidget(
         build: (context, colorTheme, textStyle) => Container(
             margin: EdgeInsets.only(top: getHeight(23), bottom: getHeight(20)),
-            padding: EdgeInsets.symmetric(vertical: getHeight(12), horizontal: getWidth(16)),
+            padding: EdgeInsets.symmetric(
+                vertical: getHeight(12), horizontal: getWidth(16)),
             color: colorTheme.settingTabBackgroundColor,
             child: Row(
               children: [
                 Expanded(
-                  child: Text(tL10n.friendsPermission, style: TextStyle(fontSize: textStyle.fontsize_14, color: colorTheme.secondaryTextColor)),
+                  child: Text(tL10n.friendsPermission,
+                      style: TextStyle(
+                          fontSize: textStyle.fontsize_14,
+                          color: colorTheme.secondaryTextColor)),
                 ),
                 DropdownButton<String>(
                   alignment: Alignment.centerRight,
@@ -153,7 +173,9 @@ class TencentCloudChatSettingTabFriendPermissionState extends TencentCloudChatSt
                       size: getSquareSize(12),
                     ),
                   ),
-                  style: TextStyle(fontSize: textStyle.fontsize_14, color: colorTheme.primaryTextColor),
+                  style: TextStyle(
+                      fontSize: textStyle.fontsize_14,
+                      color: colorTheme.primaryTextColor),
                   elevation: 16,
                   underline: Container(),
                   isDense: true,
@@ -164,7 +186,8 @@ class TencentCloudChatSettingTabFriendPermissionState extends TencentCloudChatSt
                       onPermissionChanged(value);
                     });
                   },
-                  items: permission.map<DropdownMenuItem<String>>((String value) {
+                  items:
+                      permission.map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
                       child: Text(value),
@@ -180,10 +203,12 @@ class TencentCloudChatSettingTabTheme extends StatefulWidget {
   const TencentCloudChatSettingTabTheme({super.key});
 
   @override
-  State<StatefulWidget> createState() => _TencentCloudChatSettingTabThemeState();
+  State<StatefulWidget> createState() =>
+      _TencentCloudChatSettingTabThemeState();
 }
 
-class _TencentCloudChatSettingTabThemeState extends TencentCloudChatState<TencentCloudChatSettingTabTheme> {
+class _TencentCloudChatSettingTabThemeState
+    extends TencentCloudChatState<TencentCloudChatSettingTabTheme> {
   static List<Brightness> skin = [Brightness.light, Brightness.dark];
   Brightness skinValue = skin.first;
 
@@ -194,8 +219,16 @@ class _TencentCloudChatSettingTabThemeState extends TencentCloudChatState<Tencen
   List<(String, String, Locale)> language = [
     ("en", tL10n.english, const Locale('en')),
     ("ar", tL10n.ar, const Locale('ar')),
-    ("zhHans", tL10n.simplifiedChinese, const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans')),
-    ("zhHant", tL10n.traditionalChinese, const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant')),
+    (
+      "zhHans",
+      tL10n.simplifiedChinese,
+      const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans')
+    ),
+    (
+      "zhHant",
+      tL10n.traditionalChinese,
+      const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant')
+    ),
     ("ja", tL10n.japanese, const Locale('ja')),
     ("ko", tL10n.korean, const Locale('ko')),
   ];
@@ -241,7 +274,8 @@ class _TencentCloudChatSettingTabThemeState extends TencentCloudChatState<Tencen
   void didChangeDependencies() {
     super.didChangeDependencies();
     Locale currentLocale = TencentCloudChatIntl().getCurrentLocale(context);
-    languageValue = language.firstWhere((element) => element.$3.languageCode == currentLocale.languageCode);
+    languageValue = language.firstWhere(
+        (element) => element.$3.languageCode == currentLocale.languageCode);
   }
 
   @override
@@ -250,15 +284,21 @@ class _TencentCloudChatSettingTabThemeState extends TencentCloudChatState<Tencen
         build: (context, colorTheme, textStyle) => Column(
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(vertical: getHeight(12), horizontal: getWidth(16)),
+                  padding: EdgeInsets.symmetric(
+                      vertical: getHeight(12), horizontal: getWidth(16)),
                   decoration: BoxDecoration(
-                    border: Border(bottom: BorderSide(color: colorTheme.settingBackgroundColor)),
+                    border: Border(
+                        bottom: BorderSide(
+                            color: colorTheme.settingBackgroundColor)),
                     color: colorTheme.settingTabBackgroundColor,
                   ),
                   child: Row(
                     children: [
                       Expanded(
-                        child: Text(tL10n.appearance, style: TextStyle(fontSize: textStyle.fontsize_16, color: colorTheme.settingTabTitleColor)),
+                        child: Text(tL10n.appearance,
+                            style: TextStyle(
+                                fontSize: textStyle.fontsize_16,
+                                color: colorTheme.settingTabTitleColor)),
                       ),
                       DropdownButton<Brightness>(
                         alignment: Alignment.centerRight,
@@ -270,7 +310,10 @@ class _TencentCloudChatSettingTabThemeState extends TencentCloudChatState<Tencen
                             size: getSquareSize(12),
                           ),
                         ),
-                        style: TextStyle(fontSize: textStyle.fontsize_16, fontWeight: FontWeight.w400, color: colorTheme.contactItemFriendNameColor),
+                        style: TextStyle(
+                            fontSize: textStyle.fontsize_16,
+                            fontWeight: FontWeight.w400,
+                            color: colorTheme.contactItemFriendNameColor),
                         elevation: 16,
                         underline: Container(),
                         isDense: true,
@@ -281,10 +324,13 @@ class _TencentCloudChatSettingTabThemeState extends TencentCloudChatState<Tencen
                             onSkinValueChanged(value);
                           });
                         },
-                        items: skin.map<DropdownMenuItem<Brightness>>((Brightness value) {
+                        items: skin.map<DropdownMenuItem<Brightness>>(
+                            (Brightness value) {
                           return DropdownMenuItem<Brightness>(
                             value: value,
-                            child: Text(value == Brightness.dark ? tL10n.darkTheme : tL10n.lightTheme),
+                            child: Text(value == Brightness.dark
+                                ? tL10n.darkTheme
+                                : tL10n.lightTheme),
                           );
                         }).toList(),
                       ),
@@ -292,11 +338,15 @@ class _TencentCloudChatSettingTabThemeState extends TencentCloudChatState<Tencen
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(vertical: getHeight(12), horizontal: getWidth(16)),
+                  padding: EdgeInsets.symmetric(
+                      vertical: getHeight(12), horizontal: getWidth(16)),
                   color: colorTheme.settingTabBackgroundColor,
                   child: Row(children: [
                     Expanded(
-                      child: Text(tL10n.language, style: TextStyle(fontSize: textStyle.fontsize_16, color: colorTheme.settingTabTitleColor)),
+                      child: Text(tL10n.language,
+                          style: TextStyle(
+                              fontSize: textStyle.fontsize_16,
+                              color: colorTheme.settingTabTitleColor)),
                     ),
                     DropdownButton<(String, String, Locale)>(
                       alignment: Alignment.centerRight,
@@ -308,7 +358,10 @@ class _TencentCloudChatSettingTabThemeState extends TencentCloudChatState<Tencen
                           size: getSquareSize(12),
                         ),
                       ),
-                      style: TextStyle(fontSize: textStyle.fontsize_16, fontWeight: FontWeight.w400, color: colorTheme.contactItemFriendNameColor),
+                      style: TextStyle(
+                          fontSize: textStyle.fontsize_16,
+                          fontWeight: FontWeight.w400,
+                          color: colorTheme.contactItemFriendNameColor),
                       elevation: 16,
                       underline: Container(),
                       isDense: true,
@@ -319,7 +372,9 @@ class _TencentCloudChatSettingTabThemeState extends TencentCloudChatState<Tencen
                           onLanguageValueChanged(value);
                         });
                       },
-                      items: language.map<DropdownMenuItem<(String, String, Locale)>>(((String, String, Locale) value) {
+                      items: language
+                          .map<DropdownMenuItem<(String, String, Locale)>>(
+                              ((String, String, Locale) value) {
                         return DropdownMenuItem<(String, String, Locale)>(
                           value: value,
                           child: Text(value.$2),
@@ -338,15 +393,20 @@ class _TencentCloudChatSettingTabThemeState extends TencentCloudChatState<Tencen
       build: (context, colorTheme, textStyle) => Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(vertical: getHeight(12), horizontal: getWidth(16)),
+            padding: EdgeInsets.symmetric(
+                vertical: getHeight(12), horizontal: getWidth(16)),
             decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(color: colorTheme.settingBackgroundColor)),
+              border: Border(
+                  bottom: BorderSide(color: colorTheme.settingBackgroundColor)),
               color: colorTheme.settingTabBackgroundColor,
             ),
             child: Row(
               children: [
                 Expanded(
-                  child: Text(tL10n.appearance, style: TextStyle(fontSize: textStyle.fontsize_14, color: colorTheme.secondaryTextColor)),
+                  child: Text(tL10n.appearance,
+                      style: TextStyle(
+                          fontSize: textStyle.fontsize_14,
+                          color: colorTheme.secondaryTextColor)),
                 ),
                 DropdownButton<Brightness>(
                   alignment: Alignment.centerRight,
@@ -358,7 +418,9 @@ class _TencentCloudChatSettingTabThemeState extends TencentCloudChatState<Tencen
                       size: getSquareSize(12),
                     ),
                   ),
-                  style: TextStyle(fontSize: textStyle.fontsize_14, color: colorTheme.primaryTextColor),
+                  style: TextStyle(
+                      fontSize: textStyle.fontsize_14,
+                      color: colorTheme.primaryTextColor),
                   elevation: 16,
                   underline: Container(),
                   isDense: true,
@@ -369,10 +431,13 @@ class _TencentCloudChatSettingTabThemeState extends TencentCloudChatState<Tencen
                       onSkinValueChanged(value);
                     });
                   },
-                  items: skin.map<DropdownMenuItem<Brightness>>((Brightness value) {
+                  items: skin
+                      .map<DropdownMenuItem<Brightness>>((Brightness value) {
                     return DropdownMenuItem<Brightness>(
                       value: value,
-                      child: Text(value == Brightness.dark ? tL10n.darkTheme : tL10n.lightTheme),
+                      child: Text(value == Brightness.dark
+                          ? tL10n.darkTheme
+                          : tL10n.lightTheme),
                     );
                   }).toList(),
                 ),
@@ -380,11 +445,15 @@ class _TencentCloudChatSettingTabThemeState extends TencentCloudChatState<Tencen
             ),
           ),
           Container(
-            padding: EdgeInsets.symmetric(vertical: getHeight(12), horizontal: getWidth(16)),
+            padding: EdgeInsets.symmetric(
+                vertical: getHeight(12), horizontal: getWidth(16)),
             color: colorTheme.settingTabBackgroundColor,
             child: Row(children: [
               Expanded(
-                child: Text(tL10n.language, style: TextStyle(fontSize: textStyle.fontsize_14, color: colorTheme.secondaryTextColor)),
+                child: Text(tL10n.language,
+                    style: TextStyle(
+                        fontSize: textStyle.fontsize_14,
+                        color: colorTheme.secondaryTextColor)),
               ),
               DropdownButton<(String, String, Locale)>(
                 alignment: Alignment.centerRight,
@@ -396,7 +465,9 @@ class _TencentCloudChatSettingTabThemeState extends TencentCloudChatState<Tencen
                     size: getSquareSize(12),
                   ),
                 ),
-                style: TextStyle(fontSize: textStyle.fontsize_14, color: colorTheme.primaryTextColor),
+                style: TextStyle(
+                    fontSize: textStyle.fontsize_14,
+                    color: colorTheme.primaryTextColor),
                 elevation: 16,
                 underline: Container(),
                 isDense: true,
@@ -407,7 +478,8 @@ class _TencentCloudChatSettingTabThemeState extends TencentCloudChatState<Tencen
                     onLanguageValueChanged(value);
                   });
                 },
-                items: language.map<DropdownMenuItem<(String, String, Locale)>>(((String, String, Locale) value) {
+                items: language.map<DropdownMenuItem<(String, String, Locale)>>(
+                    ((String, String, Locale) value) {
                   return DropdownMenuItem<(String, String, Locale)>(
                     value: value,
                     child: Text(value.$2),
@@ -428,10 +500,12 @@ class TencentCloudChatSettingsInfoAbout extends StatefulWidget {
   const TencentCloudChatSettingsInfoAbout({super.key, this.setWidget});
 
   @override
-  State<StatefulWidget> createState() => TencentCloudChatSettingsInfoAboutState();
+  State<StatefulWidget> createState() =>
+      TencentCloudChatSettingsInfoAboutState();
 }
 
-class TencentCloudChatSettingsInfoAboutState extends TencentCloudChatState<TencentCloudChatSettingsInfoAbout> {
+class TencentCloudChatSettingsInfoAboutState
+    extends TencentCloudChatState<TencentCloudChatSettingsInfoAbout> {
   onTapInfo() {
     if (widget.setWidget != null) {
       widget.setWidget!(
@@ -439,7 +513,10 @@ class TencentCloudChatSettingsInfoAboutState extends TencentCloudChatState<Tence
         tL10n.settings,
       );
     } else {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => const TencentCloudChatSettingsAbout()));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const TencentCloudChatSettingsAbout()));
     }
   }
 
@@ -459,14 +536,18 @@ class TencentCloudChatSettingsInfoAboutState extends TencentCloudChatState<Tence
               onTap: onTapInfo,
               child: Container(
                 margin: EdgeInsets.symmetric(vertical: getHeight(20)),
-                padding: EdgeInsets.symmetric(vertical: getHeight(12), horizontal: getWidth(16)),
+                padding: EdgeInsets.symmetric(
+                    vertical: getHeight(12), horizontal: getWidth(16)),
                 color: colorTheme.settingTabBackgroundColor,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       tL10n.aboutTencentCloudChat,
-                      style: TextStyle(fontSize: textStyle.fontsize_16, fontWeight: FontWeight.w400, color: colorTheme.settingTabTitleColor),
+                      style: TextStyle(
+                          fontSize: textStyle.fontsize_16,
+                          fontWeight: FontWeight.w400,
+                          color: colorTheme.settingTabTitleColor),
                     ),
                     Expanded(
                       child: Container(),
@@ -494,13 +575,16 @@ class TencentCloudChatSettingsInfoAboutState extends TencentCloudChatState<Tence
               child: InkWell(
                 onTap: onTapAbout,
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: getHeight(12), horizontal: getWidth(16)),
+                  padding: EdgeInsets.symmetric(
+                      vertical: getHeight(12), horizontal: getWidth(16)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         tL10n.aboutTencentCloudChat,
-                        style: TextStyle(fontSize: textStyle.fontsize_14, color: colorTheme.secondaryTextColor),
+                        style: TextStyle(
+                            fontSize: textStyle.fontsize_14,
+                            color: colorTheme.secondaryTextColor),
                       ),
                       Expanded(
                         child: Container(),
@@ -523,13 +607,16 @@ class TencentCloudChatSettingsInfoAboutState extends TencentCloudChatState<Tence
               child: InkWell(
                 onTap: onTapInfo,
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: getHeight(12), horizontal: getWidth(16)),
+                  padding: EdgeInsets.symmetric(
+                      vertical: getHeight(12), horizontal: getWidth(16)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         tL10n.more,
-                        style: TextStyle(fontSize: textStyle.fontsize_14, color: colorTheme.secondaryTextColor),
+                        style: TextStyle(
+                            fontSize: textStyle.fontsize_14,
+                            color: colorTheme.secondaryTextColor),
                       ),
                       Expanded(
                         child: Container(),
@@ -552,38 +639,33 @@ class TencentCloudChatSettingsInfoAboutState extends TencentCloudChatState<Tence
 }
 
 class TencentCloudChatSettingsTabLogout extends StatefulWidget {
-  final Function removeSettings;
-  final Function setLoginState;
+  final VoidCallback onLogOut;
 
-  const TencentCloudChatSettingsTabLogout({super.key, required this.removeSettings, required this.setLoginState});
+  const TencentCloudChatSettingsTabLogout({super.key, required this.onLogOut});
 
   @override
-  State<StatefulWidget> createState() => TencentCloudChatSettingsTabLogoutState();
+  State<StatefulWidget> createState() =>
+      TencentCloudChatSettingsTabLogoutState();
 }
 
-class TencentCloudChatSettingsTabLogoutState extends TencentCloudChatState<TencentCloudChatSettingsTabLogout> {
-  onLogout() async {
-    bool res = await TencentCloudChat.controller.resetUIKit(
-      shouldLogout: true,
-    );
-    if (res == true) {
-      widget.removeSettings();
-      widget.setLoginState(false);
-      // navigateToLoginPage(context: context);
-    }
-  }
-
+class TencentCloudChatSettingsTabLogoutState
+    extends TencentCloudChatState<TencentCloudChatSettingsTabLogout> {
   @override
   Widget defaultBuilder(BuildContext context) {
     return TencentCloudChatThemeWidget(
       build: (context, colorTheme, textStyle) => GestureDetector(
-        onTap: onLogout,
+        onTap: widget.onLogOut,
         child: Container(
           transformAlignment: Alignment.centerLeft,
           width: MediaQuery.of(context).size.width,
           color: colorTheme.settingTabBackgroundColor,
-          padding: EdgeInsets.symmetric(vertical: getHeight(12), horizontal: getWidth(16)),
-          child: Text(tL10n.logOut, style: TextStyle(fontSize: textStyle.fontsize_16, fontWeight: FontWeight.w400, color: colorTheme.settingLogoutColor)),
+          padding: EdgeInsets.symmetric(
+              vertical: getHeight(12), horizontal: getWidth(16)),
+          child: Text(tL10n.logOut,
+              style: TextStyle(
+                  fontSize: textStyle.fontsize_16,
+                  fontWeight: FontWeight.w400,
+                  color: colorTheme.settingLogoutColor)),
         ),
       ),
     );
@@ -595,12 +677,16 @@ class TencentCloudChatSettingsTabLogoutState extends TencentCloudChatState<Tence
       build: (context, colorTheme, textStyle) => Material(
         color: colorTheme.settingTabBackgroundColor,
         child: InkWell(
-          onTap: onLogout,
+          onTap: widget.onLogOut,
           child: Container(
             transformAlignment: Alignment.centerLeft,
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.symmetric(vertical: getHeight(12), horizontal: getWidth(16)),
-            child: Text(tL10n.logOut, style: TextStyle(fontSize: textStyle.fontsize_14, color: colorTheme.settingLogoutColor)),
+            padding: EdgeInsets.symmetric(
+                vertical: getHeight(12), horizontal: getWidth(16)),
+            child: Text(tL10n.logOut,
+                style: TextStyle(
+                    fontSize: textStyle.fontsize_14,
+                    color: colorTheme.settingLogoutColor)),
           ),
         ),
       ),
