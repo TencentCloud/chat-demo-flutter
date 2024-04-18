@@ -1,6 +1,5 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
-import 'package:tencent_cloud_chat/chat_sdk/components/tencent_cloud_chat_conversation_sdk.dart';
 import 'package:tencent_cloud_chat/cross_platforms_adapter/tencent_cloud_chat_platform_adapter.dart';
 import 'package:tencent_cloud_chat/data/theme/color/color_base.dart';
 import 'package:tencent_cloud_chat/data/theme/text_style/text_style.dart';
@@ -41,7 +40,7 @@ class TencentCloudChatDemoDesktopAppLayoutState
     if (conversation == null &&
         (TencentCloudChatUtils.checkString(groupID) != null ||
             TencentCloudChatUtils.checkString(userID) != null)) {
-      conv = await TencentCloudChatConversationSDK.getConversation(
+      conv = await TencentCloudChat.instance.chatSDKInstance.conversationSDK.getConversation(
         userID: userID,
         groupID: groupID,
       );
@@ -49,7 +48,7 @@ class TencentCloudChatDemoDesktopAppLayoutState
     setState(() {
       homePageIndex = 0;
     });
-    TencentCloudChat().dataInstance.conversation.currentConversation = conv;
+    TencentCloudChat.instance.dataInstance.conversation.currentConversation = conv;
   }
 
   navigateToSettings(

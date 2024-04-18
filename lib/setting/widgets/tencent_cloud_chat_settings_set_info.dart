@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:tencent_cloud_chat/chat_sdk/tencent_cloud_chat_sdk.dart';
 import 'package:tencent_cloud_chat/tencent_cloud_chat.dart';
 import 'package:tencent_cloud_chat_common/base/tencent_cloud_chat_theme_widget.dart';
 import 'package:tencent_cloud_chat_common/tencent_cloud_chat_common.dart';
@@ -223,7 +222,7 @@ class TencentCloudChatSettingsSetInfoNameState extends TencentCloudChatState<Ten
                 safeSetState(() {
                   nickname = mid;
                 });
-                TencentCloudChatSDK.setSelfInfo(nickName: nickname);
+                TencentCloudChat.instance.chatSDKInstance.setSelfInfo(nickName: nickname);
                 Navigator.of(context).pop();
               },
             ),
@@ -308,7 +307,7 @@ class TencentCloudChatSettingsSetInfoInfoState extends TencentCloudChatState<Ten
 
   onGenderChanged(String value) {
     int genderValue = gender.indexOf(value);
-    TencentCloudChatSDK.setSelfInfo(gender: genderValue);
+    TencentCloudChat.instance.chatSDKInstance.setSelfInfo(gender: genderValue);
   }
 
   showDateTimePicker() {
@@ -317,7 +316,7 @@ class TencentCloudChatSettingsSetInfoInfoState extends TencentCloudChatState<Ten
         birthdayState = "${date.year}-${date.month}-${date.day}";
       });
       int birthday = date.year * 10000 + date.month * 100 + date.day;
-      TencentCloudChatSDK.setSelfInfo(birthday: birthday);
+      TencentCloudChat.instance.chatSDKInstance.setSelfInfo(birthday: birthday);
     }, currentTime: currentTime, locale: LocaleType.en);
   }
 
@@ -363,7 +362,7 @@ class TencentCloudChatSettingsSetInfoInfoState extends TencentCloudChatState<Ten
                 safeSetState(() {
                   signature = mid;
                 });
-                TencentCloudChatSDK.setSelfInfo(signature: signature);
+                TencentCloudChat.instance.chatSDKInstance.setSelfInfo(signature: signature);
                 Navigator.of(context).pop();
               },
             ),

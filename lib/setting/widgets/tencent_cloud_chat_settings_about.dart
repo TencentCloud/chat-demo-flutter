@@ -271,7 +271,7 @@ class TencentCloudChatSettingsAboutBody extends StatefulWidget {
 
 class TencentCloudChatSettingsAboutBodyState
     extends TencentCloudChatState<TencentCloudChatSettingsAboutBody> {
-  String version = TencentCloudChat().dataInstance.basic.version;
+  String version = TencentCloudChat.instance.dataInstance.basic.version;
 
   @override
   Widget defaultBuilder(BuildContext context) {

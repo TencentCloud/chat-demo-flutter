@@ -7,7 +7,7 @@ import Foundation
 
 import audioplayers_darwin
 import bitsdojo_window_macos
-import desktop_drop
+import desktop_drop_for_t
 import device_info_plus
 import fc_native_video_thumbnail
 import file_selector_macos

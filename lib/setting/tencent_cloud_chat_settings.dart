@@ -18,7 +18,6 @@ class TencentCloudChatSettings extends StatefulWidget {
 class TencentCloudChatSettingsState
     extends TencentCloudChatState<TencentCloudChatSettings> {
   V2TimUserFullInfo? _userFullInfo;
-  String _sdkVersion = "";
 
   Widget? _settingModule;
   String? _title;
@@ -28,12 +27,11 @@ class TencentCloudChatSettingsState
     super.initState();
 
     _addEventListener();
-    _userFullInfo = TencentCloudChat().dataInstance.basic.currentUser;
-    _sdkVersion = TencentCloudChat().dataInstance.basic.version;
+    _userFullInfo = TencentCloudChat.instance.dataInstance.basic.currentUser;
   }
 
   void _addEventListener() {
-    TencentCloudChat.eventBusInstance
+    TencentCloudChat.instance.eventBusInstance
         .on<TencentCloudChatBasicData<TencentCloudChatBasicDataKeys>>()
         ?.listen((event) {
       if (event.currentUpdatedFields ==

@@ -32,7 +32,7 @@ The platforms are compatible with the deployment of our Chat UIKit.
 
 |   | Version                                                                        |
 |---------|--------------------------------------------------------------------------------|
-| Flutter | Flutter 3.1.0 or later                                                         |
+| Flutter | Flutter 3.16.0 or later                                                        |
 | Android | Android Studio 3.5 or later; devices with Android 4.1 or later for apps        |
 | iOS | Xcode 11.0 or later. Ensure that your project has a valid developer signature. |
 
@@ -72,7 +72,7 @@ flutter run
 
 ## About Tencent Cloud Chat UIKit V2
 
-![uikit.png](https://cloudcache.intl.tencent-cloud.com/cms/backend-cms/f28b8842b35211ee9939525400461a83.jpg)
+![uikit.png](https://comm.qq.com/im/static-files/uikit.jpg)
 
 This sample app demonstrates the usage of our restructured and redesigned version of UIKit, V2, which offers an enhanced development and user experience.
 

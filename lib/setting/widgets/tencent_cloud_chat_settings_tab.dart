@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat/cache/tencent_cloud_chat_cache_global.dart';
-import 'package:tencent_cloud_chat/chat_sdk/tencent_cloud_chat_sdk.dart';
 import 'package:tencent_cloud_chat/tencent_cloud_chat.dart';
 import 'package:tencent_cloud_chat_common/base/tencent_cloud_chat_theme_widget.dart';
 import 'package:tencent_cloud_chat_common/tencent_cloud_chat_common.dart';
@@ -92,7 +91,7 @@ class TencentCloudChatSettingTabFriendPermissionState
 
   onPermissionChanged(String value) {
     int allowType = permission.indexOf(value);
-    TencentCloudChatSDK.setSelfInfo(allowType: allowType);
+    TencentCloudChat.instance.chatSDKInstance.setSelfInfo(allowType: allowType);
   }
 
   @override
@@ -213,7 +212,7 @@ class _TencentCloudChatSettingTabThemeState
   Brightness skinValue = skin.first;
 
   onSkinValueChanged(Brightness value) {
-    TencentCloudChat.controller.toggleBrightnessMode(brightness: value);
+    TencentCloudChat.instance.chatController.toggleBrightnessMode(brightness: value);
   }
 
   List<(String, String, Locale)> language = [

@@ -18,7 +18,7 @@ class DesktopAboutUs extends StatefulWidget {
 
 class _DesktopAboutUsState extends TencentCloudChatState<DesktopAboutUs> {
   final V2TIMManager sdkInstance = TencentImSDKPlugin.v2TIMManager;
-  String sdkVersion = TencentCloudChat().dataInstance.basic.version;
+  String sdkVersion = TencentCloudChat.instance.dataInstance.basic.version;
 
   @override
   Widget defaultBuilder(BuildContext context) {

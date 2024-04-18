@@ -7,12 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:tencent_calls_uikit/tuicall_kit.dart';
+import 'package:tencent_cloud_chat/components/component_config/tencent_cloud_chat_message_config.dart';
 import 'package:tencent_cloud_chat/components/component_config/tencent_cloud_chat_user_config.dart';
-import 'package:tencent_cloud_chat/components/components_options/tencent_cloud_chat_message_options.dart';
+import 'package:tencent_cloud_chat/components/component_event_handlers/tencent_cloud_chat_contact_event_handlers.dart';
+import 'package:tencent_cloud_chat/components/component_options/tencent_cloud_chat_message_options.dart';
 import 'package:tencent_cloud_chat/components/tencent_cloud_chat_components_utils.dart';
 import 'package:tencent_cloud_chat/cross_platforms_adapter/tencent_cloud_chat_screen_adapter.dart';
 import 'package:tencent_cloud_chat/models/tencent_cloud_chat_callbacks.dart';
-import 'package:tencent_cloud_chat/models/tencent_cloud_chat_init_data_config.dart';
 import 'package:tencent_cloud_chat/models/tencent_cloud_chat_models.dart';
 import 'package:tencent_cloud_chat/router/tencent_cloud_chat_navigator.dart';
 import 'package:tencent_cloud_chat/tencent_cloud_chat.dart';
@@ -32,6 +33,8 @@ import 'package:tencent_cloud_chat_demo/setting/tencent_cloud_chat_settings.dart
 import 'package:tencent_cloud_chat_demo/vote_detail_example.dart';
 import 'package:tencent_cloud_chat_group_profile/tencent_cloud_chat_group_profile.dart';
 import 'package:tencent_cloud_chat_message/tencent_cloud_chat_message.dart';
+import 'package:tencent_cloud_chat_message/tencent_cloud_chat_message_builders.dart';
+import 'package:tencent_cloud_chat_message/tencent_cloud_chat_message_layout/special_case/tencent_cloud_chat_message_no_chat.dart';
 import 'package:tencent_cloud_chat_push/tencent_cloud_chat_push.dart';
 import 'package:tencent_cloud_chat_robot/tencent_cloud_chat_robot.dart';
 import 'package:tencent_cloud_chat_user_profile/tencent_cloud_chat_user_profile.dart';
@@ -94,9 +97,7 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
     if (isInit) {
       return;
     }
-
-    TencentCloudChatPush().registerOnNotificationClickedEvent(
-        onNotificationClicked: _onNotificationClicked);
+    
     if (TencentCloudChatLoginData.sdkAppID.isEmpty ||
         TencentCloudChatLoginData.userID.isEmpty ||
         TencentCloudChatLoginData.userSig.isEmpty) {
@@ -111,18 +112,7 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
     TencentCloudChatPush().registerOnAppWakeUpEvent(onAppWakeUpEvent: () {});
 
     await TencentCloudChat.controller.initUIKit(
-      context: context,
       config: TencentCloudChatConfig(
-        usedComponentsRegister: [
-          TencentCloudChatConversationInstance.register,
-          TencentCloudChatMessageInstance.register,
-          TencentCloudChatUserProfileInstance.register,
-          TencentCloudChatGroupProfileInstance.register,
-          TencentCloudChatContactInstance.register,
-        ],
-        preloadDataConfig: TencentCloudChatInitDataConfig(
-          getConversationDataAfterInit: true,
-        ),
         userConfig: TencentCloudChatUserConfig(
           useUserOnlineStatus: true,
           autoDownloadMultimediaMessage: true,
@@ -132,35 +122,69 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
         sdkAppID: int.parse(TencentCloudChatLoginData.sdkAppID),
         userID: TencentCloudChatLoginData.userID,
         userSig: TencentCloudChatLoginData.userSig,
-        sdkListener: V2TimSDKListener(
-          onKickedOffline: _resetSampleApp,
-          onUserSigExpired: _resetSampleApp,
-          onUIKitEventEmited: (event) {
-            final type = event.type;
-            switch (type) {
-              case "navigateToChat":
-                final isDesktopScreen =
-                    TencentCloudChatScreenAdapter.deviceScreenType ==
-                        DeviceScreenType.desktop;
-                if (isDesktopScreen) {
+      ),
+      components: TencentCloudChatInitComponentsRelated(
+        usedComponentsRegister: [
+          TencentCloudChatConversationManager.register,
+          TencentCloudChatMessageManager.register,
+          TencentCloudChatUserProfileManager.register,
+          TencentCloudChatGroupProfileManager.register,
+          TencentCloudChatContactManager.register,
+        ],
+        componentConfigs: TencentCloudChatComponentConfigs(
+          /// You can provide your custom configurations for each UI modular component here.
+          /// These configurations will be applied globally.
+          /// If you prefer to use the default configurations, you can leave this section empty.
+          ///
+          /// Example: For the Message component, config them as follows:
+          messageConfig: TencentCloudChatMessageConfig(
+            enabledGroupTypesForMessageReadReceipt: ({String? groupID, String? userID}) => [GroupType.Work, GroupType.Public, GroupType.Meeting],
+          ),
+        ),
+        componentBuilders: TencentCloudChatComponentBuilders(
+          /// You can provide your custom UI builders for each UI modular component here.
+          /// These builders will be applied globally.
+          /// If you prefer to use the default builders, you can leave this section empty.
+          ///
+          /// Example: For the Message component, config them as follows:
+          messageBuilder: TencentCloudChatMessageBuilders(
+            messageNoChatBuilder: () => const TencentCloudChatMessageNoChat(),
+          ),
+        ),
+        componentEventHandlers: TencentCloudChatComponentEventHandlers(
+          /// You can provide your custom event handlers for UI component-related events here.
+          /// These handlers will be applied globally.
+          /// If you prefer to use the default event handlers, you can leave this section empty.
+          ///
+          /// Example: For the Contact component, handling the events as follow:
+          contactEventHandlers: TencentCloudChatContactEventHandlers(
+            uiEventHandlers: TencentCloudChatContactUIEventHandlers(
+              onTapContactItem: ({
+                String? userID,
+                String? groupID,
+              }) async {
+                final isMobile = TencentCloudChatScreenAdapter.deviceScreenType == DeviceScreenType.mobile;
+                if (!isMobile) {
                   desktopAppLayoutKey.currentState?.navigateToChat(
-                    groupID: event.detail["groupID"],
-                    userID: event.detail["userID"],
+                    groupID: userID,
+                    userID: groupID,
                   );
+                  return true;
+                } else {
+                  return false;
                 }
-                break;
-
-              default:
-                break;
-            }
-          },
+              },
+            ),
+          ),
         ),
       ),
       callbacks: TencentCloudChatCallbacks(
+        onTencentCloudChatSDKEvent: V2TimSDKListener(
+          onKickedOffline: _resetSampleApp,
+          onUserSigExpired: _resetSampleApp,
+        ),
         onTencentCloudChatSDKFailedCallback: (apiName, code, desc) {},
-        onTencentCloudChatUIKitUserNotificationEvent:
-            (TencentCloudChatComponentsEnum component,
-                TencentCloudChatUserNotificationEvent event) {
+        onTencentCloudChatUIKitUserNotificationEvent: (TencentCloudChatComponentsEnum component, TencentCloudChatUserNotificationEvent event) {
           switch (event.eventCode) {
             case -10301:
               TencentCloudChatDialog.showAdaptiveDialog(
@@ -193,10 +217,8 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
             if (dataStr == null) {
               return false;
             }
-            var option =
-                TencentCloudChatVoteDataOptoin.fromJson(json.decode(optionStr));
-            var message = TencentCloudChatVoteLogic(
-                message: V2TimMessage.fromJson(json.decode(dataStr)));
+            var option = TencentCloudChatVoteDataOptoin.fromJson(json.decode(optionStr));
+            var message = TencentCloudChatVoteLogic(message: V2TimMessage.fromJson(json.decode(dataStr)));
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -217,21 +239,6 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
     );
 
     _initPush();
-    _initCallkit();
-
-    safeSetState(() {
-      isLogin = true;
-    });
-  }
-
-  _initCallkit() async {
-    final TUICallKit callKit = TUICallKit.instance;
-    callKit.enableFloatWindow(true);
-    callKit.login(
-      int.parse(TencentCloudChatLoginData.sdkAppID),
-      TencentCloudChatLoginData.userID,
-      TencentCloudChatLoginData.userSig,
-    );
   }
 
   void _resetSampleApp({
@@ -247,12 +254,9 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
     });
   }
 
-  void _onNotificationClicked(
-      {required String ext, String? userID, String? groupID}) {
-    debugPrint(
-        "_onNotificationClicked: $ext, userID: $userID, groupID: $groupID");
-    if (TencentCloudChatUtils.checkString(userID) != null ||
-        TencentCloudChatUtils.checkString(groupID) != null) {
+  void _onNotificationClicked({required String ext, String? userID, String? groupID}) {
+    debugPrint("_onNotificationClicked: $ext, userID: $userID, groupID: $groupID");
+    if (TencentCloudChatUtils.checkString(userID) != null || TencentCloudChatUtils.checkString(groupID) != null) {
       navigateToMessage(
         context: context,
         options: TencentCloudChatMessageOptions(
@@ -265,8 +269,7 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
 
   void _initPush() async {
     final TencentCloudChatPush tencentCloudChatPush = TencentCloudChatPush();
-    tencentCloudChatPush.registerPush(
-        onNotificationClicked: _onNotificationClicked);
+    tencentCloudChatPush.registerPush(onNotificationClicked: _onNotificationClicked);
   }
 
   @override
@@ -365,10 +368,8 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
                     ),
                     label: tL10n.chats,
                   ),
-                  BottomNavigationBarItem(
-                      icon: const Icon(Icons.contacts), label: tL10n.contacts),
-                  BottomNavigationBarItem(
-                      icon: const Icon(Icons.settings), label: tL10n.settings),
+                  BottomNavigationBarItem(icon: const Icon(Icons.contacts), label: tL10n.contacts),
+                  BottomNavigationBarItem(icon: const Icon(Icons.settings), label: tL10n.settings),
                 ],
               ),
               body: pages[currentIndex],

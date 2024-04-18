@@ -3,6 +3,7 @@ import 'package:tencent_cloud_chat/tencent_cloud_chat.dart';
 import 'package:tencent_cloud_chat_common/base/tencent_cloud_chat_theme_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+// ignore: must_be_immutable
 class TencentCloudChatSettingContact extends StatelessWidget {
   bool isInternational = const bool.fromEnvironment("international", defaultValue: false);
 
