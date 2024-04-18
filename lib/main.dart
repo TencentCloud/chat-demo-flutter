@@ -39,12 +39,6 @@ void main(List<String> args) {
   WidgetsFlutterBinding.ensureInitialized();
   LocaleSettings.useDeviceLocale();
 
-  // 这里打开后可以用Google FCM推送
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
-
   // 这里打开后可以用百度地图
   // if (Platform.isIOS) {
   //   BMFMapSDK.setApiKeyAndCoordType(

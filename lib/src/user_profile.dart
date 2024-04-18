@@ -1,7 +1,11 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tencent_calls_engine/tencent_calls_engine.dart';
+import 'package:tencent_calls_uikit/tuicall_kit.dart';
 import 'package:tencent_cloud_chat_demo/src/chat.dart';
+import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
+import 'package:tencent_cloud_chat_demo/src/search.dart';
 import 'package:tencent_cloud_chat_demo/src/tencent_page.dart';
 import 'package:tencent_cloud_chat_demo/utils/commonUtils.dart';
 import 'package:tencent_cloud_chat_demo/utils/toast.dart';
@@ -12,37 +16,25 @@ import 'package:tencent_cloud_chat_uikit/ui/utils/platform.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/screen_utils.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/profile_widget.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/widget/tim_uikit_profile_widget.dart';
-import 'package:tencent_calls_uikit/tuicall_kit.dart';
-import 'package:tencent_calls_engine/tencent_calls_engine.dart';
-import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
-import 'package:tencent_cloud_chat_demo/src/search.dart';
-import 'package:tencent_cloud_chat_demo/utils/push/push_constant.dart';
 
 class UserProfile extends StatefulWidget {
   final String userID;
   final ValueChanged<V2TimConversation>? onClickSendMessage;
   final ValueChanged<String>? onRemarkUpdate;
 
-  const UserProfile(
-      {Key? key,
-      required this.userID,
-      this.onRemarkUpdate,
-      this.onClickSendMessage})
-      : super(key: key);
+  const UserProfile({Key? key, required this.userID, this.onRemarkUpdate, this.onClickSendMessage}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => UserProfileState();
 }
 
 class UserProfileState extends State<UserProfile> {
-  final TIMUIKitProfileController _timuiKitProfileController =
-      TIMUIKitProfileController();
+  final TIMUIKitProfileController _timuiKitProfileController = TIMUIKitProfileController();
   TUICallKit? _calling;
   final V2TIMManager sdkInstance = TIMUIKitCore.getSDKInstance();
   String? newUserMARK;
 
-  _itemClick(
-      String id, BuildContext context, V2TimConversation conversation) async {
+  _itemClick(String id, BuildContext context, V2TimConversation conversation) async {
     switch (id) {
       case "sendMsg":
         if (widget.onClickSendMessage != null) {
@@ -78,14 +70,12 @@ class UserProfileState extends State<UserProfile> {
           desc: TIM_t("邀请你语音通话"),
           ext: "{\"conversationID\": \"\"}",
           disablePush: false,
-          androidOPPOChannelID: PushConfig.OPPOChannelID,
           ignoreIOSBadge: false,
         );
 
         await Permissions.checkPermission(context, Permission.microphone.value);
-        TUIOfflinePushInfo tuiOfflinePushInfo =
-            CommonUtils.convertTUIOfflinePushInfo(offlinePush);
-        TUICallParams params =  TUICallParams();
+        TUIOfflinePushInfo tuiOfflinePushInfo = CommonUtils.convertTUIOfflinePushInfo(offlinePush);
+        TUICallParams params = TUICallParams();
         params.offlinePushInfo = tuiOfflinePushInfo;
         await _calling?.call(widget.userID, TUICallMediaType.audio, params);
         break;
@@ -94,26 +84,22 @@ class UserProfileState extends State<UserProfile> {
           title: "",
           desc: TIM_t("邀请你视频通话"),
           ext: "{\"conversationID\": \"\"}",
-          androidOPPOChannelID: PushConfig.OPPOChannelID,
           disablePush: false,
           ignoreIOSBadge: false,
         );
 
         await Permissions.checkPermission(context, Permission.camera.value);
         await Permissions.checkPermission(context, Permission.microphone.value);
-        TUIOfflinePushInfo tuiOfflinePushInfo =
-            CommonUtils.convertTUIOfflinePushInfo(offlinePush);
-        TUICallParams params =  TUICallParams();
+        TUIOfflinePushInfo tuiOfflinePushInfo = CommonUtils.convertTUIOfflinePushInfo(offlinePush);
+        TUICallParams params = TUICallParams();
         params.offlinePushInfo = tuiOfflinePushInfo;
         _calling?.call(widget.userID, TUICallMediaType.video, params);
         break;
     }
   }
 
-  _buildBottomOperationList(
-      BuildContext context, V2TimConversation conversation, theme) {
-    final isWideScreen =
-        TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
+  _buildBottomOperationList(BuildContext context, V2TimConversation conversation, theme) {
+    final isWideScreen = TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
 
     List operationList = [
       {
@@ -141,29 +127,16 @@ class UserProfileState extends State<UserProfile> {
 
     return operationList.map((e) {
       return isWideScreen
-          ? TIMUIKitProfileWidget.wideButton(
-              smallCardMode: false,
-              onPressed: () => _itemClick(e["id"] ?? "", context, conversation),
-              text: e["label"] ?? "",
-              color: e["id"] != "deleteFriend"
-                  ? theme.primaryColor
-                  : theme.cautionColor)
+          ? TIMUIKitProfileWidget.wideButton(smallCardMode: false, onPressed: () => _itemClick(e["id"] ?? "", context, conversation), text: e["label"] ?? "", color: e["id"] != "deleteFriend" ? theme.primaryColor : theme.cautionColor)
           : InkWell(
               onTap: () => _itemClick(e["id"] ?? "", context, conversation),
               child: Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.symmetric(vertical: 15),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border(
-                        bottom: BorderSide(color: theme.weakDividerColor))),
+                decoration: BoxDecoration(color: Colors.white, border: Border(bottom: BorderSide(color: theme.weakDividerColor))),
                 child: Text(
                   e["label"] ?? "",
-                  style: TextStyle(
-                      color: e["id"] != "deleteFriend"
-                          ? theme.primaryColor
-                          : theme.cautionColor,
-                      fontSize: 17),
+                  style: TextStyle(color: e["id"] != "deleteFriend" ? theme.primaryColor : theme.cautionColor, fontSize: 17),
                 ),
               ),
             );
@@ -183,8 +156,7 @@ class UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<DefaultThemeData>(context).theme;
-    final isWideScreen =
-        TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
+    final isWideScreen = TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
     return TencentPage(
         child: Scaffold(
           appBar: isWideScreen
@@ -229,12 +201,9 @@ class UserProfileState extends State<UserProfile> {
               Expanded(
                   child: Container(
                 color: isWideScreen ? theme.wideBackgroundColor : null,
-                padding: isWideScreen
-                    ? const EdgeInsets.symmetric(horizontal: 120)
-                    : null,
+                padding: isWideScreen ? const EdgeInsets.symmetric(horizontal: 120) : null,
                 child: TIMUIKitProfile(
-                  lifeCycle: ProfileLifeCycle(
-                      didRemarkUpdated: (String newRemark) async {
+                  lifeCycle: ProfileLifeCycle(didRemarkUpdated: (String newRemark) async {
                     if (widget.onRemarkUpdate != null) {
                       widget.onRemarkUpdate!(newRemark);
                     }
@@ -242,32 +211,25 @@ class UserProfileState extends State<UserProfile> {
                   }),
                   userID: widget.userID,
                   profileWidgetBuilder: ProfileWidgetBuilder(
-                      searchBar: (conversation) =>
-                          TIMUIKitProfileWidget.searchBar(
-                              context, conversation, false, handleTap: () {
+                      searchBar: (conversation) => TIMUIKitProfileWidget.searchBar(context, conversation, false, handleTap: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => Search(
                                       conversation: conversation,
-                                      onTapConversation:
-                                          (V2TimConversation conversation,
-                                              [V2TimMessage? targetMsg]) {
+                                      onTapConversation: (V2TimConversation conversation, [V2TimMessage? targetMsg]) {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) => Chat(
-                                                selectedConversation:
-                                                    conversation,
+                                                selectedConversation: conversation,
                                                 initFindingMsg: targetMsg,
                                               ),
                                             ));
                                       }),
                                 ));
                           }),
-                      customBuilderOne: (bool isFriend,
-                          V2TimFriendInfo friendInfo,
-                          V2TimConversation conversation) {
+                      customBuilderOne: (bool isFriend, V2TimFriendInfo friendInfo, V2TimConversation conversation) {
                         // If you don't allow sending message when friendship not exist,
                         // please not comment the following lines.
 
@@ -275,12 +237,8 @@ class UserProfileState extends State<UserProfile> {
                         //   return Container();
                         // }
                         return Container(
-                          margin: isWideScreen
-                              ? const EdgeInsets.only(top: 30)
-                              : null,
-                          child: Column(
-                              children: _buildBottomOperationList(
-                                  context, conversation, theme)),
+                          margin: isWideScreen ? const EdgeInsets.only(top: 30) : null,
+                          child: Column(children: _buildBottomOperationList(context, conversation, theme)),
                         );
                       }),
                   controller: _timuiKitProfileController,

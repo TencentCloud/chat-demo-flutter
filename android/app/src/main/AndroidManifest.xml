@@ -4,6 +4,7 @@
     >
    <application
         android:label="腾讯云IM"
+       android:name=".application.TIMApplication"
         tools:replace="android:label"
         android:icon="@mipmap/logo"
        android:usesCleartextTraffic="true"
@@ -53,18 +54,23 @@
        <!-- Don't delete the meta-data below.
             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data
+            tools:replace="android:value"
             android:name="flutterEmbedding"
             android:value="2" />
        <meta-data
+           tools:replace="android:value"
            android:name="com.baidu.lbsapi.API_KEY"
            android:value="" />
        <meta-data
+           tools:replace="android:value"
            android:name="com.vivo.push.api_key"
            android:value="" />
        <meta-data
+           tools:replace="android:value"
            android:name="com.vivo.push.app_id"
            android:value="" />
        <meta-data
+           tools:replace="android:value"
            android:name="com.hihonor.push.app_id"
            android:value="" />
    </application>

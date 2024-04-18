@@ -23,8 +23,6 @@ import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
 import 'package:tencent_cloud_chat_demo/src/routes.dart';
 import 'package:tencent_cloud_chat_demo/utils/constant.dart';
 import 'package:tencent_cloud_chat_demo/utils/init_step.dart';
-import 'package:tencent_cloud_chat_demo/utils/push/channel/channel_push.dart';
-import 'package:tencent_cloud_chat_demo/utils/push/push_constant.dart';
 import 'package:tencent_cloud_chat_demo/utils/theme.dart';
 import 'package:tencent_cloud_chat_demo/utils/toast.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
@@ -67,9 +65,6 @@ class _TencentChatAppState extends State<TencentChatApp> with WidgetsBindingObse
     switch (state) {
       case AppLifecycleState.inactive:
         _coreInstance.setOfflinePushStatus(status: AppStatus.background, totalCount: unreadCount);
-        if (unreadCount != null) {
-          ChannelPush.setBadgeNum(unreadCount);
-        }
         break;
       case AppLifecycleState.resumed:
         await _checkIfConnected();
@@ -80,15 +75,9 @@ class _TencentChatAppState extends State<TencentChatApp> with WidgetsBindingObse
         break;
       case AppLifecycleState.detached:
         _coreInstance.setOfflinePushStatus(status: AppStatus.background, totalCount: unreadCount);
-        if (unreadCount != null) {
-          ChannelPush.setBadgeNum(unreadCount);
-        }
         break;
       case AppLifecycleState.hidden:
         _coreInstance.setOfflinePushStatus(status: AppStatus.background, totalCount: unreadCount);
-        if (unreadCount != null) {
-          ChannelPush.setBadgeNum(unreadCount);
-        }
         break;
     }
   }
@@ -183,7 +172,7 @@ class _TencentChatAppState extends State<TencentChatApp> with WidgetsBindingObse
         isCheckDiskStorageSpace: true,
       ),
       // language: LanguageEnum.zhHans,
-      extraLanguage: localSetting.language,
+      // extraLanguage: localSetting.language,
       onTUIKitCallbackListener: (TIMCallback callbackValue) {
         switch (callbackValue.type) {
           case TIMCallbackType.INFO:

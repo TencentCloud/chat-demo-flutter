@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, avoid_print
 
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -20,8 +18,7 @@ import 'package:tencent_cloud_chat_demo/src/provider/local_setting.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/login_user_Info.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
 import 'package:tencent_cloud_chat_demo/src/tencent_page.dart';
-import 'package:tencent_cloud_chat_demo/utils/push/channel/channel_push.dart';
-import 'package:tencent_cloud_chat_demo/utils/push/push_constant.dart';
+import 'package:tencent_cloud_chat_push/tencent_cloud_chat_push.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_chat_controller.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_conversation_controller.dart';
@@ -45,19 +42,33 @@ class HomePageState extends State<HomePage> {
   int currentIndex = 0;
   SuperTooltip? tooltip;
   final V2TIMManager _sdkInstance = TIMUIKitCore.getSDKInstance();
-  final TIMUIKitConversationController _conversationController = TIMUIKitConversationController();
-  final TIMUIKitChatController _timuiKitChatController = TIMUIKitChatController();
+  final TIMUIKitConversationController _conversationController =
+      TIMUIKitConversationController();
+  final TIMUIKitChatController _timuiKitChatController =
+      TIMUIKitChatController();
   String pageName = "";
   bool isNeedMoveToConversation = false;
 
   final contactTooltip = [
-    {"id": "addFriend", "asset": "assets/add_friend.png", "label": TIM_t("添加好友")},
+    {
+      "id": "addFriend",
+      "asset": "assets/add_friend.png",
+      "label": TIM_t("添加好友")
+    },
     {"id": "addGroup", "asset": "assets/add_group.png", "label": TIM_t("添加群聊")}
   ];
 
   final conversationTooltip = [
-    {"id": "createConv", "asset": "assets/c2c_conv.png", "label": TIM_t("发起会话")},
-    {"id": "createGroup", "asset": "assets/group_conv.png", "label": TIM_t("创建群聊")},
+    {
+      "id": "createConv",
+      "asset": "assets/c2c_conv.png",
+      "label": TIM_t("发起会话")
+    },
+    {
+      "id": "createGroup",
+      "asset": "assets/group_conv.png",
+      "label": TIM_t("创建群聊")
+    },
   ];
 
   getLoginUserInfo() async {
@@ -69,62 +80,49 @@ class HomePageState extends State<HomePage> {
       final result = await _sdkInstance.getUsersInfo(userIDList: [res.data!]);
 
       if (result.code == 0) {
-        Provider.of<LoginUserInfo>(context, listen: false).setLoginUserInfo(result.data![0]);
+        Provider.of<LoginUserInfo>(context, listen: false)
+            .setLoginUserInfo(result.data![0]);
       }
     }
   }
 
-  _initTrtc() async {
+  _initCallKit() async {
     final TUICallKit _callKit = TUICallKit.instance;
     _callKit.enableFloatWindow(true);
-  }
-
-  uploadOfflinePushInfoToken() async {
-    if (PlatformUtils().isMobile) {
-      ChannelPush.requestPermission();
-      Future.delayed(const Duration(seconds: 5), () async {
-        final bool isUploadSuccess = await ChannelPush.uploadToken(PushConfig.appInfo);
-        print("Push token upload result: $isUploadSuccess");
-      });
-    }
   }
 
   @override
   initState() {
     super.initState();
     currentIndex = widget.pageIndex;
-    _initTrtc();
+    _initPush();
+    _initCallKit();
     setState(() {});
     getLoginUserInfo();
-    initOfflinePush();
   }
 
-  initOfflinePush() async {
+  _initPush() {
     if (PlatformUtils().isMobile) {
-      await ChannelPush.init(handleClickNotification);
-      uploadOfflinePushInfoToken();
+      TencentCloudChatPush().setApnsCertificateID(apnsCertificateID: 34290);
+      TencentCloudChatPush().registerPush(
+        onNotificationClicked: _handleClickNotification,
+        apnsCertificateID: 34290,
+      );
     }
   }
 
-  @override
-  dispose() {
-    super.dispose();
-  }
-
-  void handleClickNotification(Map<String, dynamic> msg) async {
-    String ext = TencentUtils.checkString(msg['ext']) ?? TencentUtils.checkString(msg['data']['ext']) ?? "";
-    Map<String, dynamic> extMsp = jsonDecode(ext);
-    String convId = extMsp["conversationID"] ?? "";
-    final currentConvID = _timuiKitChatController.getCurrentConversation();
-    if (convId.split("_").length < 2 || currentConvID == convId.split("_")[1]) {
-      return;
-    }
-    final targetConversationRes = await TencentImSDKPlugin.v2TIMManager.getConversationManager().getConversation(conversationID: convId);
+  void _handleClickNotification(
+      {required String ext, String? groupID, String? userID}) async {
+    final conversationID = TencentUtils.checkString(groupID) != null
+        ? "group_$groupID"
+        : "c2c_$userID";
+    final targetConversationRes = await TencentImSDKPlugin.v2TIMManager
+        .getConversationManager()
+        .getConversation(conversationID: conversationID);
 
     V2TimConversation? targetConversation = targetConversationRes.data;
 
     if (targetConversation != null) {
-      ChannelPush.clearAllNotification();
       Future.delayed(const Duration(milliseconds: 100), () {
         Navigator.push(
             context,
@@ -137,10 +135,20 @@ class HomePageState extends State<HomePage> {
     }
   }
 
+  @override
+  dispose() {
+    super.dispose();
+  }
+
   Map<int, String> pageTitle(LocalSetting localSetting) {
-    final String connectText = localSetting.connectStatus == ConnectStatus.connecting ? TIM_t("连接中...") : TIM_t("连接失败");
+    final String connectText =
+        localSetting.connectStatus == ConnectStatus.connecting
+            ? TIM_t("连接中...")
+            : TIM_t("连接失败");
     return {
-      0: localSetting.connectStatus == ConnectStatus.success ? TIM_t("消息") : connectText,
+      0: localSetting.connectStatus == ConnectStatus.success
+          ? TIM_t("消息")
+          : connectText,
       1: TIM_t("通讯录"),
       2: TIM_t("直播"),
       3: TIM_t("我的"),
@@ -164,7 +172,9 @@ class HomePageState extends State<HomePage> {
                 width: 24,
                 height: 24,
               ),
-              colorFilter: ColorFilter.mode(theme.primaryColor ?? CommonColor.primaryColor, BlendMode.srcATop),
+              colorFilter: ColorFilter.mode(
+                  theme.primaryColor ?? CommonColor.primaryColor,
+                  BlendMode.srcATop),
             ),
             Positioned(
               top: -5,
@@ -205,7 +215,9 @@ class HomePageState extends State<HomePage> {
                 width: 24,
                 height: 24,
               ),
-              colorFilter: ColorFilter.mode(theme.primaryColor ?? CommonColor.primaryColor, BlendMode.srcATop),
+              colorFilter: ColorFilter.mode(
+                  theme.primaryColor ?? CommonColor.primaryColor,
+                  BlendMode.srcATop),
             ),
             const Positioned(
               top: -5,
@@ -248,7 +260,9 @@ class HomePageState extends State<HomePage> {
               Icons.live_tv_rounded,
               size: 24,
             ),
-            colorFilter: ColorFilter.mode(theme.primaryColor ?? CommonColor.primaryColor, BlendMode.srcATop)),
+            colorFilter: ColorFilter.mode(
+                theme.primaryColor ?? CommonColor.primaryColor,
+                BlendMode.srcATop)),
         unselectedIcon: const Icon(
           Icons.live_tv_rounded,
           size: 24,
@@ -263,7 +277,9 @@ class HomePageState extends State<HomePage> {
               width: 24,
               height: 24,
             ),
-            colorFilter: ColorFilter.mode(theme.primaryColor ?? CommonColor.primaryColor, BlendMode.srcATop)),
+            colorFilter: ColorFilter.mode(
+                theme.primaryColor ?? CommonColor.primaryColor,
+                BlendMode.srcATop)),
         unselectedIcon: Image.asset(
           "assets/profile.png",
           width: 24,
@@ -287,7 +303,8 @@ class HomePageState extends State<HomePage> {
   Widget? getTitle(LocalSetting localSetting) {
     return Text(
       pageTitle(localSetting)[currentIndex]!,
-      style: const TextStyle(color: Colors.white, fontSize: IMDemoConfig.appBarTitleFontSize),
+      style: const TextStyle(
+          color: Colors.white, fontSize: IMDemoConfig.appBarTitleFontSize),
     );
   }
 
@@ -410,7 +427,10 @@ class HomePageState extends State<HomePage> {
               centerTitle: true,
               flexibleSpace: Container(
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [theme.lightPrimaryColor ?? CommonColor.lightPrimaryColor, theme.primaryColor ?? CommonColor.primaryColor]),
+                  gradient: LinearGradient(colors: [
+                    theme.lightPrimaryColor ?? CommonColor.lightPrimaryColor,
+                    theme.primaryColor ?? CommonColor.primaryColor
+                  ]),
                 ),
               ),
               actions: [
@@ -429,13 +449,16 @@ class HomePageState extends State<HomePage> {
             ),
             body: IndexedStack(
               index: currentIndex,
-              children: bottomNavigatorList(theme).map((res) => res.widget!).toList(),
+              children:
+                  bottomNavigatorList(theme).map((res) => res.widget!).toList(),
             ),
             bottomNavigationBar: BottomNavigationBar(
               items: List.generate(
                 bottomNavigatorList(theme).length,
                 (index) => BottomNavigationBarItem(
-                  icon: index == currentIndex ? bottomNavigatorList(theme)[index].selectedIcon : bottomNavigatorList(theme)[index].unselectedIcon,
+                  icon: index == currentIndex
+                      ? bottomNavigatorList(theme)[index].selectedIcon
+                      : bottomNavigatorList(theme)[index].unselectedIcon,
                   label: bottomNavigatorList(theme)[index].title,
                 ),
               ),
@@ -445,7 +468,8 @@ class HomePageState extends State<HomePage> {
                 _changePage(index, context);
                 if (isNeedMoveToConversation) {
                   if (index == 0 && currentIndex == 0) {
-                    conversationKey.currentState?.scrollToNextUnreadConversation();
+                    conversationKey.currentState
+                        ?.scrollToNextUnreadConversation();
                   }
                 }
                 isNeedMoveToConversation = true;
@@ -479,5 +503,11 @@ class NavigationBarData {
 
   final int? index;
 
-  NavigationBarData({required this.unselectedIcon, required this.selectedIcon, required this.title, this.widget, this.onTap, this.index});
+  NavigationBarData(
+      {required this.unselectedIcon,
+      required this.selectedIcon,
+      required this.title,
+      this.widget,
+      this.onTap,
+      this.index});
 }

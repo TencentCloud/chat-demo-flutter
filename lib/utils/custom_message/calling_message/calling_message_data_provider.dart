@@ -1,42 +1,24 @@
 //通话协议类型
 import 'dart:convert';
-import 'package:tencent_cloud_av_chat_room/tencent_cloud_chat_sdk_type.dart';
+
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
-enum CallProtocolType {
-  unknown,
-  send,
-  accept,
-  reject,
-  cancel,
-  hangup,
-  timeout,
-  lineBusy,
-  switchToAudio,
-  switchToAudioConfirm
-}
+enum CallProtocolType { unknown, send, accept, reject, cancel, hangup, timeout, lineBusy, switchToAudio, switchToAudioConfirm }
+
 //通话媒体类型
-enum CallStreamMediaType {
-unknown,
-audio,
-video
-}
+enum CallStreamMediaType { unknown, audio, video }
+
 //通话参与者样式
 enum CallParticipantType {
   unknown,
   c2c,
   group,
 }
+
 //通话人员角色
-enum CallParticipantRole {
-  unknown,
-  caller,
-  callee
-}
-enum CallMessageDirection {
-  incoming,
-  outcoming
-}
+enum CallParticipantRole { unknown, caller, callee }
+
+enum CallMessageDirection { incoming, outcoming }
 
 class CallingMessageDataProvider {
   Map? _jsonData;
@@ -71,26 +53,26 @@ class CallingMessageDataProvider {
   // 是否Call信令
   bool get isCallingSignal => _isCallingSignal;
 
-   CallingMessageDataProvider(V2TimMessage message) {
-     _initInter(message);
+  CallingMessageDataProvider(V2TimMessage message) {
+    _initInter(message);
 
-     //这里的顺序不能乱
-     _setIsCallingSignal();
-     _setProtocolType();
-     _setStreamMediaType();
-     _setParticipantType();
-     _setCallerId();
-     _setParticipantRole();
-     _setDirection();
-     _setExcludeFromHistory();
-     _setContent();
+    //这里的顺序不能乱
+    _setIsCallingSignal();
+    _setProtocolType();
+    _setStreamMediaType();
+    _setParticipantType();
+    _setCallerId();
+    _setParticipantRole();
+    _setDirection();
+    _setExcludeFromHistory();
+    _setContent();
   }
 
   _initInter(V2TimMessage message) async {
     _innerMessage = message;
     try {
       if (_innerMessage?.customElem?.data != null) {
-        final signalingInfoData = jsonDecode(_innerMessage!.customElem!.data!) ;
+        final signalingInfoData = jsonDecode(_innerMessage!.customElem!.data!);
         _signalingInfo = V2TimSignalingInfo.fromJson(signalingInfoData);
       } else {
         return;
@@ -111,15 +93,13 @@ class CallingMessageDataProvider {
   }
 
   _setIsCallingSignal() {
-    if (_innerMessage == null ||
-        _signalingInfo == null ||
-        _jsonData == null) {
+    if (_innerMessage == null || _signalingInfo == null || _jsonData == null) {
       _isCallingSignal = false;
       return;
     }
 
     final businessID = _jsonData!['businessID'];
-    if (businessID != null && businessID == 'av_call'){
+    if (businessID != null && businessID == 'av_call') {
       _isCallingSignal = true;
     } else {
       _isCallingSignal = false;
@@ -127,9 +107,7 @@ class CallingMessageDataProvider {
   }
 
   _setProtocolType() {
-    if (_innerMessage == null ||
-        _signalingInfo == null ||
-        _jsonData == null) {
+    if (_innerMessage == null || _signalingInfo == null || _jsonData == null) {
       _protocolType = CallProtocolType.unknown;
       return;
     }
@@ -139,7 +117,7 @@ class CallingMessageDataProvider {
         final data = _jsonData!['data'];
         if (data != null) {
           final cmd = data['cmd'];
-          if (cmd != null){
+          if (cmd != null) {
             if (cmd == 'switchToAudio') {
               _protocolType = CallProtocolType.switchToAudio;
             } else if (cmd == 'hangup') {
@@ -217,18 +195,17 @@ class CallingMessageDataProvider {
 
     if (_protocolType == CallProtocolType.send) {
       final data = _jsonData!['data'];
-      if(data != null) {
-       final cmd = data['cmd'];
-       if (cmd != null) {
-         if (cmd == 'audioCall') {
-           _streamMediaType = CallStreamMediaType.audio;
-         } else if (cmd == 'videoCall') {
-           _streamMediaType = CallStreamMediaType.video;
-         }
-       }
+      if (data != null) {
+        final cmd = data['cmd'];
+        if (cmd != null) {
+          if (cmd == 'audioCall') {
+            _streamMediaType = CallStreamMediaType.audio;
+          } else if (cmd == 'videoCall') {
+            _streamMediaType = CallStreamMediaType.video;
+          }
+        }
       }
-    } else if (_protocolType == CallProtocolType.switchToAudio
-                || _protocolType == CallProtocolType.switchToAudioConfirm) {
+    } else if (_protocolType == CallProtocolType.switchToAudio || _protocolType == CallProtocolType.switchToAudioConfirm) {
       _streamMediaType = CallStreamMediaType.video;
     }
   }
@@ -283,9 +260,7 @@ class CallingMessageDataProvider {
   }
 
   _setExcludeFromHistory() {
-    _excludeFromHistory = _protocolType != CallProtocolType.unknown
-        && _innerMessage!.isExcludedFromLastMessage!
-        && _innerMessage!.isExcludedFromUnreadCount!;
+    _excludeFromHistory = _protocolType != CallProtocolType.unknown && _innerMessage!.isExcludedFromLastMessage! && _innerMessage!.isExcludedFromUnreadCount!;
   }
 
   _setContent() {
@@ -298,54 +273,48 @@ class CallingMessageDataProvider {
     final showName = _getShowName();
 
     if (_participantType == CallParticipantType.c2c) {
-
-      if(_protocolType == CallProtocolType.reject) {
+      if (_protocolType == CallProtocolType.reject) {
         _content = isCaller ? TIM_t('对方已拒绝') : TIM_t('已拒绝');
-      } else if(_protocolType == CallProtocolType.cancel) {
+      } else if (_protocolType == CallProtocolType.cancel) {
         _content = isCaller ? TIM_t('已取消') : TIM_t('对方已取消');
-      } else if(_protocolType == CallProtocolType.hangup) {
+      } else if (_protocolType == CallProtocolType.hangup) {
         final time = _getShowTime(_jsonData!['call_end']);
         _content = TIM_t('通话时长') + '：$time';
-      } else if(_protocolType == CallProtocolType.timeout) {
+      } else if (_protocolType == CallProtocolType.timeout) {
         _content = isCaller ? TIM_t('对方无应答') : TIM_t('对方已取消');
-      } else if(_protocolType == CallProtocolType.lineBusy) {
+      } else if (_protocolType == CallProtocolType.lineBusy) {
         _content = isCaller ? TIM_t('对方忙线中') : TIM_t('对方已取消');
-      }
-
-      else if(_protocolType == CallProtocolType.send) {
+      } else if (_protocolType == CallProtocolType.send) {
         _content = TIM_t('发起通话');
-      } else if(_protocolType == CallProtocolType.accept) {
+      } else if (_protocolType == CallProtocolType.accept) {
         _content = TIM_t('接听通话');
-      } else if(_protocolType == CallProtocolType.switchToAudio) {
+      } else if (_protocolType == CallProtocolType.switchToAudio) {
         _content = TIM_t('视频转语音');
-      } else if(_protocolType == CallProtocolType.switchToAudioConfirm) {
+      } else if (_protocolType == CallProtocolType.switchToAudioConfirm) {
         _content = TIM_t('确认转语音');
       } else {
         _content = TIM_t('未知通话');
       }
     } else if (_participantType == CallParticipantType.group) {
-
-      if(_protocolType == CallProtocolType.send) {
+      if (_protocolType == CallProtocolType.send) {
         _content = showName + TIM_t('发起了群通话');
-      } else if(_protocolType == CallProtocolType.cancel) {
+      } else if (_protocolType == CallProtocolType.cancel) {
         _content = TIM_t('通话结束');
-      } else if(_protocolType == CallProtocolType.hangup) {
+      } else if (_protocolType == CallProtocolType.hangup) {
         _content = TIM_t('通话结束');
-      } else if(_protocolType == CallProtocolType.timeout || _protocolType == CallProtocolType.lineBusy) {
-        String inviteeNames  = '';
+      } else if (_protocolType == CallProtocolType.timeout || _protocolType == CallProtocolType.lineBusy) {
+        String inviteeNames = '';
         for (String invitee in _signalingInfo!.inviteeList) {
           inviteeNames = inviteeNames + invitee + '、';
         }
-        _content = inviteeNames.substring(0, inviteeNames.length - 1) + TIM_t('未接听') ;
-      }
-
-      else if(_protocolType == CallProtocolType.reject) {
+        _content = inviteeNames.substring(0, inviteeNames.length - 1) + TIM_t('未接听');
+      } else if (_protocolType == CallProtocolType.reject) {
         _content = showName + TIM_t('拒绝群通话');
-      } else if(_protocolType == CallProtocolType.accept) {
+      } else if (_protocolType == CallProtocolType.accept) {
         _content = showName + TIM_t('接听');
-      } else if(_protocolType == CallProtocolType.switchToAudio) {
+      } else if (_protocolType == CallProtocolType.switchToAudio) {
         _content = showName + TIM_t('视频转语音');
-      } else if(_protocolType == CallProtocolType.switchToAudioConfirm) {
+      } else if (_protocolType == CallProtocolType.switchToAudioConfirm) {
         _content = showName + TIM_t('同意视频转语音');
       } else {
         _content = TIM_t('未知通话');
@@ -367,7 +336,7 @@ class CallingMessageDataProvider {
   }
 
   _getShowName() {
-    String showName = _innerMessage!.sender!;
+    String showName = _innerMessage?.sender ?? "";
     if (_innerMessage?.nameCard != null && _innerMessage!.nameCard!.isNotEmpty) {
       showName = _innerMessage!.nameCard!;
     } else if (_innerMessage?.friendRemark != null && _innerMessage!.friendRemark!.isNotEmpty) {

@@ -8,10 +8,10 @@ list(APPEND FLUTTER_PLUGIN_LIST
   desktop_webview_window_for_is
   fc_native_video_thumbnail
   file_selector_windows
-  firebase_core
   image_clipboard
   pasteboard
   permission_handler_windows
+  tencent_cloud_chat_sdk
   url_launcher_windows
 )
 

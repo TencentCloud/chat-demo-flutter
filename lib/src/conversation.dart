@@ -6,7 +6,6 @@ import 'package:tencent_cloud_chat_demo/src/chat.dart';
 import 'package:tencent_cloud_chat_demo/src/multi_platform_widget/search_entry/search_entry.dart';
 import 'package:tencent_cloud_chat_demo/src/multi_platform_widget/search_entry/search_entry_wide.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/local_setting.dart';
-import 'package:tencent_cloud_chat_demo/utils/custom_message/calling_message/calling_message_data_provider.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/custom_last_message.dart';
 import 'package:tencent_cloud_chat_demo/utils/user_guide.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
@@ -101,7 +100,7 @@ class _ConversationState extends State<Conversation> {
           },
           backgroundColor: hexToColor("006EFF"),
           foregroundColor: Colors.white,
-          label: TIM_t("清除聊天"),
+          label: TIM_t("清除"),
           autoClose: true,
         ),
       ConversationItemSlidePanel(
