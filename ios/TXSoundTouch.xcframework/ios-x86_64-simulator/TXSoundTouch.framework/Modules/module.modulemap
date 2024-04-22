@@ -1,0 +1,6 @@
+framework module TXSoundTouch {
+  umbrella header "TXSoundTouch.h"
+
+  export *
+  module * { export * }
+}

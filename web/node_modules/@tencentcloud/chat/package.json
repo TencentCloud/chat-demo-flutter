@@ -1,0 +1,13 @@
+{
+  "name": "@tencentcloud/chat",
+  "version": "3.1.3",
+  "description": "Tencent Cloud Chat SDK for Web",
+  "main": "index.js",
+  "keywords": ["chat", "real-time chat", "messaging", "Instant Messaging", "IM", "Tencent Cloud", "Tencent"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TencentCloud/chat-uikit-react.git"
+  },
+  "author": "Tencent Cloud Terminal R&D Center",
+  "license": "ISC"
+}
