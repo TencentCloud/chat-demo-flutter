@@ -40,8 +40,8 @@ dependencies:
 
   # Tencent Cloud Chat dependencies:
   tencent_cloud_chat_uikit: ^2.5.1+2
-  tencent_calls_uikit: ^2.2.3
-  tim_ui_kit_push_plugin: ^3.1.1
+  tencent_calls_uikit: ^2.3.0
+  tencent_cloud_chat_push: ^7.9.5668
   tencent_cloud_chat_vote_plugin: ^1.0.2
   tencent_cloud_chat_customer_service_plugin: ^0.0.2
   tencent_cloud_av_chat_room: ^0.0.4
