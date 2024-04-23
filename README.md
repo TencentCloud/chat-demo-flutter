@@ -24,7 +24,7 @@ The platforms are compatible with the deployment of our Chat UIKit.
 
 - Android
 - iOS
-- _Web (Will be supported later)_
+- Web
 - Windows
 - macOS
 
