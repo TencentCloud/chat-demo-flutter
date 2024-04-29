@@ -1,3 +1,12 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+    id 'com.google.gms.google-services'
+    id 'com.huawei.agconnect'
+    id 'com.hihonor.mcs.asplugin'
+}
+
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
@@ -6,10 +15,6 @@ if (localPropertiesFile.exists()) {
     }
 }
 
-def flutterRoot = localProperties.getProperty('flutter.sdk')
-if (flutterRoot == null) {
-    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
-}
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
@@ -21,14 +26,9 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-apply plugin: 'com.huawei.agconnect'
-
 android {
-    compileSdkVersion 33
-    namespace 'com.tencent.flutter.tuikit'
+    compileSdkVersion 34
+    namespace("com.tencent.flutter.tuikit")
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -36,6 +36,13 @@ android {
 
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+
+    lintOptions {
+        disable 'InvalidPackage'
+        disable "Instantiatable"
+        checkReleaseBuilds false
+        abortOnError false
     }
 
     sourceSets {
@@ -49,9 +56,9 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         manifestPlaceholders = [
-            VIVO_APPID:"",
-            VIVO_APPKEY:"",
-            applicationName : "timuikit"
+                VIVO_APPID:"",
+                VIVO_APPKEY:"",
+                applicationName : ""
         ]
     }
 
@@ -75,6 +82,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    packagingOptions {
+        pickFirst 'lib/arm64-v8a/libc++_shared.so'
+        pickFirst 'lib/armeabi-v7a/libc++_shared.so'
+        pickFirst 'lib/x86/libc++_shared.so'
+        pickFirst 'lib/x86_64/libc++_shared.so'
+    }
 }
 
 flutter {
@@ -83,4 +97,13 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    implementation 'com.tencent.timpush:huawei:7.9.5668'
+    implementation 'com.tencent.timpush:xiaomi:7.9.5668'
+    implementation 'com.tencent.timpush:oppo:7.9.5668'
+    implementation 'com.tencent.timpush:vivo:7.9.5668'
+    implementation 'com.tencent.timpush:honor:7.9.5668'
+    implementation 'com.tencent.timpush:meizu:7.9.5668'
+    implementation 'com.tencent.timpush:fcm:7.9.5668'
+    implementation 'androidx.work:work-runtime-ktx:2.7.1'
 }
