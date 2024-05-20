@@ -90,7 +90,7 @@ class _ProfileState extends State<MyProfile> {
             TIM_t("允许任何人"),
             style: TextStyle(color: theme.primaryColor, fontSize: 18),
           ),
-          onPressed: () {
+          onPressed: (_) {
             changeFriendVerificationMethod(allowAny);
             Navigator.of(context, rootNavigator: true).pop();
           },
@@ -100,7 +100,7 @@ class _ProfileState extends State<MyProfile> {
               TIM_t("需要验证信息"),
               style: TextStyle(color: theme.primaryColor, fontSize: 18),
             ),
-            onPressed: () {
+            onPressed: (_) {
               changeFriendVerificationMethod(neddConfirm);
               Navigator.of(context, rootNavigator: true).pop();
             }),
@@ -109,7 +109,7 @@ class _ProfileState extends State<MyProfile> {
             TIM_t("禁止加我为好友"),
             style: TextStyle(color: theme.primaryColor, fontSize: 18),
           ),
-          onPressed: () {
+          onPressed: (_) {
             changeFriendVerificationMethod(denyAny);
             Navigator.of(context, rootNavigator: true).pop();
           },

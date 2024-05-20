@@ -33,7 +33,7 @@ class _RenderCustomMessageState extends State<RenderCustomMessage> {
     } else {
       historyMessageCallBack = await TencentImSDKPlugin.v2TIMManager.v2TIMMessageManager.getC2CHistoryMessageList(count: 10, userID: message.userID!);
     }
-    List<V2TimMessage>? historyMessageList = historyMessageCallBack!.data;
+    List<V2TimMessage>? historyMessageList = historyMessageCallBack.data;
 
     if (historyMessageList == null || historyMessageList.isEmpty) {
       display = TIM_t("[自定义]");

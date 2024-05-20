@@ -191,7 +191,7 @@ class _CustomMessageElemState extends State<CustomMessageElem> {
               styleSheet: MarkdownStyleSheet.fromTheme(ThemeData(
                       textTheme: const TextTheme(
                           // ignore: deprecated_member_use
-                          bodyText2: TextStyle(fontSize: 16.0))))
+                          bodyMedium: TextStyle(fontSize: 16.0))))
                   .copyWith(
                 a: TextStyle(color: LinkUtils.hexToColor("015fff")),
               ),

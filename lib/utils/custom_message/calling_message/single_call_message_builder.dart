@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/calling_message/calling_message_data_provider.dart';
-import 'package:tencent_im_base/tencent_im_base.dart';
 
 class CallMessageItem extends StatelessWidget {
   final CallingMessageDataProvider callingMessageDataProvider;

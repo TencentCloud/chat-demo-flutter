@@ -88,7 +88,7 @@ class MyProfileDetailState extends State<MyProfileDetail> {
       actions: <BottomSheetAction>[
         BottomSheetAction(
           title: Text(TIM_t("男"), style: TextStyle(color: theme?.primaryColor)),
-          onPressed: () async {
+          onPressed: (_) async {
             final res = await widget.controller?.updateGender(1);
             if (res?.code == 0) {
               setState(() {
@@ -100,7 +100,7 @@ class MyProfileDetailState extends State<MyProfileDetail> {
         ),
         BottomSheetAction(
           title: Text(TIM_t("女"), style: TextStyle(color: theme?.primaryColor)),
-          onPressed: () async {
+          onPressed: (_) async {
             final res = await widget.controller?.updateGender(2);
             if (res?.code == 0) {
               setState(() {

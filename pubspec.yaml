@@ -40,12 +40,14 @@ dependencies:
     sdk: flutter
 
   # Tencent Cloud Chat dependencies:
-  tencent_cloud_chat_uikit: ^2.5.1+4
+  tencent_cloud_chat_uikit: ^2.6.0
   tencent_calls_uikit: ^2.3.0
   tencent_cloud_chat_push: ^7.9.5668
   tencent_cloud_chat_vote_plugin: ^1.0.2
   tencent_cloud_chat_customer_service_plugin: ^0.0.2
-  tencent_cloud_av_chat_room: ^0.0.4
+  tencent_cloud_av_chat_room: ^0.0.5
+#  tim_ui_kit_push_plugin:
+#    path: /Users/wangrunlin/Documents/GitHub/im-flutter-uikit-push
 
   # Location message and Baidu Map:
 #  tim_ui_kit_lbs_plugin: ^2.0.0+1
@@ -64,7 +66,7 @@ dependencies:
   loading_indicator: ^2.0.1
   shared_preferences: ^2.0.12
   url_launcher: ^6.1.5
-  adaptive_action_sheet: 2.0.1
+  adaptive_action_sheet: ^2.0.3
   webview_flutter: ^3.0.0
   flutter_easyloading: ^3.0.3
   tencent_super_tooltip: ^0.0.1

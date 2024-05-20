@@ -112,7 +112,7 @@ class CallingMessageDataProvider {
       return;
     }
 
-    switch (_signalingInfo!.actionType!) {
+    switch (_signalingInfo!.actionType) {
       case 1:
         final data = _jsonData!['data'];
         if (data != null) {
