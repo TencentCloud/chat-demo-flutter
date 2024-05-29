@@ -166,8 +166,8 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
                 final isMobile = TencentCloudChatScreenAdapter.deviceScreenType == DeviceScreenType.mobile;
                 if (!isMobile) {
                   desktopAppLayoutKey.currentState?.navigateToChat(
-                    groupID: userID,
-                    userID: groupID,
+                    groupID: groupID,
+                    userID: userID,
                   );
                   return true;
                 } else {
