@@ -238,6 +238,10 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
       ],
     );
 
+    setState(() {
+      isLogin = true;
+    });
+
     _initPush();
   }
 
