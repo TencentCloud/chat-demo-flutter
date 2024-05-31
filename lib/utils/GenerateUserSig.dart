@@ -9,8 +9,8 @@ import 'package:archive/archive_io.dart';
 /// 生成腾讯云即时通信测试用userSig
 /// Generate userSig for Tencent Cloud instant messaging test
 ///
-class GenerateTestUserSig {
-  GenerateTestUserSig({required this.sdkappid, required this.key});
+class GenerateDevUsersigForTest {
+  GenerateDevUsersigForTest({required this.sdkappid, required this.key});
   int sdkappid;
   String key;
 

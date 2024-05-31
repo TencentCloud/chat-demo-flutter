@@ -244,7 +244,7 @@ class _LoginFormState extends State<LoginForm> {
       ToastUtils.toast(TIM_t("请在环境变量中写入key"));
       return;
     }
-    GenerateTestUserSig generateTestUserSig = GenerateTestUserSig(
+    GenerateDevUsersigForTest generateTestUserSig = GenerateDevUsersigForTest(
       sdkappid: sdkAppId,
       key: key,
     );
