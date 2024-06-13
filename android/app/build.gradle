@@ -28,7 +28,7 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.tencent.flutter.tuikit"
-    compileSdkVersion 33
+    compileSdkVersion 34
     ndkVersion flutter.ndkVersion
 
     compileOptions {

@@ -27,7 +27,7 @@ class _DesktopContactUsState extends TencentCloudChatState<DesktopContactUs> {
     final Locale currentLocale = TencentCloudChatIntl().getCurrentLocale(context);
     final String languageCode = currentLocale.languageCode;
     final String? scriptCode = currentLocale.scriptCode;
-    String languageType = (languageCode == 'zh' && (TencentCloudChatUtils.checkString(scriptCode) != null ? scriptCode == "Hans" : true)) ? 'zh' : 'other';
+    String languageType = (languageCode == 'zh' && (TencentCloudChatUtils.checkString(scriptCode) != null ? scriptCode!.toLowerCase() == "hans" : true) && (TencentCloudChatUtils.checkString(currentLocale.countryCode) != null ? currentLocale.countryCode!.toLowerCase() == "cn" : true)) ? 'zh' : 'other';
     setState(() {
       isInternational = (languageType == "zh") ? false : true;
     });

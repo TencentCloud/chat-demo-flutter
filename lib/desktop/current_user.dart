@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:tencent_cloud_chat/components/component_config/tencent_cloud_chat_message_common_defines.dart';
 import 'package:tencent_cloud_chat/tencent_cloud_chat.dart';
 import 'package:tencent_cloud_chat/utils/tencent_cloud_chat_utils.dart';
 import 'package:tencent_cloud_chat_common/builders/tencent_cloud_chat_common_builders.dart';
 import 'package:tencent_cloud_chat_common/tencent_cloud_chat_common.dart';
-import 'package:tencent_cloud_chat_common/widgets/desktop_column_menu/tencent_cloud_chat_column_menu.dart';
 import 'package:tencent_cloud_chat_common/widgets/desktop_popup/operation_key.dart';
 import 'package:tencent_cloud_chat_common/widgets/desktop_popup/tencent_cloud_chat_desktop_popup.dart';
 import 'package:tencent_cloud_chat_demo/desktop/app_layout.dart';
@@ -31,14 +31,14 @@ class _CurrentUserAvatarState extends State<CurrentUserAvatar> {
               context: context,
               offset: Offset(details.globalPosition.dx + 10, details.globalPosition.dy - 180),
               items: [
-                ColumnMenuItem(
+                TencentCloudChatMessageGeneralOptionItem(
                     label: tL10n.me,
-                    onClick: () async {
+                    onTap: ({Offset? offset}) async {
                       desktopAppLayoutKey.currentState?.navigateToSettings();
                     }),
-                ColumnMenuItem(
+                TencentCloudChatMessageGeneralOptionItem(
                     label: tL10n.about,
-                    onClick: () {
+                    onTap: ({Offset? offset}) {
                       TencentCloudChatDesktopPopup.showPopupWindow(
                         title: tL10n.aboutTencentCloudChat,
                         width: MediaQuery.of(context).size.width * 0.6,
@@ -48,9 +48,9 @@ class _CurrentUserAvatarState extends State<CurrentUserAvatar> {
                         child: (closeFunc) => DesktopAboutUs(closeFunc: closeFunc),
                       );
                     }),
-                ColumnMenuItem(
+                TencentCloudChatMessageGeneralOptionItem(
                     label: tL10n.contactUs,
-                    onClick: () {
+                    onTap: ({Offset? offset}) {
                       TencentCloudChatDesktopPopup.showPopupWindow(
                         title: tL10n.contactUs,
                         width: MediaQuery.of(context).size.width * 0.6,
@@ -60,14 +60,14 @@ class _CurrentUserAvatarState extends State<CurrentUserAvatar> {
                         child: (closeFunc) => DesktopContactUs(closeFunc: closeFunc),
                       );
                     }),
-                ColumnMenuItem(
+                TencentCloudChatMessageGeneralOptionItem(
                     label: tL10n.settings,
-                    onClick: () {
+                    onTap: ({Offset? offset}) {
                       desktopAppLayoutKey.currentState?.navigateToSettings();
                     }),
-                ColumnMenuItem(
+                TencentCloudChatMessageGeneralOptionItem(
                     label: tL10n.feedback,
-                    onClick: () {
+                    onTap: ({Offset? offset}) {
                       launchUrl(
                         Uri.parse("https://wj.qq.com/s2/11858997/6b56/"),
                         mode: LaunchMode.externalApplication,

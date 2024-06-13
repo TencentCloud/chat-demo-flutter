@@ -1,13 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat/tencent_cloud_chat.dart';
+import 'package:tencent_cloud_chat/utils/tencent_cloud_chat_utils.dart';
 import 'package:tencent_cloud_chat_common/base/tencent_cloud_chat_theme_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // ignore: must_be_immutable
-class TencentCloudChatSettingContact extends StatelessWidget {
-  bool isInternational = const bool.fromEnvironment("international", defaultValue: false);
+class TencentCloudChatSettingContact extends StatefulWidget {
 
-  TencentCloudChatSettingContact({super.key});
+  const TencentCloudChatSettingContact({super.key});
+
+  @override
+  State<TencentCloudChatSettingContact> createState() => _TencentCloudChatSettingContactState();
+}
+
+class _TencentCloudChatSettingContactState extends State<TencentCloudChatSettingContact> {
+  bool isInternational = true;
+
+  @override
+  void initState() {
+    super.initState();
+    setLanguage();
+  }
+
+  void setLanguage() {
+    final Locale currentLocale = TencentCloudChatIntl().getCurrentLocale(context);
+    final String languageCode = currentLocale.languageCode;
+    final String? scriptCode = currentLocale.scriptCode;
+    String languageType = (languageCode == 'zh' && (TencentCloudChatUtils.checkString(scriptCode) != null ? scriptCode!.toLowerCase() == "hans" : true) && (TencentCloudChatUtils.checkString(currentLocale.countryCode) != null ? currentLocale.countryCode!.toLowerCase() == "cn" : true)) ? 'zh' : 'other';
+    setState(() {
+      isInternational = (languageType == "zh") ? false : true;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

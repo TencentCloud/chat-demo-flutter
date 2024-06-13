@@ -57,7 +57,8 @@ class _DesktopAboutUsState extends TencentCloudChatState<DesktopAboutUs> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text.rich(TextSpan(children: [
-                    webViewLink(tL10n.officialWebsite, "https://trtc.io/products/chat?utm_source=gfs&utm_medium=link&utm_campaign=%E6%B8%A0%E9%81%93&_channel_track_key=k6WgfCKn"),
+                    webViewLink(tL10n.officialWebsite,
+                        "https://trtc.io/products/chat?utm_source=flutter_demo&utm_medium=link&utm_campaign=%E6%B8%A0%E9%81%93&_channel_track_key=k6WgfCKn"),
                     webViewLink("  |  "),
                     webViewLink(tL10n.allSDKs, "https://pub.dev/publishers/comm.qq.com/packages"),
                     webViewLink("  |  "),
@@ -75,13 +76,17 @@ class _DesktopAboutUsState extends TencentCloudChatState<DesktopAboutUs> {
                       height: 4,
                     ),
                   Text.rich(TextSpan(children: [
-                    webViewLink(tL10n.privacyPolicy, "https://privacy.qq.com/document/preview/1cfe904fb7004b8ab1193a55857f7272"),
+                    webViewLink(tL10n.privacyPolicy,
+                        "https://privacy.qq.com/document/preview/1cfe904fb7004b8ab1193a55857f7272"),
                     webViewLink("  |  "),
-                    webViewLink(tL10n.userAgreement, "https://web.sdk.qcloud.com/document/Tencent-IM-User-Agreement.html"),
+                    webViewLink(
+                        tL10n.userAgreement, "https://web.sdk.qcloud.com/document/Tencent-IM-User-Agreement.html"),
                     webViewLink("  |  "),
-                    webViewLink(tL10n.personalInformationCollectionList, "https://privacy.qq.com/document/preview/45ba982a1ce6493597a00f8c86b52a1e"),
+                    webViewLink(tL10n.personalInformationCollectionList,
+                        "https://privacy.qq.com/document/preview/45ba982a1ce6493597a00f8c86b52a1e"),
                     webViewLink("  |  "),
-                    webViewLink(tL10n.thirdPartyInformationSharingList, "https://privacy.qq.com/document/preview/dea84ac4bb88454794928b77126e9246"),
+                    webViewLink(tL10n.thirdPartyInformationSharingList,
+                        "https://privacy.qq.com/document/preview/dea84ac4bb88454794928b77126e9246"),
                   ])),
                   const SizedBox(
                     height: 10,
@@ -96,24 +101,38 @@ class _DesktopAboutUsState extends TencentCloudChatState<DesktopAboutUs> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                  height: getWidth(100),
-                  child: const Image(
-                    image: AssetImage("assets/icon.png"),
-                  ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: getHeight(40),
+                      child: const Image(
+                        image: AssetImage("assets/trtc.png"),
+                      ),
+                    ),
+                    Container(
+                      height: getHeight(40),
+                      width: getWidth(1),
+                      margin: const EdgeInsets.symmetric(horizontal: 20),
+                      color: colorTheme.secondaryTextColor.withOpacity(0.4),
+                    ),
+                    SizedBox(
+                      height: getHeight(40),
+                      child: const Image(
+                        image: AssetImage("assets/trtcchat.png"),
+                      ),
+                    ),
+                    const SizedBox(width: 10,),
+                    Text(
+                      "Chat",
+                      style: TextStyle(color: colorTheme.secondaryTextColor,fontSize: textStyle.fontsize_20),
+                    ),
+                  ],
                 ),
                 const SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  tL10n.tencentCloudChat,
-                  style: TextStyle(
-                    color: colorTheme.primaryTextColor,
-                    fontSize: getFontSize(20),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
+                  height: 60,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

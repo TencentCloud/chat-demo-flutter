@@ -32,7 +32,7 @@ class TencentCloudChatSettingsState
 
   void _addEventListener() {
     TencentCloudChat.instance.eventBusInstance
-        .on<TencentCloudChatBasicData<TencentCloudChatBasicDataKeys>>()
+        .on<TencentCloudChatBasicData<TencentCloudChatBasicDataKeys>>("TencentCloudChatBasicDataKeys")
         ?.listen((event) {
       if (event.currentUpdatedFields ==
           TencentCloudChatBasicDataKeys.selfInfo) {

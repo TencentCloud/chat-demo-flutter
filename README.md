@@ -86,3 +86,9 @@ The UIKit includes a wide range of capabilities, such as [Conversation List](htt
 This sample app showcases each component of our brand-new UIKit.
 
 For more information, [please refer to this documentation](https://www.tencentcloud.com/document/product/1047/58585).
+
+If you have any questions or need further information, feel free to reach out us.
+
+- [Telegram](https://t.me/+gvScYl0uQ3U4MTRl)
+- [X (Twitter)](https://x.com/runlin_wang95)
+

@@ -21,3 +21,4 @@
 -keep class com.vivo.vms.**{*; }
 -keep class com.heytap.mcssdk.** {*;}
 -keep class com.heytap.msp.push.** { *;}
+-dontwarn java.lang.invoke.StringConcatFactory
