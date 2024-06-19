@@ -137,7 +137,6 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
           ///
           /// Example: For the Message component, config them as follows:
           messageConfig: TencentCloudChatMessageConfig(
-            enableAutoReportReadStatusForComingMessages: ({String? groupID, String? userID, String? topicID}) => kIsWeb,
             enableParseMarkdown: ({String? groupID, String? userID, String? topicID}) => true,
             enabledGroupTypesForMessageReadReceipt: ({String? groupID, String? userID, String? topicID}) => [GroupType.Work, GroupType.Public, GroupType.Meeting, GroupType.Community],
           ),
