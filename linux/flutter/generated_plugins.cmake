@@ -7,6 +7,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   bitsdojo_window_linux
   desktop_drop_for_t
   file_selector_linux
+  image_clipboard
   media_kit_video
   pasteboard
   record_linux

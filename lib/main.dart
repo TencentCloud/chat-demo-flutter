@@ -35,10 +35,14 @@ import 'package:tencent_cloud_chat_group_profile/tencent_cloud_chat_group_profil
 import 'package:tencent_cloud_chat_message/tencent_cloud_chat_message.dart';
 import 'package:tencent_cloud_chat_message/tencent_cloud_chat_message_builders.dart';
 import 'package:tencent_cloud_chat_message/tencent_cloud_chat_message_layout/special_case/tencent_cloud_chat_message_no_chat.dart';
+import 'package:tencent_cloud_chat_message_reaction/tencent_cloud_chat_message_reaction.dart';
 import 'package:tencent_cloud_chat_push/tencent_cloud_chat_push.dart';
 import 'package:tencent_cloud_chat_robot/tencent_cloud_chat_robot.dart';
+// import 'package:tencent_cloud_chat_search/tencent_cloud_chat_search.dart';
 import 'package:tencent_cloud_chat_sticker/tencent_cloud_chat_sticker.dart';
 import 'package:tencent_cloud_chat_sticker/tencent_cloud_chat_sticker_init_data.dart';
+import 'package:tencent_cloud_chat_text_translate/tencent_cloud_chat_text_translate.dart';
+import 'package:tencent_cloud_chat_sound_to_text/tencent_cloud_chat_sound_to_text.dart';
 import 'package:tencent_cloud_chat_user_profile/tencent_cloud_chat_user_profile.dart';
 import 'package:tencent_cloud_chat_vote_plugin/tencent_cloud_chat_vote_plugin.dart';
 
@@ -137,6 +141,7 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
           ///
           /// Example: For the Message component, config them as follows:
           messageConfig: TencentCloudChatMessageConfig(
+            showSelfAvatar: ({String? groupID, String? userID, String? topicID}) => true,
             enableParseMarkdown: ({String? groupID, String? userID, String? topicID}) => true,
             enabledGroupTypesForMessageReadReceipt: ({String? groupID, String? userID, String? topicID}) => [GroupType.Work, GroupType.Public, GroupType.Meeting, GroupType.Community],
           ),
@@ -210,6 +215,21 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
       ),
       plugins: [
         TencentCloudChatPluginItem(
+          name: "textTranslate",
+          pluginInstance: TencentCloudChatTextTranslate(
+            onTranslateFailed: () {
+              // ZLog.feature(data: "text_translate_failed");
+            },
+            onTranslateSuccess: () {
+              // ZLog.feature(data: "text_translate_success");
+            },
+          ),
+        ),
+        TencentCloudChatPluginItem(
+          name: "soundToText",
+          pluginInstance: TencentCloudChatSoundToText()
+        ),
+        TencentCloudChatPluginItem(
           name: "poll",
           pluginInstance: TencentCloudChatVotePlugin(),
           tapFn: (data) {
@@ -234,6 +254,12 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
             );
             return true;
           },
+        ),
+        TencentCloudChatPluginItem(
+          name: "messageReaction",
+          pluginInstance: TencentCloudChatMessageReaction(
+            context: context,
+          ),
         ),
         TencentCloudChatPluginItem(
           name: "robot",
