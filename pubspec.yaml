@@ -43,8 +43,7 @@ dependencies:
   tencent_cloud_chat_sticker: ^1.1.0
   tencent_cloud_chat_message_reaction: ^1.5.0
   tencent_cloud_chat_text_translate: ^1.5.0
-  tencent_cloud_chat_sound_to_text:
-    path: ../tencent_cloud_chat_sound_to_text
+  tencent_cloud_chat_sound_to_text: ^1.0.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
