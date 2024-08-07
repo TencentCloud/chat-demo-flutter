@@ -26,6 +26,14 @@ class _RenderCustomMessageState extends State<RenderCustomMessage> {
     _handleCustomMessage(widget.message);
   }
 
+  @override
+  void didUpdateWidget(covariant RenderCustomMessage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if(oldWidget.message != widget.message){
+      _handleCustomMessage(widget.message);
+    }
+  }
+
   _handleCustomMessage(V2TimMessage message) async {
     V2TimValueCallback<List<V2TimMessage>> historyMessageCallBack;
     if (message.groupID != null && message.groupID!.isNotEmpty) {
