@@ -87,11 +87,11 @@ flutter {
 }
 
 dependencies {
-    implementation 'com.tencent.timpush:huawei:8.0.6897'
-    implementation 'com.tencent.timpush:xiaomi:8.0.6897'
-//    implementation 'com.tencent.timpush:oppo:8.0.6897'
-    implementation 'com.tencent.timpush:vivo:8.0.6897'
-    implementation 'com.tencent.timpush:honor:8.0.6897'
-    implementation 'com.tencent.timpush:meizu:8.0.6897'
-    implementation 'com.tencent.timpush:fcm:8.0.6897'
+    implementation 'com.tencent.timpush:huawei:8.1.6906'
+    implementation 'com.tencent.timpush:xiaomi:8.1.6906'
+    implementation 'com.tencent.timpush:oppo:8.1.6906'
+    implementation 'com.tencent.timpush:vivo:8.1.6906'
+    implementation 'com.tencent.timpush:honor:8.1.6906'
+    implementation 'com.tencent.timpush:meizu:8.1.6906'
+    implementation 'com.tencent.timpush:fcm:8.1.6906'
 }
