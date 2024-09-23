@@ -1,30 +1,3 @@
-<p align="center">
-  <a href="https://www.tencentcloud.com/products/im?from=pub">
-    <img src="https://qcloudimg.tencent-cloud.cn/raw/429a2f58678a1f5b150c6ae04aa0b569.png" width="320px" alt="Tencent Chat Logo" />
-  </a>
-</p>
-
-<h1 align="center">Tencent Cloud Chat Sample App</h1>
-
-<br>
-
-<p align="center">
-  Globally interconnected In-App Chat, user profile and relationship chains and offline push.
-</p>
-
-<br>
-
-<p align="center">
-More languages:
-  <a href="https://cloud.tencent.com/document/product/269/68823#.E7.AC.AC.E4.B8.89.E9.83.A8.E5.88.86.EF.BC.9A.E4.BD.BF.E7.94.A8-demo">简体中文</a>
-  <a href="https://www.tencentcloud.com/ko/document/product/1047/45907#.ED.8C.8C.ED.8A.B83.3A-demo-.EC.82.AC.EC.9A.A9">한국어</a>
-  <a href="https://www.tencentcloud.com/jp/document/product/1047/45907?lang=jp&pg=#.E3.81.9D.E3.81.AE3.EF.BC.9Ademo.E3.81.AE.E4.BD.BF.E7.94.A8">日本語</a>
-</p>
-
-<br>
-
-![](https://qcloudimg.tencent-cloud.cn/raw/193ec650f17da6bb33edf5df5d978091.png)
-
 ## Compatible Platforms
 
 The platforms are compatible with the deployment of our Chat UIKit.
@@ -37,26 +10,18 @@ The platforms are compatible with the deployment of our Chat UIKit.
 
 ## Check Out Our Sample Apps
 
-Experience our Chat and Voice/Video Call modules by trying out our sample apps.
-
-**These apps have been created using the same Flutter project as our SDKs and extensions.**
-
-| Platform | Link | Remark |
-|---------|---------|---------|
-| Android / iOS | <img src="https://qcloudimg.tencent-cloud.cn/raw/e791bd503ae267aa51234ad66e347f10.png" width="140px" alt="Tencent Chat Logo" /> | Scan to download app for both Android and iOS. Automatically identifies platform. |
-| Web | <img src="https://qcloudimg.tencent-cloud.cn/raw/7908cf6f3c16e4059f8f21229d70a918.png" width="140px" alt="Tencent Chat Logo" /> | Supports both desktop and mobile browsers and automatically adjusts its layout accordingly. Same website as link below. |
-| Web | [Visit Now](https://comm.qq.com/flutter/#/) | Supports both desktop and mobile browsers and automatically adjusts its layout accordingly. Same website as previous QR code. |
-| macOS | [Download Now](https://comm.qq.com/im_demo_download/macos_flutter.dmg) | The macOS version of our sample app. Control-click the app icon, then choose "Open" from the shortcut menu. |
-| Windows | [Download Now](https://comm.qq.com/im_demo_download/windows_flutter.appx) | The Windows version of our sample app, which is a UWP (Universal Windows Platform) application. |
-| Linux | Coming Soon... | Will be available later this year. |
-
-**Take a look at the screenshots of
-TUIKit [here](https://www.tencentcloud.com/document/product/1047/50059?from=pub) to get an idea of
-what to expect.**
+This document introduces how to quickly run the Chat demo on the iOS platform.
+For the other platforms, please refer to document：
+- [**chat-uikit-android**](https://github.com/TencentCloud/chat-uikit-android)
+- [**chat-uikit-ios**](https://github.com/TencentCloud/chat-uikit-ios)
+- [**chat-uikit-vue**](https://github.com/TencentCloud/chat-uikit-vue)
+- [**chat-uikit-react**](https://github.com/TencentCloud/chat-uikit-react)
+- [**chat-uikit-uniapp**](https://github.com/TencentCloud/chat-uikit-uniapp)
+- [**chat-uikit-wechat**](https://github.com/TencentCloud/chat-uikit-wechat)
 
 ## Environment Requirements
 
-|   | Version                                                                                                     |
+| Platform  | Version                                                                                                     |
 |---------|-------------------------------------------------------------------------------------------------------------|
 | Flutter | Flutter 3.0.0 or later for the IM SDK; Flutter 3.13.0 or later for the TUIKit component library. |
 | Android | Android Studio 3.5 or later; devices with Android 4.1 or later for apps                                     |
@@ -66,8 +31,18 @@ Please note that if you are using a version of Flutter lower than 3.13.0, you ca
 
 ## Preparation
 
-1. You have [signed up](https://intl.cloud.tencent.com/document/product/378/17985) for a Tencent Cloud account and completed [identity verification](https://intl.cloud.tencent.com/document/product/378/3629).
-2. You have created an application as instructed in [Creating and Upgrading an Application](https://intl.cloud.tencent.com/document/product/1047/34577) and recorded the `SDKAppID`.
+
+### Step 1. Create an App
+1. Log in to the [Chat Console](https://console.trtc.io/). If you already have an app, record its SDKAppID.
+2. On the **Application List** page, click **Create Application**.
+3. In the **Create Application** dialog box, enter the app information and click **Confirm**.
+After the app is created, an app ID (SDKAppID) will be automatically generated, which should be noted down.
+
+### Step 2: Obtain Key Information
+
+1. Click **Application Configuration** in the row of the target app to enter the app details page.
+2. Click **View Key** and copy and save the key information.
+> Please store the key information properly to prevent leakage.
 
 ## Running the sample app
 
@@ -77,7 +52,7 @@ Please note that if you are using a version of Flutter lower than 3.13.0, you ca
 # Clone the code
 git clone https://github.com/TencentCloud/chat-demo-flutter.git
 
-# Clean. Important
+# Flutter clean
 flutter clean
 
 # Install dependencies
@@ -104,19 +79,16 @@ Once you've completed these steps, you'll be ready to run or deploy the sample a
 flutter run --dart-define=SDK_APPID={YOUR_SDKAPPID} --dart-define=ISPRODUCT_ENV=false --dart-define=KEY={YOUR_KEY}
 ```
 
-
 >- `--dart-define=SDK_APPID={YOUR_SDKAPPID}`. Here, `{YOUR_SDKAPPID}` needs to be replaced with the `SDKAppID` of your application.
 >- `--dart-define=ISPRODUCT_ENV=false`. Set it to `false` for a development environment.
->- `--dart-define=KEY={YOUR_KEY}`. Here, `{YOUR_KEY}` needs to be replaced with the `Key` recorded in [Tencent Cloud Console](https://console.tencentcloud.com/im/detail).
->
+>- `--dart-define=KEY={YOUR_KEY}`. Here, `{YOUR_KEY}` needs to be replaced with the `Key` recorded in [Chat Console](https://console.trtc.io/).
 
 ## (Optional) Using the IDE
 
 ### Android
 
 1. Go to the discuss/android directory via Android Studio.
-
-![](https://qcloudimg.tencent-cloud.cn/raw/6516f9b17c58915c4ebc93c5c8829831.png)
+<img src="https://qcloudimg.tencent-cloud.cn/raw/6516f9b17c58915c4ebc93c5c8829831.png" width="600px" />
 
 2. Start an Android simulator, tap **Build And Run** to run the sample app. Enter a random `UserID` (a combination of digits and letters).
 
@@ -125,21 +97,19 @@ flutter run --dart-define=SDK_APPID={YOUR_SDKAPPID} --dart-define=ISPRODUCT_ENV=
 ### iOS
 
 1. Open Xcode and the file discuss/ios/Runner.xcodeproj:
-
-![](https://qcloudimg.tencent-cloud.cn/raw/6d74814ba9bce54c7439e8b3cea53e73.png)
+<img src="https://qcloudimg.tencent-cloud.cn/raw/6d74814ba9bce54c7439e8b3cea53e73.png" width="600px" />
 
 2. Connect an iPhone, and click **Build And Run**. After the iOS project is built, the Xcode project will be displayed in a new pop-up window.
 
 3. Open the iOS project, and set **Signing & Capabilities** (an iPhone developer account required) for the primary target to run the project on the iPhone.
 
 4. Start the project and debug the sample app on the iPhone device.
-
-![](https://qcloudimg.tencent-cloud.cn/raw/3fe6bbac88bb21ad7a7822bb297793b3.png)
+<img src="https://qcloudimg.tencent-cloud.cn/raw/3fe6bbac88bb21ad7a7822bb297793b3.png" width="600px" />
 
 
 ## Sample app code structure
 
-> The [TUIKit](https://www.tencentcloud.com/document/product/1047/50059) for Flutter is used for the UI and business logic of the sample app. The sample app layer itself is only used to build the application, process navigation redirects, and call instantiated [TUIKit](https://www.tencentcloud.com/document/product/1047/50059) components.
+> The [TUIKit Library Overview](https://trtc.io/document/50059?platform=flutter&product=chat) for Flutter is used for the UI and business logic of the sample app. The sample app layer itself is only used to build the application, process navigation redirects, and call instantiated TUIKit components.
 
 
 |  Folder  | Description |
