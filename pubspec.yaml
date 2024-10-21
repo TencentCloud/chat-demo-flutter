@@ -34,7 +34,7 @@ dependencies:
   tencent_cloud_chat_user_profile: ^1.5.0
   tencent_cloud_chat: ^1.5.0
   tencent_cloud_chat_conversation: ^1.5.0
-  tencent_cloud_chat_message: ^1.5.0
+  tencent_cloud_chat_message: ^2.0.0
   tencent_cloud_chat_contact: ^1.5.0
   tencent_cloud_chat_push: ^8.0.6897
   tencent_cloud_chat_group_profile: ^1.5.0
