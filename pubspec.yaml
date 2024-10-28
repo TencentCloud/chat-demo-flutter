@@ -88,7 +88,6 @@ dependency_overrides:
   device_info_plus: ^9.0.1
   location: ^5.0.3
   http: ^1.0.0
-  sqflite_darwin: 2.4.1-1
 
 dev_dependencies:
   build_runner: any
