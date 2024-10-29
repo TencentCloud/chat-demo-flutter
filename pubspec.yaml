@@ -45,49 +45,18 @@ dependencies:
   tencent_cloud_chat_push: ^8.0.6897
   tencent_cloud_chat_vote_plugin: ^1.2.0
   tencent_cloud_chat_customer_service_plugin: ^0.1.0
-  tencent_cloud_av_chat_room: ^0.1.0
-#  tim_ui_kit_push_plugin:
-#    path: /Users/wangrunlin/Documents/GitHub/im-flutter-uikit-push
-
-  # Location message and Baidu Map:
-#  tim_ui_kit_lbs_plugin: ^2.0.0+1
-#  flutter_baidu_mapapi_map: ^3.3.1
-#  flutter_baidu_mapapi_search: ^3.3.1
-#  flutter_bmflocation: ^3.3.1
-
 
   # Third party dependencies:
   cupertino_icons: ^1.0.2
-  localstorage: ^4.0.0+1
-  expandable: ^5.0.1
-  # flutter_tags: ^0.4.9+1
-  image_picker: ^0.8.4+4
-  flutter_plugin_record_plus: ^0.0.8
-  loading_indicator: ^2.0.1
-  shared_preferences: ^2.0.12
-  url_launcher: ^6.1.5
-  adaptive_action_sheet: ^2.0.3
   webview_flutter: ^3.0.0
   flutter_easyloading: ^3.0.3
-  tencent_super_tooltip: ^0.0.1
-  uni_links: ^0.5.1
-  flutter_launcher_icons: ^0.13.1
-  loading_animation_widget: ^1.2.0+2
-  path_provider: ^2.0.11
-  universal_io: ^2.0.4
-  synchronized: ^3.0.0+3
   desktop_webview_window_for_is: ^0.2.4
   bitsdojo_window: ^0.1.5
   flutter_screenutil: ^5.9.0
   fluttertoast: ^8.2.1
   dio: ^4.0.0
-  dotted_line: ^3.2.2
 
 dependency_overrides:
-  shared_preferences_android: 2.1.0
-  device_info_plus: ^9.0.1
-  location: ^5.0.3
-  http: ^1.0.0
 
 dev_dependencies:
   build_runner: any

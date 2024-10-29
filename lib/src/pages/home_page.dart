@@ -12,7 +12,6 @@ import 'package:tencent_cloud_chat_demo/src/contact.dart';
 import 'package:tencent_cloud_chat_demo/src/conversation.dart';
 import 'package:tencent_cloud_chat_demo/src/create_group.dart';
 import 'package:tencent_cloud_chat_demo/src/create_group_introduction.dart';
-import 'package:tencent_cloud_chat_demo/src/pages/live_room/live.dart';
 import 'package:tencent_cloud_chat_demo/src/profile.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/local_setting.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/login_user_Info.dart';
@@ -250,22 +249,6 @@ class HomePageState extends State<HomePage> {
               ),
             )
           ],
-        ),
-      ),
-      NavigationBarData(
-        widget: const Live(),
-        title: TIM_t("直播"),
-        selectedIcon: ColorFiltered(
-            child: const Icon(
-              Icons.live_tv_rounded,
-              size: 24,
-            ),
-            colorFilter: ColorFilter.mode(
-                theme.primaryColor ?? CommonColor.primaryColor,
-                BlendMode.srcATop)),
-        unselectedIcon: const Icon(
-          Icons.live_tv_rounded,
-          size: 24,
         ),
       ),
       NavigationBarData(

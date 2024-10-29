@@ -316,26 +316,6 @@ class _ChatState extends State<Chat> {
             id: 'evaluate',
             title: TIM_t("服务评价"),
           ),
-        // MorePanelItem(
-        //   onTap: (c) {
-        //     _createCustomerServiceCardMessage();
-        //   },
-        //   icon: Container(
-        //     height: 64,
-        //     width: 64,
-        //     margin: const EdgeInsets.only(bottom: 4),
-        //     decoration: const BoxDecoration(
-        //         color: Colors.white,
-        //         borderRadius: BorderRadius.all(Radius.circular(5))),
-        //     child: Icon(
-        //       Icons.card_giftcard,
-        //       color: hexToColor("5c6168"),
-        //       size: 32,
-        //     ),
-        //   ),
-        //   id: 'cardMessage',
-        //   title: TIM_t("卡片消息"),
-        // )
       ]);
     }
     return wids;
@@ -583,23 +563,6 @@ class _ChatState extends State<Chat> {
                 ),
               );
             }
-            // return LocationMsgElement(
-            //   isAllowCurrentLocation: false,
-            //   messageID: message.msgID,
-            //   locationElem: LocationMessage(
-            //     longitude: message.locationElem!.longitude,
-            //     latitude: message.locationElem!.latitude,
-            //     desc: message.locationElem?.desc ?? "",
-            //   ),
-            //   isFromSelf: message.isSelf ?? true,
-            //   isShowJump: isShowJump,
-            //   clearJump: clearJump,
-            //   mapBuilder: (onMapLoadDone, mapKey) => BaiduMap(
-            //     onMapLoadDone: onMapLoadDone,
-            //     key: mapKey,
-            //   ),
-            //   locationUtils: LocationUtils(BaiduMapService()),
-            // );
           },
         ),
         morePanelConfig: MorePanelConfig(
