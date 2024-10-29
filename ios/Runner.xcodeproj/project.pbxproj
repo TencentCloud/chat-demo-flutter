@@ -157,7 +157,7 @@
 		97C146E61CF9000F007C117D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1510;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					97C146ED1CF9000F007C117D = {
@@ -535,7 +535,6 @@
 					"-framework",
 					"\"shared_preferences_foundation\"",
 					"-framework",
-					"\"sqflite\"",
 					"-framework",
 					"\"tencent_calls_engine\"",
 					"-framework",
@@ -545,7 +544,6 @@
 					"-framework",
 					"\"tencent_cloud_uikit_core\"",
 					"-framework",
-					"\"uni_links\"",
 					"-framework",
 					"\"url_launcher_ios\"",
 					"-framework",
@@ -822,7 +820,6 @@
 					"-framework",
 					"\"shared_preferences_foundation\"",
 					"-framework",
-					"\"sqflite\"",
 					"-framework",
 					"\"tencent_calls_engine\"",
 					"-framework",
@@ -832,7 +829,6 @@
 					"-framework",
 					"\"tencent_cloud_uikit_core\"",
 					"-framework",
-					"\"uni_links\"",
 					"-framework",
 					"\"url_launcher_ios\"",
 					"-framework",
@@ -996,7 +992,6 @@
 					"-framework",
 					"\"shared_preferences_foundation\"",
 					"-framework",
-					"\"sqflite\"",
 					"-framework",
 					"\"tencent_calls_engine\"",
 					"-framework",
@@ -1006,7 +1001,6 @@
 					"-framework",
 					"\"tencent_cloud_uikit_core\"",
 					"-framework",
-					"\"uni_links\"",
 					"-framework",
 					"\"url_launcher_ios\"",
 					"-framework",
@@ -1052,5 +1046,3 @@
 	};
 	rootObject = 97C146E61CF9000F007C117D /* Project object */;
 }
-
-

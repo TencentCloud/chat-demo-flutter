@@ -5,7 +5,7 @@ import Flutter
 import TIMPush
 import tencent_cloud_chat_push
 
-@UIApplicationMain
+@main
 @objc class AppDelegate: FlutterAppDelegate, TIMPushDelegate {
     override func application(
         _ application: UIApplication,
