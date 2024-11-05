@@ -2,12 +2,12 @@
     package="com.tencent.flutter.tuikit"
     xmlns:tools="http://schemas.android.com/tools"
     >
-   <application
+    <application
         android:label="腾讯云IM"
-       android:name=".application.TIMApplication"
+        android:name=".application.TIMApplication"
         tools:replace="android:label"
         android:icon="@mipmap/logo"
-       android:usesCleartextTraffic="true"
+        android:usesCleartextTraffic="true"
         android:requestLegacyExternalStorage="true">
         <activity
             android:name=".MainActivity"
@@ -51,29 +51,35 @@
             </intent-filter>
         </activity>
 
-       <!-- Don't delete the meta-data below.
+        <!-- Don't delete the meta-data below.
             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data
             tools:replace="android:value"
             android:name="flutterEmbedding"
             android:value="2" />
-       <meta-data
-           tools:replace="android:value"
-           android:name="com.baidu.lbsapi.API_KEY"
-           android:value="" />
-       <meta-data
-           tools:replace="android:value"
-           android:name="com.vivo.push.api_key"
-           android:value="" />
-       <meta-data
-           tools:replace="android:value"
-           android:name="com.vivo.push.app_id"
-           android:value="" />
-       <meta-data
-           tools:replace="android:value"
-           android:name="com.hihonor.push.app_id"
-           android:value="" />
-   </application>
+        <meta-data
+            tools:replace="android:value"
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="" />
+        <meta-data
+            tools:replace="android:value"
+            android:name="com.vivo.push.api_key"
+            android:value="" />
+        <meta-data
+            tools:replace="android:value"
+            android:name="com.vivo.push.app_id"
+            android:value="" />
+        <meta-data
+            tools:replace="android:value"
+            android:name="com.hihonor.push.app_id"
+            android:value="" />
+    </application>
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- Compatibility for Android13 -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
 
     <!--xiaomi-->
     <permission
