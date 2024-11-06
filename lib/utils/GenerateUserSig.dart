@@ -6,7 +6,6 @@ import 'package:crypto/crypto.dart';
 import 'package:archive/archive.dart';
 import 'package:archive/archive_io.dart';
 
-/// 生成腾讯云即时通信测试用userSig
 /// Generate userSig for Tencent Cloud instant messaging test
 ///
 class GenerateDevUsersigForTest {
@@ -14,7 +13,6 @@ class GenerateDevUsersigForTest {
   int sdkappid;
   String key;
 
-  /// 生成UserSig
   /// Generate UserSig
   ///
   String genSig({
