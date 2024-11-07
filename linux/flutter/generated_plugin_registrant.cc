@@ -11,6 +11,7 @@
 #include <desktop_webview_window_for_is/desktop_webview_window_plugin.h>
 #include <file_selector_linux/file_selector_plugin.h>
 #include <image_clipboard/image_clipboard_plugin.h>
+#include <open_file_linux/open_file_linux_plugin.h>
 #include <pasteboard/pasteboard_plugin.h>
 #include <url_launcher_linux/url_launcher_plugin.h>
 
@@ -30,6 +31,9 @@ void fl_register_plugins(FlPluginRegistry* registry) {
   g_autoptr(FlPluginRegistrar) image_clipboard_registrar =
       fl_plugin_registry_get_registrar_for_plugin(registry, "ImageClipboardPlugin");
   image_clipboard_plugin_register_with_registrar(image_clipboard_registrar);
+  g_autoptr(FlPluginRegistrar) open_file_linux_registrar =
+      fl_plugin_registry_get_registrar_for_plugin(registry, "OpenFileLinuxPlugin");
+  open_file_linux_plugin_register_with_registrar(open_file_linux_registrar);
   g_autoptr(FlPluginRegistrar) pasteboard_registrar =
       fl_plugin_registry_get_registrar_for_plugin(registry, "PasteboardPlugin");
   pasteboard_plugin_register_with_registrar(pasteboard_registrar);
