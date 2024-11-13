@@ -29,9 +29,46 @@ The platforms are compatible with the deployment of our Chat UIKit.
 
 |   | Version                                                                        |
 |---------|--------------------------------------------------------------------------------|
-| Flutter | Flutter 3.16.0 or later                                                        |
+| Flutter | Flutter 3.24.0 or later                                                        |
 | Android | Android Studio 3.5 or later; devices with Android 4.1 or later for apps        |
 | iOS | Xcode 11.0 or later. Ensure that your project has a valid developer signature. |
+
+<table >
+  <tr >
+    <th width="180px" style="text-align:center">Flutter version</th>
+    <th width="250px" style="text-align:center">UIKit-V2 Components version</th>
+    <th width="500px" style="text-align:center">Third-party libraries</th>
+    <th width="500px" style="text-align:center">Compatible Configurations</th>
+  </tr>
+
+  <tr >
+     <td style="text-align:center">3.24.0 - 3.24.4</td>
+     <td style="text-align:center">tencent_cloud_chat_message: ^2.0.0</td>
+     <td style="text-align:center">
+        <ul>
+          <li>extended_text: ^14.0.0</li>
+          <li>extended_text_field: ^16.0.0</li>
+        </ul>
+     </td>
+     <td style="text-align:center">
+        <img width="611" alt="build.gradle" src="https://github.com/user-attachments/assets/598a325a-9681-425e-8e07-ea3229e19dc2">
+     </td>
+    
+  </tr>
+
+  <tr>
+     <td style="text-align:center">3.22.0 - 3.22.3</td>
+     <td style="text-align:center">tencent_cloud_chat_message: ^1.5.0</td>
+     <td style="text-align:center">
+        <ul>
+            <li>extended_text: ^13.0.0</li>
+            <li>extended_text_field: ^15.0.0</li>
+        </ul>
+     </td>
+    <td style="text-align:center"></td>
+
+  </tr>
+</table>
 
 ## Preparation
 
