@@ -48,7 +48,7 @@ For the other platforms, please refer to document：
         </ul>
      </td>
      <td style="text-align:center">
-        <img width="611" alt="build 配置" src="https://github.com/user-attachments/assets/598a325a-9681-425e-8e07-ea3229e19dc2">
+        <img width="611" alt="build.gradle" src="https://github.com/user-attachments/assets/598a325a-9681-425e-8e07-ea3229e19dc2">
      </td>
     
   </tr>
