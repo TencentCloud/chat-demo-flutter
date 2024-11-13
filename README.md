@@ -23,7 +23,7 @@ For the other platforms, please refer to document：
 
 | Platform  | Version                                                                                                     |
 |---------|-------------------------------------------------------------------------------------------------------------|
-| Flutter | Flutter 3.0.0 or later for the IM SDK; Flutter 3.13.0 or later for the TUIKit component library. |
+| Flutter | Flutter 3.0.0 or later for the IM SDK; Flutter 3.24.0 or later for the TUIKit component library. |
 | Android | Android Studio 3.5 or later; devices with Android 4.1 or later for apps                                     |
 | iOS | Xcode 11.0 or later. Ensure that your project has a valid developer signature.                              |
 
