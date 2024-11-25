@@ -19,8 +19,8 @@ import tencent_cloud_chat_push
     }
     
     // Add this function
-    func offlinePushCertificateID() -> Int32 {
-        return TencentCloudChatPushFlutterModal.shared.offlinePushCertificateID();
+    func businessID() -> Int32 {
+        return TencentCloudChatPushFlutterModal.shared.businessID();
     }
     
     
