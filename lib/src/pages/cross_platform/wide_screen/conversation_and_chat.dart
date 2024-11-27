@@ -26,7 +26,8 @@ class ConversationAndChat extends StatefulWidget {
 }
 
 class _ConversationAndChatState extends State<ConversationAndChat> {
-  final TIMUIKitConversationController _conversationController = TIMUIKitConversationController();
+  final TIMUIKitConversationController _conversationController =
+      TIMUIKitConversationController();
 
   V2TimConversation? currentConversation;
   bool isShowSearch = false;
@@ -120,18 +121,23 @@ class _ConversationAndChatState extends State<ConversationAndChat> {
                           height: MediaQuery.of(context).size.height * 0.3,
                           child: (closeFunc) => Center(
                                 child: Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
-                                      Text(TIM_t("Web 端暂不支持本地搜索，请使用 Mobile App 或 Desktop 端体验")),
+                                      Text(TIM_t(
+                                          "Web 端暂不支持本地搜索，请使用 Mobile App 或 Desktop 端体验")),
                                       ElevatedButton(
                                           onPressed: () {
                                             launchUrl(
-                                              Uri.parse("https://cloud.tencent.com/document/product/269/36852"),
-                                              mode: LaunchMode.externalApplication,
+                                              Uri.parse(
+                                                  "https://cloud.tencent.com/document/product/269/36852"),
+                                              mode: LaunchMode
+                                                  .externalApplication,
                                             );
                                           },
                                           child: Text(TIM_t("立即下载")))
@@ -172,7 +178,8 @@ class _ConversationAndChatState extends State<ConversationAndChat> {
                   });
                 },
               ),
-              if (TencentUtils.checkString(currentConversation?.groupID) != null)
+              if (TencentUtils.checkString(currentConversation?.groupID) !=
+                  null)
                 AnimatedPositioned(
                     right: isShowGroupProfile ? 0 : -360,
                     duration: const Duration(milliseconds: 200),
@@ -180,7 +187,8 @@ class _ConversationAndChatState extends State<ConversationAndChat> {
                       width: 350,
                       height: MediaQuery.of(context).size.height,
                       decoration: BoxDecoration(
-                        color: theme.wideBackgroundColor ?? const Color(0xFFffffff),
+                        color: theme.wideBackgroundColor ??
+                            const Color(0xFFffffff),
                         boxShadow: const [
                           BoxShadow(
                             color: Color(0xFFbebebe),
@@ -196,7 +204,9 @@ class _ConversationAndChatState extends State<ConversationAndChat> {
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
                               color: hexToColor("f5f6f7"),
-                              borderRadius: const BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
+                              borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(16),
+                                  topRight: Radius.circular(16)),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -204,7 +214,8 @@ class _ConversationAndChatState extends State<ConversationAndChat> {
                               children: [
                                 Text(
                                   TIM_t("设置"),
-                                  style: TextStyle(fontSize: 18, color: theme.darkTextColor),
+                                  style: TextStyle(
+                                      fontSize: 18, color: theme.darkTextColor),
                                 ),
                                 InkWell(
                                   onTap: () {
@@ -225,9 +236,24 @@ class _ConversationAndChatState extends State<ConversationAndChat> {
                           ),
                           Expanded(
                               child: TIMUIKitGroupProfile(
-                            onClickUser: (user, tapDetails) {
+                            onClickUser: (memberInfo, tapDetails) {
                               onClickUserName(
-                                  tapDetails != null ? Offset(min(tapDetails.globalPosition.dx, MediaQuery.of(context).size.width - 350), min(tapDetails.globalPosition.dy, MediaQuery.of(context).size.height - 470)) : null, user);
+                                  tapDetails != null
+                                      ? Offset(
+                                          min(
+                                              tapDetails.globalPosition.dx,
+                                              MediaQuery.of(context)
+                                                      .size
+                                                      .width -
+                                                  350),
+                                          min(
+                                              tapDetails.globalPosition.dy,
+                                              MediaQuery.of(context)
+                                                      .size
+                                                      .height -
+                                                  470))
+                                      : null,
+                                  memberInfo.userID);
                             },
                             profileWidgetsOrder: const [
                               GroupProfileWidgetEnum.detailCard,

@@ -31,7 +31,9 @@ class _ChatV2State extends State<ChatV2> {
         : widget.selectedConversation.groupID;
   }
 
-  Future<void> loadHistoryMessageList(String? lastMsgID, LoadDirection direction, [int? count]) async {
+  Future<bool> loadHistoryMessageList(
+      String? lastMsgID, LoadDirection direction,
+      [int? count, int? lastSeq]) async {
     if (_haveMoreData) {
       _haveMoreData = await _controller.loadHistoryMessageList(
           count: count ?? 20,
@@ -40,7 +42,8 @@ class _ChatV2State extends State<ChatV2> {
           groupID: widget.selectedConversation.groupID,
           lastMsgID: lastMsgID);
     }
-    return;
+
+    return _haveMoreData;
   }
 
   @override
@@ -93,7 +96,7 @@ class _ChatV2State extends State<ChatV2> {
                               children: [Text("this is top Raw builder")],
                             );
                           },
-                          showMessageReadRecipt: false,
+                          showMessageReadReceipt: false,
                           onScrollToIndex:
                               _historyMessageListController.scrollToIndex,
                           onScrollToIndexBegin:

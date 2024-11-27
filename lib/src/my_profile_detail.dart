@@ -8,10 +8,12 @@ import 'package:tencent_cloud_chat_demo/src/pages/cross_platform/wide_screen/abo
 import 'package:tencent_cloud_chat_demo/src/pages/cross_platform/wide_screen/contact_us.dart';
 import 'package:tencent_cloud_chat_demo/src/pages/cross_platform/wide_screen/settings.dart';
 import 'package:tencent_cloud_chat_demo/src/routes.dart';
+import 'package:tencent_cloud_chat_demo/utils/constant.dart';
 import 'package:tencent_cloud_chat_demo/utils/toast.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/core/tim_uikit_wide_modal_operation_key.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/screen_utils.dart';
+import 'package:tencent_cloud_chat_uikit/ui/utils/time_ago.dart';
 
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/widget/tim_uikit_profile_widget.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
@@ -20,6 +22,8 @@ import 'package:tencent_cloud_chat_demo/src/config.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/wide_popup.dart';
+
+import 'avatar_select_page.dart';
 
 class MyProfileDetail extends StatefulWidget {
   final V2TimUserFullInfo? userProfile;
@@ -35,31 +39,18 @@ class MyProfileDetail extends StatefulWidget {
 class MyProfileDetailState extends State<MyProfileDetail> {
   final CoreServicesImpl _coreServices = TIMUIKitCore.getInstance();
   late V2TimUserFullInfo? userProfile;
+  late DateTime selectedDate;
 
   @override
   void initState() {
     super.initState();
     userProfile = widget.userProfile;
-  }
-
-  final List<String> avatarURL = [
-    "https://qcloudimg.tencent-cloud.cn/raw/3f574fd5dd7d3d253e23148f6dbb9d6c.png",
-    "https://qcloudimg.tencent-cloud.cn/raw/9c6b6806f88ee33b3685f0435fe9a8b3.png",
-    "https://qcloudimg.tencent-cloud.cn/raw/2c6e4177fcca03de1447a04d8ff76d9c.png",
-    "https://qcloudimg.tencent-cloud.cn/raw/af98ae3d5c4094d2061612bea8fda4da.png",
-    "https://qcloudimg.tencent-cloud.cn/raw/bd41d21551407655a01bba48894d33ad.png",
-    "https://qcloudimg.tencent-cloud.cn/raw/f9b6638581718fefb101eaabf7f76a2e.png",
-  ];
-
-  setRandomAvatar() async {
-    String avatar = avatarURL[Random().nextInt(6)];
-    await _coreServices.setSelfInfo(
-        userFullInfo: V2TimUserFullInfo.fromJson({
-      "faceUrl": avatar,
-    }));
-    setState(() {
-      userProfile?.faceUrl = avatar;
-    });
+    if (userProfile?.birthday != null && userProfile?.birthday != 0) {
+      final date = DateTime.parse(userProfile!.birthday.toString());
+      selectedDate = date;
+    } else {
+      selectedDate = DateTime.now();
+    }
   }
 
   _handleLogout(BuildContext context) async {
@@ -68,11 +59,10 @@ class MyProfileDetailState extends State<MyProfileDetail> {
       try {
         Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
         SharedPreferences prefs = await _prefs;
-        prefs.remove('smsLoginUserId');
-        prefs.remove('smsLoginToken');
-        prefs.remove('smsLoginPhone');
-        prefs.remove('channelListMain');
-        prefs.remove('discussListMain');
+        prefs.remove(Const.DEV_LOGIN_USER_ID);
+        prefs.remove(Const.DEV_LOGIN_USER_SIG);
+        prefs.remove(Const.SMS_LOGIN_TOKEN);
+        prefs.remove(Const.SMS_LOGIN_PHONE);
       } catch (err) {
         ToastUtils.log("someError");
         ToastUtils.log(err);
@@ -130,31 +120,43 @@ class MyProfileDetailState extends State<MyProfileDetail> {
     }
   }
 
-  Future<bool?> showChangeAvatarDialog(BuildContext context) {
-    return showDialog<bool>(
-      context: context,
-      builder: (context) {
-        return CupertinoAlertDialog(
-          title: Text(TIM_t("TUIKIT 为你选择一个头像?")),
-          actions: [
-            CupertinoDialogAction(
-              child: Text(TIM_t("取消")),
-              isDestructiveAction: true,
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            CupertinoDialogAction(
-              child: Text(TIM_t("确定")),
-              onPressed: () {
-                setRandomAvatar();
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
+  Future<void> showSelectAvatarPage(BuildContext context) async {
+    var result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AvatarSelectPage(
+          controller: widget.controller,
+          selectedAvatarUrl: userProfile!.faceUrl ?? "",
+        ),
+      ),
     );
+
+    if (result != null) {
+      setState(() {
+        userProfile?.faceUrl = result as String;
+      });
+    }
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2100),
+    );
+    if (pickedDate != null && pickedDate != selectedDate) {
+      String birthdayString = pickedDate.year.toString() +
+          TimeAgo.getMonth(pickedDate) +
+          TimeAgo.getDay(pickedDate);
+      final result =
+          await widget.controller?.updateBirthday(int.parse(birthdayString));
+      if (result?.code == 0) {
+        setState(() {
+          selectedDate = pickedDate;
+        });
+      }
+    }
   }
 
   @override
@@ -191,7 +193,7 @@ class MyProfileDetailState extends State<MyProfileDetail> {
           children: [
             if (isWideScreen)
               TIMUIKitProfileUserInfoCard(
-                  onClickAvatar: () => showChangeAvatarDialog(context),
+                  onClickAvatar: () => showSelectAvatarPage(context),
                   userInfo: userProfile),
             if (!isWideScreen)
               GestureDetector(
@@ -206,13 +208,12 @@ class MyProfileDetailState extends State<MyProfileDetail> {
                         showName: userProfile?.nickName ?? ""),
                   ),
                 ),
-                onTap: () => showChangeAvatarDialog(context),
+                onTap: () => showSelectAvatarPage(context),
               ),
             TIMUIKitProfileWidget.operationDivider(
                 color: theme.weakDividerColor,
                 height: 1,
-                margin: const EdgeInsets.symmetric(vertical: 20)
-            ),
+                margin: const EdgeInsets.symmetric(vertical: 20)),
             InkWell(
               onTapDown: (details) async {
                 widget.controller?.showTextInputBottomSheet(
@@ -334,6 +335,12 @@ class MyProfileDetailState extends State<MyProfileDetail> {
                 },
                 child: TIMUIKitProfileWidget.genderBarWithArrow(
                     userProfile?.gender ?? 0, false)),
+            InkWell(
+                onTapDown: (details) {
+                  _selectDate(context);
+                },
+                child: TIMUIKitProfileWidget.birthdayBar(
+                    userProfile?.birthday ?? 0, false)),
             if (isWideScreen) Expanded(child: Container()),
             if (isWideScreen)
               Row(

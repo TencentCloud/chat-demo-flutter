@@ -2,13 +2,16 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tencent_cloud_chat_demo/src/provider/login_user_Info.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
 import 'package:tencent_cloud_chat_demo/src/chat.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/screen_utils.dart';
+import 'package:tencent_cloud_chat_uikit/data_services/message/message_services.dart';
+import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
 
-enum GroupTypeForUIKit { single, work, chat, meeting, public }
+enum GroupTypeForUIKit { single, work, chat, meeting, public, community }
 
 GlobalKey<_CreateGroup> createGroupKey = GlobalKey();
 
@@ -25,6 +28,8 @@ class CreateGroup extends StatefulWidget {
 
 class _CreateGroup extends State<CreateGroup> {
   final V2TIMManager _sdkInstance = TIMUIKitCore.getSDKInstance();
+  final MessageService _messageService = serviceLocator<MessageService>();
+  final CoreServicesImpl _coreInstance = TIMUIKitCore.getInstance();
   List<V2TimFriendInfo> friendList = [];
   List<V2TimFriendInfo> selectedFriendList = [];
 
@@ -133,6 +138,7 @@ class _CreateGroup extends State<CreateGroup> {
           .getConversationManager()
           .getConversation(conversationID: conversationID);
       if (convRes.code == 0) {
+        await _sendMessageToNewlyCreatedGroup(groupType, groupID!);
         final conversation = convRes.data ??
             V2TimConversation(
                 conversationID: conversationID,
@@ -144,13 +150,33 @@ class _CreateGroup extends State<CreateGroup> {
         if (widget.directToChat != null) {
           widget.directToChat!(conversation);
         } else {
-          Navigator.pushReplacement(
+          Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      Chat(selectedConversation: conversation)));
+                    Chat(selectedConversation: conversation)
+              ),
+              ModalRoute.withName("/homePage")
+          );
         }
       }
+    }
+  }
+
+  _sendMessageToNewlyCreatedGroup(String groupType, String groupID) async {
+    final loginUserInfo = _coreInstance.loginUserInfo;
+    V2TimMsgCreateInfoResult? res = await _messageService.createCustomMessage(
+        data: json.encode(
+            {"businessID": "group_create",
+              "version": 4,
+              "opUser": loginUserInfo?.nickName ?? loginUserInfo!.userID,
+              "content": groupType == GroupType.Community ? "创建社群" : "创建群组",
+              "cmd": groupType == GroupType.Community ? 1 : 0}));
+    if (res != null) {
+      final sendMsgRes = await _messageService.sendMessage(
+          id: res.id!,
+          groupID: groupID,
+          receiver: '');
     }
   }
 
@@ -167,7 +193,9 @@ class _CreateGroup extends State<CreateGroup> {
           _createSingleConversation();
           break;
         case GroupTypeForUIKit.chat:
-          _createGroup(GroupType.AVChatRoom);
+          break;
+        case GroupTypeForUIKit.community:
+          _createGroup(GroupType.Community);
           break;
         case GroupTypeForUIKit.meeting:
           _createGroup(GroupType.Meeting);

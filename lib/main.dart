@@ -39,15 +39,6 @@ void main(List<String> args) {
   WidgetsFlutterBinding.ensureInitialized();
   LocaleSettings.useDeviceLocale();
 
-  // 这里打开后可以用百度地图
-  // if (Platform.isIOS) {
-  //   BMFMapSDK.setApiKeyAndCoordType(
-  //       IMDemoConfig.baiduMapIOSAppKey, BMF_COORD_TYPE.BD09LL);
-  // } else if (Platform.isAndroid) {
-  //   BMFMapSDK.setCoordType(BMF_COORD_TYPE.BD09LL);
-  // }
-  // BMFMapSDK.setAgreePrivacy(true);
-
   if (PlatformUtils().isAndroid) {
     SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_demo/src/tencent_page.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/life_cycle/group_profile_life_cycle.dart';
+import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_friendship_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_self_info_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
 import 'package:tencent_cloud_chat_uikit/ui/utils/platform.dart';
+import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitAddFriend/tim_uikit_send_application.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitGroupProfile/group_profile_widget.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitGroupProfile/widgets/tim_ui_group_profile_widget.dart';
 
@@ -24,6 +26,8 @@ class GroupProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final TUISelfInfoViewModel _selfInfoViewModel =
         serviceLocator<TUISelfInfoViewModel>();
+    final TUIFriendShipViewModel _friendShipViewModel =
+        serviceLocator<TUIFriendShipViewModel>();
     return TencentPage(
         child: Scaffold(
             appBar: AppBar(
@@ -58,13 +62,32 @@ class GroupProfilePage extends StatelessWidget {
                   }
                 }),
                 groupID: groupID,
-                onClickUser: (String userID, _) {
-                  if (userID != _selfInfoViewModel.loginInfo?.userID) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => UserProfile(userID: userID),
-                        ));
+                onClickUser: (V2TimGroupMemberFullInfo memberInfo, _) {
+                  if (memberInfo.userID !=
+                      _selfInfoViewModel.loginInfo?.userID) {
+                    _friendShipViewModel
+                        .isFriend(memberInfo.userID)
+                        .then((isFriend) {
+                      if (!isFriend) {
+                        V2TimUserFullInfo friendInfo = V2TimUserFullInfo(
+                            userID: memberInfo.userID,
+                            nickName: memberInfo.nickName,
+                            faceUrl: memberInfo.faceUrl);
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SendApplication(
+                                    friendInfo: friendInfo,
+                                    model: _selfInfoViewModel)));
+                      } else {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  UserProfile(userID: memberInfo.userID),
+                            ));
+                      }
+                    });
                   }
                 },
                 profileWidgetBuilder:

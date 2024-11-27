@@ -3,11 +3,6 @@
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
 class Const {
-  // 上报相关
-  static const String BID = "com.tencent.flutter.tuikit";
-  static const BAPPID = "6a585cf1c9";
-  static const BKEY = "b05d8677-a092-49a1-b21a-0221ce5cbded";
-
   // 时间戳消息 前端模拟
   static const int V2TIM_ELEM_TYPE_TIME = 11;
   static const int REQUEST_ERROR_CODE = -9;
@@ -26,6 +21,12 @@ class Const {
     TIM_t("星期六"),
     TIM_t("星期七")
   ];
+
+  static const String SMS_LOGIN_TOKEN = "smsLoginToken";
+  static const String SMS_LOGIN_PHONE = "smsLoginPhone";
+  static const String DEV_LOGIN_USER_ID = "devLoginUserID";
+  static const String DEV_LOGIN_USER_SIG = "devUserSig";
+  static const String THEME_TYPE = "themeType";
 
   static const DAY_SEC = 86400;
   static const HOUR_SEC = 3600;

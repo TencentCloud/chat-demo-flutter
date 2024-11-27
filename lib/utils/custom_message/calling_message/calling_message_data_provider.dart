@@ -3,7 +3,18 @@ import 'dart:convert';
 
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
-enum CallProtocolType { unknown, send, accept, reject, cancel, hangup, timeout, lineBusy, switchToAudio, switchToAudioConfirm }
+enum CallProtocolType {
+  unknown,
+  send,
+  accept,
+  reject,
+  cancel,
+  hangup,
+  timeout,
+  lineBusy,
+  switchToAudio,
+  switchToAudioConfirm
+}
 
 //通话媒体类型
 enum CallStreamMediaType { unknown, audio, video }
@@ -66,6 +77,14 @@ class CallingMessageDataProvider {
     _setDirection();
     _setExcludeFromHistory();
     _setContent();
+  }
+
+  String getUserID() {
+    if (_innerMessage!.userID != null) {
+      return _innerMessage!.userID!;
+    } else {
+      return "";
+    }
   }
 
   _initInter(V2TimMessage message) async {
@@ -205,7 +224,8 @@ class CallingMessageDataProvider {
           }
         }
       }
-    } else if (_protocolType == CallProtocolType.switchToAudio || _protocolType == CallProtocolType.switchToAudioConfirm) {
+    } else if (_protocolType == CallProtocolType.switchToAudio ||
+        _protocolType == CallProtocolType.switchToAudioConfirm) {
       _streamMediaType = CallStreamMediaType.video;
     }
   }
@@ -216,7 +236,8 @@ class CallingMessageDataProvider {
       return;
     }
 
-    if (_signalingInfo!.groupID != null && _signalingInfo!.groupID!.isNotEmpty) {
+    if (_signalingInfo!.groupID != null &&
+        _signalingInfo!.groupID!.isNotEmpty) {
       _participantType = CallParticipantType.group;
     } else {
       _participantType = CallParticipantType.c2c;
@@ -260,7 +281,9 @@ class CallingMessageDataProvider {
   }
 
   _setExcludeFromHistory() {
-    _excludeFromHistory = _protocolType != CallProtocolType.unknown && _innerMessage!.isExcludedFromLastMessage! && _innerMessage!.isExcludedFromUnreadCount!;
+    _excludeFromHistory = _protocolType != CallProtocolType.unknown &&
+        _innerMessage!.isExcludedFromLastMessage! &&
+        _innerMessage!.isExcludedFromUnreadCount!;
   }
 
   _setContent() {
@@ -302,12 +325,14 @@ class CallingMessageDataProvider {
         _content = TIM_t('通话结束');
       } else if (_protocolType == CallProtocolType.hangup) {
         _content = TIM_t('通话结束');
-      } else if (_protocolType == CallProtocolType.timeout || _protocolType == CallProtocolType.lineBusy) {
+      } else if (_protocolType == CallProtocolType.timeout ||
+          _protocolType == CallProtocolType.lineBusy) {
         String inviteeNames = '';
         for (String invitee in _signalingInfo!.inviteeList) {
           inviteeNames = inviteeNames + invitee + '、';
         }
-        _content = inviteeNames.substring(0, inviteeNames.length - 1) + TIM_t('未接听');
+        _content =
+            inviteeNames.substring(0, inviteeNames.length - 1) + TIM_t('未接听');
       } else if (_protocolType == CallProtocolType.reject) {
         _content = showName + TIM_t('拒绝群通话');
       } else if (_protocolType == CallProtocolType.accept) {
@@ -337,11 +362,14 @@ class CallingMessageDataProvider {
 
   _getShowName() {
     String showName = _innerMessage?.sender ?? "";
-    if (_innerMessage?.nameCard != null && _innerMessage!.nameCard!.isNotEmpty) {
+    if (_innerMessage?.nameCard != null &&
+        _innerMessage!.nameCard!.isNotEmpty) {
       showName = _innerMessage!.nameCard!;
-    } else if (_innerMessage?.friendRemark != null && _innerMessage!.friendRemark!.isNotEmpty) {
+    } else if (_innerMessage?.friendRemark != null &&
+        _innerMessage!.friendRemark!.isNotEmpty) {
       showName = _innerMessage!.friendRemark!;
-    } else if (_innerMessage?.nickName != null && _innerMessage!.nickName!.isNotEmpty) {
+    } else if (_innerMessage?.nickName != null &&
+        _innerMessage!.nickName!.isNotEmpty) {
       showName = _innerMessage!.nickName!;
     }
     return showName;

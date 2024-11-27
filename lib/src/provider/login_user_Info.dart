@@ -3,6 +3,7 @@
 import 'dart:math';
 
 import 'package:flutter/widgets.dart';
+import 'package:tencent_cloud_chat_demo/src/avatar_select_page.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
 class LoginUserInfo with ChangeNotifier {
@@ -20,22 +21,15 @@ class LoginUserInfo with ChangeNotifier {
     notifyListeners();
   }
 
-  final List<String> avatarURL = [
-    "https://qcloudimg.tencent-cloud.cn/raw/3f574fd5dd7d3d253e23148f6dbb9d6c.png",
-    "https://qcloudimg.tencent-cloud.cn/raw/9c6b6806f88ee33b3685f0435fe9a8b3.png",
-    "https://qcloudimg.tencent-cloud.cn/raw/2c6e4177fcca03de1447a04d8ff76d9c.png",
-    "https://qcloudimg.tencent-cloud.cn/raw/af98ae3d5c4094d2061612bea8fda4da.png",
-    "https://qcloudimg.tencent-cloud.cn/raw/bd41d21551407655a01bba48894d33ad.png",
-    "https://qcloudimg.tencent-cloud.cn/raw/f9b6638581718fefb101eaabf7f76a2e.png",
-  ];
-
   setRandomAvatar() async {
-    String avatar = avatarURL[Random().nextInt(6)];
+    int index = Random().nextInt(AvatarSelectPage.avatarFaceCount);
+    String faceUrl =
+        AvatarSelectPage.avatarFaceUrl.replaceAll("%s", (index + 1).toString());
     await _coreServices.setSelfInfo(
         userFullInfo: V2TimUserFullInfo.fromJson({
-          "faceUrl": avatar,
-        }));
-    _loginUserInfo.faceUrl = avatar;
+      "faceUrl": faceUrl,
+    }));
+    _loginUserInfo.faceUrl = faceUrl;
     notifyListeners();
   }
 }

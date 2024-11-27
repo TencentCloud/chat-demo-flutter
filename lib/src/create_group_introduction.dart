@@ -11,13 +11,14 @@ import 'package:url_launcher/url_launcher.dart';
 class CreateGroupIntroduction extends StatefulWidget {
   final ValueChanged<V2TimConversation>? directToChat;
   final VoidCallback? closeFunc;
-  const CreateGroupIntroduction({Key? key, this.directToChat, this.closeFunc}) : super(key: key);
+
+  const CreateGroupIntroduction({Key? key, this.directToChat, this.closeFunc})
+      : super(key: key);
 
   static final groupTypeNameMap = {
     GroupType.Work: "好友工作群（Work）",
     GroupType.Public: "陌生人社交群（Public）",
     GroupType.Meeting: "临时会议群（Meeting）",
-    GroupType.AVChatRoom: "直播群（AVChatRoom）",
     GroupType.Community: "社群（Community）",
   };
 
@@ -26,7 +27,6 @@ class CreateGroupIntroduction extends StatefulWidget {
     GroupType.Public:
         "类似 QQ 群，创建后群主可以指定群管理员，用户搜索群 ID 发起加群申请后，需要群主或管理员审批通过才能入群。",
     GroupType.Meeting: "创建后可以随意进出，且支持查看入群前消息；适合用于音视频会议场景、在线教育场景等与实时音视频产品结合的场景。",
-    GroupType.AVChatRoom: "创建后可以随意进出，没有群成员数量上限，但不支持历史消息存储；适合与直播产品结合，用于弹幕聊天场景。",
     GroupType.Community:
         "创建后可以随意进出，最多支持10w人，支持历史消息存储，用户搜索群 ID 发起加群申请后，无需管理员审批即可进群。",
   };
@@ -50,7 +50,7 @@ class _CreateGroupIntroductionState extends State<CreateGroupIntroduction> {
         TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
 
     if (isWideScreen) {
-      if(widget.closeFunc != null){
+      if (widget.closeFunc != null) {
         widget.closeFunc!();
       }
 
@@ -91,14 +91,8 @@ class _CreateGroupIntroductionState extends State<CreateGroupIntroduction> {
       case GroupType.Meeting:
         createGroupFunc(GroupTypeForUIKit.meeting);
         break;
-      case GroupType.AVChatRoom:
-        createGroupFunc(GroupTypeForUIKit.chat);
-        break;
       case GroupType.Community:
-        launchUrl(
-          Uri.parse("https://zhiliao.qq.com/#/"),
-          mode: LaunchMode.externalApplication,
-        );
+        createGroupFunc(GroupTypeForUIKit.community);
         break;
     }
   }
@@ -165,7 +159,6 @@ class _CreateGroupIntroductionState extends State<CreateGroupIntroduction> {
               renderGroupItem(GroupType.Work, theme),
               renderGroupItem(GroupType.Public, theme),
               renderGroupItem(GroupType.Meeting, theme),
-              renderGroupItem(GroupType.AVChatRoom, theme),
               renderGroupItem(GroupType.Community, theme),
             ],
           ),
@@ -204,7 +197,6 @@ class _CreateGroupIntroductionState extends State<CreateGroupIntroduction> {
                   renderGroupItem(GroupType.Work, theme),
                   renderGroupItem(GroupType.Public, theme),
                   renderGroupItem(GroupType.Meeting, theme),
-                  renderGroupItem(GroupType.AVChatRoom, theme),
                   renderGroupItem(GroupType.Community, theme),
                 ],
               ),

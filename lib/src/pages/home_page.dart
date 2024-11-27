@@ -149,8 +149,7 @@ class HomePageState extends State<HomePage> {
           ? TIM_t("消息")
           : connectText,
       1: TIM_t("通讯录"),
-      2: TIM_t("直播"),
-      3: TIM_t("我的"),
+      2: TIM_t("我的"),
     };
   }
 

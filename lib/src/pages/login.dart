@@ -19,7 +19,6 @@ import 'package:tencent_cloud_chat_demo/utils/GenerateUserSig.dart';
 import 'package:tencent_cloud_chat_demo/utils/commonUtils.dart';
 import 'package:tencent_cloud_chat_demo/utils/toast.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_vote_plugin/tencent_cloud_chat_vote_plugin.dart';
 
 class LoginPage extends StatelessWidget {
   final Function? initIMSDK;
@@ -262,9 +261,6 @@ class _LoginFormState extends State<LoginForm> {
       ToastUtils.toast(TIM_t_para("登录失败{{option1}}", "登录失败$option1")(option1: option1));
       return;
     }
-
-    // Initialize the poll plug-in
-    TencentCloudChatVotePlugin.initPlugin();
 
     directToHomePage();
   }

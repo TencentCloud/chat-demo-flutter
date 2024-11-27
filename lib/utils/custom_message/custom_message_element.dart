@@ -3,22 +3,18 @@ import 'dart:async';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tencent_cloud_chat_demo/src/vote_example/vote_detail_example.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/calling_message/calling_message_data_provider.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/calling_message/group_call_message_builder.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/calling_message/single_call_message_builder.dart';
-import 'package:tencent_cloud_chat_uikit/data_services/core/tim_uikit_wide_modal_operation_key.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_chat_controller.dart';
-import 'package:tencent_cloud_chat_uikit/ui/utils/screen_utils.dart';
+import 'package:tencent_cloud_chat_uikit/ui/utils/message.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/link_preview/common/extensions.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/link_preview/common/utils.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/link_message.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/web_link_message.dart';
-import 'package:tencent_cloud_chat_uikit/ui/widgets/wide_popup.dart';
-import 'package:tencent_cloud_chat_vote_plugin/tencent_cloud_chat_vote_plugin.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:tencent_cloud_chat_customer_service_plugin/tencent_cloud_chat_customer_service_plugin.dart';
 
@@ -94,33 +90,16 @@ class _CustomMessageElemState extends State<CustomMessageElem> {
   Widget _callElemBuilder(BuildContext context, TUITheme theme) {
     final customElem = widget.message.customElem;
 
-
-    final callingMessageDataProvider = CallingMessageDataProvider(widget.message);
-
+    final callingMessageDataProvider =
+        CallingMessageDataProvider(widget.message);
 
     final linkMessage = getLinkMessage(customElem);
     final webLinkMessage = getWebLinkMessage(customElem);
-    final isVoteMessage =
-        TencentCloudChatVotePlugin.isVoteMessage(widget.message);
     final isCustomerServiceMessage =
         TencentCloudChatCustomerServicePlugin.isCustomerServiceMessage(
             widget.message);
 
-    if (!callingMessageDataProvider.excludeFromHistory) {
-      if (callingMessageDataProvider.participantType == CallParticipantType.group) {
-        // Group Call message
-        return GroupCallMessageItem(callingMessageDataProvider: callingMessageDataProvider);
-      } else {
-        // One-to-one Call message
-        return renderMessageItem(
-          CallMessageItem(
-              callingMessageDataProvider: callingMessageDataProvider,
-              padding: const EdgeInsets.all(0)),
-          theme,
-          false,
-        );
-      }
-    } else if (customElem?.data == "group_create") {
+    if (customElem?.data == "group_create") {
       return renderMessageItem(
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -132,50 +111,25 @@ class _CustomMessageElemState extends State<CustomMessageElem> {
         theme,
         false,
       );
+    } else if (MessageUtils.getCustomGroupCreatedOrDismissedString(
+            widget.message)
+        .isNotEmpty) {
+      return Container(
+          margin: const EdgeInsets.symmetric(vertical: 20),
+          alignment: Alignment.center,
+          child: Text.rich(TextSpan(children: [
+            TextSpan(
+              text: MessageUtils.getCustomGroupCreatedOrDismissedString(
+                  widget.message),
+              style: TextStyle(color: theme.weakTextColor),
+            ),
+          ], style: const TextStyle(fontSize: 12))));
     } else if (isCustomerServiceMessage) {
       return MessageCustomerService(
         message: widget.message,
         theme: theme,
         isShowJumpState: isShowJumpState,
         sendMessage: widget.chatController.sendMessage,
-      );
-    } else if (isVoteMessage) {
-      return renderMessageItem(
-        TencentCloudChatVoteMessage(
-          message: widget.message,
-          onTap: (
-            TencentCloudChatVoteDataOptoin option,
-            TencentCloudChatVoteLogic data,
-          ) {
-            final isWideScreen =
-                TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
-            if (isWideScreen) {
-              TUIKitWidePopup.showPopupWindow(
-                context: context,
-                title: option.option,
-                operationKey: TUIKitWideModalOperationKey.chooseCountry,
-                width: MediaQuery.of(context).size.width * 0.4,
-                height: MediaQuery.of(context).size.width * 0.5,
-                child: (onClose) => VoteDetailExample(
-                  option: option,
-                  data: data,
-                ),
-              );
-            } else {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => VoteDetailExample(
-                    option: option,
-                    data: data,
-                  ),
-                ),
-              );
-            }
-          },
-        ),
-        theme,
-        true,
       );
     } else if (linkMessage != null) {
       final String option1 = linkMessage.link ?? "";
@@ -247,6 +201,23 @@ class _CustomMessageElemState extends State<CustomMessageElem> {
         theme,
         false,
       );
+    } else if (!callingMessageDataProvider.excludeFromHistory &&
+        callingMessageDataProvider.isCallingSignal) {
+      if (callingMessageDataProvider.participantType ==
+          CallParticipantType.group) {
+        // Group Call message
+        return GroupCallMessageItem(
+            callingMessageDataProvider: callingMessageDataProvider);
+      } else {
+        // One-to-one Call message
+        return renderMessageItem(
+          CallMessageItem(
+              callingMessageDataProvider: callingMessageDataProvider,
+              padding: const EdgeInsets.all(0)),
+          theme,
+          false,
+        );
+      }
     } else {
       return renderMessageItem(const Text("[自定义]"), theme, false);
     }

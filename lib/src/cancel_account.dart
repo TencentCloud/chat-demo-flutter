@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tencent_cloud_chat_demo/utils/constant.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_self_info_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
@@ -27,11 +28,10 @@ class CancelAccount extends StatelessWidget {
       try {
         Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
         SharedPreferences prefs = await _prefs;
-        prefs.remove('smsLoginUserId');
-        prefs.remove('smsLoginToken');
-        prefs.remove('smsLoginPhone');
-        prefs.remove('channelListMain');
-        prefs.remove('discussListMain');
+        prefs.remove(Const.DEV_LOGIN_USER_ID);
+        prefs.remove(Const.DEV_LOGIN_USER_SIG);
+        prefs.remove(Const.SMS_LOGIN_TOKEN);
+        prefs.remove(Const.SMS_LOGIN_PHONE);
       } catch (err) {
         ToastUtils.log("someError");
         ToastUtils.log(err);
@@ -130,7 +130,7 @@ class CancelAccount extends StatelessWidget {
                     height: 80,
                     width: 80,
                     child: Avatar(
-                      borderRadius: BorderRadius.circular(40),
+                        borderRadius: BorderRadius.circular(40),
                         showName: _selfInfoViewModel.loginInfo?.userID ?? "",
                         faceUrl: _selfInfoViewModel.loginInfo?.faceUrl ?? ""),
                   ),

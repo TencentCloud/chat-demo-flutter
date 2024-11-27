@@ -9,6 +9,7 @@ import 'package:tencent_cloud_chat_demo/src/provider/local_setting.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/login_user_Info.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
 import 'package:tencent_cloud_chat_demo/src/routes.dart';
+import 'package:tencent_cloud_chat_demo/utils/constant.dart';
 import 'package:tencent_cloud_chat_demo/utils/request.dart';
 import 'package:tencent_cloud_chat_demo/utils/toast.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/core/tim_uikit_wide_modal_operation_key.dart';
@@ -103,11 +104,10 @@ class SettingsState extends State<Settings> {
         try {
           Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
           SharedPreferences prefs = await _prefs;
-          prefs.remove('smsLoginUserId');
-          prefs.remove('smsLoginToken');
-          prefs.remove('smsLoginPhone');
-          prefs.remove('channelListMain');
-          prefs.remove('discussListMain');
+          prefs.remove(Const.DEV_LOGIN_USER_ID);
+          prefs.remove(Const.DEV_LOGIN_USER_SIG);
+          prefs.remove(Const.SMS_LOGIN_TOKEN);
+          prefs.remove(Const.SMS_LOGIN_PHONE);
         } catch (err) {
           ToastUtils.log("someError");
           ToastUtils.log(err);
@@ -126,7 +126,15 @@ class SettingsState extends State<Settings> {
       String appID = prefs.getString("sdkAppId") ?? "";
 
       Response<Map<String, dynamic>> data = await appRequest(
-          path: "/base/v1/auth_users/user_delete?apaasUserId=$userID&userId=$userID&token=$token&apaasAppId=$appID", method: "get", data: <String, dynamic>{"apaasUserId": userID, "userId": userID, "token": token, "apaasAppId": appID});
+          path:
+              "/base/v1/auth_users/user_delete?apaasUserId=$userID&userId=$userID&token=$token&apaasAppId=$appID",
+          method: "get",
+          data: <String, dynamic>{
+            "apaasUserId": userID,
+            "userId": userID,
+            "token": token,
+            "apaasAppId": appID
+          });
 
       Map<String, dynamic> res = data.data!;
       int errorCode = res['errorCode'];
@@ -154,7 +162,8 @@ class SettingsState extends State<Settings> {
           });
     }
 
-    Widget switchCheckBox(bool value, String name, String description, ValueChanged<bool> onChange) {
+    Widget switchCheckBox(bool value, String name, String description,
+        ValueChanged<bool> onChange) {
       return Row(
         children: [
           Checkbox(
@@ -192,7 +201,8 @@ class SettingsState extends State<Settings> {
                 SizedBox(
                   width: 40,
                   height: 40,
-                  child: Avatar(faceUrl: loginUserInfo.faceUrl ?? "", showName: ""),
+                  child: Avatar(
+                      faceUrl: loginUserInfo.faceUrl ?? "", showName: ""),
                 ),
                 const SizedBox(width: 10),
                 Column(
@@ -201,12 +211,15 @@ class SettingsState extends State<Settings> {
                     if (loginUserInfo.nickName != null)
                       SelectableText(
                         loginUserInfo.nickName!,
-                        style: TextStyle(color: theme.darkTextColor, fontSize: 16),
+                        style:
+                            TextStyle(color: theme.darkTextColor, fontSize: 16),
                       ),
                     const SizedBox(
                       height: 4,
                     ),
-                    SelectableText("ID: ${loginUserInfo.userID ?? " "}", style: TextStyle(color: theme.weakTextColor, fontSize: 14)),
+                    SelectableText("ID: ${loginUserInfo.userID ?? " "}",
+                        style: TextStyle(
+                            color: theme.weakTextColor, fontSize: 14)),
                   ],
                 ),
               ],
@@ -231,11 +244,14 @@ class SettingsState extends State<Settings> {
                     onPressed: () {
                       _confirmIfDeregister();
                     },
-                    child: Text(TIM_t("注销账户"), style: TextStyle(color: theme.darkTextColor))),
+                    child: Text(TIM_t("注销账户"),
+                        style: TextStyle(color: theme.darkTextColor))),
               ],
             ),
             Text(
-              TIM_t_para("注销后，您将无法使用当前账号，相关数据也将删除且无法找回。当前账号ID: {{option1}}", "注销后，您将无法使用当前账号，相关数据也将删除且无法找回。当前账号ID: $option1")(option1: option1),
+              TIM_t_para("注销后，您将无法使用当前账号，相关数据也将删除且无法找回。当前账号ID: {{option1}}",
+                      "注销后，您将无法使用当前账号，相关数据也将删除且无法找回。当前账号ID: $option1")(
+                  option1: option1),
               style: TextStyle(color: theme.weakTextColor, fontSize: 12),
             ),
             title(TIM_t("界面"), true),
@@ -285,11 +301,14 @@ class SettingsState extends State<Settings> {
             ),
             title(TIM_t("通用"), true),
             secondTitle(TIM_t("消息"), true),
-            switchCheckBox(readStatus, TIM_t("消息阅读状态"), TIM_t("关闭后，您收发的消息均不带消息阅读状态，您将无法看到对方是否已读，同时对方也无法看到你是否已读。"), (value) {
+            switchCheckBox(readStatus, TIM_t("消息阅读状态"),
+                TIM_t("关闭后，您收发的消息均不带消息阅读状态，您将无法看到对方是否已读，同时对方也无法看到你是否已读。"),
+                (value) {
               localSetting.isShowReadingStatus = value;
             }),
             secondTitle(TIM_t("联系人"), false),
-            switchCheckBox(onlineStatus, TIM_t("显示在线状态"), TIM_t("关闭后，您将不可以在会话列表和通讯录中看到好友在线或离线的状态提示。"), (value) {
+            switchCheckBox(onlineStatus, TIM_t("显示在线状态"),
+                TIM_t("关闭后，您将不可以在会话列表和通讯录中看到好友在线或离线的状态提示。"), (value) {
               localSetting.isShowOnlineStatus = value;
             }),
             title(TIM_t("关于"), true),
@@ -308,7 +327,8 @@ class SettingsState extends State<Settings> {
                           height: MediaQuery.of(context).size.height * 0.6,
                           child: (closeFunc) => AboutUs(closeFunc: closeFunc));
                     },
-                    child: Text(TIM_t("查看详情"), style: TextStyle(color: theme.darkTextColor))),
+                    child: Text(TIM_t("查看详情"),
+                        style: TextStyle(color: theme.darkTextColor))),
                 const SizedBox(
                   width: 20,
                 ),
@@ -322,9 +342,11 @@ class SettingsState extends State<Settings> {
                           title: TIM_t("联系我们"),
                           width: MediaQuery.of(context).size.width * 0.6,
                           height: MediaQuery.of(context).size.height * 0.6,
-                          child: (closeFunc) => ContactUs(closeFunc: closeFunc));
+                          child: (closeFunc) =>
+                              ContactUs(closeFunc: closeFunc));
                     },
-                    child: Text(TIM_t("联系我们"), style: TextStyle(color: theme.darkTextColor))),
+                    child: Text(TIM_t("联系我们"),
+                        style: TextStyle(color: theme.darkTextColor))),
               ],
             ),
             secondTitle(TIM_t("相关网站"), false),
@@ -333,33 +355,39 @@ class SettingsState extends State<Settings> {
                 OutlinedButton(
                     onPressed: () {
                       launchUrl(
-                        Uri.parse("https://www.tencentcloud.com/products/im?from=pub"),
+                        Uri.parse(
+                            "https://www.tencentcloud.com/products/im?from=pub"),
                         mode: LaunchMode.externalApplication,
                       );
                     },
-                    child: Text(TIM_t("官方网站"), style: TextStyle(color: theme.darkTextColor))),
+                    child: Text(TIM_t("官方网站"),
+                        style: TextStyle(color: theme.darkTextColor))),
                 const SizedBox(
                   width: 20,
                 ),
                 OutlinedButton(
                     onPressed: () {
                       launchUrl(
-                        Uri.parse("https://pub.dev/publishers/comm.qq.com/packages"),
+                        Uri.parse(
+                            "https://pub.dev/publishers/comm.qq.com/packages"),
                         mode: LaunchMode.externalApplication,
                       );
                     },
-                    child: Text(TIM_t("所有 SDK"), style: TextStyle(color: theme.darkTextColor))),
+                    child: Text(TIM_t("所有 SDK"),
+                        style: TextStyle(color: theme.darkTextColor))),
                 const SizedBox(
                   width: 20,
                 ),
                 OutlinedButton(
                     onPressed: () {
                       launchUrl(
-                        Uri.parse("https://github.com/TencentCloud/chat-demo-flutter"),
+                        Uri.parse(
+                            "https://github.com/TencentCloud/chat-demo-flutter"),
                         mode: LaunchMode.externalApplication,
                       );
                     },
-                    child: Text(TIM_t("源代码"), style: TextStyle(color: theme.darkTextColor))),
+                    child: Text(TIM_t("源代码"),
+                        style: TextStyle(color: theme.darkTextColor))),
               ],
             ),
             const SizedBox(
