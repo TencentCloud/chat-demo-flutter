@@ -8,7 +8,6 @@ list(APPEND FLUTTER_PLUGIN_LIST
   desktop_webview_window_for_is
   fc_native_video_thumbnail
   file_selector_windows
-  image_clipboard
   pasteboard
   permission_handler_windows
   tencent_cloud_chat_sdk
