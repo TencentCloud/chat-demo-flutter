@@ -216,7 +216,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" embed_and_thin";
+			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" embed_and_thin\n";
 		};
 		9740EEB61CF901F6004384FC /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -513,13 +513,9 @@
 					"-framework",
 					"\"file_picker\"",
 					"-framework",
-					"\"flutter_image_compress\"",
-					"-framework",
 					"\"flutter_plugin_record_plus\"",
 					"-framework",
 					"\"fluttertoast\"",
-					"-framework",
-					"\"image_gallery_saver\"",
 					"-framework",
 					"\"image_picker_ios\"",
 					"-framework",
@@ -796,13 +792,9 @@
 					"-framework",
 					"\"file_picker\"",
 					"-framework",
-					"\"flutter_image_compress\"",
-					"-framework",
 					"\"flutter_plugin_record_plus\"",
 					"-framework",
 					"\"fluttertoast\"",
-					"-framework",
-					"\"image_gallery_saver\"",
 					"-framework",
 					"\"image_picker_ios\"",
 					"-framework",
@@ -966,13 +958,9 @@
 					"-framework",
 					"\"file_picker\"",
 					"-framework",
-					"\"flutter_image_compress\"",
-					"-framework",
 					"\"flutter_plugin_record_plus\"",
 					"-framework",
 					"\"fluttertoast\"",
-					"-framework",
-					"\"image_gallery_saver\"",
 					"-framework",
 					"\"image_picker_ios\"",
 					"-framework",
