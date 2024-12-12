@@ -36,6 +36,18 @@ For the other platforms, please refer to document：
     <th width="500px" style="text-align:center">Compatible Configurations</th>
   </tr>
 
+  <tr>
+     <td style="text-align:center">3.27.0</td>
+     <td style="text-align:center">^3.1.0+2</td>
+     <td style="text-align:center">
+        <ul>
+            <li>Replace the flutter_slidable library with flutter_slidable_plus_plus to solve the compatibility issue of flutter 3.27.0 version.</li>
+        </ul>
+     </td>
+    <td style="text-align:center"></td>
+
+  </tr>
+
   <tr >
      <td style="text-align:center">3.24.0 - 3.24.4</td>
      <td style="text-align:center">^3.0.0</td>
