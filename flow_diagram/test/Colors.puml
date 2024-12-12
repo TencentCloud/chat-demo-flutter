@@ -1,0 +1,22 @@
+
+@startuml
+skinparam file{
+    FontColor #fff
+    StereotypeFontColor #BLUE
+    BackgroundColor #4169E1
+}
+
+' 示例：创建一个文件组件
+file aa as aaa
+
+skinparam aaa {
+    FontColor #fff
+    StereotypeFontColor #BLUE
+    BackgroundColor #4169E1
+}
+@enduml
+
+
+@startuml
+colors
+@enduml

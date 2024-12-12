@@ -1,0 +1,140 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+'属性初始化设置
+skinparam file {
+    FontColor #DarkGreen
+    BackgroundColor #GhostWhite
+}
+
+file home_page.dart as file_home_page_dart{
+    frame "Demo 窄屏首页 页面布局结构" as homePage_FW {
+        component TencentPage as home_page_TencentPage_W {
+            rectangle "_showTooltip\n右上角窗口功能入口" as TencentPage__showTooltip_M {
+                card SuperTooltip\n展示弹窗数据{
+                    rectangle _getTooltipContent\n获取窗口显示的数据 {
+                        json contactTooltip{
+                            "添加好友":"添加群聊"
+                        }
+                        json conversationTooltip{
+                            "发起会话":"创建群聊"
+                        }
+                        (currentIndex\n导航类型) as _getTooltipContent_currentIndex_P
+
+                        _getTooltipContent_currentIndex_P .left.> contactTooltip : = 1
+                        _getTooltipContent_currentIndex_P .right.> conversationTooltip := 0
+                    }
+                }
+            }
+
+            component BottomNavigationBar\n底部导航栏 as BottomNavigationBar_W{
+                [BarItem\n消息] as BarItem_Message_W
+                [BarItem\n通讯录] as BarItem_Contact_W
+                [BarItem\n我的] as BarItem_MyProfile_W
+
+                BarItem_Message_W .[hidden] BarItem_Contact_W
+                BarItem_Contact_W .[hidden] BarItem_MyProfile_W
+            }
+
+            TencentPage__showTooltip_M ..[hidden] BottomNavigationBar_W
+            TencentPage__showTooltip_M ..[hidden] BottomNavigationBar_W
+
+
+            rectangle body\n装载器 as home_page_TencentPage_body{
+                component Conversation\n会话列表页面 as home_page_TencentPage_body_Conversation_W{
+                    component SearchEntry\n顶部搜索 as home_page_TencentPage_Conversation_SearchEntry_W{
+                        (desktopWidget\n手机端) as home_page_TencentPage_Conversation_SearchEntry_desktopWidget_M
+                        [SearchEntryNarrow\n窄屏搜索框] as home_page_TencentPage_Conversation_SearchEntry_SearchEntryNarrow_W
+
+                        home_page_TencentPage_Conversation_SearchEntry_desktopWidget_M .> home_page_TencentPage_Conversation_SearchEntry_SearchEntryNarrow_W
+                    }
+                    [TIMUIKitConversation\nUIKIT层会话列表页] as home_page_TencentPage_Conversation_TIMUIKitConversation_W
+
+                    home_page_TencentPage_Conversation_SearchEntry_W ..[hidden] home_page_TencentPage_Conversation_TIMUIKitConversation_W
+                }
+
+                component Contact\n通讯录界面 as home_page_TencentPage_body_Contact_W{
+                    component TIMUIKitContact\n as UIKit层通讯录{
+                        (topList) as home_page_TencentPage_body_Contact_P
+                        component TopListItem\n顶部功能列表 as home_page_TencentPage_body_Contact{
+                            rectangle
+                        }
+
+                    }
+                }
+
+                component MyProfile\n我的资料界面 as home_page_TencentPage_body_MyProfile_W{
+
+                }
+
+                home_page_TencentPage_body_Conversation_W .[hidden] home_page_TencentPage_body_Contact_W
+                home_page_TencentPage_body_Contact_W .[hidden] home_page_TencentPage_body_MyProfile_W
+            }
+
+            BottomNavigationBar_W ..[hidden] home_page_TencentPage_body
+
+            BarItem_Message_W *.* home_page_TencentPage_body_Conversation_W
+            BarItem_Contact_W *.* home_page_TencentPage_body_Contact_W
+            BarItem_MyProfile_W *.* home_page_TencentPage_body_MyProfile_W
+        }
+    }
+}
+
+
+file wide_screen1home_page.dart as wide_screen1file_home_page_dart{
+    frame "Demo 宽屏首页 页面布局结构" as wide_screen1homePage_FW {
+        component LeftBar\n左侧导航Bar as LeftBar_W{
+            [NavigationBarData\n消息] as LeftBar_NavigationBarData_Msg_W
+            [NavigationBarData\n通讯录] as LeftBar_NavigationBarData_Contact
+            [NavigationBarData\n我的] as LeftBar_NavigationBarData_My
+
+            LeftBar_NavigationBarData_Msg_W ..[hidden]  LeftBar_NavigationBarData_Contact
+            LeftBar_NavigationBarData_Contact ..[hidden] LeftBar_NavigationBarData_My
+        }
+
+        component Column as wide_screen1homePage_Column_W {
+            rectangle 顶部右上角按钮 as wide_screen1homePage_right_top_buttons{
+                [MinimizeWindowButton\n最小化] as MinimizeWindowButton_W
+                [MaximizeWindowButton\n最大化] as MaximizeWindowButton_W
+                [CloseWindowButton\n关闭窗口] as CloseWindowButton_W
+
+                MinimizeWindowButton_W .[hidden] MaximizeWindowButton_W
+                MaximizeWindowButton_W .[hidden] CloseWindowButton_W
+            }
+
+            component IndexedStack\n右下角视图布局 as IndexedStack_W{
+                component ConversationAndChat\n会话列表+聊天页面 as ConversationAndChat_W {
+                    component Search\n宽屏搜索 as ConversationAndChat_Search_W{
+
+                    }
+                    component Conversation\n会话列表页面 as ConversationAndChat_Conversation_W{
+                        component SearchEntry\n顶部搜索 as ConversationAndChat_Conversation_SearchEntry_W{
+                            (desktopWidget\n桌面端) as ConversationAndChat_Conversation_SearchEntry_desktopWidget_M
+                            [SearchEntryWide\n宽屏搜索框] as ConversationAndChat_Conversation_SearchEntry_SearchEntryWide_W
+
+                            ConversationAndChat_Conversation_SearchEntry_desktopWidget_M .> ConversationAndChat_Conversation_SearchEntry_SearchEntryWide_W
+                        }
+                        [TIMUIKitConversation\nUIKIT层会话列表页] as ConversationAndChat_Conversation_TIMUIKitConversation_W
+
+                        ConversationAndChat_Conversation_SearchEntry_W ..[hidden] ConversationAndChat_Conversation_TIMUIKitConversation_W
+                    }
+                }
+                [ContactsAndProfile\n通讯录+用户资料] as ContactsAndProfile_W
+                [MeAndTencent\n我的+IM功能设置] as MeAndTencent_W
+
+                ConversationAndChat_W .[hidden]  ContactsAndProfile_W
+                ContactsAndProfile_W .[hidden] MeAndTencent_W
+            }
+
+            wide_screen1homePage_right_top_buttons ..[hidden] IndexedStack_W
+        }
+
+        LeftBar_NavigationBarData_Msg_W . ConversationAndChat_W
+        LeftBar_NavigationBarData_Contact . ContactsAndProfile_W
+        LeftBar_NavigationBarData_My . MeAndTencent_W
+
+        IndexedStack_W .[hidden] MinimizeWindowButton_W
+    }
+}
+
+@enduml

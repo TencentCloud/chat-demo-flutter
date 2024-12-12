@@ -1,0 +1,25 @@
+@startuml
+'https://plantuml.com/component-diagram
+'属性初始化设置
+skinparam file {
+    FontColor #DarkGreen
+    BackgroundColor #GhostWhite
+}
+
+file login.dart as file_login_dart{
+    frame "Demo Login 页面布局结构" as loginPage_FW {
+        [AppLogo\n顶部应用LogoUI加载Widget] as AppLogo_W
+        [checkFirstEnter\n首次加载弹出“隐私协议”通知Widget] as LoginPage_checkFirstEnter_P
+        [LoginForm\n用户账号输入widget] as LoginFrom_W
+        rectangle "userLogin\n执行登录操作" as LoginPage_userLogin_M
+        rectangle "directToHomePage\n登录成功跳转至首页" as LoginPage_directToHomePage
+
+        AppLogo_W .. LoginPage_checkFirstEnter_P
+        LoginPage_checkFirstEnter_P .. LoginFrom_W
+
+        AppLogo_W ..[hidden] LoginPage_userLogin_M
+        LoginPage_userLogin_M ..> LoginPage_directToHomePage
+    }
+}
+
+@enduml

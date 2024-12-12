@@ -1,0 +1,66 @@
+@startuml
+'https://plantuml.com/component-diagram
+'属性初始化设置
+skinparam file {
+    FontColor #DarkGreen
+    BackgroundColor #GhostWhite
+}
+
+file search.dart as search_dart{
+    frame "Demo 搜索 页面布局结构" as Search_FW {
+        component TencentPage\nDemo层baseWidget as Search_TencentPage_W {
+            (isWideScreen\n是否宽屏) as Search_TencentPage_isWideScreen_M
+            Search_TencentPage_isWideScreen_M .> [AppBar\n全局搜索]:false
+            (isConversation\n是否会话搜索) as Search_isConversation_M
+            component TIMUIKitSearchMsgDetail as TencentPage_TIMUIKitSearchMsgDetail_W{
+                component TIMUIKitSearchInput\n搜索内容输入区 as TencentPage_TIMUIKitSearchMsgDetail_TIMUIKitSearchInput_W{
+
+                }
+                component Expanded/Scrollbar/ListView as TencentPage_Expanded_Scrollbar_ListView_W{
+                    rectangle _renderListMessage\n搜索消息列表结果展示页 as TencentPage_Expanded_Scrollbar_ListView__renderListMessage_M{
+                        component TIMUIKitSearchItem\n搜索消息列表子类Item as TencentPage_TencentPage__renderListMessage_TIMUIKitSearchItem_W{
+                            (desktopWidget\n桌面端) as TencentPage__renderListMessage_TIMUIKitSearchItem_desktopWidget_M
+                            [TIMUIKitSearchWideItem\n桌面端消息item详情布局] as TencentPage__renderListMessage_TIMUIKitSearchItem_TIMUIKitSearchWideItem_W
+
+                            TencentPage__renderListMessage_TIMUIKitSearchItem_desktopWidget_M .> TencentPage__renderListMessage_TIMUIKitSearchItem_TIMUIKitSearchWideItem_W
+                        }
+                    }
+                }
+            }
+            component TIMUIKitSearch\nUIKit层搜索布局 as Search_TencentPage_TIMUIKitSearch_W{
+                rectangle onEnterSearchInConversation\n会话搜索页 {
+                    (isWideScreen\n是否宽屏) as TIMUIKitSearch_isWideScreen_M
+                    stack 会话跳转至搜索页 as route_conversation_search
+                    rectangle TUIKitWidePopup.showPopupWindow\n显示搜索弹窗 as onEnterSearchInConversation_showPopupWindow_U{
+                        component TIMUIKitSearchMsgDetail\n搜索消息详情页 as showPopupWindow_TIMUIKitSearchMsgDetail_W{
+                            component TIMUIKitSearchInput\n搜索内容输入区 as TIMUIKitSearchMsgDetail_TIMUIKitSearchInput_W{
+
+                            }
+                            component Expanded/Scrollbar/ListView as Expanded_Scrollbar_ListView_W{
+                                rectangle _renderListMessage\n搜索消息列表结果展示页 as Expanded_Scrollbar_ListView__renderListMessage_M{
+                                    component TIMUIKitSearchItem\n搜索消息列表子类Item as _renderListMessage_TIMUIKitSearchItem_W{
+                                        (desktopWidget\n桌面端) as _renderListMessage_TIMUIKitSearchItem_desktopWidget_M
+                                        [TIMUIKitSearchWideItem\n桌面端消息item详情布局] as _renderListMessage_TIMUIKitSearchItem_TIMUIKitSearchWideItem_W
+
+                                        _renderListMessage_TIMUIKitSearchItem_desktopWidget_M .> _renderListMessage_TIMUIKitSearchItem_TIMUIKitSearchWideItem_W
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    TIMUIKitSearch_isWideScreen_M .right.> onEnterSearchInConversation_showPopupWindow_U:true
+                    TIMUIKitSearch_isWideScreen_M .left.> route_conversation_search : false
+
+                    route_conversation_search -> search_dart
+                }
+            }
+            Search_TencentPage_isWideScreen_M ..[hidden] Search_TencentPage_TIMUIKitSearch_W
+
+            Search_isConversation_M ..> TencentPage_TIMUIKitSearchMsgDetail_W : true
+            Search_isConversation_M .> Search_TencentPage_TIMUIKitSearch_W : false
+
+        }
+    }
+}
+
+@enduml

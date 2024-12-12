@@ -1,0 +1,35 @@
+@startuml
+'https://plantuml.com/component-diagram
+'属性初始化设置
+skinparam file {
+    FontColor #DarkGreen
+    BackgroundColor #GhostWhite
+}
+
+file main.dart as file_main_dart {
+    frame "Demo 启动时加载的首个页面布局结构" as main_FW{
+        (runApp)
+        component TranslationProvider{
+            component TUIKitDemoApp{
+                component TencentChatApp{
+                    component LaunchPage{
+                        usecase "isWideScreen\n识别屏幕样式"  as LaunchPage_isWideScreen_P
+                        LaunchPage_isWideScreen_P -right-> [MoveWindow\n宽屏]
+                        LaunchPage_isWideScreen_P -left-> [Stack\n窄屏]
+                    }
+
+                    rectangle "initApp\n初始化IM" as TencentChatApp_initApp_M
+
+                    LaunchPage .[hidden] TencentChatApp_initApp_M
+                }
+'                note bottom of TencentChatApp
+'                    组件内会做一些初始化逻辑
+'                    包括：im base监听、路由、屏幕适配等
+'                end note
+            }
+        }
+        runApp -> [TranslationProvider]
+    }
+}
+
+@enduml
