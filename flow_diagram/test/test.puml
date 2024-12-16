@@ -1,0 +1,49 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+'!define SPRITE_PATH D:/Junker/Flutter/FlutterProjects/work-project/flutter_im_demo_and_uikit/v1_chat-demo-flutter/assets
+'sprite $MYICON as SPRITE_PATH/groupList_fantasy.png
+'
+'participant "User" as A
+'participant "System" as B
+'A -> B : $MYICON Request
+
+
+'![](D:/Junker/Flutter/FlutterProjects/work-project/flutter_im_demo_and_uikit/v1_chat-demo-flutter/assets/groupList_fantasy.png)
+
+'participant "User" as A
+'participant "System" as B
+'
+'A -> B : Request
+'note right: ![](https://www.easemob.com/data/upload/ueditor/20190926/5d8c2b2d146b8.jpg)
+
+'sticker "https://www.easemob.com/data/upload/ueditor/20190926/5d8c2b2d146b8.jpg" as sticker1
+' participant "User" as A
+' participant "System" as B
+' A -> B : Request
+' sticker1 over A : This is a sticker
+
+
+'!define MY_ICON https://www.easemob.com/data/upload/ueditor/20190926/5d8c2b2d146b8.jpg
+'sprite $MY_ICON as MY_ICON
+'
+'participant "User" as A
+'participant "System" as B
+'
+'A -> B : $MY_ICON Some message
+
+'note right:![](https://www.easemob.com/data/upload/ueditor/20190926/5d8c2b2d146b8.jpg)
+
+
+'class Foo {
+'}
+'note right of Foo : !define FooIcon https://www.easemob.com/data/upload/ueditor/20190926/5d8c2b2d146b8.jpg
+'Foo -down-> FooIcon
+
+
+rectangle aa aa test{
+   card <img:D:/Junker/Flutter/FlutterProjects/work-project/flutter_im_demo_and_uikit/v1_chat-demo-flutter/assets/groupList_fantasy.png{scale=1}>
+
+}
+
+@enduml
