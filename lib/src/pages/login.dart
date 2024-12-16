@@ -168,8 +168,7 @@ class _LoginFormState extends State<LoginForm> {
       context: context,
       barrierDismissible: false,
       builder: (context) {
-        return AlertDialog(
-          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
+        return CupertinoAlertDialog(
           content: Text.rich(
             TextSpan(style: const TextStyle(fontSize: 14, color: Colors.black, height: 2.0), children: [
               TextSpan(
@@ -199,24 +198,15 @@ class _LoginFormState extends State<LoginForm> {
             overflow: TextOverflow.clip,
           ),
           actions: [
-            CupertinoDialogAction(
-              child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 10),
-                  decoration: const BoxDecoration(
-                    color: Color.fromRGBO(0, 110, 253, 1),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(24),
-                    ),
-                  ),
-                  child: Text(TIM_t("同意并继续"), style: const TextStyle(color: Colors.white, fontSize: 16))),
+            CupertinoButton(
+                child: Text(TIM_t("同意并继续"), style: const TextStyle(color: Colors.blue, fontSize: 16)),
               onPressed: () {
                 prefs.setString("firstTime", "true");
                 Navigator.of(context).pop(true);
               },
             ),
-            CupertinoDialogAction(
+            CupertinoButton(
               child: Text(TIM_t("不同意并退出"), style: const TextStyle(color: Colors.grey, fontSize: 16)),
-              isDestructiveAction: true,
               onPressed: () {
                 exit(0);
               },
