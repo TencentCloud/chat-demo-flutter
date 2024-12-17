@@ -419,6 +419,7 @@ class _ChatState extends State<Chat> {
         showTotalUnReadCount: true,
         config: TIMUIKitChatConfig(
             stickerPanelConfig: StickerPanelConfig(
+              useQQStickerPackage: true,
               useTencentCloudChatStickerPackage: true,
               customStickerPackages:
                   Provider.of<CustomStickerPackageData>(context)
