@@ -419,7 +419,6 @@ class _ChatState extends State<Chat> {
         showTotalUnReadCount: true,
         config: TIMUIKitChatConfig(
             stickerPanelConfig: StickerPanelConfig(
-              useQQStickerPackage: true,
               useTencentCloudChatStickerPackage: true,
               customStickerPackages:
                   Provider.of<CustomStickerPackageData>(context)
@@ -432,7 +431,6 @@ class _ChatState extends State<Chat> {
                   }
                 : null,
             showC2cMessageEditStatus: true,
-            isUseDefaultEmoji: true,
             isAllowClickAvatar: true,
             isMemberCanAtAll: true,
             isAtWhenReply: false,
