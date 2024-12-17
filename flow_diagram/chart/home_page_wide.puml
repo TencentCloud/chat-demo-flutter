@@ -1,0 +1,93 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+file wide_screen1home_page.dart as wide_screen1file_home_page_dart{
+    frame "Demo 宽屏首页 页面布局结构" as wide_screen1homePage_FW {
+        component LeftBar\n左侧导航Bar as LeftBar_W{
+            [NavigationBarData\n消息] as LeftBar_NavigationBarData_Msg_W
+            [NavigationBarData\n通讯录] as LeftBar_NavigationBarData_Contact
+            [NavigationBarData\n我的] as LeftBar_NavigationBarData_My
+
+            LeftBar_NavigationBarData_Msg_W ..[hidden]  LeftBar_NavigationBarData_Contact
+            LeftBar_NavigationBarData_Contact ..[hidden] LeftBar_NavigationBarData_My
+        }
+
+        component Column as wide_screen1homePage_Column_W {
+            rectangle 顶部右上角按钮 as wide_screen1homePage_right_top_buttons{
+                [MinimizeWindowButton\n最小化] as MinimizeWindowButton_W
+                [MaximizeWindowButton\n最大化] as MaximizeWindowButton_W
+                [CloseWindowButton\n关闭窗口] as CloseWindowButton_W
+
+                MinimizeWindowButton_W .[hidden] MaximizeWindowButton_W
+                MaximizeWindowButton_W .[hidden] CloseWindowButton_W
+            }
+
+            component IndexedStack\n右下角视图布局 as IndexedStack_W{
+                component ConversationAndChat\n会话列表+聊天页面 as ConversationAndChat_W {
+                    component Search\n宽屏搜索 as ConversationAndChat_Search_W{
+
+                    }
+                    component Conversation\n会话列表页面 as ConversationAndChat_Conversation_W{
+                        component SearchEntry\n顶部搜索 as ConversationAndChat_Conversation_SearchEntry_W{
+                            (desktopWidget\n桌面端) as ConversationAndChat_Conversation_SearchEntry_desktopWidget_M
+                            [SearchEntryWide\n宽屏搜索框] as ConversationAndChat_Conversation_SearchEntry_SearchEntryWide_W
+
+                            ConversationAndChat_Conversation_SearchEntry_desktopWidget_M .> ConversationAndChat_Conversation_SearchEntry_SearchEntryWide_W
+                        }
+                        [TIMUIKitConversation\nUIKIT层会话列表页] as ConversationAndChat_Conversation_TIMUIKitConversation_W
+
+                        ConversationAndChat_Conversation_SearchEntry_W ..[hidden] ConversationAndChat_Conversation_TIMUIKitConversation_W
+                    }
+                }
+                component ContactsAndProfile\n通讯录+用户资料 as ContactsAndProfile_W{
+'                    component TIMUIKitContact\n as UIKit层通讯录{
+'                                            (topList\n顶部功能列表) as home_page_TencentPage_body_Contact_topList_P
+'                                            component TopListItem\n新的联系人 as home_page_TencentPage_body_Contact_NewContact{
+'
+'                                            }
+'                                            component TopListItem\n我的群聊 as home_page_TencentPage_body_Contact_MyGroup{
+'
+'                                            }
+'                                            component TopListItem\n黑名单 as home_page_TencentPage_body_Contact_BlackList{
+'
+'                                            }
+'                                            component TopListItem\n在线客服 as home_page_TencentPage_body_Contact_CustomerService{
+'
+'                                            }
+'                                            home_page_TencentPage_body_Contact_topList_P -- home_page_TencentPage_body_Contact_NewContact
+'                                            home_page_TencentPage_body_Contact_topList_P -- home_page_TencentPage_body_Contact_MyGroup : isWideScreen == false
+'                                            home_page_TencentPage_body_Contact_topList_P -- home_page_TencentPage_body_Contact_BlackList
+'                                            home_page_TencentPage_body_Contact_topList_P -- home_page_TencentPage_body_Contact_CustomerService : isWideScreen == false
+'
+'                                            rectangle _topListItemTap as home_page_TencentPage_body_Contact__topListItemTap_M{
+'                                                component showPopupWindow\n新的联系人 as home_page_TencentPage_body_Contact__topListItemTap_showPopupWindow_W{
+'
+'                                                }
+'
+'                                                stack NewContact\n新的联系人 as route_home_page_2_newContact{
+'
+'                                                }
+'                                            }
+'
+'                                            home_page_TencentPage_body_Contact_NewContact .. home_page_TencentPage_body_Contact__topListItemTap_showPopupWindow_W
+'                                            home_page_TencentPage_body_Contact_NewContact .. route_home_page_2_newContact
+'                                        }
+                }
+                [MeAndTencent\n我的+IM功能设置] as MeAndTencent_W
+
+                ConversationAndChat_W .[hidden]  ContactsAndProfile_W
+                ContactsAndProfile_W .[hidden] MeAndTencent_W
+            }
+
+            wide_screen1homePage_right_top_buttons ..[hidden] IndexedStack_W
+        }
+
+        LeftBar_NavigationBarData_Msg_W . ConversationAndChat_W
+        LeftBar_NavigationBarData_Contact . ContactsAndProfile_W
+        LeftBar_NavigationBarData_My . MeAndTencent_W
+
+        IndexedStack_W .[hidden] MinimizeWindowButton_W
+    }
+}
+
+@enduml

@@ -1,0 +1,78 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+
+package “v1 TUIKit 层” as v1TUIKit{
+    file tim_uikit_conversation.dart as tim_uikit_conversation_dart{
+        component "UIKit 会话列表 页面布局结构" as TIMUIKitConversation_W{
+
+            component conversationList\n会话列表 as  tim_uikit_conversation_conversationList{
+
+                card TUIKitScreenUtils.getDeviceWidget\n获取设备类型 as conversationList_getDeviceWidget{
+                    (desktopWidget\n桌面端) as conversationList_getDeviceWidget_desktopWidget
+                    component AutoScrollTag as conversationList_getDeviceWidget_desktopWidget_AutoScrollTag{
+                        component InkWell as conversationList_getDeviceWidget_desktopWidget_AutoScrollTag_InkWell{
+                            component conversationLineItem as conversationList_getDeviceWidget_desktopWidget_AutoScrollTag_InkWell_conversationLineItem{
+                                component TIMUIKitConversationItem\n会话列表item as desktopWidget_TIMUIKitConversationItem_W{
+
+                                }
+                            }
+
+                            (onSecondaryTapDown) as conversationList_getDeviceWidget_desktopWidget_AutoScrollTag_InkWell_onSecondaryTapDown
+                            card TUIKitWidePopup.showPopupWindow\n选中item弹出操作窗口 as conversationList_getDeviceWidget_desktopWidget_AutoScrollTag_InkWell_showPopupWindow{
+                                component _getSecondaryMenu as conversationList_getDeviceWidget_desktopWidget_AutoScrollTag_InkWell_showPopupWindow__getSecondaryMenu{
+                                    component _defaultSecondaryMenu as conversationList_getDeviceWidget_desktopWidget_AutoScrollTag_InkWell_showPopupWindow__getSecondaryMenu__defaultSecondaryMenu{
+                                        [ColumnMenuItem\n清除消息] as conversationList_getDeviceWidget_desktopWidget_AutoScrollTag_InkWell_showPopupWindow__getSecondaryMenu__defaultSecondaryMenu_clean
+                                        [ColumnMenuItem\n置顶/取消置顶] as conversationList_getDeviceWidget_desktopWidget_AutoScrollTag_InkWell_showPopupWindow__getSecondaryMenu__defaultSecondaryMenu_pin
+                                        [ColumnMenuItem\n删除会话] as conversationList_getDeviceWidget_desktopWidget_AutoScrollTag_InkWell_showPopupWindow__getSecondaryMenu__defaultSecondaryMenu_delete
+
+                                        conversationList_getDeviceWidget_desktopWidget_AutoScrollTag_InkWell_showPopupWindow__getSecondaryMenu__defaultSecondaryMenu_clean .[hidden] conversationList_getDeviceWidget_desktopWidget_AutoScrollTag_InkWell_showPopupWindow__getSecondaryMenu__defaultSecondaryMenu_pin
+                                        conversationList_getDeviceWidget_desktopWidget_AutoScrollTag_InkWell_showPopupWindow__getSecondaryMenu__defaultSecondaryMenu_pin .[hidden] conversationList_getDeviceWidget_desktopWidget_AutoScrollTag_InkWell_showPopupWindow__getSecondaryMenu__defaultSecondaryMenu_delete
+                                    }
+                                }
+                            }
+
+                            conversationList_getDeviceWidget_desktopWidget_AutoScrollTag_InkWell_onSecondaryTapDown -left-> conversationList_getDeviceWidget_desktopWidget_AutoScrollTag_InkWell_showPopupWindow
+                        }
+                    }
+
+                    (defaultWidget\n默认手机端) as conversationList_getDeviceWidget_defaultWidget
+                    component AutoScrollTag as conversationList_getDeviceWidget_defaultWidget_AutoScrollTag{
+                        component Slidable as conversationList_getDeviceWidget_defaultWidget_AutoScrollTag_Slidable{
+                            component conversationLineItem as conversationList_getDeviceWidget_defaultWidget_AutoScrollTag_Slidable_conversationLineItem{
+                                component TIMUIKitConversationItem\n会话列表item as defaultWidget_TIMUIKitConversationItem_W{
+
+                                }
+                            }
+                        }
+
+                        component ActionPane as conversationList_getDeviceWidget_defaultWidget_AutoScrollTag_ActionPane{
+                            component slideChildren=_getSlideBuilder as conversationList_getDeviceWidget_defaultWidget_AutoScrollTag_ActionPane__getSlideBuilder{
+                                component _defaultSlideBuilder as conversationList_getDeviceWidget_defaultWidget_AutoScrollTag_ActionPane__getSlideBuilder__defaultSlideBuilder{
+                                    [ConversationItemSlidePanel\n清除] as conversationList_getDeviceWidget_defaultWidget_AutoScrollTag_ActionPane__getSlideBuilder__defaultSlideBuilder_clean
+                                    [ConversationItemSlidePanel\n置顶/取消置顶] as conversationList_getDeviceWidget_defaultWidget_AutoScrollTag_ActionPane__getSlideBuilder__defaultSlideBuilder_pin
+                                    [ConversationItemSlidePanel\n删除] as conversationList_getDeviceWidget_defaultWidget_AutoScrollTag_ActionPane__getSlideBuilder__defaultSlideBuilder_delete
+
+                                    conversationList_getDeviceWidget_defaultWidget_AutoScrollTag_ActionPane__getSlideBuilder__defaultSlideBuilder_clean .[hidden] conversationList_getDeviceWidget_defaultWidget_AutoScrollTag_ActionPane__getSlideBuilder__defaultSlideBuilder_pin
+                                    conversationList_getDeviceWidget_defaultWidget_AutoScrollTag_ActionPane__getSlideBuilder__defaultSlideBuilder_pin .[hidden] conversationList_getDeviceWidget_defaultWidget_AutoScrollTag_ActionPane__getSlideBuilder__defaultSlideBuilder_delete
+                                }
+                            }
+                        }
+                    }
+
+                    conversationList_getDeviceWidget_desktopWidget -> conversationList_getDeviceWidget_desktopWidget_AutoScrollTag
+                    conversationList_getDeviceWidget_defaultWidget -> conversationList_getDeviceWidget_defaultWidget_AutoScrollTag
+
+                    conversationList_getDeviceWidget_desktopWidget ..[hidden] conversationList_getDeviceWidget_defaultWidget
+                }
+
+
+
+            }
+
+
+        }
+    }
+}
+
+@enduml

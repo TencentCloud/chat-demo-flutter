@@ -41,180 +41,183 @@ file home_page.dart as file_home_page_dart{
 
 
             rectangle body\n装载器 as home_page_TencentPage_body{
-                component Conversation\n会话列表页面 as home_page_TencentPage_body_Conversation_W{
-                    component SearchEntry\n顶部搜索 as home_page_TencentPage_Conversation_SearchEntry_W{
-                        (desktopWidget\n手机端) as home_page_TencentPage_Conversation_SearchEntry_desktopWidget_M
-                        [SearchEntryNarrow\n窄屏搜索框] as home_page_TencentPage_Conversation_SearchEntry_SearchEntryNarrow_W
+                component NavigationBarData\n会话界面Widget as home_page_TencentPage_body_NavigationBarData_Conversation_W{
+                    component Conversation\n会话列表页面 as home_page_TencentPage_body_Conversation_W{
+                        component SearchEntry\n顶部搜索 as home_page_TencentPage_Conversation_SearchEntry_W{
+                            (desktopWidget\n手机端) as home_page_TencentPage_Conversation_SearchEntry_desktopWidget_M
+                            [SearchEntryNarrow\n窄屏搜索框] as home_page_TencentPage_Conversation_SearchEntry_SearchEntryNarrow_W
 
-                        home_page_TencentPage_Conversation_SearchEntry_desktopWidget_M .> home_page_TencentPage_Conversation_SearchEntry_SearchEntryNarrow_W
-                    }
-                    [TIMUIKitConversation\nUIKIT层会话列表页] as home_page_TencentPage_Conversation_TIMUIKitConversation_W
-
-                    home_page_TencentPage_Conversation_SearchEntry_W ..[hidden] home_page_TencentPage_Conversation_TIMUIKitConversation_W
-                }
-
-                component Contact\n通讯录界面 as home_page_TencentPage_body_Contact_W{
-                    component TIMUIKitContact\n as UIKit层通讯录{
-                        (topList\n顶部功能列表) as home_page_TencentPage_body_Contact_topList_P
-                        component TopListItem\n新的联系人 as home_page_TencentPage_body_Contact_NewContact{
-
+                            home_page_TencentPage_Conversation_SearchEntry_desktopWidget_M . home_page_TencentPage_Conversation_SearchEntry_SearchEntryNarrow_W
+                            home_page_TencentPage_Conversation_SearchEntry_desktopWidget_M . home_page_TencentPage_Conversation_SearchEntry_SearchEntryNarrow_W
                         }
-                        component TopListItem\n我的群聊 as home_page_TencentPage_body_Contact_MyGroup{
-
-                        }
-                        component TopListItem\n黑名单 as home_page_TencentPage_body_Contact_BlackList{
-
-                        }
-                        component TopListItem\n在线客服 as home_page_TencentPage_body_Contact_CustomerService{
-
-                        }
-                        home_page_TencentPage_body_Contact_topList_P -- home_page_TencentPage_body_Contact_NewContact
-                        home_page_TencentPage_body_Contact_topList_P -- home_page_TencentPage_body_Contact_MyGroup : isWideScreen == false
-                        home_page_TencentPage_body_Contact_topList_P -- home_page_TencentPage_body_Contact_BlackList
-                        home_page_TencentPage_body_Contact_topList_P -- home_page_TencentPage_body_Contact_CustomerService : isWideScreen == false
-
-                        rectangle _topListItemTap as home_page_TencentPage_body_Contact__topListItemTap_M{
-                            stack NewContact\n跳转至新的联系人 as route_home_page_2_newContact{
-
+                        component TIMUIKitConversation\nUIKIT层会话页 as home_page_TencentPage_Conversation_TIMUIKitConversation_W{
+                            (onTapItem\n会话列表Item点击事件) as home_page_TencentPage_Conversation_TIMUIKitConversation_onTapItem_P
+                            rectangle _handleOnConvItemTaped\n路由跳转 as home_page_TencentPage_Conversation_TIMUIKitConversation__handleOnConvItemTaped_M{
+                                stack 跳转至聊天页面 as route_home_page_2_chat
                             }
-                            stack NewContact\n跳转至我的群聊 as route_home_page_2_group_list{
+                            home_page_TencentPage_Conversation_TIMUIKitConversation_onTapItem_P .right. home_page_TencentPage_Conversation_TIMUIKitConversation__handleOnConvItemTaped_M
+                            home_page_TencentPage_Conversation_TIMUIKitConversation_onTapItem_P .right. home_page_TencentPage_Conversation_TIMUIKitConversation__handleOnConvItemTaped_M
 
+                            (lastMessageBuilder\n lastMessage解析) as home_page_TencentPage_Conversation_TIMUIKitConversation_lastMessageBuilder_P
+                            rectangle 匿名函数 as home_page_TencentPage_Conversation_TIMUIKitConversation_anonymous_M{
+                                (lastMsg.elemType\n消息elem类型) as home_page_TencentPage_Conversation_TIMUIKitConversation_anonymous_elemType_M
+                                [RenderCustomMessage\n自定义消息widget] as home_page_TencentPage_Conversation_TIMUIKitConversation_anonymous_RenderCustomMessage_M
+                                home_page_TencentPage_Conversation_TIMUIKitConversation_anonymous_elemType_M .right. home_page_TencentPage_Conversation_TIMUIKitConversation_anonymous_RenderCustomMessage_M :V2TIM_ELEM_TYPE_CUSTOM
                             }
-                            stack NewContact\n跳转至黑名单 as route_home_page_2_blackList{
+                            home_page_TencentPage_Conversation_TIMUIKitConversation_lastMessageBuilder_P .right. home_page_TencentPage_Conversation_TIMUIKitConversation_anonymous_M
+                            home_page_TencentPage_Conversation_TIMUIKitConversation_lastMessageBuilder_P .right. home_page_TencentPage_Conversation_TIMUIKitConversation_anonymous_M
 
-                            }
-                            stack NewContact\n跳转至智能客服 as route_home_page_2_customerServicePage{
-
-                            }
+                            home_page_TencentPage_Conversation_TIMUIKitConversation_onTapItem_P ..[hidden] home_page_TencentPage_Conversation_TIMUIKitConversation_lastMessageBuilder_P
                         }
-                        home_page_TencentPage_body_Contact_NewContact .. route_home_page_2_newContact : isWideScreen = false
-                        home_page_TencentPage_body_Contact_MyGroup .. route_home_page_2_group_list : isWideScreen = false
-                        home_page_TencentPage_body_Contact_BlackList .. route_home_page_2_blackList : isWideScreen = false
-                        home_page_TencentPage_body_Contact_CustomerService .. route_home_page_2_customerServicePage : isWideScreen = false
+                        home_page_TencentPage_Conversation_SearchEntry_W ..[hidden] home_page_TencentPage_Conversation_TIMUIKitConversation_W
                     }
 
-                    (topListItemBuilder\n好友列表) as home_page_TencentPage_body_MyProfile_topListItemBuilder_M
-                    component _topListBuilder as home_page_TencentPage_body_MyProfile__topListBuilder_W{
-                        component TIMUIKitUnreadCount as home_page_TencentPage_body_MyProfile__topListBuilder_TIMUIKitUnreadCount_W{
-                            [UnreadMessage] as home_page_TencentPage_body_MyProfile__topListBuilder_TIMUIKitUnreadCount_UnreadMessage_W
-                        }
-                    }
-                    home_page_TencentPage_body_MyProfile_topListItemBuilder_M .right.> home_page_TencentPage_body_MyProfile__topListBuilder_W
-                }
-
-                component MyProfile\n我的资料界面 as home_page_TencentPage_body_MyProfile_W{
-                    component TIMUIKitProfile as home_page_TencentPage_body_MyProfile_TIMUIKitProfile_W{
-                        component TIMUIKitProfileUserInfoCard as home_page_TencentPage_body_MyProfile_TIMUIKitProfile_TIMUIKitProfileUserInfoCard_W{
-
-                        }
-                        stack MyProfileDetail\n跳转至我的详情页 as route_home_page_2_my_profile_detail_M{
-                        }
-
-                        home_page_TencentPage_body_MyProfile_TIMUIKitProfile_TIMUIKitProfileUserInfoCard_W .right.> route_home_page_2_my_profile_detail_M :onTap
+                    component TIMUIKitConversationTotalUnread\n会话未读总数 as home_page_TencentPage_body_TIMUIKitConversationTotalUnread_W{
+                        [UnreadMessage\n具体未读数量]
                     }
                 }
 
-                home_page_TencentPage_body_Conversation_W .[hidden] home_page_TencentPage_body_Contact_W
-                home_page_TencentPage_body_Contact_W .[hidden] home_page_TencentPage_body_MyProfile_W
-            }
+                component NavigationBarData\n通讯录界面Widget as home_page_TencentPage_body_NavigationBarData_Contact_W{
+                    component Contact\n通讯录界面 as home_page_TencentPage_body_Contact_W{
+                        component TIMUIKitContact\nUIKit层通讯录 as home_page_TencentPage_body_Contact_TIMUIKitContact_W{
+                            (topList\n顶部功能列表) as home_page_TencentPage_body_Contact_topList_P
+                            component TopListItem\n新的联系人 as home_page_TencentPage_body_Contact_NewContact{
+
+                            }
+                            component TopListItem\n我的群聊 as home_page_TencentPage_body_Contact_MyGroup{
+
+                            }
+                            component TopListItem\n黑名单 as home_page_TencentPage_body_Contact_BlackList{
+
+                            }
+                            component TopListItem\n在线客服 as home_page_TencentPage_body_Contact_CustomerService{
+
+                            }
+                            home_page_TencentPage_body_Contact_topList_P -- home_page_TencentPage_body_Contact_NewContact
+                            home_page_TencentPage_body_Contact_topList_P -- home_page_TencentPage_body_Contact_MyGroup : isWideScreen == false
+                            home_page_TencentPage_body_Contact_topList_P -- home_page_TencentPage_body_Contact_BlackList
+                            home_page_TencentPage_body_Contact_topList_P -- home_page_TencentPage_body_Contact_CustomerService : isWideScreen == false
+
+                            rectangle _topListItemTap as home_page_TencentPage_body_Contact__topListItemTap_M{
+                                stack NewContact\n跳转至新的联系人 as route_home_page_2_newContact{
+
+                                }
+                                stack NewContact\n跳转至我的群聊 as route_home_page_2_group_list{
+
+                                }
+                                stack NewContact\n跳转至黑名单 as route_home_page_2_blackList{
+
+                                }
+                                stack NewContact\n跳转至智能客服 as route_home_page_2_customerServicePage{
+
+                                }
+                            }
+                            home_page_TencentPage_body_Contact_NewContact .. route_home_page_2_newContact : isWideScreen = false
+                            home_page_TencentPage_body_Contact_MyGroup .. route_home_page_2_group_list : isWideScreen = false
+                            home_page_TencentPage_body_Contact_BlackList .. route_home_page_2_blackList : isWideScreen = false
+                            home_page_TencentPage_body_Contact_CustomerService .. route_home_page_2_customerServicePage : isWideScreen = false
+                        }
+
+                        (topListItemBuilder\n好友列表) as home_page_TencentPage_body_MyProfile_topListItemBuilder_M
+                        component _topListBuilder as home_page_TencentPage_body_MyProfile__topListBuilder_W{
+                            component TIMUIKitUnreadCount as home_page_TencentPage_body_MyProfile__topListBuilder_TIMUIKitUnreadCount_W{
+                                [UnreadMessage] as home_page_TencentPage_body_MyProfile__topListBuilder_TIMUIKitUnreadCount_UnreadMessage_W
+                            }
+                        }
+                        home_page_TencentPage_body_MyProfile_topListItemBuilder_M .right.> home_page_TencentPage_body_MyProfile__topListBuilder_W
+
+                        route_home_page_2_newContact ..[hidden] home_page_TencentPage_body_MyProfile_topListItemBuilder_M
+                    }
+                }
+
+                component NavigationBarData\n我的资料界面Widget as home_page_TencentPage_body_NavigationBarData_MyProfile_W{
+                    component MyProfile\n我的资料界面 as home_page_TencentPage_body_MyProfile_W{
+                            component TIMUIKitProfile as home_page_TencentPage_body_MyProfile_TIMUIKitProfile_W{
+                                component TIMUIKitProfileUserInfoCard as home_page_TencentPage_body_MyProfile_TIMUIKitProfile_TIMUIKitProfileUserInfoCard_W{
+                                    usecase "defaultWidget\n默认布局" as home_page_TencentPage_body_MyProfile_TIMUIKitProfile_TIMUIKitProfileUserInfoCard_defaultWidget_W
+                                    [TIMUIKitProfileUserInfoCardNarrow\n用户资料窄屏布局] as home_page_TencentPage_body_MyProfile_TIMUIKitProfile_TIMUIKitProfileUserInfoCardNarrow_W
+                                    home_page_TencentPage_body_MyProfile_TIMUIKitProfile_TIMUIKitProfileUserInfoCard_defaultWidget_W .right. home_page_TencentPage_body_MyProfile_TIMUIKitProfile_TIMUIKitProfileUserInfoCardNarrow_W
+                                    home_page_TencentPage_body_MyProfile_TIMUIKitProfile_TIMUIKitProfileUserInfoCard_defaultWidget_W .right. home_page_TencentPage_body_MyProfile_TIMUIKitProfile_TIMUIKitProfileUserInfoCardNarrow_W
+
+                                    usecase "desktopWidget\n桌面端布局" as home_page_TencentPage_body_MyProfile_TIMUIKitProfile_TIMUIKitProfileUserInfoCard_desktopWidget_W
+                                    [TIMUIKitProfileUserInfoCardWide\n用户资料宽屏布局] as home_page_TencentPage_body_MyProfile_TIMUIKitProfile_TIMUIKitProfileUserInfoCardWide_W
+                                    home_page_TencentPage_body_MyProfile_TIMUIKitProfile_TIMUIKitProfileUserInfoCard_desktopWidget_W .right. home_page_TencentPage_body_MyProfile_TIMUIKitProfile_TIMUIKitProfileUserInfoCardWide_W
+                                    home_page_TencentPage_body_MyProfile_TIMUIKitProfile_TIMUIKitProfileUserInfoCard_desktopWidget_W .right. home_page_TencentPage_body_MyProfile_TIMUIKitProfile_TIMUIKitProfileUserInfoCardWide_W
+
+                                    home_page_TencentPage_body_MyProfile_TIMUIKitProfile_TIMUIKitProfileUserInfoCard_defaultWidget_W ..[hidden] home_page_TencentPage_body_MyProfile_TIMUIKitProfile_TIMUIKitProfileUserInfoCard_desktopWidget_W
+                                }
+                                stack MyProfileDetail\n跳转至我的详情页 as route_home_page_2_my_profile_detail_M{
+                                }
+
+                                home_page_TencentPage_body_MyProfile_TIMUIKitProfile_TIMUIKitProfileUserInfoCard_W .right.> route_home_page_2_my_profile_detail_M :onTap
+
+                                [TIMUIKitOperationItem\n加我为好友的方式] as home_page_TencentPage_body_MyProfile_TIMUIKitProfile_addMe_W
+                                [TIMUIKitOperationItem\n更换皮肤] as home_page_TencentPage_body_MyProfile_TIMUIKitProfile_skin_W
+                                [TIMUIKitOperationItem\n消息阅读状态] as home_page_TencentPage_body_MyProfile_TIMUIKitProfile_read_W
+                                [TIMUIKitOperationItem\n显示在线状态] as home_page_TencentPage_body_MyProfile_TIMUIKitProfile_status_W
+                                [TIMUIKitOperationItem\n关于腾讯云] as home_page_TencentPage_body_MyProfile_TIMUIKitProfile_about_W
+                                rectangle _handleLogout\n退出登录 as home_page_TencentPage_body_MyProfile_TIMUIKitProfile_logout_W{
+                                }
+
+                                home_page_TencentPage_body_MyProfile_TIMUIKitProfile_TIMUIKitProfileUserInfoCardWide_W ..[hidden] home_page_TencentPage_body_MyProfile_TIMUIKitProfile_addMe_W
+                                home_page_TencentPage_body_MyProfile_TIMUIKitProfile_addMe_W .[hidden] home_page_TencentPage_body_MyProfile_TIMUIKitProfile_skin_W
+                                home_page_TencentPage_body_MyProfile_TIMUIKitProfile_skin_W .[hidden] home_page_TencentPage_body_MyProfile_TIMUIKitProfile_read_W
+                                home_page_TencentPage_body_MyProfile_TIMUIKitProfile_addMe_W ..[hidden] home_page_TencentPage_body_MyProfile_TIMUIKitProfile_status_W
+                                home_page_TencentPage_body_MyProfile_TIMUIKitProfile_skin_W ..[hidden] home_page_TencentPage_body_MyProfile_TIMUIKitProfile_about_W
+                                home_page_TencentPage_body_MyProfile_TIMUIKitProfile_read_W ..[hidden] home_page_TencentPage_body_MyProfile_TIMUIKitProfile_logout_W
+                            }
+                        }
+                    }
+                }
 
             BottomNavigationBar_W ..[hidden] home_page_TencentPage_body
 
-            BarItem_Message_W *.* home_page_TencentPage_body_Conversation_W
-            BarItem_Contact_W *.* home_page_TencentPage_body_Contact_W
-            BarItem_MyProfile_W *.* home_page_TencentPage_body_MyProfile_W
+            BarItem_Message_W *.* home_page_TencentPage_body_NavigationBarData_Conversation_W
+            BarItem_Contact_W *.* home_page_TencentPage_body_NavigationBarData_Contact_W
+            BarItem_MyProfile_W *.* home_page_TencentPage_body_NavigationBarData_MyProfile_W
         }
     }
 }
 
+file tim_uikit_conversation.dart as tim_uikit_conversation_dart{
+    component "UIKit 会话列表 页面布局结构" as TIMUIKitConversation_W{
 
-file wide_screen1home_page.dart as wide_screen1file_home_page_dart{
-    frame "Demo 宽屏首页 页面布局结构" as wide_screen1homePage_FW {
-        component LeftBar\n左侧导航Bar as LeftBar_W{
-            [NavigationBarData\n消息] as LeftBar_NavigationBarData_Msg_W
-            [NavigationBarData\n通讯录] as LeftBar_NavigationBarData_Contact
-            [NavigationBarData\n我的] as LeftBar_NavigationBarData_My
+        component conversationList\n会话列表 as  tim_uikit_conversation_conversationList{
 
-            LeftBar_NavigationBarData_Msg_W ..[hidden]  LeftBar_NavigationBarData_Contact
-            LeftBar_NavigationBarData_Contact ..[hidden] LeftBar_NavigationBarData_My
-        }
+            card TUIKitScreenUtils.getDeviceWidget\n获取设备类型 as conversationList_getDeviceWidget{
+                (defaultWidget\n默认手机端) as conversationList_getDeviceWidget_defaultWidget
+                component AutoScrollTag as conversationList_getDeviceWidget_defaultWidget_AutoScrollTag{
+                    component Slidable as conversationList_getDeviceWidget_defaultWidget_AutoScrollTag_Slidable{
+                        component conversationLineItem as conversationList_getDeviceWidget_defaultWidget_AutoScrollTag_Slidable_conversationLineItem{
+                            component TIMUIKitConversationItem\n会话列表item as defaultWidget_TIMUIKitConversationItem_W{
 
-        component Column as wide_screen1homePage_Column_W {
-            rectangle 顶部右上角按钮 as wide_screen1homePage_right_top_buttons{
-                [MinimizeWindowButton\n最小化] as MinimizeWindowButton_W
-                [MaximizeWindowButton\n最大化] as MaximizeWindowButton_W
-                [CloseWindowButton\n关闭窗口] as CloseWindowButton_W
-
-                MinimizeWindowButton_W .[hidden] MaximizeWindowButton_W
-                MaximizeWindowButton_W .[hidden] CloseWindowButton_W
-            }
-
-            component IndexedStack\n右下角视图布局 as IndexedStack_W{
-                component ConversationAndChat\n会话列表+聊天页面 as ConversationAndChat_W {
-                    component Search\n宽屏搜索 as ConversationAndChat_Search_W{
-
-                    }
-                    component Conversation\n会话列表页面 as ConversationAndChat_Conversation_W{
-                        component SearchEntry\n顶部搜索 as ConversationAndChat_Conversation_SearchEntry_W{
-                            (desktopWidget\n桌面端) as ConversationAndChat_Conversation_SearchEntry_desktopWidget_M
-                            [SearchEntryWide\n宽屏搜索框] as ConversationAndChat_Conversation_SearchEntry_SearchEntryWide_W
-
-                            ConversationAndChat_Conversation_SearchEntry_desktopWidget_M .> ConversationAndChat_Conversation_SearchEntry_SearchEntryWide_W
+                            }
                         }
-                        [TIMUIKitConversation\nUIKIT层会话列表页] as ConversationAndChat_Conversation_TIMUIKitConversation_W
+                    }
 
-                        ConversationAndChat_Conversation_SearchEntry_W ..[hidden] ConversationAndChat_Conversation_TIMUIKitConversation_W
+                    component ActionPane as conversationList_getDeviceWidget_defaultWidget_AutoScrollTag_ActionPane{
+                        component slideChildren=_getSlideBuilder as conversationList_getDeviceWidget_defaultWidget_AutoScrollTag_ActionPane__getSlideBuilder{
+                            component _defaultSlideBuilder as conversationList_getDeviceWidget_defaultWidget_AutoScrollTag_ActionPane__getSlideBuilder__defaultSlideBuilder{
+                                [ConversationItemSlidePanel\n清除] as conversationList_getDeviceWidget_defaultWidget_AutoScrollTag_ActionPane__getSlideBuilder__defaultSlideBuilder_clean
+                                [ConversationItemSlidePanel\n置顶/取消置顶] as conversationList_getDeviceWidget_defaultWidget_AutoScrollTag_ActionPane__getSlideBuilder__defaultSlideBuilder_pin
+                                [ConversationItemSlidePanel\n删除] as conversationList_getDeviceWidget_defaultWidget_AutoScrollTag_ActionPane__getSlideBuilder__defaultSlideBuilder_delete
+
+                                conversationList_getDeviceWidget_defaultWidget_AutoScrollTag_ActionPane__getSlideBuilder__defaultSlideBuilder_clean .[hidden] conversationList_getDeviceWidget_defaultWidget_AutoScrollTag_ActionPane__getSlideBuilder__defaultSlideBuilder_pin
+                                conversationList_getDeviceWidget_defaultWidget_AutoScrollTag_ActionPane__getSlideBuilder__defaultSlideBuilder_pin .[hidden] conversationList_getDeviceWidget_defaultWidget_AutoScrollTag_ActionPane__getSlideBuilder__defaultSlideBuilder_delete
+                            }
+                        }
                     }
                 }
-                component ContactsAndProfile\n通讯录+用户资料 as ContactsAndProfile_W{
-'                    component TIMUIKitContact\n as UIKit层通讯录{
-'                                            (topList\n顶部功能列表) as home_page_TencentPage_body_Contact_topList_P
-'                                            component TopListItem\n新的联系人 as home_page_TencentPage_body_Contact_NewContact{
-'
-'                                            }
-'                                            component TopListItem\n我的群聊 as home_page_TencentPage_body_Contact_MyGroup{
-'
-'                                            }
-'                                            component TopListItem\n黑名单 as home_page_TencentPage_body_Contact_BlackList{
-'
-'                                            }
-'                                            component TopListItem\n在线客服 as home_page_TencentPage_body_Contact_CustomerService{
-'
-'                                            }
-'                                            home_page_TencentPage_body_Contact_topList_P -- home_page_TencentPage_body_Contact_NewContact
-'                                            home_page_TencentPage_body_Contact_topList_P -- home_page_TencentPage_body_Contact_MyGroup : isWideScreen == false
-'                                            home_page_TencentPage_body_Contact_topList_P -- home_page_TencentPage_body_Contact_BlackList
-'                                            home_page_TencentPage_body_Contact_topList_P -- home_page_TencentPage_body_Contact_CustomerService : isWideScreen == false
-'
-'                                            rectangle _topListItemTap as home_page_TencentPage_body_Contact__topListItemTap_M{
-'                                                component showPopupWindow\n新的联系人 as home_page_TencentPage_body_Contact__topListItemTap_showPopupWindow_W{
-'
-'                                                }
-'
-'                                                stack NewContact\n新的联系人 as route_home_page_2_newContact{
-'
-'                                                }
-'                                            }
-'
-'                                            home_page_TencentPage_body_Contact_NewContact .. home_page_TencentPage_body_Contact__topListItemTap_showPopupWindow_W
-'                                            home_page_TencentPage_body_Contact_NewContact .. route_home_page_2_newContact
-'                                        }
-                }
-                [MeAndTencent\n我的+IM功能设置] as MeAndTencent_W
 
-                ConversationAndChat_W .[hidden]  ContactsAndProfile_W
-                ContactsAndProfile_W .[hidden] MeAndTencent_W
+                conversationList_getDeviceWidget_defaultWidget .right. conversationList_getDeviceWidget_defaultWidget_AutoScrollTag
+                conversationList_getDeviceWidget_defaultWidget .right. conversationList_getDeviceWidget_defaultWidget_AutoScrollTag
+
             }
-
-            wide_screen1homePage_right_top_buttons ..[hidden] IndexedStack_W
         }
-
-        LeftBar_NavigationBarData_Msg_W . ConversationAndChat_W
-        LeftBar_NavigationBarData_Contact . ContactsAndProfile_W
-        LeftBar_NavigationBarData_My . MeAndTencent_W
-
-        IndexedStack_W .[hidden] MinimizeWindowButton_W
     }
 }
+
+home_page_TencentPage_Conversation_TIMUIKitConversation_W -- tim_uikit_conversation_dart
+home_page_TencentPage_Conversation_TIMUIKitConversation_W -- tim_uikit_conversation_dart
 
 @enduml
