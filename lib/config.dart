@@ -2,9 +2,8 @@
 
 class IMConfig {
   /// Please specify the following fields before using this sample app
-  static String sdkappid = "";
-  static String userid = "";
-  static String usersig = "";
+  static int sdkAppID = 0;
+  static String key = "";
 
-  static const appVersion = "2.0.0";
+  static const appVersion = "2.1.0";
 }

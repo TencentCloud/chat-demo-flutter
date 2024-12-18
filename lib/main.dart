@@ -26,9 +26,10 @@ import 'package:tencent_cloud_chat_common/widgets/dialog/tencent_cloud_chat_dial
 import 'package:tencent_cloud_chat_contact/tencent_cloud_chat_contact.dart';
 import 'package:tencent_cloud_chat_conversation/tencent_cloud_chat_conversation.dart';
 import 'package:tencent_cloud_chat_conversation/tencent_cloud_chat_conversation_tatal_unread_count.dart';
+import 'package:tencent_cloud_chat_demo/config.dart';
 import 'package:tencent_cloud_chat_demo/desktop/app_layout.dart';
-import 'package:tencent_cloud_chat_demo/launching_page.dart';
 import 'package:tencent_cloud_chat_demo/login/login.dart';
+import 'package:tencent_cloud_chat_demo/login/toast_utils.dart';
 import 'package:tencent_cloud_chat_demo/setting/tencent_cloud_chat_settings.dart';
 import 'package:tencent_cloud_chat_demo/vote_detail_example.dart';
 import 'package:tencent_cloud_chat_group_profile/tencent_cloud_chat_group_profile.dart';
@@ -97,23 +98,17 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
   _MyHomePageState() : super(needFPSMonitor: true);
 
   bool isLogin = false;
-  bool isInit = false;
 
-  _initTencentCloudChat() async {
-    if (isInit) {
-      return;
-    }
-    
-    if (TencentCloudChatLoginData.sdkAppID.isEmpty ||
-        TencentCloudChatLoginData.userID.isEmpty ||
-        TencentCloudChatLoginData.userSig.isEmpty) {
-      debugPrint(
-          "Please specify `sdkappid`, `userid` and `usersig` in the `tencent_cloud_chat_demo/lib/config.dart` file before using this sample app.");
-      return;
-    }
+  _generateLoginInfo(LoginInfo loginInfo) {
+    safeSetState(() {
+      currentIndex = 0;
+      isLogin = true;
+    });
 
-    isInit = true;
+    _initTencentCloudChat(loginInfo);
+  }
 
+  _initTencentCloudChat(LoginInfo loginInfo) async {
     await TencentCloudChat.controller.initUIKit(
       config: TencentCloudChatConfig(
         userConfig: TencentCloudChatUserConfig(
@@ -122,9 +117,9 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
         ),
       ),
       options: TencentCloudChatInitOptions(
-        sdkAppID: int.parse(TencentCloudChatLoginData.sdkAppID),
-        userID: TencentCloudChatLoginData.userID,
-        userSig: TencentCloudChatLoginData.userSig,
+        sdkAppID: IMConfig.sdkAppID,
+        userID: loginInfo.userID,
+        userSig: loginInfo.userSig,
       ),
       components: TencentCloudChatInitComponentsRelated(
         usedComponentsRegister: [
@@ -220,7 +215,7 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
             onTranslateFailed: () {
               // ZLog.feature(data: "text_translate_failed");
             },
-            onTranslateSuccess: () {
+            onTranslateSuccess: (localCustomData) {
               // ZLog.feature(data: "text_translate_success");
             },
           ),
@@ -268,7 +263,7 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
         TencentCloudChatPluginItem(
           name: "sticker",
           initData: TencentCloudChatStickerInitData(
-            userID: TencentCloudChatLoginData.userID,
+            userID: loginInfo.userID,
           ).toJson(),
           pluginInstance: TencentCloudChatStickerPlugin(
             context: context,
@@ -291,9 +286,7 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
       shouldLogout: shouldLogout,
     );
     safeSetState(() {
-      isInit = false;
       isLogin = false;
-      isInit = false;
     });
   }
 
@@ -321,6 +314,7 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
   @override
   void initState() {
     super.initState();
+    ToastUtils.init(context);
     currentIndex = 0;
     pages = [
       const TencentCloudChatConversation(),
@@ -332,7 +326,7 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
       ),
     ];
 
-    Future.delayed(const Duration(milliseconds: 10), _initTencentCloudChat);
+    // Future.delayed(const Duration(milliseconds: 10), _initTencentCloudChat);
   }
 
   @override
@@ -344,7 +338,7 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
   Widget desktopBuilder(BuildContext context) {
     FlutterNativeSplash.remove();
     if (!isLogin) {
-      return const LoginPage();
+      return LoginPage(generateLoginInfo: _generateLoginInfo);
     }
     return TencentCloudChatDemoDesktopAppLayout(
       key: desktopAppLayoutKey,
@@ -358,7 +352,7 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
   Widget mobileBuilder(BuildContext context) {
     FlutterNativeSplash.remove();
     if (!isLogin) {
-      return const LoginPage();
+      return LoginPage(generateLoginInfo: _generateLoginInfo);
     }
     return TencentCloudChatThemeWidget(
         build: (context, colorTheme, textStyle) => Scaffold(

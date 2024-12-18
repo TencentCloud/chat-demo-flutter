@@ -3,17 +3,48 @@ import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat/tencent_cloud_chat.dart';
 import 'package:tencent_cloud_chat_common/base/tencent_cloud_chat_state_widget.dart';
 import 'package:tencent_cloud_chat_common/base/tencent_cloud_chat_theme_widget.dart';
+import 'package:tencent_cloud_chat_demo/config.dart';
+import 'package:tencent_cloud_chat_demo/login/GenerateUserSig.dart';
+import 'package:tencent_cloud_chat_demo/login/toast_utils.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({
-    super.key,
-  });
+  final ValueChanged<LoginInfo> generateLoginInfo;
+
+  LoginPage({super.key, required this.generateLoginInfo});
 
   @override
   State<StatefulWidget> createState() => LoginPageState();
 }
 
 class LoginPageState extends TencentCloudChatState<LoginPage> {
+  String userID = '';
+
+  userLogin() async {
+    if (userID.trim() == '') {
+      ToastUtils.toast("Please input userID");
+      return;
+    }
+
+    String key = IMConfig.key;
+    int sdkAppId = IMConfig.sdkAppID;
+    if (key == "") {
+      ToastUtils.toast("Please set sdkAppID and key in config.dart");
+      return;
+    }
+
+    GenerateDevUsersigForTest generateTestUserSig = GenerateDevUsersigForTest(
+      sdkappid: sdkAppId,
+      key: key,
+    );
+
+    // 7 x 24 x 60 x 60 = 604800 = 7 days
+    String userSig = generateTestUserSig.genSig(identifier: userID, expire: 604800);
+    LoginInfo loginInfo = LoginInfo();
+    loginInfo.userID = userID;
+    loginInfo.userSig = userSig;
+    widget.generateLoginInfo(loginInfo);
+  }
+
   @override
   Widget defaultBuilder(BuildContext context) {
     return TencentCloudChatThemeWidget(
@@ -50,12 +81,48 @@ class LoginPageState extends TencentCloudChatState<LoginPage> {
                     style: TextStyle(fontSize: 24, color: colorTheme.primaryColor.withOpacity(0.7)),
                   ),
                   const SizedBox(
-                    height: 40,
+                    height: 20,
                   ),
-                  const Text(
-                    "Please specify `sdkappid`, `userid` and `usersig` in the `lib/config.dart` file before using this sample app.",
-                    style: TextStyle(fontSize: 18),
-                  )
+                  TextField(
+                    autofocus: false,
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.only(left: 14),
+                      hintText: "please input userID",
+                      hintStyle: TextStyle(
+                        fontSize: 18,
+                        color: Colors.grey[500],
+                      ),
+                    ),
+                    style: const TextStyle(fontSize: 18),
+                    keyboardType: TextInputType.text,
+                    onChanged: (v) {
+                      setState(() {
+                        userID = v;
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 48,
+                      child: TextButton(
+                        onPressed: userLogin,
+                        style: TextButton.styleFrom(
+                          backgroundColor: colorTheme.primaryColor,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(24),
+                          ),
+                        ),
+                        child: const Text(
+                          'Login',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -64,4 +131,9 @@ class LoginPageState extends TencentCloudChatState<LoginPage> {
       ),
     );
   }
+}
+
+class LoginInfo {
+  String userID = "";
+  String userSig = "";
 }
