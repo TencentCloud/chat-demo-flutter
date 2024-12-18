@@ -15,8 +15,7 @@ class TencentCloudChatSettings extends StatefulWidget {
   State<StatefulWidget> createState() => TencentCloudChatSettingsState();
 }
 
-class TencentCloudChatSettingsState
-    extends TencentCloudChatState<TencentCloudChatSettings> {
+class TencentCloudChatSettingsState extends TencentCloudChatState<TencentCloudChatSettings> {
   V2TimUserFullInfo? _userFullInfo;
 
   Widget? _settingModule;
@@ -34,8 +33,7 @@ class TencentCloudChatSettingsState
     TencentCloudChat.instance.eventBusInstance
         .on<TencentCloudChatBasicData<TencentCloudChatBasicDataKeys>>("TencentCloudChatBasicDataKeys")
         ?.listen((event) {
-      if (event.currentUpdatedFields ==
-          TencentCloudChatBasicDataKeys.selfInfo) {
+      if (event.currentUpdatedFields == TencentCloudChatBasicDataKeys.selfInfo) {
         safeSetState(() {
           _userFullInfo = event.currentUser;
         });
@@ -57,20 +55,10 @@ class TencentCloudChatSettingsState
       build: (context, colorTheme, textStyle) => Scaffold(
         appBar: AppBar(
           backgroundColor: colorTheme.settingBackgroundColor,
-          title: Row(
-            children: [
-              Container(
-                width: getWidth(14),
-              ),
-              Expanded(
-                  child: Text(
-                tL10n.settings,
-                style: TextStyle(
-                    color: colorTheme.settingTitleColor,
-                    fontSize: textStyle.fontsize_34,
-                    fontWeight: FontWeight.w600),
-              )),
-            ],
+          title: Text(
+            tL10n.settings,
+            style: TextStyle(
+                color: colorTheme.settingTitleColor, fontSize: textStyle.fontsize_34, fontWeight: FontWeight.w600),
           ),
         ),
         body: _userFullInfo != null
