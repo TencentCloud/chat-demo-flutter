@@ -14,7 +14,7 @@ import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_demo/src/routes.dart';
 import 'package:tencent_cloud_chat_demo/utils/request.dart';
 import 'package:tencent_cloud_chat_demo/utils/toast.dart';
-import 'config.dart';
+import '../config.dart';
 import 'package:dio/dio.dart';
 
 class CancelAccount extends StatelessWidget {

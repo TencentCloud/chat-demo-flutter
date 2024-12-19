@@ -7,7 +7,7 @@ import 'package:tencent_calls_uikit/tuicall_kit.dart';
 import 'package:tencent_cloud_chat_demo/src/add_friend.dart';
 import 'package:tencent_cloud_chat_demo/src/add_group.dart';
 import 'package:tencent_cloud_chat_demo/src/chat.dart';
-import 'package:tencent_cloud_chat_demo/src/config.dart';
+import 'package:tencent_cloud_chat_demo/config.dart';
 import 'package:tencent_cloud_chat_demo/src/contact.dart';
 import 'package:tencent_cloud_chat_demo/src/conversation.dart';
 import 'package:tencent_cloud_chat_demo/src/create_group.dart';

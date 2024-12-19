@@ -6,7 +6,7 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_customer_service_plugin/tencent_cloud_chat_customer_service_plugin.dart';
-import 'package:tencent_cloud_chat_demo/src/config.dart';
+import 'package:tencent_cloud_chat_demo/config.dart';
 import 'package:tencent_cloud_chat_demo/src/group_application_list.dart';
 import 'package:tencent_cloud_chat_demo/src/group_profile.dart';
 import 'package:tencent_cloud_chat_demo/src/pages/customer_service_example/card_create_example.dart';

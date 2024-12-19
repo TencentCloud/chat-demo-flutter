@@ -3,7 +3,7 @@ import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/screen_utils.dart';
-import 'package:tencent_cloud_chat_demo/src/config.dart';
+import 'package:tencent_cloud_chat_demo/config.dart';
 
 class AvatarSelectPage extends StatefulWidget {
   static const String avatarFaceUrl = "https://im.sdk.qcloud.com/download/tuikit-resource/avatar/avatar_%s.png";

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
-import 'package:tencent_cloud_chat_demo/src/config.dart';
+import 'package:tencent_cloud_chat_demo/config.dart';
 import 'package:tencent_cloud_chat_demo/utils/toast.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 

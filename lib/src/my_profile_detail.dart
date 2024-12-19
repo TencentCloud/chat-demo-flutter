@@ -18,7 +18,7 @@ import 'package:tencent_cloud_chat_uikit/ui/utils/time_ago.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/widget/tim_uikit_profile_widget.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
 
-import 'package:tencent_cloud_chat_demo/src/config.dart';
+import 'package:tencent_cloud_chat_demo/config.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/wide_popup.dart';

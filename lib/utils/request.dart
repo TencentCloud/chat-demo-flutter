@@ -1,8 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_cloud_chat_demo/src/config.dart';
+import 'package:tencent_cloud_chat_demo/config.dart';
 import 'package:tencent_cloud_chat_demo/utils/constant.dart';
-
 
 Future<Response<Map<String, dynamic>>> appRequest({
   String? method = 'get',

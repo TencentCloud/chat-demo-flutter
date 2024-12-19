@@ -1,12 +1,10 @@
-
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_demo/src/cancel_account.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'config.dart';
+import 'package:tencent_cloud_chat_demo/config.dart';
 import 'package:provider/provider.dart';
 import 'contactPage.dart';
 import 'pages/privacy/privacy_webview.dart';

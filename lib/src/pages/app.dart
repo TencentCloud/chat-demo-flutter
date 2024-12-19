@@ -12,7 +12,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tencent_cloud_chat_demo/src/chat.dart';
-import 'package:tencent_cloud_chat_demo/src/config.dart';
+import 'package:tencent_cloud_chat_demo/config.dart';
 import 'package:tencent_cloud_chat_demo/src/launch_page.dart';
 import 'package:tencent_cloud_chat_demo/src/pages/home_page.dart';
 import 'package:tencent_cloud_chat_demo/src/pages/login.dart';
@@ -226,7 +226,7 @@ class _TencentChatAppState extends State<TencentChatApp>
             }
         }
       },
-      sdkAppID: IMDemoConfig.sdkappid,
+      sdkAppID: IMDemoConfig.sdkAppID,
       loglevel: LogLevelEnum.V2TIM_LOG_DEBUG,
       listener: V2TimSDKListener(
         onConnectFailed: (code, error) {

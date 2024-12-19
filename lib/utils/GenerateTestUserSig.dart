@@ -8,8 +8,9 @@ import 'package:archive/archive_io.dart';
 
 /// Generate userSig for Tencent Cloud instant messaging test
 ///
-class GenerateDevUsersigForTest {
-  GenerateDevUsersigForTest({required this.sdkappid, required this.key});
+class GenerateTestUserSig {
+  GenerateTestUserSig({required this.sdkappid, required this.key});
+
   int sdkappid;
   String key;
 
@@ -55,17 +56,13 @@ class GenerateDevUsersigForTest {
     String contentToBeSigned =
         "TLS.identifier:$identifier\nTLS.sdkappid:$sdkappid\nTLS.time:$currTime\nTLS.expire:$expire\n";
     Hmac hmacSha256 = Hmac(sha256, utf8.encode(key));
-    Digest hmacSha256Digest =
-        hmacSha256.convert(utf8.encode(contentToBeSigned));
+    Digest hmacSha256Digest = hmacSha256.convert(utf8.encode(contentToBeSigned));
     return base64.encode(hmacSha256Digest.bytes);
   }
 
   String _escape({
     required String content,
   }) {
-    return content
-        .replaceAll('+', '*')
-        .replaceAll('/', '-')
-        .replaceAll('=', '_');
+    return content.replaceAll('+', '*').replaceAll('/', '-').replaceAll('=', '_');
   }
 }

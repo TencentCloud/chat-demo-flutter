@@ -10,12 +10,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tencent_calls_uikit/tencent_calls_uikit.dart';
-import 'package:tencent_cloud_chat_demo/src/config.dart';
+import 'package:tencent_cloud_chat_demo/config.dart';
 import 'package:tencent_cloud_chat_demo/src/pages/home_page.dart';
 import 'package:tencent_cloud_chat_demo/src/pages/privacy/privacy_webview.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
 import 'package:tencent_cloud_chat_demo/src/routes.dart';
-import 'package:tencent_cloud_chat_demo/utils/GenerateUserSig.dart';
+import 'package:tencent_cloud_chat_demo/utils/GenerateTestUserSig.dart';
 import 'package:tencent_cloud_chat_demo/utils/commonUtils.dart';
 import 'package:tencent_cloud_chat_demo/utils/toast.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
@@ -228,12 +228,12 @@ class _LoginFormState extends State<LoginForm> {
     }
 
     String key = IMDemoConfig.key;
-    int sdkAppId = IMDemoConfig.sdkappid;
+    int sdkAppId = IMDemoConfig.sdkAppID;
     if (key == "") {
       ToastUtils.toast(TIM_t("请在环境变量中写入key"));
       return;
     }
-    GenerateDevUsersigForTest generateTestUserSig = GenerateDevUsersigForTest(
+    GenerateTestUserSig generateTestUserSig = GenerateTestUserSig(
       sdkappid: sdkAppId,
       key: key,
     );
