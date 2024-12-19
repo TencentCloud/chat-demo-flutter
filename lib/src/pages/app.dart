@@ -256,7 +256,7 @@ class _TencentChatAppState extends State<TencentChatApp>
       ),
     );
     if (isInitSuccess == null || !isInitSuccess) {
-      ToastUtils.toast(TIM_t("即时通信 SDK初始化失败"));
+      ToastUtils.toast("Please set sdkAppID and key in config.dart");
       return;
     } else {}
     _isInitIMSDK = true;
