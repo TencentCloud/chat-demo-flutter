@@ -2,10 +2,11 @@ plugins {
     id "com.android.application"
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
-    id "com.google.gms.google-services" // Add here
-    id "com.huawei.agconnect" // Add here
-    id 'com.hihonor.mcs.asplugin' // Add here
 }
+
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.huawei.agconnect'
+apply plugin: 'com.hihonor.mcs.asplugin'
 
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
@@ -46,7 +47,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.tencent.flutter.tuikit"
+        applicationId "com.tencent.qcloud.tim.tuikit"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion 24
@@ -55,9 +56,9 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         manifestPlaceholders = [
-                "VIVO_APPID" : "105558479",
-                "VIVO_APPKEY": "c702255c2379fdcc28c381d7986d338b",
-                "HONOR_APPID": "220709752",
+                "VIVO_APPID" : "",
+                "VIVO_APPKEY": "",
+                "HONOR_APPID": "",
         ]
     }
 
@@ -87,11 +88,11 @@ flutter {
 }
 
 dependencies {
-    implementation 'com.tencent.timpush:huawei:8.1.6906'
-    implementation 'com.tencent.timpush:xiaomi:8.1.6906'
-    implementation 'com.tencent.timpush:oppo:8.1.6906'
-    implementation 'com.tencent.timpush:vivo:8.1.6906'
-    implementation 'com.tencent.timpush:honor:8.1.6906'
-    implementation 'com.tencent.timpush:meizu:8.1.6906'
-    implementation 'com.tencent.timpush:fcm:8.1.6906'
+    implementation 'com.tencent.timpush:huawei:8.3.6498'
+    implementation 'com.tencent.timpush:xiaomi:8.3.6498'
+    implementation 'com.tencent.timpush:oppo:8.3.6498'
+    implementation 'com.tencent.timpush:vivo:8.3.6498'
+    implementation 'com.tencent.timpush:honor:8.3.6498'
+    implementation 'com.tencent.timpush:meizu:8.3.6498'
+    implementation 'com.tencent.timpush:fcm:8.3.6498'
 }

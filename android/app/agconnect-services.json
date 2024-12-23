@@ -33,7 +33,7 @@
     "project_id":"99536292102246836",
     "app_id":"106144491",
     "api_key":"DAEDAGRFiNflK6rRDBjzBpaHKqHRgnhLNKXilCWkHIZlg==",
-    "package_name":"com.tencent.flutter.tuikit"
+    "package_name":"com.tencent.qcloud.tim.tuikit"
   },
   "oauth_client":{
     "client_id":"106144491",
@@ -41,7 +41,7 @@
   },
   "app_info":{
     "app_id":"106144491",
-    "package_name":"com.tencent.flutter.tuikit"
+    "package_name":"com.tencent.qcloud.tim.tuikit"
   },
   "service":{
     "analytics":{
