@@ -9,9 +9,9 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:7.3.1'
-        classpath 'com.google.gms:google-services:4.3.14'
         classpath 'com.huawei.agconnect:agcp:1.6.0.300'
         classpath 'com.hihonor.mcs:asplugin:2.0.1.300'
+        classpath 'com.google.gms:google-services:4.3.15'
     }
 }
 
@@ -19,6 +19,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        maven { url "https://mirrors.tencent.com/nexus/repository/maven-public/" }
         maven {url 'https://developer.huawei.com/repo/'}
         maven {url 'https://developer.hihonor.com/repo'}
     }

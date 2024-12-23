@@ -2,10 +2,11 @@ plugins {
     id "com.android.application"
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
-    id 'com.google.gms.google-services'
-    id 'com.huawei.agconnect'
-    id 'com.hihonor.mcs.asplugin'
 }
+
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.huawei.agconnect'
+apply plugin: 'com.hihonor.mcs.asplugin'
 
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
@@ -50,7 +51,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.tencent.flutter.tuikit"
+        applicationId "com.tencent.qcloud.tim.tuikit"
         minSdkVersion 21
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
@@ -58,7 +59,7 @@ android {
         manifestPlaceholders = [
                 VIVO_APPID:"",
                 VIVO_APPKEY:"",
-                applicationName : ""
+                "HONOR_APPID" : ""
         ]
     }
 
@@ -98,12 +99,12 @@ flutter {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    implementation 'com.tencent.timpush:huawei:7.9.5668'
-    implementation 'com.tencent.timpush:xiaomi:7.9.5668'
-    implementation 'com.tencent.timpush:oppo:7.9.5668'
-    implementation 'com.tencent.timpush:vivo:7.9.5668'
-    implementation 'com.tencent.timpush:honor:7.9.5668'
-    implementation 'com.tencent.timpush:meizu:7.9.5668'
-    implementation 'com.tencent.timpush:fcm:7.9.5668'
+    implementation 'com.tencent.timpush:huawei:8.3.6498'
+    implementation 'com.tencent.timpush:xiaomi:8.3.6498'
+    implementation 'com.tencent.timpush:oppo:8.3.6498'
+    implementation 'com.tencent.timpush:vivo:8.3.6498'
+    implementation 'com.tencent.timpush:honor:8.3.6498'
+    implementation 'com.tencent.timpush:meizu:8.3.6498'
+    implementation 'com.tencent.timpush:fcm:8.3.6498'
     implementation 'androidx.work:work-runtime-ktx:2.7.1'
 }

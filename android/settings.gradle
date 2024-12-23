@@ -13,13 +13,29 @@ pluginManagement {
         google()
         mavenCentral()
         gradlePluginPortal()
+
+        maven { url "https://mirrors.tencent.com/nexus/repository/maven-public/" }
+        // 配置HMS Core SDK的Maven仓地址。
+        maven {url 'https://developer.huawei.com/repo/'}
+        maven {url 'https://developer.hihonor.com/repo'}
     }
+
 }
 
 plugins {
     id "dev.flutter.flutter-plugin-loader" version "1.0.0"
     id "com.android.application" version "7.3.1" apply false
     id "org.jetbrains.kotlin.android" version "1.8.22" apply false
+}
+
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+        maven { url "https://mirrors.tencent.com/nexus/repository/maven-public/" }
+        // 配置HMS Core SDK的Maven仓地址。
+        maven {url 'https://developer.huawei.com/repo/'}
+        maven {url 'https://developer.hihonor.com/repo'}
+    }
 }
 
 include ":app"

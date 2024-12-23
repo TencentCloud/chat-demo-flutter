@@ -4,7 +4,7 @@
     >
     <application
         android:label="腾讯云IM"
-        android:name=".application.TIMApplication"
+        android:name=".application.MyApplication"
         tools:replace="android:label"
         android:icon="@mipmap/logo"
         android:usesCleartextTraffic="true"
@@ -57,66 +57,22 @@
             tools:replace="android:value"
             android:name="flutterEmbedding"
             android:value="2" />
-        <meta-data
-            tools:replace="android:value"
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="" />
-        <meta-data
-            tools:replace="android:value"
-            android:name="com.vivo.push.api_key"
-            android:value="" />
-        <meta-data
-            tools:replace="android:value"
-            android:name="com.vivo.push.app_id"
-            android:value="" />
-        <meta-data
-            tools:replace="android:value"
-            android:name="com.hihonor.push.app_id"
-            android:value="" />
     </application>
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- Compatibility for Android13 -->
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
-    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
 
-    <!--xiaomi-->
-    <permission
-        android:name="com.tencent.flutter.tuikit.permission.MIPUSH_RECEIVE"
-        android:protectionLevel="signature" />
-    <uses-permission android:name="com.tencent.flutter.tuikit.permission.MIPUSH_RECEIVE" />
-    <!--xioami-->
-
-    <!--OPPO-->
-    <uses-permission android:name="com.coloros.mcs.permission.RECIEVE_MCS_MESSAGE" />
-    <uses-permission android:name="com.heytap.mcs.permission.RECIEVE_MCS_MESSAGE" />
-    <!--OPPO-->
-
-    <!--meizu-->
-    <!--  Flyme5-->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!-- Flyme5-->
-    <uses-permission android:name="com.meizu.flyme.push.permission.RECEIVE" />
-    <permission android:name="com.tencent.flutter.tuikit.push.permission.MESSAGE"
-        android:protectionLevel="signature"/>
-    <uses-permission android:name="com.tencent.flutter.tuikit.push.permission.MESSAGE" />
-    <!-- Flyme3-->
-    <uses-permission android:name="com.meizu.c2dm.permission.RECEIVE" />
-    <permission android:name="com.tencent.flutter.tuikit.permission.C2D_MESSAGE" android:protectionLevel="signature"
-        />
-    <uses-permission android:name="com.tencent.flutter.tuikit.permission.C2D_MESSAGE"/>
-    <!--Meizu end-->
-
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <!-- Optional, you'll have to check this permission by yourself. -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!-- Permissions options for the `camera` group -->
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 </manifest>
