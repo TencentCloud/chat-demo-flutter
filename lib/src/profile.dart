@@ -211,6 +211,9 @@ class _ProfileState extends State<MyProfile> {
               operationValue: localSetting.isShowReadingStatus,
               onSwitchChange: (bool value) {
                 localSetting.isShowReadingStatus = value;
+                if (value) {
+                  ToastUtils.toast(TIM_t("该功能为旗舰版功能"));
+                }
               },
             ),
             const SizedBox(

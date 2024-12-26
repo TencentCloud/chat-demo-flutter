@@ -29,7 +29,7 @@ class LocalSetting with ChangeNotifier {
     notifyListeners();
   }
 
-  bool get isShowReadingStatus => _isShowReadingStatus ?? true;
+  bool get isShowReadingStatus => _isShowReadingStatus ?? false;
 
   set isShowReadingStatus(bool value) {
     _isShowReadingStatus = value;
