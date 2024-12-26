@@ -229,8 +229,8 @@ class _LoginFormState extends State<LoginForm> {
 
     String key = IMDemoConfig.key;
     int sdkAppId = IMDemoConfig.sdkAppID;
-    if (key == "") {
-      ToastUtils.toast(TIM_t("请在环境变量中写入key"));
+    if (key == "" || sdkAppId == 0) {
+      ToastUtils.toast(TIM_t("请在 config.dart 中输入 sdkAppID 和 key"));
       return;
     }
     GenerateTestUserSig generateTestUserSig = GenerateTestUserSig(
@@ -301,7 +301,7 @@ class _LoginFormState extends State<LoginForm> {
                         hintStyle: TextStyle(fontSize: CommonUtils.adaptFontSize(32)),
                         //
                       ),
-                      keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.text,
                       onChanged: (v) {
                         setState(() {
                           userID = v;
