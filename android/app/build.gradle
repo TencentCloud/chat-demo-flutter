@@ -106,5 +106,5 @@ dependencies {
     implementation 'com.tencent.timpush:honor:8.3.6498'
     implementation 'com.tencent.timpush:meizu:8.3.6498'
     implementation 'com.tencent.timpush:fcm:8.3.6498'
-    implementation 'androidx.work:work-runtime-ktx:2.7.1'
+    implementation 'androidx.work:work-runtime-ktx:2.8.1'
 }
