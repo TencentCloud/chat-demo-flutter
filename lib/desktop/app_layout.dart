@@ -1,10 +1,10 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
-import 'package:tencent_cloud_chat/cross_platforms_adapter/tencent_cloud_chat_platform_adapter.dart';
-import 'package:tencent_cloud_chat/data/theme/color/color_base.dart';
-import 'package:tencent_cloud_chat/data/theme/text_style/text_style.dart';
-import 'package:tencent_cloud_chat/tencent_cloud_chat.dart';
-import 'package:tencent_cloud_chat/utils/tencent_cloud_chat_utils.dart';
+import 'package:tencent_cloud_chat_common/cross_platforms_adapter/tencent_cloud_chat_platform_adapter.dart';
+import 'package:tencent_cloud_chat_common/data/theme/color/color_base.dart';
+import 'package:tencent_cloud_chat_common/data/theme/text_style/text_style.dart';
+import 'package:tencent_cloud_chat_common/tencent_cloud_chat.dart';
+import 'package:tencent_cloud_chat_common/utils/tencent_cloud_chat_utils.dart';
 import 'package:tencent_cloud_chat_common/base/tencent_cloud_chat_state_widget.dart';
 import 'package:tencent_cloud_chat_common/base/tencent_cloud_chat_theme_widget.dart';
 import 'package:tencent_cloud_chat_contact/tencent_cloud_chat_contact.dart';
