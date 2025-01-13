@@ -125,14 +125,9 @@ npm install
 Once you've completed these steps, you'll be ready to run or deploy the sample app on the web.
 
 3. Run it:
-```shell
-# Start the sample app. Replace `SDK_APPID` and `KEY`
-flutter run --dart-define=SDK_APPID={YOUR_SDKAPPID} --dart-define=ISPRODUCT_ENV=false --dart-define=KEY={YOUR_KEY}
-```
 
->- `--dart-define=SDK_APPID={YOUR_SDKAPPID}`. Here, `{YOUR_SDKAPPID}` needs to be replaced with the `SDKAppID` of your application.
->- `--dart-define=ISPRODUCT_ENV=false`. Set it to `false` for a development environment.
->- `--dart-define=KEY={YOUR_KEY}`. Here, `{YOUR_KEY}` needs to be replaced with the `Key` recorded in [Chat Console](https://console.trtc.io/).
+Start the sample app. Fill in sdkAppID and key recorded in [Chat Console](https://console.trtc.io/) in config.dart
+
 
 ## (Optional) Using the IDE
 
