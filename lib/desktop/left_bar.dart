@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tencent_cloud_chat/data/theme/color/color_base.dart';
-import 'package:tencent_cloud_chat/tencent_cloud_chat.dart';
+import 'package:tencent_cloud_chat_common/data/theme/color/color_base.dart';
+import 'package:tencent_cloud_chat_common/tencent_cloud_chat.dart';
 import 'package:tencent_cloud_chat_common/base/tencent_cloud_chat_theme_widget.dart';
 import 'package:tencent_cloud_chat_conversation/tencent_cloud_chat_conversation_tatal_unread_count.dart';
 import 'package:tencent_cloud_chat_demo/desktop/current_user.dart';

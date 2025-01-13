@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tencent_cloud_chat/data/basic/tencent_cloud_chat_basic_data.dart';
-import 'package:tencent_cloud_chat/tencent_cloud_chat.dart';
+import 'package:tencent_cloud_chat_common/data/basic/tencent_cloud_chat_basic_data.dart';
 import 'package:tencent_cloud_chat_common/base/tencent_cloud_chat_theme_widget.dart';
 import 'package:tencent_cloud_chat_common/tencent_cloud_chat_common.dart';
 import 'package:tencent_cloud_chat_common/widgets/empty_page/tencent_cloud_chat_empty_page.dart';

@@ -31,19 +31,15 @@ dependencies:
   flutter:
     sdk: flutter
   tencent_calls_uikit: ^2.7.2
-  tencent_cloud_chat_user_profile: ^2.1.0
-  tencent_cloud_chat: ^2.1.0
-  tencent_cloud_chat_conversation: ^2.1.0
-  tencent_cloud_chat_message: ^2.1.0
-  tencent_cloud_chat_contact: ^2.1.0
+  tencent_cloud_chat_common: ^3.2.0
+  tencent_cloud_chat_conversation: ^3.2.0
+  tencent_cloud_chat_message: ^3.2.0
+  tencent_cloud_chat_contact: ^3.2.0+1
   tencent_cloud_chat_push: ^8.3.6498+1
-  tencent_cloud_chat_group_profile: ^2.1.0
-  tencent_cloud_chat_robot: ^1.2.0
-  tencent_cloud_chat_vote_plugin: ^1.2.0
-  tencent_cloud_chat_sticker: ^2.1.0
-  tencent_cloud_chat_message_reaction: ^2.1.0
-  tencent_cloud_chat_text_translate: ^2.1.0
-  tencent_cloud_chat_sound_to_text: ^2.1.0
+  tencent_cloud_chat_sticker: ^3.2.0
+  tencent_cloud_chat_message_reaction: ^3.2.0+1
+  tencent_cloud_chat_text_translate: ^3.2.0
+  tencent_cloud_chat_sound_to_text: ^3.2.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

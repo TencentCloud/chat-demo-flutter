@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:bitsdojo_window/bitsdojo_window.dart';
@@ -6,20 +5,20 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:tencent_calls_uikit/tuicall_kit.dart';
-import 'package:tencent_cloud_chat/components/component_config/tencent_cloud_chat_message_config.dart';
-import 'package:tencent_cloud_chat/components/component_config/tencent_cloud_chat_user_config.dart';
-import 'package:tencent_cloud_chat/components/component_event_handlers/tencent_cloud_chat_contact_event_handlers.dart';
-import 'package:tencent_cloud_chat/components/component_event_handlers/tencent_cloud_chat_message_event_handlers.dart';
-import 'package:tencent_cloud_chat/components/component_options/tencent_cloud_chat_message_options.dart';
-import 'package:tencent_cloud_chat/components/tencent_cloud_chat_components_utils.dart';
-import 'package:tencent_cloud_chat/cross_platforms_adapter/tencent_cloud_chat_screen_adapter.dart';
-import 'package:tencent_cloud_chat/models/tencent_cloud_chat_callbacks.dart';
-import 'package:tencent_cloud_chat/models/tencent_cloud_chat_models.dart';
-import 'package:tencent_cloud_chat/router/tencent_cloud_chat_navigator.dart';
-import 'package:tencent_cloud_chat/tencent_cloud_chat.dart';
-import 'package:tencent_cloud_chat/utils/tencent_cloud_chat_code_info.dart';
-import 'package:tencent_cloud_chat/utils/tencent_cloud_chat_utils.dart';
-import 'package:tencent_cloud_chat/widget/app/material_app.dart';
+import 'package:tencent_cloud_chat_common/components/component_config/tencent_cloud_chat_message_config.dart';
+import 'package:tencent_cloud_chat_common/components/component_config/tencent_cloud_chat_user_config.dart';
+import 'package:tencent_cloud_chat_common/components/component_event_handlers/tencent_cloud_chat_contact_event_handlers.dart';
+import 'package:tencent_cloud_chat_common/components/component_event_handlers/tencent_cloud_chat_message_event_handlers.dart';
+import 'package:tencent_cloud_chat_common/components/component_options/tencent_cloud_chat_message_options.dart';
+import 'package:tencent_cloud_chat_common/components/tencent_cloud_chat_components_utils.dart';
+import 'package:tencent_cloud_chat_common/cross_platforms_adapter/tencent_cloud_chat_screen_adapter.dart';
+import 'package:tencent_cloud_chat_common/models/tencent_cloud_chat_callbacks.dart';
+import 'package:tencent_cloud_chat_common/models/tencent_cloud_chat_models.dart';
+import 'package:tencent_cloud_chat_common/router/tencent_cloud_chat_navigator.dart';
+import 'package:tencent_cloud_chat_common/tencent_cloud_chat.dart';
+import 'package:tencent_cloud_chat_common/utils/tencent_cloud_chat_code_info.dart';
+import 'package:tencent_cloud_chat_common/utils/tencent_cloud_chat_utils.dart';
+import 'package:tencent_cloud_chat_common/widgets/material_app.dart';
 import 'package:tencent_cloud_chat_common/base/tencent_cloud_chat_state_widget.dart';
 import 'package:tencent_cloud_chat_common/base/tencent_cloud_chat_theme_widget.dart';
 import 'package:tencent_cloud_chat_common/widgets/dialog/tencent_cloud_chat_dialog.dart';
@@ -31,21 +30,16 @@ import 'package:tencent_cloud_chat_demo/desktop/app_layout.dart';
 import 'package:tencent_cloud_chat_demo/login/login.dart';
 import 'package:tencent_cloud_chat_demo/login/toast_utils.dart';
 import 'package:tencent_cloud_chat_demo/setting/tencent_cloud_chat_settings.dart';
-import 'package:tencent_cloud_chat_demo/vote_detail_example.dart';
-import 'package:tencent_cloud_chat_group_profile/tencent_cloud_chat_group_profile.dart';
 import 'package:tencent_cloud_chat_message/tencent_cloud_chat_message.dart';
 import 'package:tencent_cloud_chat_message/tencent_cloud_chat_message_builders.dart';
 import 'package:tencent_cloud_chat_message/tencent_cloud_chat_message_layout/special_case/tencent_cloud_chat_message_no_chat.dart';
 import 'package:tencent_cloud_chat_message_reaction/tencent_cloud_chat_message_reaction.dart';
 import 'package:tencent_cloud_chat_push/tencent_cloud_chat_push.dart';
-import 'package:tencent_cloud_chat_robot/tencent_cloud_chat_robot.dart';
 // import 'package:tencent_cloud_chat_search/tencent_cloud_chat_search.dart';
 import 'package:tencent_cloud_chat_sticker/tencent_cloud_chat_sticker.dart';
 import 'package:tencent_cloud_chat_sticker/tencent_cloud_chat_sticker_init_data.dart';
 import 'package:tencent_cloud_chat_text_translate/tencent_cloud_chat_text_translate.dart';
 import 'package:tencent_cloud_chat_sound_to_text/tencent_cloud_chat_sound_to_text.dart';
-import 'package:tencent_cloud_chat_user_profile/tencent_cloud_chat_user_profile.dart';
-import 'package:tencent_cloud_chat_vote_plugin/tencent_cloud_chat_vote_plugin.dart';
 
 void main() {
   if (kIsWeb || Platform.isMacOS || Platform.isWindows) {
@@ -125,8 +119,6 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
         usedComponentsRegister: [
           TencentCloudChatConversationManager.register,
           TencentCloudChatMessageManager.register,
-          TencentCloudChatUserProfileManager.register,
-          TencentCloudChatGroupProfileManager.register,
           TencentCloudChatContactManager.register,
         ],
         componentConfigs: TencentCloudChatComponentConfigs(
@@ -225,40 +217,10 @@ class _MyHomePageState extends TencentCloudChatState<MyHomePage> {
           pluginInstance: TencentCloudChatSoundToText()
         ),
         TencentCloudChatPluginItem(
-          name: "poll",
-          pluginInstance: TencentCloudChatVotePlugin(),
-          tapFn: (data) {
-            var optionStr = data["option"];
-            var dataStr = data["data"];
-            if (optionStr == null) {
-              return false;
-            }
-            if (dataStr == null) {
-              return false;
-            }
-            var option = TencentCloudChatVoteDataOptoin.fromJson(json.decode(optionStr));
-            var message = TencentCloudChatVoteLogic(message: V2TimMessage.fromJson(json.decode(dataStr)));
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => VoteDetailExample(
-                  option: option,
-                  data: message,
-                ),
-              ),
-            );
-            return true;
-          },
-        ),
-        TencentCloudChatPluginItem(
           name: "messageReaction",
           pluginInstance: TencentCloudChatMessageReaction(
             context: context,
           ),
-        ),
-        TencentCloudChatPluginItem(
-          name: "robot",
-          pluginInstance: TencentCloudChatRobotPlugin(),
         ),
         TencentCloudChatPluginItem(
           name: "sticker",
