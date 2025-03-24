@@ -4,6 +4,7 @@ import Flutter
 // Add these two import lines
 import TIMPush
 import tencent_cloud_chat_push
+import TUIVoIPExtension
 
 @main
 @objc class AppDelegate: FlutterAppDelegate, TIMPushDelegate {
@@ -11,6 +12,7 @@ import tencent_cloud_chat_push
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
+        TUIVoIPExtension.setCertificateID(000)
         GeneratedPluginRegistrant.register(with: self)
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
@@ -18,6 +20,11 @@ import tencent_cloud_chat_push
         print(error)
     }
     
+    override func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([any UIUserActivityRestoring]?) -> Void) -> Bool {
+        TUIVoIPExtension.call(userActivity)
+        return true
+    }
+
     // Add this function
     func businessID() -> Int32 {
         return TencentCloudChatPushFlutterModal.shared.businessID();

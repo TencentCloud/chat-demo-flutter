@@ -9,7 +9,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:tencent_calls_uikit/tuicall_kit.dart';
+import 'package:tencent_calls_uikit/tencent_calls_uikit.dart';
+import 'package:tencent_calls_uikit/debug/generate_test_user_sig.dart';
 import 'package:tencent_cloud_chat_demo/custom_animation.dart';
 import 'package:tencent_cloud_chat_demo/config.dart';
 import 'package:tencent_cloud_chat_demo/src/pages/app.dart';
@@ -76,7 +77,14 @@ void main(List<String> args) {
     });
   }
 
-  // );
+  /// 使用 TUIVoIP Extension 插件，收到 VoIP 推送， APP 被激活， 这个时候需要完成自动登陆操作。
+  /// 自动登陆 操作需要在 UI 绘制之前完成（APP 切到前台时， 才会执行UI 绘制的代码）。
+  /// 请根据您的业务代码， 在程序激活后完成登陆！！！
+  ///
+  /// Use TUIVoIP Extension plug-in, receive VoIP push, APP is activated, at this time you need to complete the automatic login operation.
+  /// The automatic login operation needs to be completed before the UI is drawn (the UI drawing code will be executed only when the APP is switched to the foreground).
+  /// Please complete the login after the program is activated according to your business code! ! !
+  TUICallKit.instance.login(IMDemoConfig.sdkAppID, '****', GenerateTestUserSig.genTestSig("****", IMDemoConfig.sdkAppID, IMDemoConfig.key));
 }
 
 class TUIKitDemoApp extends StatelessWidget {
