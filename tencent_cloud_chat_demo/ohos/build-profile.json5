@@ -1,0 +1,166 @@
+{
+  "app": {
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "/Users/vinsonswang/.ohos/config/default_ohos_2CAmM6-M7jemdPDSS2Z58mMkpZ7nB5fL6baluJsUSMQ=.cer",
+          "storePassword": "00000019D0F6D31C55DCBAD2BAA419E9D4BCA29E09DA7B1BAA53AA2E65BEAB0DABBFCB73578AF0A29D",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001981C2359E15451A093D4CA7E8E62AB33F6E4540D5A144C246BEA93357521C0834C8FD02AEF9",
+          "profile": "/Users/vinsonswang/.ohos/config/default_ohos_2CAmM6-M7jemdPDSS2Z58mMkpZ7nB5fL6baluJsUSMQ=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "/Users/vinsonswang/.ohos/config/default_ohos_2CAmM6-M7jemdPDSS2Z58mMkpZ7nB5fL6baluJsUSMQ=.p12"
+        }
+      }
+    ],
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "compatibleSdkVersion": "5.0.0(12)",
+        "runtimeOS": "HarmonyOS",
+        "buildOption": {
+          "strictMode": {
+            "useNormalizedOHMUrl": true
+          }
+        }
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "audioplayers_ohos",
+      "srcPath": "../../../../../../.pub-cache/git/flutter_audioplayers-c76a6edd76c3fdf554170c1204526315e74fff09/packages/audioplayers_ohos/ohos",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "image_picker_ohos",
+      "srcPath": "../../../../../../.pub-cache/git/flutter_packages-056bced4b677ed4f168b245823570c40fe55bddb/packages/image_picker/image_picker_ohos/ohos",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "path_provider_ohos",
+      "srcPath": "../../../../../../.pub-cache/git/flutter_packages-056bced4b677ed4f168b245823570c40fe55bddb/packages/path_provider/path_provider_ohos/ohos",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "shared_preferences_ohos",
+      "srcPath": "../../../../../../.pub-cache/git/flutter_packages-056bced4b677ed4f168b245823570c40fe55bddb/packages/shared_preferences/shared_preferences_ohos/ohos",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "video_player_ohos",
+      "srcPath": "../../../../../../.pub-cache/git/flutter_packages-056bced4b677ed4f168b245823570c40fe55bddb/packages/video_player/video_player_ohos/ohos",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "permission_handler_ohos",
+      "srcPath": "../../../../../../.pub-cache/git/flutter_permission_handler-f139dc532352dcecb8e9132a910e4aa607f5d9c9/permission_handler_ohos/ohos",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "file_picker_ohos",
+      "srcPath": "../../../../../../.pub-cache/git/fluttertpc_file_picker-49c94285da95fe93920da899562bfc4fa2080574/ohos/ohos",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "record_ohos",
+      "srcPath": "../../../../../../.pub-cache/git/fluttertpc_record-0c65dd2b639e27e7015b3eef094b87d866a573ca/record_ohos/ohos",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "video_thumbnail_ohos",
+      "srcPath": "../../../../../../.pub-cache/git/fluttertpc_video_thumbnail-c5645763de2bbe4cb299d3c0982d05d0b1d3a53d/ohos/ohos",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "tencent_cloud_chat_sdk",
+      "srcPath": "../../../../../../.pub-cache/hosted/pub.dev/tencent_cloud_chat_sdk-8.5.6864-beta.3/ohos",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.huawei.agconnect'
+apply plugin: 'com.hihonor.mcs.asplugin'
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+
+android {
+    namespace "com.tencent.flutter.tuikit"
+    compileSdkVersion 34
+    ndkVersion flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    defaultConfig {
+        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        applicationId "com.tencent.qcloud.tim.tuikit"
+        // You can update the following values to match your application needs.
+        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
+        minSdkVersion 24
+        targetSdkVersion 33
+        multiDexEnabled true
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+        // Will be removed from the open source code START
+        manifestPlaceholders = [
+                "VIVO_APPID" : "103904657",
+                "VIVO_APPKEY": "f91c42f5519e50fdad0bb88b2268f632",
+                "HONOR_APPID": "220765771",
+        ]
+        // Will be removed from the open source code END
+    }
+
+    // Will be removed from the open source code START
+    signingConfigs {
+        release {
+            storeFile file('IM_release_keystore')
+            storePassword 'im111111'
+            keyAlias 'im'
+            keyPassword 'im111111'
+        }
+    }
+    // Will be removed from the open source code END
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.release
+        }
+        release {
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    implementation 'com.tencent.timpush:huawei:8.4.6667'
+    implementation 'com.tencent.timpush:xiaomi:8.4.6667'
+    implementation 'com.tencent.timpush:oppo:8.4.6667'
+    implementation 'com.tencent.timpush:vivo:8.4.6667'
+    implementation 'com.tencent.timpush:honor:8.4.6667'
+    implementation 'com.tencent.timpush:meizu:8.4.6667'
+    implementation 'com.tencent.timpush:fcm:8.4.6667'
+}

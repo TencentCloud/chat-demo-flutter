@@ -1,0 +1,29 @@
+{
+  "modelVersion": "5.0.0",
+  "name": "tencent_cloud_chat_demo",
+  "version": "1.0.0",
+  "description": "Please describe the basic information.",
+  "main": "",
+  "author": "",
+  "license": "",
+  "dependencies": {
+    "@ohos/flutter_ohos": "file:./har/flutter.har"
+  },
+  "devDependencies": {
+    "@ohos/hypium": "1.0.6"
+  },
+  "overrides": {
+    "@ohos/flutter_ohos": "file:./har/flutter.har",
+    "path_provider_ohos": "../../../../../../.pub-cache/git/flutter_packages-056bced4b677ed4f168b245823570c40fe55bddb/packages/path_provider/path_provider_ohos/ohos",
+    "shared_preferences_ohos": "../../../../../../.pub-cache/git/flutter_packages-056bced4b677ed4f168b245823570c40fe55bddb/packages/shared_preferences/shared_preferences_ohos/ohos",
+    "@ohos/flutter_module": "file:./entry",
+    "file_picker_ohos": "../../../../../../.pub-cache/git/fluttertpc_file_picker-49c94285da95fe93920da899562bfc4fa2080574/ohos/ohos",
+    "permission_handler_ohos": "../../../../../../.pub-cache/git/flutter_permission_handler-f139dc532352dcecb8e9132a910e4aa607f5d9c9/permission_handler_ohos/ohos",
+    "tencent_cloud_chat_sdk": "../../../../../../.pub-cache/hosted/pub.dev/tencent_cloud_chat_sdk-8.5.6864-beta.3/ohos",
+    "video_thumbnail_ohos": "../../../../../../.pub-cache/git/fluttertpc_video_thumbnail-c5645763de2bbe4cb299d3c0982d05d0b1d3a53d/ohos/ohos",
+    "image_picker_ohos": "../../../../../../.pub-cache/git/flutter_packages-056bced4b677ed4f168b245823570c40fe55bddb/packages/image_picker/image_picker_ohos/ohos",
+    "record_ohos": "../../../../../../.pub-cache/git/fluttertpc_record-0c65dd2b639e27e7015b3eef094b87d866a573ca/record_ohos/ohos",
+    "audioplayers_ohos": "../../../../../../.pub-cache/git/flutter_audioplayers-c76a6edd76c3fdf554170c1204526315e74fff09/packages/audioplayers_ohos/ohos",
+    "video_player_ohos": "../../../../../../.pub-cache/git/flutter_packages-056bced4b677ed4f168b245823570c40fe55bddb/packages/video_player/video_player_ohos/ohos"
+  }
+}

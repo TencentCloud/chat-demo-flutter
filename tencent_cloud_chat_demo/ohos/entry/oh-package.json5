@@ -1,0 +1,20 @@
+{
+  "name": "entry",
+  "version": "1.0.0",
+  "description": "Please describe the basic information.",
+  "main": "",
+  "author": "",
+  "license": "",
+  "dependencies": {
+    "path_provider_ohos": "file:../har/path_provider_ohos.har",
+    "shared_preferences_ohos": "file:../har/shared_preferences_ohos.har",
+    "file_picker_ohos": "file:../har/file_picker_ohos.har",
+    "permission_handler_ohos": "file:../har/permission_handler_ohos.har",
+    "tencent_cloud_chat_sdk": "file:../har/tencent_cloud_chat_sdk.har",
+    "video_thumbnail_ohos": "file:../har/video_thumbnail_ohos.har",
+    "image_picker_ohos": "file:../har/image_picker_ohos.har",
+    "record_ohos": "file:../har/record_ohos.har",
+    "audioplayers_ohos": "file:../har/audioplayers_ohos.har",
+    "video_player_ohos": "file:../har/video_player_ohos.har"
+  }
+}
