@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-
+import 'package:tencent_cloud_chat_uikit/theme/color.dart';
 
 /// 点击事件
 typedef OnItemClickListener = void Function(int index);

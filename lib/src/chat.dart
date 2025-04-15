@@ -5,11 +5,10 @@ import 'dart:math';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tencent_cloud_chat_customer_service_plugin/tencent_cloud_chat_customer_service_plugin.dart';
+import 'package:tencent_chat_i18n_tool/tencent_chat_i18n_tool.dart';
 import 'package:tencent_cloud_chat_demo/config.dart';
 import 'package:tencent_cloud_chat_demo/src/group_application_list.dart';
 import 'package:tencent_cloud_chat_demo/src/group_profile.dart';
-import 'package:tencent_cloud_chat_demo/src/pages/customer_service_example/card_create_example.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/custom_sticker_package.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/local_setting.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
@@ -17,10 +16,17 @@ import 'package:tencent_cloud_chat_demo/src/tencent_page.dart';
 import 'package:tencent_cloud_chat_demo/src/user_profile.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/calling_message/calling_message_data_provider.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/custom_message_element.dart';
+import 'package:tencent_cloud_chat_sdk/enum/group_type.dart';
+import 'package:tencent_cloud_chat_sdk/manager/v2_tim_manager.dart';
+import 'package:tencent_cloud_chat_sdk/models/v2_tim_conversation.dart';
+import 'package:tencent_cloud_chat_sdk/models/v2_tim_friend_info.dart';
+import 'package:tencent_cloud_chat_sdk/models/v2_tim_message.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/life_cycle/chat_life_cycle.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_chat_global_model.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/core/tim_uikit_wide_modal_operation_key.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
+import 'package:tencent_cloud_chat_uikit/theme/color.dart';
+import 'package:tencent_cloud_chat_uikit/theme/tui_theme.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_chat_controller.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/message.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/platform.dart';
@@ -73,8 +79,7 @@ class _ChatState extends State<Chat> {
         : ConvType.group;
   }
 
-  _onTapAvatar(String userID, TapDownDetails tapDetails, TUITheme theme,
-      bool isCustomerServiceChat) {
+  _onTapAvatar(String userID, TapDownDetails tapDetails, TUITheme theme) {
     final isWideScreen =
         TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
     if (isWideScreen) {
@@ -85,7 +90,6 @@ class _ChatState extends State<Chat> {
               min(tapDetails.globalPosition.dy,
                   MediaQuery.of(context).size.height - 490)),
           theme,
-          isCustomerServiceChat,
           userID);
     } else {
       Navigator.push(
@@ -106,11 +110,6 @@ class _ChatState extends State<Chat> {
   @override
   void initState() {
     super.initState();
-    if (IMDemoConfig.customerServiceUserList
-        .contains(widget.selectedConversation.userID)) {
-      TencentCloudChatCustomerServicePlugin.sendCustomerServiceStartMessage(
-          _chatController.sendMessage);
-    }
   }
 
   @override
@@ -123,12 +122,6 @@ class _ChatState extends State<Chat> {
     super.didUpdateWidget(oldWidget);
     final isWideScreen =
         TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
-    if (isWideScreen &&
-        IMDemoConfig.customerServiceUserList
-            .contains(widget.selectedConversation.userID)) {
-      TencentCloudChatCustomerServicePlugin.sendCustomerServiceStartMessage(
-          _chatController.sendMessage);
-    }
   }
 
   _itemClick(String id, BuildContext context, V2TimConversation conversation,
@@ -164,9 +157,7 @@ class _ChatState extends State<Chat> {
     }).toList();
   }
 
-  void onClickUserName(
-      Offset offset, TUITheme theme, bool isCustomerServiceChat,
-      [String? user]) {
+  void onClickUserName(Offset offset, TUITheme theme, [String? user]) {
     final conversationType = widget.selectedConversation.type;
     if (conversationType == 1 || user != null) {
       final userID = user ?? widget.selectedConversation.userID;
@@ -197,17 +188,8 @@ class _ChatState extends State<Chat> {
                   profileWidgetsOrder: [
                     ProfileWidgetEnum.userInfoCard,
                     ProfileWidgetEnum.operationDivider,
-                    if (!isCustomerServiceChat) ProfileWidgetEnum.remarkBar,
-                    if (!isCustomerServiceChat) ProfileWidgetEnum.genderBar,
-                    if (!isCustomerServiceChat) ProfileWidgetEnum.birthdayBar,
-                    if (!isCustomerServiceChat)
-                      ProfileWidgetEnum.operationDivider,
-                    if (!isCustomerServiceChat)
-                      ProfileWidgetEnum.addToBlockListBar,
                     ProfileWidgetEnum.pinConversationBar,
                     ProfileWidgetEnum.messageMute,
-                    if (!isCustomerServiceChat)
-                      ProfileWidgetEnum.addAndDeleteArea,
                     if (widget.selectedConversation.type == 2)
                       ProfileWidgetEnum.customBuilderOne,
                   ],
@@ -219,96 +201,6 @@ class _ChatState extends State<Chat> {
         widget.showGroupProfile!();
       }
     }
-  }
-
-  _createCustomerServiceCardMessage() {
-    final isWideScreen =
-        TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
-    if (isWideScreen) {
-      TUIKitWidePopup.showPopupWindow(
-        context: context,
-        title: TIM_t("请填写商品信息"),
-        operationKey: TUIKitWideModalOperationKey.custom,
-        width: 400,
-        height: 350,
-        child: (onClose) => CardCreateExample(
-          controller: _chatController,
-          onClosed: onClose,
-        ),
-      );
-    } else {
-      return showModalBottomSheet<void>(
-        context: context,
-        isDismissible: false,
-        isScrollControlled: true,
-        builder: (BuildContext context) {
-          return Container(
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
-            margin: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      TIM_t("请填写商品信息"),
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700),
-                    ),
-                    TextButton(
-                        onPressed: () => {Navigator.of(context).pop()},
-                        child: Text(
-                          TIM_t("关闭"),
-                          style: const TextStyle(color: Colors.orange),
-                        ))
-                  ],
-                ),
-                CardCreateExample(
-                  controller: _chatController,
-                  onClosed: () => {Navigator.of(context).pop()},
-                )
-              ],
-            ),
-          );
-        },
-      );
-    }
-  }
-
-  getCustomerServicePlugin() {
-    List<MorePanelItem> wids = [];
-    if (IMDemoConfig.customerServiceUserList
-        .contains(widget.selectedConversation.userID)) {
-      wids.addAll([
-        if (canSendEvaluate)
-          MorePanelItem(
-            onTap: (c) {
-              TencentCloudChatCustomerServicePlugin.getEvaluateMessage(
-                  _chatController.sendMessage);
-            },
-            icon: Container(
-              height: 64,
-              width: 64,
-              margin: const EdgeInsets.only(bottom: 4),
-              decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(5))),
-              child: Icon(
-                Icons.comment,
-                color: hexToColor("5c6168"),
-                size: 32,
-              ),
-            ),
-            id: 'evaluate',
-            title: TIM_t("服务评价"),
-          ),
-      ]);
-    }
-    return wids;
   }
 
   @override
@@ -339,48 +231,10 @@ class _ChatState extends State<Chat> {
         conversationShowName:
             customerServiceTyping ?? conversationName ?? _getTitle(),
         controller: _chatController,
-        lifeCycle:
-            ChatLifeCycle(newMessageWillMount: (V2TimMessage message) async {
+        lifeCycle: ChatLifeCycle(newMessageWillMount: (V2TimMessage message) async {
           // ChannelPush.displayDefaultNotificationForMessage(message);
-          if (TencentCloudChatCustomerServicePlugin.isCustomerServiceMessage(
-              message)) {
-            if (TencentCloudChatCustomerServicePlugin
-                .isTypingCustomerServiceMessage(message)) {
-              setState(() {
-                customerServiceTyping = TIM_t("对方正在输入中...");
-              });
-            }
-            if (TencentCloudChatCustomerServicePlugin.isCanSendEvaluateMessage(
-                    message) &&
-                !TencentCloudChatCustomerServicePlugin.isCanSendEvaluate(
-                    message) &&
-                canSendEvaluate == true) {
-              setState(() {
-                canSendEvaluate = false;
-              });
-            } else if (TencentCloudChatCustomerServicePlugin
-                    .isCanSendEvaluateMessage(message) &&
-                TencentCloudChatCustomerServicePlugin.isCanSendEvaluate(
-                    message) &&
-                canSendEvaluate == false) {
-              setState(() {
-                canSendEvaluate = true;
-              });
-            }
-          } else {
-            setState(() {
-              customerServiceTyping = null;
-            });
-          }
-
           return message;
         }, messageShouldMount: (V2TimMessage message) {
-          if (TencentCloudChatCustomerServicePlugin
-                  .isCustomerServiceMessageInvisible(message) &&
-              TencentCloudChatCustomerServicePlugin.isCustomerServiceMessage(
-                  message)) {
-            return false;
-          }
           return true;
         }, messageListShouldMount: (messageList) {
           List<V2TimMessage> list = [];
@@ -477,45 +331,16 @@ class _ChatState extends State<Chat> {
               return "";
             },
             additionalDesktopControlBarItems: [
-              // if (canAddVotePlugin)
-              //   DesktopControlBarItem(
-              //       item: "poll",
-              //       showName: TIM_t("投票"),
-              //       onClick: (offset) {
-              //         _createVote(groupID ?? "");
-              //       },
-              //       svgPath: "assets/send_poll.svg"),
-              if (canSendEvaluate)
-                DesktopControlBarItem(
-                    item: 'evaluate',
-                    showName: TIM_t("服务评价"),
-                    onClick: (offset) {
-                      TencentCloudChatCustomerServicePlugin.getEvaluateMessage(
-                          _chatController.sendMessage);
-                    },
-                    icon: Icons.comment),
-              // if (isCustomerServiceChat)
-              //   DesktopControlBarItem(
-              //       item: 'evaluate',
-              //       showName: TIM_t("卡片消息"),
-              //       onClick: (offset) {
-              //         _createCustomerServiceCardMessage();
-              //       },
-              //       icon: Icons.card_giftcard)
             ]),
         conversationID: _getConvID() ?? '',
         conversationType:
             ConvType.values[widget.selectedConversation.type ?? 1],
         onTapAvatar: (userID, tapDetails) =>
-            _onTapAvatar(userID, tapDetails, theme, isCustomerServiceChat),
+            _onTapAvatar(userID, tapDetails, theme),
         initFindingMsg: widget.initFindingMsg,
         messageItemBuilder: MessageItemBuilder(
           messageRowBuilder: (message, messageWidget, onScrollToIndex,
               isNeedShowJumpStatus, clearJumpStatus, onScrollToIndexBegin) {
-            if (TencentCloudChatCustomerServicePlugin
-                .isRowCustomerServiceMessage(message)) {
-              return messageWidget;
-            }
             if (MessageUtils.isGroupCallingMessage(message)) {
               // If group call message, not use default layout.
               return messageWidget;
@@ -598,8 +423,7 @@ class _ChatState extends State<Chat> {
                               onClickUserName(
                                   Offset(details.globalPosition.dx,
                                       details.globalPosition.dy),
-                                  theme,
-                                  isCustomerServiceChat);
+                                  theme);
                             },
                             config: AppBar(
                               backgroundColor: isWideScreen
@@ -617,8 +441,7 @@ class _ChatState extends State<Chat> {
                                                       .width -
                                                   380,
                                               30),
-                                          theme,
-                                          isCustomerServiceChat);
+                                          theme);
                                     },
                                     icon: Icon(
                                       Icons.more_horiz,

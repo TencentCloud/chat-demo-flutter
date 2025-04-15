@@ -3,11 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:tencent_chat_i18n_tool/language_json/strings.g.dart';
+import 'package:tencent_chat_i18n_tool/tools/i18n_tool.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
 import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
 // ignore: unused_import
 import 'package:tencent_cloud_chat_demo/utils/toast.dart';
+import 'package:tencent_cloud_chat_uikit/theme/color.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ContactPage extends StatefulWidget {

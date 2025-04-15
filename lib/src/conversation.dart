@@ -2,13 +2,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tencent_chat_i18n_tool/tencent_chat_i18n_tool.dart';
 import 'package:tencent_cloud_chat_demo/src/chat.dart';
 import 'package:tencent_cloud_chat_demo/src/multi_platform_widget/search_entry/search_entry.dart';
 import 'package:tencent_cloud_chat_demo/src/multi_platform_widget/search_entry/search_entry_wide.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/local_setting.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/custom_last_message.dart';
 import 'package:tencent_cloud_chat_demo/utils/user_guide.dart';
+import 'package:tencent_cloud_chat_sdk/enum/message_elem_type.dart';
+import 'package:tencent_cloud_chat_sdk/models/v2_tim_conversation.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
+import 'package:tencent_cloud_chat_uikit/theme/color.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_conversation_controller.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/platform.dart';
 

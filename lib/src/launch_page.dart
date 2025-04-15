@@ -5,6 +5,7 @@ import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
 import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:tencent_cloud_chat_uikit/theme/color.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/screen_utils.dart';
 
 class LaunchPage extends StatelessWidget {

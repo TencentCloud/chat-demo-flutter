@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:tencent_chat_i18n_tool/tencent_chat_i18n_tool.dart';
+import 'package:tencent_cloud_chat_sdk/models/v2_tim_message.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-
-
 import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:tencent_cloud_chat_uikit/theme/color.dart';
 
 class LocationMessageItem extends StatelessWidget{
   final bool? isSelf;

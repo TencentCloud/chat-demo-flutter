@@ -1,6 +1,8 @@
 import 'dart:ui';
 
+import 'package:tencent_chat_i18n_tool/tencent_chat_i18n_tool.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
+import 'package:tencent_cloud_chat_uikit/theme/tui_theme.dart';
 
 
 enum ThemeType { solemn, brisk, bright, fantasy }

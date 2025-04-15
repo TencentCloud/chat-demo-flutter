@@ -9,7 +9,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:tencent_calls_uikit/tuicall_kit.dart';
+import 'package:tencent_calls_uikit/tencent_calls_uikit.dart';
+import 'package:tencent_chat_i18n_tool/language_json/strings.g.dart';
 import 'package:tencent_cloud_chat_demo/custom_animation.dart';
 import 'package:tencent_cloud_chat_demo/config.dart';
 import 'package:tencent_cloud_chat_demo/src/pages/app.dart';
@@ -19,6 +20,7 @@ import 'package:tencent_cloud_chat_demo/src/provider/login_user_Info.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/user_guide_provider.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
+import 'package:tencent_cloud_chat_uikit/theme/color.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/platform.dart';
 
 void main(List<String> args) {

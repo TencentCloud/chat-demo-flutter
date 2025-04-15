@@ -4,10 +4,15 @@ import 'dart:math';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tencent_chat_i18n_tool/tencent_chat_i18n_tool.dart';
 import 'package:tencent_cloud_chat_demo/src/about.dart';
 import 'package:tencent_cloud_chat_demo/src/my_profile_detail.dart';
 import 'package:tencent_cloud_chat_demo/src/pages/skin/skin_page.dart';
 import 'package:tencent_cloud_chat_demo/utils/constant.dart';
+import 'package:tencent_cloud_chat_sdk/manager/v2_tim_manager.dart';
+import 'package:tencent_cloud_chat_sdk/models/v2_tim_conversation.dart';
+import 'package:tencent_cloud_chat_sdk/models/v2_tim_friend_info.dart';
+import 'package:tencent_cloud_chat_sdk/models/v2_tim_user_full_info.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_demo/src/pages/login.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/local_setting.dart';
@@ -17,6 +22,7 @@ import 'package:tencent_cloud_chat_demo/src/routes.dart';
 import 'package:tencent_cloud_chat_demo/utils/theme.dart';
 import 'package:tencent_cloud_chat_demo/utils/toast.dart';
 import 'package:adaptive_action_sheet/adaptive_action_sheet.dart';
+import 'package:tencent_cloud_chat_uikit/theme/color.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/screen_utils.dart';
 
 class MyProfile extends StatefulWidget {

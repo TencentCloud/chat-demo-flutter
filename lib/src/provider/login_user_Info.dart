@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:flutter/widgets.dart';
 import 'package:tencent_cloud_chat_demo/src/avatar_select_page.dart';
+import 'package:tencent_cloud_chat_sdk/models/v2_tim_user_full_info.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
 class LoginUserInfo with ChangeNotifier {

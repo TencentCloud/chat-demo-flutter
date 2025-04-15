@@ -1,8 +1,8 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
-import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:provider/provider.dart';
+import 'package:tencent_cloud_chat_uikit/theme/color.dart';
 
 class EmptyWidget extends StatelessWidget{
   final String title;

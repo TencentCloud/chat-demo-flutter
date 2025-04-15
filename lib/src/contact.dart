@@ -2,9 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tencent_cloud_chat_demo/src/pages/customer_service_example/customerServicePage.dart';
+import 'package:tencent_chat_i18n_tool/tencent_chat_i18n_tool.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/core/tim_uikit_wide_modal_operation_key.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
+import 'package:tencent_cloud_chat_uikit/theme/color.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/screen_utils.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
 import 'package:tencent_cloud_chat_demo/src/blackList.dart';
@@ -79,18 +80,9 @@ class _ContactState extends State<Contact> {
                 builder: (context) => const BlackList(),
               ));
         }
-      case "customerService":
-        if (isWideScreen) {
-        } else {
-          // if (!TencentCloudChatCustomerServicePlugin.hasInited) {
-          //   return;
-          // }
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const CustomerServicePage(),
-              ));
-        }
+        break;
+      default:
+        break;
     }
   }
 
@@ -201,14 +193,6 @@ class _ContactState extends State<Contact> {
                 onTap: () {
                   _topListItemTap("blackList");
                 }),
-            if (!isWideScreen)
-              TopListItem(
-                  name: TIM_t("在线客服"),
-                  id: "customerService",
-                  icon: Image.asset(_getImagePathByID("customerService")),
-                  onTap: () {
-                    _topListItemTap("customerService");
-                  }),
           ],
           topListItemBuilder: _topListBuilder,
           onTapItem: (item) {

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:tencent_im_base/tencent_im_base.dart';
+import 'package:tencent_cloud_chat_uikit/theme/color.dart';
 
 import 'calling_message_data_provider.dart';
 

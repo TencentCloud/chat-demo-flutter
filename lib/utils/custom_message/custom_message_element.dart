@@ -3,10 +3,13 @@ import 'dart:async';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tencent_chat_i18n_tool/tencent_chat_i18n_tool.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/calling_message/calling_message_data_provider.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/calling_message/group_call_message_builder.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/calling_message/single_call_message_builder.dart';
+import 'package:tencent_cloud_chat_sdk/models/v2_tim_message.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
+import 'package:tencent_cloud_chat_uikit/theme/tui_theme.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_chat_controller.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/message.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/link_preview/common/extensions.dart';
@@ -16,7 +19,6 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/link_message.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/web_link_message.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:tencent_cloud_chat_customer_service_plugin/tencent_cloud_chat_customer_service_plugin.dart';
 
 class CustomMessageElem extends StatefulWidget {
   final TextStyle? messageFontStyle;
@@ -95,9 +97,6 @@ class _CustomMessageElemState extends State<CustomMessageElem> {
 
     final linkMessage = getLinkMessage(customElem);
     final webLinkMessage = getWebLinkMessage(customElem);
-    final isCustomerServiceMessage =
-        TencentCloudChatCustomerServicePlugin.isCustomerServiceMessage(
-            widget.message);
 
     if (customElem?.data == "group_create") {
       return renderMessageItem(
@@ -124,13 +123,6 @@ class _CustomMessageElemState extends State<CustomMessageElem> {
               style: TextStyle(color: theme.weakTextColor),
             ),
           ], style: const TextStyle(fontSize: 12))));
-    } else if (isCustomerServiceMessage) {
-      return MessageCustomerService(
-        message: widget.message,
-        theme: theme,
-        isShowJumpState: isShowJumpState,
-        sendMessage: widget.chatController.sendMessage,
-      );
     } else if (linkMessage != null) {
       final String option1 = linkMessage.link ?? "";
       return renderMessageItem(

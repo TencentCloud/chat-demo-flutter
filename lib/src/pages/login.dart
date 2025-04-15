@@ -10,6 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tencent_calls_uikit/tencent_calls_uikit.dart';
+import 'package:tencent_chat_i18n_tool/tencent_chat_i18n_tool.dart';
 import 'package:tencent_cloud_chat_demo/config.dart';
 import 'package:tencent_cloud_chat_demo/src/pages/home_page.dart';
 import 'package:tencent_cloud_chat_demo/src/pages/privacy/privacy_webview.dart';
@@ -19,6 +20,7 @@ import 'package:tencent_cloud_chat_demo/utils/GenerateTestUserSig.dart';
 import 'package:tencent_cloud_chat_demo/utils/commonUtils.dart';
 import 'package:tencent_cloud_chat_demo/utils/toast.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
+import 'package:tencent_cloud_chat_uikit/theme/color.dart';
 
 class LoginPage extends StatelessWidget {
   final Function? initIMSDK;

@@ -4,14 +4,18 @@ import 'package:adaptive_action_sheet/adaptive_action_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tencent_chat_i18n_tool/tencent_chat_i18n_tool.dart';
 import 'package:tencent_cloud_chat_demo/src/pages/cross_platform/wide_screen/about_us.dart';
 import 'package:tencent_cloud_chat_demo/src/pages/cross_platform/wide_screen/contact_us.dart';
 import 'package:tencent_cloud_chat_demo/src/pages/cross_platform/wide_screen/settings.dart';
 import 'package:tencent_cloud_chat_demo/src/routes.dart';
 import 'package:tencent_cloud_chat_demo/utils/constant.dart';
 import 'package:tencent_cloud_chat_demo/utils/toast.dart';
+import 'package:tencent_cloud_chat_sdk/models/v2_tim_user_full_info.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/core/tim_uikit_wide_modal_operation_key.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
+import 'package:tencent_cloud_chat_uikit/theme/color.dart';
+import 'package:tencent_cloud_chat_uikit/theme/tui_theme.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/screen_utils.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/time_ago.dart';
 
