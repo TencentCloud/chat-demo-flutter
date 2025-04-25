@@ -40,11 +40,11 @@ dependencies:
     sdk: flutter
 
   # Tencent Cloud Chat dependencies:
-  tencent_cloud_chat_uikit: ^4.0.4
+  tencent_cloud_chat_uikit: ^4.0.6
   tencent_calls_uikit: ^2.9.1
   tencent_cloud_chat_push: ^8.5.6864
   tencent_chat_i18n_tool: ^2.3.8
-  tencent_cloud_chat_sdk: ^8.5.6864+4
+  tencent_cloud_chat_sdk: ^8.5.6864+6
 
   # Third party dependencies:
   cupertino_icons: ^1.0.2

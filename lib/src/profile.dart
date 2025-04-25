@@ -153,125 +153,127 @@ class _ProfileState extends State<MyProfile> {
         final userProfile = userInfo.userProfile;
         final int? allowType = userProfile?.allowType;
         final allowText = _getAllowText(allowType);
-        return Column(
-          children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => MyProfileDetail(
-                          userProfile: userProfile,
-                          controller: _timuiKitProfileController)),
-                );
-              },
-              child: TIMUIKitProfileUserInfoCard(
-                userInfo: userProfile,
-                showArrowRightIcon: true,
-              ),
-            ),
-            // 好友验证方式选
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 10),
-              child: InkWell(
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              GestureDetector(
                 onTap: () {
-                  showApplicationTypeSheet(theme);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MyProfileDetail(
+                            userProfile: userProfile,
+                            controller: _timuiKitProfileController)),
+                  );
+                },
+                child: TIMUIKitProfileUserInfoCard(
+                  userInfo: userProfile,
+                  showArrowRightIcon: true,
+                ),
+              ),
+              // 好友验证方式选
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 10),
+                child: InkWell(
+                  onTap: () {
+                    showApplicationTypeSheet(theme);
+                  },
+                  child: TIMUIKitOperationItem(
+                    isEmpty: false,
+                    operationName: TIM_t("加我为好友的方式"),
+                    operationRightWidget: Text(
+                      allowText,
+                      textAlign: isWideScreen ? null : TextAlign.end,
+                    ),
+                  ),
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SkinPage(),
+                    ),
+                  );
                 },
                 child: TIMUIKitOperationItem(
                   isEmpty: false,
-                  operationName: TIM_t("加我为好友的方式"),
+                  operationName: TIM_t("更换皮肤"),
                   operationRightWidget: Text(
-                    allowText,
-                    textAlign: isWideScreen ? null : TextAlign.end,
-                  ),
+                      DefTheme.defaultThemeName[themeType]!,
+                      textAlign: isWideScreen ? null : TextAlign.end,
+                      style: TextStyle(color: theme.primaryColor)),
                 ),
               ),
-            ),
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SkinPage(),
-                  ),
-                );
-              },
-              child: TIMUIKitOperationItem(
-                isEmpty: false,
-                operationName: TIM_t("更换皮肤"),
-                operationRightWidget: Text(
-                    DefTheme.defaultThemeName[themeType]!,
-                    textAlign: isWideScreen ? null : TextAlign.end,
-                    style: TextStyle(color: theme.primaryColor)),
+              const SizedBox(
+                height: 10,
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            TIMUIKitOperationItem(
-              isEmpty: false,
-              operationName: TIM_t("消息阅读状态"),
-              operationDescription:
-                  TIM_t("关闭后，您收发的消息均不带消息阅读状态，您将无法看到对方是否已读，同时对方也无法看到你是否已读。"),
-              type: "switch",
-              operationValue: localSetting.isShowReadingStatus,
-              onSwitchChange: (bool value) {
-                localSetting.isShowReadingStatus = value;
-                if (value) {
-                  ToastUtils.toast(TIM_t("该功能为旗舰版功能"));
-                }
-              },
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            TIMUIKitOperationItem(
-              isEmpty: false,
-              operationName: TIM_t("显示在线状态"),
-              operationDescription: TIM_t("关闭后，您将不可以在会话列表和通讯录中看到好友在线或离线的状态提示。"),
-              type: "switch",
-              operationValue: localSetting.isShowOnlineStatus,
-              onSwitchChange: (bool value) {
-                localSetting.isShowOnlineStatus = value;
-              },
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const About(),
-                  ),
-                );
-              },
-              child: TIMUIKitOperationItem(
+              TIMUIKitOperationItem(
                 isEmpty: false,
-                operationName: TIM_t("关于腾讯云 · IM"),
-                operationRightWidget: const Text(""),
+                operationName: TIM_t("消息阅读状态"),
+                operationDescription:
+                    TIM_t("关闭后，您收发的消息均不带消息阅读状态，您将无法看到对方是否已读，同时对方也无法看到你是否已读。"),
+                type: "switch",
+                operationValue: localSetting.isShowReadingStatus,
+                onSwitchChange: (bool value) {
+                  localSetting.isShowReadingStatus = value;
+                  if (value) {
+                    ToastUtils.toast(TIM_t("该功能为旗舰版功能"));
+                  }
+                },
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            InkWell(
-              onTap: _handleLogout,
-              child: Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.symmetric(vertical: 15),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border(
-                        bottom: BorderSide(color: hexToColor("E5E5E5")))),
-                child: Text(
-                  TIM_t("退出登录"),
-                  style: TextStyle(color: hexToColor("FF584C"), fontSize: 17),
+              const SizedBox(
+                height: 10,
+              ),
+              TIMUIKitOperationItem(
+                isEmpty: false,
+                operationName: TIM_t("显示在线状态"),
+                operationDescription: TIM_t("关闭后，您将不可以在会话列表和通讯录中看到好友在线或离线的状态提示。"),
+                type: "switch",
+                operationValue: localSetting.isShowOnlineStatus,
+                onSwitchChange: (bool value) {
+                  localSetting.isShowOnlineStatus = value;
+                },
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const About(),
+                    ),
+                  );
+                },
+                child: TIMUIKitOperationItem(
+                  isEmpty: false,
+                  operationName: TIM_t("关于腾讯云 · IM"),
+                  operationRightWidget: const Text(""),
                 ),
               ),
-            )
-          ],
+              const SizedBox(
+                height: 10,
+              ),
+              InkWell(
+                onTap: _handleLogout,
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border(
+                          bottom: BorderSide(color: hexToColor("E5E5E5")))),
+                  child: Text(
+                    TIM_t("退出登录"),
+                    style: TextStyle(color: hexToColor("FF584C"), fontSize: 17),
+                  ),
+                ),
+              )
+            ],
+          )
         );
       },
     );
