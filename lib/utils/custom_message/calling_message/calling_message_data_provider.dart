@@ -2,22 +2,15 @@
 import 'dart:convert';
 
 import 'package:tencent_chat_i18n_tool/tencent_chat_i18n_tool.dart';
-import 'package:tencent_cloud_chat_sdk/models/v2_tim_message.dart';
-import 'package:tencent_cloud_chat_sdk/models/v2_tim_signaling_info.dart';
+import 'package:tencent_cloud_chat_sdk/enum/offlinePushInfo.dart';
+import 'package:tencent_cloud_chat_sdk/models/v2_tim_message.dart'
+    if (dart.library.html) 'package:tencent_cloud_chat_sdk/web/compatible_models/v2_tim_message.dart';
+import 'package:tencent_cloud_chat_sdk/models/v2_tim_signaling_info.dart'
+    if (dart.library.html) 'package:tencent_cloud_chat_sdk/web/compatible_models/v2_tim_signaling_info.dart';
+import 'package:tencent_cloud_chat_sdk/utils/utils.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
-enum CallProtocolType {
-  unknown,
-  send,
-  accept,
-  reject,
-  cancel,
-  hangup,
-  timeout,
-  lineBusy,
-  switchToAudio,
-  switchToAudioConfirm
-}
+enum CallProtocolType { unknown, send, accept, reject, cancel, hangup, timeout, lineBusy, switchToAudio, switchToAudioConfirm }
 
 //通话媒体类型
 enum CallStreamMediaType { unknown, audio, video }
@@ -95,7 +88,7 @@ class CallingMessageDataProvider {
     try {
       if (_innerMessage?.customElem?.data != null) {
         final signalingInfoData = jsonDecode(_innerMessage!.customElem!.data!);
-        _signalingInfo = V2TimSignalingInfo.fromJson(signalingInfoData);
+        transferDataToSignalingInfo(signalingInfoData);
       } else {
         return;
       }
@@ -114,6 +107,42 @@ class CallingMessageDataProvider {
     }
   }
 
+  transferDataToSignalingInfo(Map json) {
+    json = Utils.formatJson(json);
+    String inviteID = json['inviteID'] ?? '';
+    String? groupID = json['groupID'];
+    String inviter = json['inviter'] ?? '';
+    List<dynamic> inviteeList = json['inviteeList'] ?? [];
+    String? data = json['data'];
+    int? timeout = json['timeout'];
+    int actionType = json['actionType'] ?? 0;
+    // 下方三个参数ios不会返回
+
+    int? businessID;
+    bool? isOnlineUserOnly;
+    OfflinePushInfo? offlinePushInfo;
+    if (json['businessID'] != null) businessID = json['businessID'];
+    if (json['onlineUserOnly'] != null) {
+      isOnlineUserOnly = json['onlineUserOnly'];
+    }
+    if (json['offlinePushInfo'] != null) {
+      offlinePushInfo = OfflinePushInfo.fromJson(json['offlinePushInfo']);
+    }
+
+    _signalingInfo = V2TimSignalingInfo(
+      inviteID: inviteID,
+      groupID: groupID,
+      inviter: inviter,
+      inviteeList: inviteeList,
+      data: data,
+      timeout: timeout,
+      actionType: actionType,
+      businessID: businessID,
+      isOnlineUserOnly: isOnlineUserOnly,
+      offlinePushInfo: offlinePushInfo,
+    );
+  }
+
   _setIsCallingSignal() {
     if (_innerMessage == null || _signalingInfo == null || _jsonData == null) {
       _isCallingSignal = false;
@@ -121,7 +150,7 @@ class CallingMessageDataProvider {
     }
 
     final businessID = _jsonData!['businessID'];
-    if (businessID != null && businessID == 'av_call') {
+    if (businessID != null && (businessID == 'av_call' || businessID == 'rtc_call')) {
       _isCallingSignal = true;
     } else {
       _isCallingSignal = false;
@@ -227,8 +256,7 @@ class CallingMessageDataProvider {
           }
         }
       }
-    } else if (_protocolType == CallProtocolType.switchToAudio ||
-        _protocolType == CallProtocolType.switchToAudioConfirm) {
+    } else if (_protocolType == CallProtocolType.switchToAudio || _protocolType == CallProtocolType.switchToAudioConfirm) {
       _streamMediaType = CallStreamMediaType.video;
     }
   }
@@ -239,8 +267,7 @@ class CallingMessageDataProvider {
       return;
     }
 
-    if (_signalingInfo!.groupID != null &&
-        _signalingInfo!.groupID!.isNotEmpty) {
+    if (_signalingInfo!.groupID != null && _signalingInfo!.groupID!.isNotEmpty) {
       _participantType = CallParticipantType.group;
     } else {
       _participantType = CallParticipantType.c2c;
@@ -284,9 +311,7 @@ class CallingMessageDataProvider {
   }
 
   _setExcludeFromHistory() {
-    _excludeFromHistory = _protocolType != CallProtocolType.unknown &&
-        _innerMessage!.isExcludedFromLastMessage! &&
-        _innerMessage!.isExcludedFromUnreadCount!;
+    _excludeFromHistory = _protocolType != CallProtocolType.unknown && _innerMessage!.isExcludedFromLastMessage! && _innerMessage!.isExcludedFromUnreadCount!;
   }
 
   _setContent() {
@@ -328,14 +353,12 @@ class CallingMessageDataProvider {
         _content = TIM_t('通话结束');
       } else if (_protocolType == CallProtocolType.hangup) {
         _content = TIM_t('通话结束');
-      } else if (_protocolType == CallProtocolType.timeout ||
-          _protocolType == CallProtocolType.lineBusy) {
+      } else if (_protocolType == CallProtocolType.timeout || _protocolType == CallProtocolType.lineBusy) {
         String inviteeNames = '';
         for (String invitee in _signalingInfo!.inviteeList) {
           inviteeNames = inviteeNames + invitee + '、';
         }
-        _content =
-            inviteeNames.substring(0, inviteeNames.length - 1) + TIM_t('未接听');
+        _content = inviteeNames.substring(0, inviteeNames.length - 1) + TIM_t('未接听');
       } else if (_protocolType == CallProtocolType.reject) {
         _content = showName + TIM_t('拒绝群通话');
       } else if (_protocolType == CallProtocolType.accept) {
@@ -365,14 +388,11 @@ class CallingMessageDataProvider {
 
   _getShowName() {
     String showName = _innerMessage?.sender ?? "";
-    if (_innerMessage?.nameCard != null &&
-        _innerMessage!.nameCard!.isNotEmpty) {
+    if (_innerMessage?.nameCard != null && _innerMessage!.nameCard!.isNotEmpty) {
       showName = _innerMessage!.nameCard!;
-    } else if (_innerMessage?.friendRemark != null &&
-        _innerMessage!.friendRemark!.isNotEmpty) {
+    } else if (_innerMessage?.friendRemark != null && _innerMessage!.friendRemark!.isNotEmpty) {
       showName = _innerMessage!.friendRemark!;
-    } else if (_innerMessage?.nickName != null &&
-        _innerMessage!.nickName!.isNotEmpty) {
+    } else if (_innerMessage?.nickName != null && _innerMessage!.nickName!.isNotEmpty) {
       showName = _innerMessage!.nickName!;
     }
     return showName;
