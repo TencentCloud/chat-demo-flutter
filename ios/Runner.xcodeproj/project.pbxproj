@@ -507,6 +507,15 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-l\"resolv\"",
+					"-l\"sqlite3\"",
+					"-l\"swiftCoreGraphics\"",
+					"-l\"z\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tencent.im.flutter.uikit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -699,6 +708,15 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-l\"resolv\"",
+					"-l\"sqlite3\"",
+					"-l\"swiftCoreGraphics\"",
+					"-l\"z\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tencent.tuikit.demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -729,6 +747,15 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-l\"resolv\"",
+					"-l\"sqlite3\"",
+					"-l\"swiftCoreGraphics\"",
+					"-l\"z\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.imchat.imchat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
