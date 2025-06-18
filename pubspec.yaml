@@ -66,7 +66,7 @@ dependencies:
   fluttertoast: ^8.2.8
 
 dependency_overrides:
-  # Flutter 3.24.4 requires the use of intl: ^0.20.2 version, which is also available in Flutter 3.29.x version
+  # Flutter 3.32.4 requires the use of intl: ^0.20.2 version, which is also available in Flutter 3.29.x version
   intl: ^0.20.2
 
   # If you running this sample app on Flutter 3.24 or 3.27, please modify extended_text: ^14.0.0
