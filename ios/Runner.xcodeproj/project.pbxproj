@@ -243,13 +243,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -286,13 +282,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -511,8 +503,6 @@
 					"-framework",
 					"\"TXSoundTouch\"",
 					"-framework",
-					"\"Toast\"",
-					"-framework",
 					"\"UIKit\"",
 					"-framework",
 					"\"VideoToolbox\"",
@@ -520,8 +510,6 @@
 					"\"file_picker\"",
 					"-framework",
 					"\"flutter_plugin_record_plus\"",
-					"-framework",
-					"\"fluttertoast\"",
 					"-framework",
 					"\"image_picker_ios\"",
 					"-framework",
@@ -782,8 +770,6 @@
 					"-framework",
 					"\"TXSoundTouch\"",
 					"-framework",
-					"\"Toast\"",
-					"-framework",
 					"\"UIKit\"",
 					"-framework",
 					"\"VideoToolbox\"",
@@ -791,8 +777,6 @@
 					"\"file_picker\"",
 					"-framework",
 					"\"flutter_plugin_record_plus\"",
-					"-framework",
-					"\"fluttertoast\"",
 					"-framework",
 					"\"image_picker_ios\"",
 					"-framework",
@@ -940,8 +924,6 @@
 					"-framework",
 					"\"TXSoundTouch\"",
 					"-framework",
-					"\"Toast\"",
-					"-framework",
 					"\"UIKit\"",
 					"-framework",
 					"\"VideoToolbox\"",
@@ -949,8 +931,6 @@
 					"\"file_picker\"",
 					"-framework",
 					"\"flutter_plugin_record_plus\"",
-					"-framework",
-					"\"fluttertoast\"",
 					"-framework",
 					"\"image_picker_ios\"",
 					"-framework",

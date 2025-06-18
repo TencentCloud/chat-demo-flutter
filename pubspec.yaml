@@ -17,11 +17,6 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 version: 1.0.0+1
 
-# If you running this sample app on Flutter 3.7 or higher, please modify this configurations. And add the following code to `pubspec.yaml`:
-#dependency_overrides:
-#  modal_bottom_sheet: ^3.0.0-pre
-#  tencent_extended_text_field: ^1.0.1
-#  tencent_extended_text: ^1.0.2
 environment:
   sdk: '>=3.0.0 <4.0.0'
   flutter: ">=3.19.0"
@@ -56,6 +51,8 @@ dependencies:
   dio: ^4.0.0
 
 dependency_overrides:
+  # Flutter 3.24.4 requires the use of intl: ^0.20.2 version, which is also available in Flutter 3.29.x version
+  intl: ^0.20.2
 
 dev_dependencies:
   build_runner: any
