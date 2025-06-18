@@ -19,7 +19,49 @@ class LoginCaptcha extends StatefulWidget {
 }
 
 class _LoginCaptchaState extends State<LoginCaptcha> {
+  late final WebViewController controller;
   CaptchaStatus captchaStatus = CaptchaStatus.unReady;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..addJavaScriptChannel('messageHandler',
+          onMessageReceived: (JavaScriptMessage message) {
+            try {
+              var messageObj = jsonDecode(message.message);
+              widget.onSuccess(messageObj);
+            } catch (e) {
+              ToastUtils.toast(TIM_t("图片验证码校验失败"));
+            }
+            setState(() {
+              captchaStatus = CaptchaStatus.unReady;
+            });
+            widget.onClose();
+          })
+      ..setNavigationDelegate(NavigationDelegate(
+        onPageStarted: (url) => setState(() {
+          captchaStatus = CaptchaStatus.loading;
+        }),
+        onProgress: (progress) {
+          setState(() {
+            captchaStatus = CaptchaStatus.loading;
+          });
+        },
+        onPageFinished: (url) {
+          setState(() {
+            captchaStatus = CaptchaStatus.ready;
+          });
+        },
+        onWebResourceError: (error) {
+          setState(() {
+            captchaStatus = CaptchaStatus.unReady;
+          });
+        },
+      ))
+      ..loadRequest(Uri.parse(IMDemoConfig.captchaUrl));
+  }
 
   double getSize() {
     switch (captchaStatus) {
@@ -40,51 +82,14 @@ class _LoginCaptchaState extends State<LoginCaptcha> {
           child: SizedBox(
             width: getSize(),
             height: getSize(),
-            child: WebView(
-              initialUrl: IMDemoConfig.captchaUrl,
-              javascriptMode: JavascriptMode.unrestricted,
-              javascriptChannels: {
-                JavascriptChannel(
-                    name: 'onLoading',
-                    onMessageReceived: (JavascriptMessage message) {
-                      // 防水墙loading
-                      setState(() {
-                        captchaStatus = CaptchaStatus.loading;
-                      });
-                    }),
-                JavascriptChannel(
-                    name: 'onCaptchaReady',
-                    onMessageReceived: (JavascriptMessage message) {
-                      // 防水墙ready
-                      setState(() {
-                        captchaStatus = CaptchaStatus.ready;
-                      });
-                    }),
-                JavascriptChannel(
-                    name: 'messageHandler',
-                    onMessageReceived: (JavascriptMessage message) {
-                      try {
-                        var messageObj = jsonDecode(message.message);
-                        widget.onSuccess(messageObj);
-                      } catch (e) {
-                        ToastUtils.toast(TIM_t("图片验证码校验失败"));
-                      }
-                      setState(() {
-                        captchaStatus = CaptchaStatus.unReady;
-                      });
-                      widget.onClose();
-                    }),
-                JavascriptChannel(
-                    name: 'capClose',
-                    onMessageReceived: (JavascriptMessage message) {
-                      setState(() {
-                        captchaStatus = CaptchaStatus.unReady;
-                      });
-                      widget.onClose();
-                    })
-              },
-            ),
+            child: WebViewWidget(controller: controller),
           ),
         ));
+  }
+
+  @override
+  void dispose() {
+    controller.clearCache();
+    super.dispose();
   }
 }

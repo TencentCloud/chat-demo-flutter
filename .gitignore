@@ -49,5 +49,7 @@ app.*.map.json
 
 local.properties
 
+*.cxx/
+
 # FVM Version Cache
 .fvm/

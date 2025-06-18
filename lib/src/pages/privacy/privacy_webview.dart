@@ -50,8 +50,10 @@ class PrivacyDocument extends StatelessWidget {
       ),
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
-        child: WebView(
-            initialUrl: url, javascriptMode: JavascriptMode.unrestricted),
+        child: WebViewWidget(
+            controller: WebViewController()
+              ..setJavaScriptMode(JavaScriptMode.unrestricted)
+              ..loadRequest(Uri.parse(url))),
       ),
     );
   }

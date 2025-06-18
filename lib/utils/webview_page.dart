@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tencent_chat_i18n_tool/tencent_chat_i18n_tool.dart';
-import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
 import 'package:tencent_cloud_chat_uikit/theme/color.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-
 
 class WebviewPage extends StatelessWidget {
   const WebviewPage({Key? key, required this.url}) : super(key: key);
 
   final String url;
+
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<DefaultThemeData>(context).theme;
@@ -50,8 +49,10 @@ class WebviewPage extends StatelessWidget {
       ),
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
-        child: WebView(
-            initialUrl: url, javascriptMode: JavascriptMode.unrestricted),
+        child: WebViewWidget(
+            controller: WebViewController()
+              ..setJavaScriptMode(JavaScriptMode.unrestricted)
+              ..loadRequest(Uri.parse(url))),
       ),
     );
   }

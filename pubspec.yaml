@@ -35,20 +35,19 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  web: ^0.5.1
   flutter_localizations:
     sdk: flutter
 
   # Tencent Cloud Chat dependencies:
-  tencent_cloud_chat_uikit: ^4.0.8
+  tencent_cloud_chat_uikit: ^5.0.0
   tencent_calls_uikit: ^2.9.1
-  tencent_cloud_chat_push: ^8.6.7019
+  tencent_cloud_chat_push: ^8.6.7019+1
   tencent_chat_i18n_tool: ^2.3.8
   tencent_cloud_chat_sdk: ^8.6.7019+2
 
   # Third party dependencies:
   cupertino_icons: ^1.0.2
-  webview_flutter: ^3.0.0
+  webview_flutter: ^4.10.0
   flutter_easyloading: ^3.0.3
   desktop_webview_window_for_is: ^0.2.4
   bitsdojo_window: ^0.1.5
