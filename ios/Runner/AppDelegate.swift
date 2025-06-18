@@ -16,20 +16,25 @@ import tencent_cloud_chat_push
         GeneratedPluginRegistrant.register(with: self)
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
-    
+
     // Add this function
-    func businessID() -> Int32 {
-        return TencentCloudChatPushFlutterModal.shared.businessID();
+    @objc func offlinePushCertificateID() -> Int32 {
+       return TencentCloudChatPushFlutterModal.shared.offlinePushCertificateID();
     }
-    
+
     // Add this function
-    func applicationGroupID() -> String {
-        return TencentCloudChatPushFlutterModal.shared.applicationGroupID()
+    @objc func businessID() -> Int32 {
+       return TencentCloudChatPushFlutterModal.shared.businessID();
     }
-    
+
+    // Add this function
+    @objc func applicationGroupID() -> String {
+       return TencentCloudChatPushFlutterModal.shared.applicationGroupID()
+    }
+
     // Add this function
     func onRemoteNotificationReceived(_ notice: String?) -> Bool {
-        TencentCloudChatPushPlugin.shared.tryNotifyDartOnNotificationClickEvent(notice)
-        return true
+       TencentCloudChatPushPlugin.shared.tryNotifyDartOnNotificationClickEvent(notice)
+       return true
     }
 }
