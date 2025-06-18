@@ -41,6 +41,30 @@ The platforms are compatible with the deployment of our Chat UIKit.
     <th width="500px" style="text-align:center">Compatible Configurations</th>
   </tr>
 
+<tr>
+     <td style="text-align:center">3.32.4</td>
+     <td style="text-align:center">^5.0.0</td>
+     <td style="text-align:center">
+        <ul>
+            <li>intl: ^0.20.2</li>
+        </ul>
+     </td>
+    <td style="text-align:center"></td>
+
+  <tr>
+     <td style="text-align:center">3.29.0</td>
+     <td style="text-align:center">^5.0.0</td>
+     <td style="text-align:center">
+        <ul>
+            <li>extended_text: ^15.0.0</li>
+        </ul>
+     </td>
+    <td style="text-align:center">
+      <img width="892" alt="Clipboard_Screenshot_1750234261" src="https://github.com/user-attachments/assets/7e9e01c3-deb8-42e7-92d2-644f8dc1bab9" />
+    </td>
+
+  </tr>
+
   <tr >
      <td style="text-align:center">3.24.0 - 3.24.4</td>
      <td style="text-align:center">tencent_cloud_chat_message: ^2.0.0</td>
