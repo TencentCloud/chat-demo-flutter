@@ -4,7 +4,8 @@ import 'dart:math';
 
 import 'package:flutter/widgets.dart';
 import 'package:tencent_cloud_chat_demo/src/avatar_select_page.dart';
-import 'package:tencent_cloud_chat_sdk/models/v2_tim_user_full_info.dart';
+import 'package:tencent_cloud_chat_sdk/models/v2_tim_user_full_info.dart'
+    if (dart.library.html) 'package:tencent_cloud_chat_sdk/web/compatible_models/v2_tim_user_full_info.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
 class LoginUserInfo with ChangeNotifier {
@@ -24,12 +25,10 @@ class LoginUserInfo with ChangeNotifier {
 
   setRandomAvatar() async {
     int index = Random().nextInt(AvatarSelectPage.avatarFaceCount);
-    String faceUrl =
-        AvatarSelectPage.avatarFaceUrl.replaceAll("%s", (index + 1).toString());
-    await _coreServices.setSelfInfo(
-        userFullInfo: V2TimUserFullInfo.fromJson({
-      "faceUrl": faceUrl,
-    }));
+    String faceUrl = AvatarSelectPage.avatarFaceUrl.replaceAll("%s", (index + 1).toString());
+    V2TimUserFullInfo userFullInfo = V2TimUserFullInfo();
+    userFullInfo.faceUrl = faceUrl;
+    await _coreServices.setSelfInfo(userFullInfo: userFullInfo);
     _loginUserInfo.faceUrl = faceUrl;
     notifyListeners();
   }

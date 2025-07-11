@@ -10,7 +10,8 @@ import 'package:tencent_cloud_chat_demo/src/provider/local_setting.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/custom_last_message.dart';
 import 'package:tencent_cloud_chat_demo/utils/user_guide.dart';
 import 'package:tencent_cloud_chat_sdk/enum/message_elem_type.dart';
-import 'package:tencent_cloud_chat_sdk/models/v2_tim_conversation.dart';
+import 'package:tencent_cloud_chat_sdk/models/v2_tim_conversation.dart'
+    if (dart.library.html) 'package:tencent_cloud_chat_sdk/web/compatible_models/v2_tim_conversation.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/theme/color.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_conversation_controller.dart';
@@ -27,14 +28,7 @@ class Conversation extends StatefulWidget {
   /// Used for specify the current conversation, usually used for showing the conversation indicator background color on wide screen.
   final V2TimConversation? selectedConversation;
 
-  const Conversation(
-      {Key? key,
-      required this.conversationController,
-      this.onConversationChanged,
-      this.onClickSearch,
-      this.onClickPlus,
-      this.selectedConversation})
-      : super(key: key);
+  const Conversation({Key? key, required this.conversationController, this.onConversationChanged, this.onClickSearch, this.onClickPlus, this.selectedConversation}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _ConversationState();
@@ -64,8 +58,7 @@ class _ConversationState extends State<Conversation> {
   scrollToNextUnreadConversation() {
     final conversationList = _controller.conversationList;
     for (var element in conversationList) {
-      if ((element?.unreadCount ?? 0) > 0 &&
-          !jumpedConversations.contains(element!.conversationID)) {
+      if ((element?.unreadCount ?? 0) > 0 && !jumpedConversations.contains(element!.conversationID)) {
         _controller.scrollToConversation(element.conversationID);
         jumpedConversations.add(element.conversationID);
         return;
@@ -96,17 +89,14 @@ class _ConversationState extends State<Conversation> {
   }
 
   _pinConversation(V2TimConversation conversation) {
-    _controller.pinConversation(
-        conversationID: conversation.conversationID,
-        isPinned: !conversation.isPinned!);
+    _controller.pinConversation(conversationID: conversation.conversationID, isPinned: !conversation.isPinned!);
   }
 
   _deleteConversation(V2TimConversation conversation) {
     _controller.deleteConversation(conversationID: conversation.conversationID);
   }
 
-  List<ConversationItemSlidePanel> _itemSlidableBuilder(
-      V2TimConversation conversationItem) {
+  List<ConversationItemSlidePanel> _itemSlidableBuilder(V2TimConversation conversationItem) {
     return [
       if (!PlatformUtils().isWeb)
         ConversationItemSlidePanel(

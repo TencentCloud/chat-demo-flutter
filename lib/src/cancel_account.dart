@@ -132,7 +132,7 @@ class CancelAccount extends StatelessWidget {
                     height: 80,
                     width: 80,
                     child: Avatar(
-                        borderRadius: BorderRadius.circular(40),
+                      borderRadius: BorderRadius.circular(40),
                         showName: _selfInfoViewModel.loginInfo?.userID ?? "",
                         faceUrl: _selfInfoViewModel.loginInfo?.faceUrl ?? ""),
                   ),

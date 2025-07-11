@@ -1,5 +1,4 @@
 import 'package:tencent_chat_i18n_tool/tencent_chat_i18n_tool.dart';
-import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
 enum WebUrl { personalInfo, thirdPartyInfo }
 
@@ -29,8 +28,6 @@ class IMDemoConfig {
 
   // appBarTile无法做适配，必须要常量才可以
   static const double appBarTitleFontSize = 17;
-
-  static const String baiduMapIOSAppKey = "";
 
   static const Map<WebUrl, String> webUrls = {
     WebUrl.personalInfo: "https://privacy.qq.com/document/preview/45ba982a1ce6493597a00f8c86b52a1e",

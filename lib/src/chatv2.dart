@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tencent_cloud_chat_sdk/models/v2_tim_conversation.dart';
-import 'package:tencent_cloud_chat_sdk/models/v2_tim_message.dart';
+import 'package:tencent_cloud_chat_sdk/models/v2_tim_conversation.dart'
+    if (dart.library.html) 'package:tencent_cloud_chat_sdk/web/compatible_models/v2_tim_conversation.dart';
+import 'package:tencent_cloud_chat_sdk/models/v2_tim_message.dart'
+    if (dart.library.html) 'package:tencent_cloud_chat_sdk/web/compatible_models/v2_tim_message.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/separate_models/tui_chat_separate_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_chat_global_model.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
@@ -33,9 +35,7 @@ class _ChatV2State extends State<ChatV2> {
         : widget.selectedConversation.groupID;
   }
 
-  Future<bool> loadHistoryMessageList(
-      String? lastMsgID, LoadDirection direction,
-      [int? count, int? lastSeq]) async {
+  Future<bool> loadHistoryMessageList(String? lastMsgID, LoadDirection direction, [int? count, int? lastSeq]) async {
     if (_haveMoreData) {
       _haveMoreData = await _controller.loadHistoryMessageList(
           count: count ?? 20,

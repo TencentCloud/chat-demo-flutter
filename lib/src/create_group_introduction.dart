@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tencent_chat_i18n_tool/tencent_chat_i18n_tool.dart';
 import 'package:tencent_cloud_chat_sdk/enum/group_type.dart';
-import 'package:tencent_cloud_chat_sdk/models/v2_tim_conversation.dart';
+import 'package:tencent_cloud_chat_sdk/models/v2_tim_conversation.dart'
+    if (dart.library.html) 'package:tencent_cloud_chat_sdk/web/compatible_models/v2_tim_conversation.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/core/tim_uikit_wide_modal_operation_key.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:provider/provider.dart';
@@ -17,8 +18,7 @@ class CreateGroupIntroduction extends StatefulWidget {
   final ValueChanged<V2TimConversation>? directToChat;
   final VoidCallback? closeFunc;
 
-  const CreateGroupIntroduction({Key? key, this.directToChat, this.closeFunc})
-      : super(key: key);
+  const CreateGroupIntroduction({Key? key, this.directToChat, this.closeFunc}) : super(key: key);
 
   static final groupTypeNameMap = {
     GroupType.Work: "好友工作群（Work）",
@@ -29,30 +29,25 @@ class CreateGroupIntroduction extends StatefulWidget {
 
   static final groupTypeDescriptionMap = {
     GroupType.Work: "类似普通微信群，创建后仅支持已在群内的好友邀请加群，且无需被邀请方同意或群主审批。",
-    GroupType.Public:
-        "类似 QQ 群，创建后群主可以指定群管理员，用户搜索群 ID 发起加群申请后，需要群主或管理员审批通过才能入群。",
+    GroupType.Public: "类似 QQ 群，创建后群主可以指定群管理员，用户搜索群 ID 发起加群申请后，需要群主或管理员审批通过才能入群。",
     GroupType.Meeting: "创建后可以随意进出，且支持查看入群前消息；适合用于音视频会议场景、在线教育场景等与实时音视频产品结合的场景。",
-    GroupType.Community:
-        "创建后可以随意进出，最多支持10w人，支持历史消息存储，用户搜索群 ID 发起加群申请后，无需管理员审批即可进群。",
+    GroupType.Community: "创建后可以随意进出，最多支持10w人，支持历史消息存储，用户搜索群 ID 发起加群申请后，无需管理员审批即可进群。",
   };
 
   static final groupTypeColorMap = {
     GroupType.Work: const Color(0xFF00449E),
     GroupType.Public: const Color(0xFF147AFF),
     GroupType.Meeting: const Color(0xFFF38787),
-    GroupType.AVChatRoom: const Color(0xFF8783F0),
     GroupType.Community: const Color(0xFF3371CD),
   };
 
   @override
-  State<CreateGroupIntroduction> createState() =>
-      _CreateGroupIntroductionState();
+  State<CreateGroupIntroduction> createState() => _CreateGroupIntroductionState();
 }
 
 class _CreateGroupIntroductionState extends State<CreateGroupIntroduction> {
   void createGroupFunc(GroupTypeForUIKit type) {
-    final isWideScreen =
-        TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
+    final isWideScreen = TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
 
     if (isWideScreen) {
       if (widget.closeFunc != null) {
@@ -104,9 +99,8 @@ class _CreateGroupIntroductionState extends State<CreateGroupIntroduction> {
 
   Widget renderGroupItem(String groupType, TUITheme theme) {
     return Container(
-      decoration: BoxDecoration(
-          border: Border.all(color: theme.weakBackgroundColor!),
-          borderRadius: BorderRadius.circular(10)),
+      decoration:
+          BoxDecoration(border: Border.all(color: theme.weakBackgroundColor!), borderRadius: BorderRadius.circular(10)),
       margin: const EdgeInsets.symmetric(vertical: 6),
       child: InkWell(
         onTap: () {
@@ -116,9 +110,7 @@ class _CreateGroupIntroductionState extends State<CreateGroupIntroduction> {
           padding: const EdgeInsets.all(8),
           child: Row(
             children: [
-              Icon(Icons.group,
-                  size: 40,
-                  color: CreateGroupIntroduction.groupTypeColorMap[groupType]!),
+              Icon(Icons.group, size: 40, color: CreateGroupIntroduction.groupTypeColorMap[groupType]!),
               const SizedBox(width: 20),
               Expanded(
                   child: Column(
@@ -128,14 +120,12 @@ class _CreateGroupIntroductionState extends State<CreateGroupIntroduction> {
                     TIM_t(CreateGroupIntroduction.groupTypeNameMap[groupType]!),
                     style: TextStyle(
                         fontSize: 16,
-                        color: CreateGroupIntroduction
-                            .groupTypeColorMap[groupType]!,
+                        color: CreateGroupIntroduction.groupTypeColorMap[groupType]!,
                         fontWeight: FontWeight.w500),
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    TIM_t(CreateGroupIntroduction
-                        .groupTypeDescriptionMap[groupType]!),
+                    TIM_t(CreateGroupIntroduction.groupTypeDescriptionMap[groupType]!),
                     style: TextStyle(
                       fontSize: 12,
                       color: theme.weakTextColor,

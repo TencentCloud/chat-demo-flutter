@@ -51,13 +51,11 @@ class TencentChatApp extends StatefulWidget {
   State<StatefulWidget> createState() => _TencentChatAppState();
 }
 
-class _TencentChatAppState extends State<TencentChatApp>
-    with WidgetsBindingObserver {
+class _TencentChatAppState extends State<TencentChatApp> with WidgetsBindingObserver {
   var subscription;
   final CoreServicesImpl _coreInstance = TIMUIKitCore.getInstance();
   final V2TIMManager _sdkInstance = TIMUIKitCore.getSDKInstance();
-  final ConversationService _conversationService =
-      serviceLocator<ConversationService>();
+  final ConversationService _conversationService = serviceLocator<ConversationService>();
   bool _initialURILinkHandled = false;
   bool _isInitIMSDK = false;
   BuildContext? cachedBuildContext;
@@ -71,32 +69,26 @@ class _TencentChatAppState extends State<TencentChatApp>
     int? unreadCount = await _getTotalUnreadCount();
     switch (state) {
       case AppLifecycleState.inactive:
-        _coreInstance.setOfflinePushStatus(
-            status: AppStatus.background, totalCount: unreadCount);
+        _coreInstance.setOfflinePushStatus(status: AppStatus.background, totalCount: unreadCount);
         break;
       case AppLifecycleState.resumed:
         await _checkIfConnected();
         _coreInstance.setOfflinePushStatus(status: AppStatus.foreground);
         break;
       case AppLifecycleState.paused:
-        _coreInstance.setOfflinePushStatus(
-            status: AppStatus.background, totalCount: unreadCount);
+        _coreInstance.setOfflinePushStatus(status: AppStatus.background, totalCount: unreadCount);
         break;
       case AppLifecycleState.detached:
-        _coreInstance.setOfflinePushStatus(
-            status: AppStatus.background, totalCount: unreadCount);
+        _coreInstance.setOfflinePushStatus(status: AppStatus.background, totalCount: unreadCount);
         break;
       case AppLifecycleState.hidden:
-        _coreInstance.setOfflinePushStatus(
-            status: AppStatus.background, totalCount: unreadCount);
+        _coreInstance.setOfflinePushStatus(status: AppStatus.background, totalCount: unreadCount);
         break;
     }
   }
 
   Future<int?> _getTotalUnreadCount() async {
-    final res = await _sdkInstance
-        .getConversationManager()
-        .getTotalUnreadMessageCount();
+    final res = await _sdkInstance.getConversationManager().getTotalUnreadMessageCount();
     if (res.code == 0) {
       return res.data ?? 0;
     }
@@ -109,12 +101,10 @@ class _TencentChatAppState extends State<TencentChatApp>
       return;
     } else if (res.data == null) {
       await initIMSDKAndAddIMListeners();
-      InitStep.checkLogin(
-          cachedBuildContext ?? context, initIMSDKAndAddIMListeners);
+      InitStep.checkLogin(cachedBuildContext ?? context, initIMSDKAndAddIMListeners);
       return;
     } else if (res.data!.isEmpty) {
-      InitStep.checkLogin(
-          cachedBuildContext ?? context, initIMSDKAndAddIMListeners);
+      InitStep.checkLogin(cachedBuildContext ?? context, initIMSDKAndAddIMListeners);
       return;
     } else {
       return;
@@ -122,7 +112,7 @@ class _TencentChatAppState extends State<TencentChatApp>
   }
 
   onKickedOffline() async {
-// 被踢下线
+    // 被踢下线
     try {
       await TIMUIKitCore.getInstance().logout();
       InitStep.directToLogin(cachedBuildContext ?? context);
@@ -133,8 +123,7 @@ class _TencentChatAppState extends State<TencentChatApp>
   }
 
   Future<String> getLanguage() async {
-    final String? deviceLocale =
-        WidgetsBinding.instance.window.locale.toLanguageTag();
+    final String? deviceLocale = WidgetsBinding.instance.window.locale.toLanguageTag();
     final AppLocale appLocale = I18nUtils.findDeviceLocale(deviceLocale);
     switch (appLocale) {
       case AppLocale.zhHans:
@@ -156,16 +145,14 @@ class _TencentChatAppState extends State<TencentChatApp>
       final result = await _sdkInstance.getUsersInfo(userIDList: [res.data!]);
 
       if (result.code == 0) {
-        Provider.of<LoginUserInfo>(context, listen: false)
-            .setLoginUserInfo(result.data![0]);
+        Provider.of<LoginUserInfo>(context, listen: false).setLoginUserInfo(result.data![0]);
       }
     }
   }
 
   initIMSDKAndAddIMListeners() async {
     if (_isInitIMSDK) return;
-    final LocalSetting localSetting =
-        Provider.of<LocalSetting>(context, listen: false);
+    final LocalSetting localSetting = Provider.of<LocalSetting>(context, listen: false);
     await localSetting.loadSettingsFromLocal();
     final language = localSetting.language ?? await getLanguage();
     localSetting.updateLanguageWithoutWriteLocal(language);
@@ -174,14 +161,11 @@ class _TencentChatAppState extends State<TencentChatApp>
     // You may customize the path according to your project requirements.
     String? logPath;
     if (!PlatformUtils().isWeb) {
-      final String documentsDirectoryPath =
-          "${Platform.environment['USERPROFILE']}";
+      final String documentsDirectoryPath = "${Platform.environment['USERPROFILE']}";
       PackageInfo packageInfo = await PackageInfo.fromPlatform();
       String pkgName = packageInfo.packageName;
-      var timeName =
-          "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}";
-      logPath = p.join(documentsDirectoryPath, "Documents", ".TencentCloudChat",
-          pkgName, "uikit_log", 'Flutter-TUIKit-$timeName.log');
+      var timeName = "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}";
+      logPath = p.join(documentsDirectoryPath, "Documents", ".TencentCloudChat", pkgName, "uikit_log", 'Flutter-TUIKit-$timeName.log');
     }
 
     final isInitSuccess = await _coreInstance.init(
@@ -203,22 +187,18 @@ class _TencentChatAppState extends State<TencentChatApp>
             break;
           case TIMCallbackType.API_ERROR:
             //Prints the API error to console, and shows the error message.
-            print(
-                "Error from TUIKit: ${callbackValue.errorMsg}, Code: ${callbackValue.errorCode}");
-            if (callbackValue.errorCode == 10004 &&
-                callbackValue.errorMsg!.contains("not support @all")) {
+            print("Error from TUIKit: ${callbackValue.errorMsg}, Code: ${callbackValue.errorCode}");
+            if (callbackValue.errorCode == 10004 && callbackValue.errorMsg!.contains("not support @all")) {
               ToastUtils.toast(TIM_t("当前群组不支持@全体成员"));
             } else if (callbackValue.errorCode == -4) {
               return;
             } else if (callbackValue.errorCode == -1) {
               return;
             } else {
-              if (callbackValue.infoRecommendText != null &&
-                  callbackValue.infoRecommendText!.isNotEmpty) {
+              if (callbackValue.infoRecommendText != null && callbackValue.infoRecommendText!.isNotEmpty) {
                 ToastUtils.toast(callbackValue.infoRecommendText!);
               } else {
-                ToastUtils.toast(callbackValue.errorMsg ??
-                    callbackValue.errorCode.toString());
+                ToastUtils.toast(callbackValue.errorMsg ?? callbackValue.errorCode.toString());
               }
             }
             break;
@@ -251,8 +231,7 @@ class _TencentChatAppState extends State<TencentChatApp>
           onKickedOffline();
         },
         onSelfInfoUpdated: (info) {
-          Provider.of<LoginUserInfo>(context, listen: false)
-              .setLoginUserInfo(info);
+          Provider.of<LoginUserInfo>(context, listen: false).setLoginUserInfo(info);
           // onSelfInfoUpdated(info);
         },
         onUserSigExpired: () {
@@ -263,7 +242,7 @@ class _TencentChatAppState extends State<TencentChatApp>
       ),
     );
     if (isInitSuccess == null || !isInitSuccess) {
-      ToastUtils.toast("Please set sdkAppID and key in config.dart");
+      ToastUtils.toast(TIM_t("即时通信 SDK初始化失败"));
       return;
     } else {}
     _isInitIMSDK = true;

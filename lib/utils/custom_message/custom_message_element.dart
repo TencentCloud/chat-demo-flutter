@@ -7,8 +7,8 @@ import 'package:tencent_chat_i18n_tool/tencent_chat_i18n_tool.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/calling_message/calling_message_data_provider.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/calling_message/group_call_message_builder.dart';
 import 'package:tencent_cloud_chat_demo/utils/custom_message/calling_message/single_call_message_builder.dart';
-import 'package:tencent_cloud_chat_sdk/models/v2_tim_message.dart';
-import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
+import 'package:tencent_cloud_chat_sdk/models/v2_tim_message.dart'
+    if (dart.library.html) 'package:tencent_cloud_chat_sdk/web/compatible_models/v2_tim_message.dart';
 import 'package:tencent_cloud_chat_uikit/theme/tui_theme.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_chat_controller.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/message.dart';
@@ -92,8 +92,7 @@ class _CustomMessageElemState extends State<CustomMessageElem> {
   Widget _callElemBuilder(BuildContext context, TUITheme theme) {
     final customElem = widget.message.customElem;
 
-    final callingMessageDataProvider =
-        CallingMessageDataProvider(widget.message);
+    final callingMessageDataProvider = CallingMessageDataProvider(widget.message);
 
     final linkMessage = getLinkMessage(customElem);
     final webLinkMessage = getWebLinkMessage(customElem);
@@ -110,16 +109,13 @@ class _CustomMessageElemState extends State<CustomMessageElem> {
         theme,
         false,
       );
-    } else if (MessageUtils.getCustomGroupCreatedOrDismissedString(
-            widget.message)
-        .isNotEmpty) {
+    } else if (MessageUtils.getCustomGroupCreatedOrDismissedString(widget.message).isNotEmpty) {
       return Container(
           margin: const EdgeInsets.symmetric(vertical: 20),
           alignment: Alignment.center,
           child: Text.rich(TextSpan(children: [
             TextSpan(
-              text: MessageUtils.getCustomGroupCreatedOrDismissedString(
-                  widget.message),
+              text: MessageUtils.getCustomGroupCreatedOrDismissedString(widget.message),
               style: TextStyle(color: theme.weakTextColor),
             ),
           ], style: const TextStyle(fontSize: 12))));
@@ -193,13 +189,10 @@ class _CustomMessageElemState extends State<CustomMessageElem> {
         theme,
         false,
       );
-    } else if (!callingMessageDataProvider.excludeFromHistory &&
-        callingMessageDataProvider.isCallingSignal) {
-      if (callingMessageDataProvider.participantType ==
-          CallParticipantType.group) {
+    } else if (!callingMessageDataProvider.excludeFromHistory && callingMessageDataProvider.isCallingSignal) {
+      if (callingMessageDataProvider.participantType == CallParticipantType.group) {
         // Group Call message
-        return GroupCallMessageItem(
-            callingMessageDataProvider: callingMessageDataProvider);
+        return GroupCallMessageItem(callingMessageDataProvider: callingMessageDataProvider);
       } else {
         // One-to-one Call message
         return renderMessageItem(

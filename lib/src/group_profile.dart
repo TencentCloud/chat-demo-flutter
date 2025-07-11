@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:tencent_chat_i18n_tool/tencent_chat_i18n_tool.dart';
 import 'package:tencent_cloud_chat_demo/src/tencent_page.dart';
-import 'package:tencent_cloud_chat_sdk/models/v2_tim_conversation.dart';
-import 'package:tencent_cloud_chat_sdk/models/v2_tim_group_member_full_info.dart';
-import 'package:tencent_cloud_chat_sdk/models/v2_tim_message.dart';
-import 'package:tencent_cloud_chat_sdk/models/v2_tim_user_full_info.dart';
+import 'package:tencent_cloud_chat_sdk/models/v2_tim_conversation.dart'
+    if (dart.library.html) 'package:tencent_cloud_chat_sdk/web/compatible_models/v2_tim_conversation.dart';
+import 'package:tencent_cloud_chat_sdk/models/v2_tim_group_member_full_info.dart'
+    if (dart.library.html) 'package:tencent_cloud_chat_sdk/web/compatible_models/v2_tim_group_member_full_info.dart';
+import 'package:tencent_cloud_chat_sdk/models/v2_tim_message.dart'
+    if (dart.library.html) 'package:tencent_cloud_chat_sdk/web/compatible_models/v2_tim_message.dart';
+import 'package:tencent_cloud_chat_sdk/models/v2_tim_user_full_info.dart'
+    if (dart.library.html) 'package:tencent_cloud_chat_sdk/web/compatible_models/v2_tim_user_full_info.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/life_cycle/group_profile_life_cycle.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_friendship_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_self_info_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/theme/color.dart';
-
 import 'package:tencent_cloud_chat_uikit/ui/utils/platform.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitAddFriend/tim_uikit_send_application.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitGroupProfile/group_profile_widget.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitGroupProfile/widgets/tim_ui_group_profile_widget.dart';
-
 import 'package:tencent_cloud_chat_demo/src/chat.dart';
 import 'package:tencent_cloud_chat_demo/src/search.dart';
 import 'package:tencent_cloud_chat_demo/src/user_profile.dart';
@@ -69,16 +71,10 @@ class GroupProfilePage extends StatelessWidget {
                 }),
                 groupID: groupID,
                 onClickUser: (V2TimGroupMemberFullInfo memberInfo, _) {
-                  if (memberInfo.userID !=
-                      _selfInfoViewModel.loginInfo?.userID) {
-                    _friendShipViewModel
-                        .isFriend(memberInfo.userID)
-                        .then((isFriend) {
+                  if (memberInfo.userID != _selfInfoViewModel.loginInfo?.userID) {
+                    _friendShipViewModel.isFriend(memberInfo.userID).then((isFriend) {
                       if (!isFriend) {
-                        V2TimUserFullInfo friendInfo = V2TimUserFullInfo(
-                            userID: memberInfo.userID,
-                            nickName: memberInfo.nickName,
-                            faceUrl: memberInfo.faceUrl);
+                        V2TimUserFullInfo friendInfo = V2TimUserFullInfo(userID: memberInfo.userID, nickName: memberInfo.nickName, faceUrl: memberInfo.faceUrl);
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
@@ -89,8 +85,7 @@ class GroupProfilePage extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  UserProfile(userID: memberInfo.userID),
+                              builder: (context) => UserProfile(userID: memberInfo.userID),
                             ));
                       }
                     });

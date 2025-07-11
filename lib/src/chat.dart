@@ -18,9 +18,12 @@ import 'package:tencent_cloud_chat_demo/utils/custom_message/calling_message/cal
 import 'package:tencent_cloud_chat_demo/utils/custom_message/custom_message_element.dart';
 import 'package:tencent_cloud_chat_sdk/enum/group_type.dart';
 import 'package:tencent_cloud_chat_sdk/manager/v2_tim_manager.dart';
-import 'package:tencent_cloud_chat_sdk/models/v2_tim_conversation.dart';
-import 'package:tencent_cloud_chat_sdk/models/v2_tim_friend_info.dart';
-import 'package:tencent_cloud_chat_sdk/models/v2_tim_message.dart';
+import 'package:tencent_cloud_chat_sdk/models/v2_tim_conversation.dart'
+    if (dart.library.html) 'package:tencent_cloud_chat_sdk/web/compatible_models/v2_tim_conversation.dart';
+import 'package:tencent_cloud_chat_sdk/models/v2_tim_friend_info.dart'
+    if (dart.library.html) 'package:tencent_cloud_chat_sdk/web/compatible_models/v2_tim_friend_info.dart';
+import 'package:tencent_cloud_chat_sdk/models/v2_tim_message.dart'
+    if (dart.library.html) 'package:tencent_cloud_chat_sdk/web/compatible_models/v2_tim_message.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/life_cycle/chat_life_cycle.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_chat_global_model.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/core/tim_uikit_wide_modal_operation_key.dart';
@@ -43,13 +46,7 @@ class Chat extends StatefulWidget {
   final VoidCallback? showGroupProfile;
   final ValueChanged<V2TimConversation>? directToChat;
 
-  const Chat(
-      {Key? key,
-      required this.selectedConversation,
-      this.initFindingMsg,
-      this.showGroupProfile,
-      this.directToChat})
-      : super(key: key);
+  const Chat({Key? key, required this.selectedConversation, this.initFindingMsg, this.showGroupProfile, this.directToChat}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _ChatState();
@@ -60,37 +57,23 @@ class _ChatState extends State<Chat> {
   String? backRemark;
   final V2TIMManager sdkInstance = TIMUIKitCore.getSDKInstance();
   String? conversationName;
-  String? customerServiceTyping;
-  bool canSendEvaluate = false;
 
   String _getTitle() {
     return backRemark ?? widget.selectedConversation.showName ?? "Chat";
   }
 
   String? _getConvID() {
-    return widget.selectedConversation.type == 1
-        ? widget.selectedConversation.userID
-        : widget.selectedConversation.groupID;
+    return widget.selectedConversation.type == 1 ? widget.selectedConversation.userID : widget.selectedConversation.groupID;
   }
 
   ConvType _getConvType() {
-    return widget.selectedConversation.type == 1
-        ? ConvType.c2c
-        : ConvType.group;
+    return widget.selectedConversation.type == 1 ? ConvType.c2c : ConvType.group;
   }
 
   _onTapAvatar(String userID, TapDownDetails tapDetails, TUITheme theme) {
-    final isWideScreen =
-        TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
+    final isWideScreen = TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
     if (isWideScreen) {
-      onClickUserName(
-          Offset(
-              min(tapDetails.globalPosition.dx,
-                  MediaQuery.of(context).size.width - 350),
-              min(tapDetails.globalPosition.dy,
-                  MediaQuery.of(context).size.height - 490)),
-          theme,
-          userID);
+      onClickUserName(Offset(min(tapDetails.globalPosition.dx, MediaQuery.of(context).size.width - 350), min(tapDetails.globalPosition.dy, MediaQuery.of(context).size.height - 490)), theme, userID);
     } else {
       Navigator.push(
           context,
@@ -120,12 +103,10 @@ class _ChatState extends State<Chat> {
   @override
   void didUpdateWidget(Chat oldWidget) {
     super.didUpdateWidget(oldWidget);
-    final isWideScreen =
-        TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
+    final isWideScreen = TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
   }
 
-  _itemClick(String id, BuildContext context, V2TimConversation conversation,
-      VoidCallback closeFunc) async {
+  _itemClick(String id, BuildContext context, V2TimConversation conversation, VoidCallback closeFunc) async {
     closeFunc();
     switch (id) {
       case "sendMsg":
@@ -136,8 +117,7 @@ class _ChatState extends State<Chat> {
     }
   }
 
-  _buildBottomOperationList(BuildContext context,
-      V2TimConversation conversation, VoidCallback closeFunc, TUITheme theme) {
+  _buildBottomOperationList(BuildContext context, V2TimConversation conversation, VoidCallback closeFunc, TUITheme theme) {
     List operationList = [
       {
         "label": TIM_t("发送消息"),
@@ -149,8 +129,7 @@ class _ChatState extends State<Chat> {
       return TIMUIKitProfileWidget.wideButton(
         margin: const EdgeInsets.symmetric(vertical: 0),
         smallCardMode: true,
-        onPressed: () =>
-            _itemClick(e["id"] ?? "", context, conversation, closeFunc),
+        onPressed: () => _itemClick(e["id"] ?? "", context, conversation, closeFunc),
         text: e["label"] ?? "",
         color: theme.primaryColor ?? hexToColor("3e4b67"),
       );
@@ -172,26 +151,27 @@ class _ChatState extends State<Chat> {
                 padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
                 child: TIMUIKitProfile(
                   smallCardMode: true,
-                  profileWidgetBuilder: ProfileWidgetBuilder(customBuilderOne:
-                      (bool isFriend, V2TimFriendInfo friendInfo,
-                          V2TimConversation conversation) {
+                  profileWidgetBuilder: ProfileWidgetBuilder(customBuilderOne: (bool isFriend, V2TimFriendInfo friendInfo, V2TimConversation conversation) {
                     // If you don't allow sending message when friendship not exist,
                     // please not comment the following lines.
 
                     // if(!isFriend){
                     //   return Container();
                     // }
-                    return Column(
-                        children: _buildBottomOperationList(
-                            context, conversation, closeFunc, theme));
+                    return Column(children: _buildBottomOperationList(context, conversation, closeFunc, theme));
                   }),
                   profileWidgetsOrder: [
                     ProfileWidgetEnum.userInfoCard,
                     ProfileWidgetEnum.operationDivider,
+                    ProfileWidgetEnum.remarkBar,
+                    ProfileWidgetEnum.genderBar,
+                    ProfileWidgetEnum.birthdayBar,
+                    ProfileWidgetEnum.operationDivider,
+                    ProfileWidgetEnum.addToBlockListBar,
                     ProfileWidgetEnum.pinConversationBar,
                     ProfileWidgetEnum.messageMute,
-                    if (widget.selectedConversation.type == 2)
-                      ProfileWidgetEnum.customBuilderOne,
+                    ProfileWidgetEnum.addAndDeleteArea,
+                    if (widget.selectedConversation.type == 2) ProfileWidgetEnum.customBuilderOne,
                   ],
                   userID: userID ?? "",
                 ),
@@ -206,41 +186,30 @@ class _ChatState extends State<Chat> {
   @override
   Widget build(BuildContext context) {
     final LocalSetting localSetting = Provider.of<LocalSetting>(context);
-    final isWideScreen =
-        TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
+    final isWideScreen = TUIKitScreenUtils.getFormFactor(context) == DeviceType.Desktop;
     final theme = Provider.of<DefaultThemeData>(context).theme;
     final groupID = widget.selectedConversation.groupID;
     final groupType = widget.selectedConversation.groupType;
-    List<String> notAllowGroupType = [
-      GroupType.Community,
-      GroupType.AVChatRoom
-    ];
+    List<String> notAllowGroupType = [GroupType.Community, GroupType.AVChatRoom];
     bool canAddVotePlugin = false;
-    if (TencentUtils.checkString(groupID) != null &&
-        TencentUtils.checkString(groupType) != null &&
-        !notAllowGroupType.contains(groupType)) {
+    if (TencentUtils.checkString(groupID) != null && TencentUtils.checkString(groupType) != null && !notAllowGroupType.contains(groupType)) {
       canAddVotePlugin = true;
     }
-    bool isCustomerServiceChat = IMDemoConfig.customerServiceUserList
-        .contains(widget.selectedConversation.userID);
     return TencentPage(
       name: 'chat',
       child: TIMUIKitChat(
         // New field, instead of `conversationID` / `conversationType` / `groupAtInfoList` / `conversationShowName` in previous.
         conversation: widget.selectedConversation,
-        conversationShowName:
-            customerServiceTyping ?? conversationName ?? _getTitle(),
+        conversationShowName: conversationName ?? _getTitle(),
         controller: _chatController,
         lifeCycle: ChatLifeCycle(newMessageWillMount: (V2TimMessage message) async {
-          // ChannelPush.displayDefaultNotificationForMessage(message);
           return message;
         }, messageShouldMount: (V2TimMessage message) {
           return true;
         }, messageListShouldMount: (messageList) {
           List<V2TimMessage> list = [];
           for (V2TimMessage message in messageList) {
-            CallingMessageDataProvider provide =
-                CallingMessageDataProvider(message);
+            CallingMessageDataProvider provide = CallingMessageDataProvider(message);
             if (!provide.isCallingSignal || !provide.excludeFromHistory) {
               list.add(message);
             }
@@ -264,8 +233,7 @@ class _ChatState extends State<Chat> {
               width: MediaQuery.of(context).size.width * 0.55,
               height: MediaQuery.of(context).size.width * 0.45,
               title: TIM_t("进群申请列表"),
-              child: (closeFuncSendApplication) =>
-                  TIMUIKitGroupApplicationList(groupID: groupID ?? ""),
+              child: (closeFuncSendApplication) => TIMUIKitGroupApplicationList(groupID: groupID ?? ""),
             );
           }
         },
@@ -275,14 +243,11 @@ class _ChatState extends State<Chat> {
             stickerPanelConfig: StickerPanelConfig(
               useQQStickerPackage: true,
               useTencentCloudChatStickerPackage: true,
-              customStickerPackages:
-                  Provider.of<CustomStickerPackageData>(context)
-                      .customStickerPackageList,
+              customStickerPackages: Provider.of<CustomStickerPackageData>(context).customStickerPackageList,
             ),
             onTapLink: PlatformUtils().isWeb
                 ? (link) {
-                    LinkUtils.launchURL(context,
-                        "https://comm.qq.com/link_page/index.html?target=$link");
+                    LinkUtils.launchURL(context, "https://comm.qq.com/link_page/index.html?target=$link");
                   }
                 : null,
             showC2cMessageEditStatus: true,
@@ -299,11 +264,7 @@ class _ChatState extends State<Chat> {
             isSupportMarkdownForTextMessage: false,
             urlPreviewType: UrlPreviewType.previewCardAndHyperlink,
             isUseMessageReaction: true,
-            groupReadReceiptPermissionList: [
-              GroupReceiptAllowType.work,
-              GroupReceiptAllowType.meeting,
-              GroupReceiptAllowType.public
-            ],
+            groupReadReceiptPermissionList: [GroupReceiptAllowType.work, GroupReceiptAllowType.meeting, GroupReceiptAllowType.public],
             faceURIPrefix: (String path) {
               if (path.contains("assets/custom_face_resource/")) {
                 return "";
@@ -333,20 +294,16 @@ class _ChatState extends State<Chat> {
             additionalDesktopControlBarItems: [
             ]),
         conversationID: _getConvID() ?? '',
-        conversationType:
-            ConvType.values[widget.selectedConversation.type ?? 1],
-        onTapAvatar: (userID, tapDetails) =>
-            _onTapAvatar(userID, tapDetails, theme),
+        conversationType: ConvType.values[widget.selectedConversation.type ?? 1],
+        onTapAvatar: (userID, tapDetails) => _onTapAvatar(userID, tapDetails, theme),
         initFindingMsg: widget.initFindingMsg,
         messageItemBuilder: MessageItemBuilder(
-          messageRowBuilder: (message, messageWidget, onScrollToIndex,
-              isNeedShowJumpStatus, clearJumpStatus, onScrollToIndexBegin) {
+          messageRowBuilder: (message, messageWidget, onScrollToIndex, isNeedShowJumpStatus, clearJumpStatus, onScrollToIndexBegin) {
             if (MessageUtils.isGroupCallingMessage(message)) {
               // If group call message, not use default layout.
               return messageWidget;
             }
-            if (MessageUtils.getCustomGroupCreatedOrDismissedString(message)
-                .isNotEmpty) {
+            if (MessageUtils.getCustomGroupCreatedOrDismissedString(message).isNotEmpty) {
               return messageWidget;
             }
             return null;
@@ -361,8 +318,8 @@ class _ChatState extends State<Chat> {
           },
         ),
         morePanelConfig: MorePanelConfig(
-          showVideoCall: !isCustomerServiceChat,
-          showVoiceCall: !isCustomerServiceChat,
+          showVideoCall: true,
+          showVoiceCall: true,
           extraAction: [],
         ),
         appBarConfig: AppBar(
@@ -420,28 +377,15 @@ class _ChatState extends State<Chat> {
                         Expanded(
                           child: TIMUIKitAppBar(
                             onClickTitle: (details) {
-                              onClickUserName(
-                                  Offset(details.globalPosition.dx,
-                                      details.globalPosition.dy),
-                                  theme);
+                              onClickUserName(Offset(details.globalPosition.dx, details.globalPosition.dy), theme);
                             },
                             config: AppBar(
-                              backgroundColor: isWideScreen
-                                  ? hexToColor("fafafa")
-                                  : hexToColor("f2f3f5"),
+                              backgroundColor: isWideScreen ? hexToColor("fafafa") : hexToColor("f2f3f5"),
                               actions: [
                                 IconButton(
-                                    padding: const EdgeInsets.only(
-                                        left: 8, right: 16),
+                                    padding: const EdgeInsets.only(left: 8, right: 16),
                                     onPressed: () async {
-                                      onClickUserName(
-                                          Offset(
-                                              MediaQuery.of(context)
-                                                      .size
-                                                      .width -
-                                                  380,
-                                              30),
-                                          theme);
+                                      onClickUserName(Offset(MediaQuery.of(context).size.width - 380, 30), theme);
                                     },
                                     icon: Icon(
                                       Icons.more_horiz,

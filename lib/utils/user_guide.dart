@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:tencent_chat_i18n_tool/language_json/strings.g.dart';
 import 'package:tencent_chat_i18n_tool/tools/i18n_tool.dart';
-import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/user_guide_provider.dart';
 import 'package:provider/provider.dart';
 

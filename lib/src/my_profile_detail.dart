@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:adaptive_action_sheet/adaptive_action_sheet.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tencent_chat_i18n_tool/tencent_chat_i18n_tool.dart';
@@ -11,17 +10,16 @@ import 'package:tencent_cloud_chat_demo/src/pages/cross_platform/wide_screen/set
 import 'package:tencent_cloud_chat_demo/src/routes.dart';
 import 'package:tencent_cloud_chat_demo/utils/constant.dart';
 import 'package:tencent_cloud_chat_demo/utils/toast.dart';
-import 'package:tencent_cloud_chat_sdk/models/v2_tim_user_full_info.dart';
+import 'package:tencent_cloud_chat_sdk/models/v2_tim_user_full_info.dart'
+    if (dart.library.html) 'package:tencent_cloud_chat_sdk/web/compatible_models/v2_tim_user_full_info.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/core/tim_uikit_wide_modal_operation_key.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/theme/color.dart';
 import 'package:tencent_cloud_chat_uikit/theme/tui_theme.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/screen_utils.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/time_ago.dart';
-
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/widget/tim_uikit_profile_widget.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
-
 import 'package:tencent_cloud_chat_demo/config.dart';
 import 'package:tencent_cloud_chat_demo/src/provider/theme.dart';
 import 'package:provider/provider.dart';
@@ -128,10 +126,7 @@ class MyProfileDetailState extends State<MyProfileDetail> {
     var result = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AvatarSelectPage(
-          controller: widget.controller,
-          selectedAvatarUrl: userProfile!.faceUrl ?? "",
-        ),
+        builder: (context) => AvatarSelectPage(controller: widget.controller, selectedAvatarUrl: userProfile!.faceUrl ?? "",),
       ),
     );
 
@@ -150,11 +145,8 @@ class MyProfileDetailState extends State<MyProfileDetail> {
       lastDate: DateTime(2100),
     );
     if (pickedDate != null && pickedDate != selectedDate) {
-      String birthdayString = pickedDate.year.toString() +
-          TimeAgo.getMonth(pickedDate) +
-          TimeAgo.getDay(pickedDate);
-      final result =
-          await widget.controller?.updateBirthday(int.parse(birthdayString));
+      String birthdayString = pickedDate.year.toString() + TimeAgo.getMonth(pickedDate) + TimeAgo.getDay(pickedDate);
+      final result = await widget.controller?.updateBirthday(int.parse(birthdayString));
       if (result?.code == 0) {
         setState(() {
           selectedDate = pickedDate;
@@ -217,7 +209,8 @@ class MyProfileDetailState extends State<MyProfileDetail> {
             TIMUIKitProfileWidget.operationDivider(
                 color: theme.weakDividerColor,
                 height: 1,
-                margin: const EdgeInsets.symmetric(vertical: 20)),
+                margin: const EdgeInsets.symmetric(vertical: 20)
+            ),
             InkWell(
               onTapDown: (details) async {
                 widget.controller?.showTextInputBottomSheet(
@@ -345,6 +338,7 @@ class MyProfileDetailState extends State<MyProfileDetail> {
                 },
                 child: TIMUIKitProfileWidget.birthdayBar(
                     userProfile?.birthday ?? 0, false)),
+
             if (isWideScreen) Expanded(child: Container()),
             if (isWideScreen)
               Row(
@@ -491,3 +485,4 @@ class MyProfileDetailState extends State<MyProfileDetail> {
     );
   }
 }
+
