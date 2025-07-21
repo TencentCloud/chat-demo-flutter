@@ -31,9 +31,9 @@ dependencies:
   flutter:
     sdk: flutter
   tencent_calls_uikit: ^2.9.1
-  tencent_cloud_chat_common: ^4.1.0
+  tencent_cloud_chat_common: ^4.1.0+1
   tencent_cloud_chat_conversation: ^4.1.0
-  tencent_cloud_chat_message: ^4.1.0
+  tencent_cloud_chat_message: ^4.1.0+3
   tencent_cloud_chat_contact: ^4.1.0
   tencent_cloud_chat_push: ^8.6.7019+1
   tencent_cloud_chat_sticker: ^4.1.0
