@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.8.22'
+    ext.kotlin_version = '2.0.20'
     repositories {
         google()
         mavenCentral()
@@ -8,7 +8,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.1'
+        classpath 'com.android.tools.build:gradle:8.1.4'
         classpath 'com.huawei.agconnect:agcp:1.6.0.300'
         classpath 'com.hihonor.mcs:asplugin:2.0.1.300'
         classpath 'com.google.gms:google-services:4.3.15'
@@ -29,18 +29,7 @@ rootProject.buildDir = '../build'
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
-// 解决升级 flutter 3.24 后，某些第三方库编译版本小于 31 导致的的编译报错 lStar not found
-subprojects {
-    afterEvaluate { project ->
-        if (project.plugins.hasPlugin("com.android.application") ||
-                project.plugins.hasPlugin("com.android.library")) {
-            project.android {
-                compileSdkVersion 34
-                buildToolsVersion "34.0.0"
-            }
-        }
-    }
-}
+
 subprojects {
     project.evaluationDependsOn(':app')
 }

@@ -16,27 +16,16 @@ if (localPropertiesFile.exists()) {
     }
 }
 
-
-def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
-if (flutterVersionCode == null) {
-    flutterVersionCode = '1'
-}
-
-def flutterVersionName = localProperties.getProperty('flutter.versionName')
-if (flutterVersionName == null) {
-    flutterVersionName = '1.0'
-}
-
 android {
-    compileSdkVersion 34
+    compileSdkVersion 35
     namespace("com.tencent.flutter.tuikit")
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = JavaVersion.VERSION_17
     }
 
     lintOptions {
@@ -54,8 +43,8 @@ android {
         applicationId "com.tencent.qcloud.tim.tuikit"
         minSdkVersion 21
         targetSdkVersion 33
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        versionCode flutter.versionCode
+        versionName flutter.versionName
         manifestPlaceholders = [
                 VIVO_APPID:"",
                 VIVO_APPKEY:"",
@@ -97,8 +86,6 @@ flutter {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
     implementation 'com.tencent.timpush:huawei:8.3.6498'
     implementation 'com.tencent.timpush:xiaomi:8.3.6498'
     implementation 'com.tencent.timpush:oppo:8.3.6498'
@@ -106,5 +93,4 @@ dependencies {
     implementation 'com.tencent.timpush:honor:8.3.6498'
     implementation 'com.tencent.timpush:meizu:8.3.6498'
     implementation 'com.tencent.timpush:fcm:8.3.6498'
-    implementation 'androidx.work:work-runtime-ktx:2.8.1'
 }
