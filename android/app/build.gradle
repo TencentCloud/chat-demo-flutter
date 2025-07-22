@@ -2,10 +2,10 @@ plugins {
     id "com.android.application"
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
+    id "com.huawei.agconnect"
 }
 
 apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.huawei.agconnect'
 apply plugin: 'com.hihonor.mcs.asplugin'
 
 def localProperties = new Properties()
@@ -86,11 +86,11 @@ flutter {
 }
 
 dependencies {
-    implementation 'com.tencent.timpush:huawei:8.3.6498'
-    implementation 'com.tencent.timpush:xiaomi:8.3.6498'
-    implementation 'com.tencent.timpush:oppo:8.3.6498'
-    implementation 'com.tencent.timpush:vivo:8.3.6498'
-    implementation 'com.tencent.timpush:honor:8.3.6498'
-    implementation 'com.tencent.timpush:meizu:8.3.6498'
-    implementation 'com.tencent.timpush:fcm:8.3.6498'
+    implementation 'com.tencent.timpush:huawei:8.4.6667'
+    implementation 'com.tencent.timpush:xiaomi:8.4.6667'
+    implementation 'com.tencent.timpush:oppo:8.4.6667'
+    implementation 'com.tencent.timpush:vivo:8.4.6667'
+    implementation 'com.tencent.timpush:honor:8.4.6667'
+    implementation 'com.tencent.timpush:meizu:8.4.6667'
+    implementation 'com.tencent.timpush:fcm:8.4.6667'
 }

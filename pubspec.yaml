@@ -42,8 +42,8 @@ dependencies:
 
   # Third party dependencies:
   cupertino_icons: ^1.0.2
-  # https://github.com/flutter/flutter/issues/166970
-  webview_flutter: ^4.10.0
+  webview_flutter: ^4.4.2
+  webview_flutter_android: ^3.12.1
   flutter_easyloading: ^3.0.3
   desktop_webview_window_for_is: ^0.2.4
   bitsdojo_window: ^0.1.5
