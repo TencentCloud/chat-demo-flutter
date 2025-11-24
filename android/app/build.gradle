@@ -18,7 +18,7 @@ if (localPropertiesFile.exists()) {
 
 android {
     namespace "com.tencent.flutter.tuikit"
-    compileSdkVersion 35
+    compileSdkVersion 36
     ndkVersion flutter.ndkVersion
 
     compileOptions {
