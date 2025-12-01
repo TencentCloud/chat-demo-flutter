@@ -39,7 +39,7 @@ dependencies:
   path: ^1.9.0
 
 dependency_overrides:
-  tencent_cloud_chat_sdk: ^8.5.6864-beta.3
+  tencent_cloud_chat_sdk: ^8.8.7354
   permission_handler:
     git:
       url: "https://gitee.com/openharmony-sig/flutter_permission_handler.git"

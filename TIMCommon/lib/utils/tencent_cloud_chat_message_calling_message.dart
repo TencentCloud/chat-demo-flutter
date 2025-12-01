@@ -100,7 +100,7 @@ class CallingMessage {
     groupID = json["groupID"];
 
     String businessID = _signalingJsonData!["businessID"];
-    if (businessID != null && businessID == "av_call") {
+    if (businessID != null && (businessID == "av_call" || businessID == 'rtc_call')) {
       isCallingSignal = true;
     }
 

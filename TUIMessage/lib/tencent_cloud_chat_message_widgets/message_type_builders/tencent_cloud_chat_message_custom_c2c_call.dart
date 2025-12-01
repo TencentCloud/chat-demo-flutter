@@ -4,6 +4,8 @@ import 'package:tencent_cloud_chat_common/data/theme/text_style/text_style.dart'
 import 'package:tencent_cloud_chat_common/utils/tencent_cloud_chat_message_calling_message.dart';
 import 'package:tencent_cloud_chat_common/base/tencent_cloud_chat_theme_widget.dart';
 import 'package:tencent_cloud_chat_message/tencent_cloud_chat_message_widgets/tencent_cloud_chat_message_item.dart';
+import 'package:tencent_cloud_chat_common/tencent_cloud_chat.dart';
+import 'package:tencent_cloud_chat_message/model/tencent_cloud_chat_message_data_tools.dart';
 
 class TencentCloudChatMessageCustomC2CCall extends TencentCloudChatMessageItemBase {
   const TencentCloudChatMessageCustomC2CCall({
@@ -39,13 +41,13 @@ class _TencentCloudChatMessageCustomC2CCallState extends TencentCloudChatMessage
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (callingMessage!.direction == CallMessageDirection.incoming)
+          if (callingMessage.direction == CallMessageDirection.incoming)
             Padding(
               padding: const EdgeInsets.only(right: 4),
               child: ImageIcon(
                 AssetImage(
-                  callingMessage!.streamMediaType == CallStreamMediaType.audio
-                    ? "lib/assets/voice_call.png"
+                  callingMessage.streamMediaType == CallStreamMediaType.audio
+                      ? "lib/assets/voice_call.png"
                     : "lib/assets/video_call.png",
                   package: 'tencent_cloud_chat_message',
                 ),
@@ -53,14 +55,14 @@ class _TencentCloudChatMessageCustomC2CCallState extends TencentCloudChatMessage
               ),
             ),
 
-          Text(callingMessage!.getContent()),
+          Text(callingMessage.getContent()),
 
-          if (callingMessage!.direction == CallMessageDirection.outcoming)
+          if (callingMessage.direction == CallMessageDirection.outcoming)
             Padding(
               padding: const EdgeInsets.only(left: 4),
               child: ImageIcon(
                 AssetImage(
-                  callingMessage!.streamMediaType == CallStreamMediaType.audio
+                  callingMessage.streamMediaType == CallStreamMediaType.audio
                       ? "lib/assets/voice_call.png"
                       : "lib/assets/video_call_self.png",
                   package: 'tencent_cloud_chat_message',
@@ -76,24 +78,25 @@ class _TencentCloudChatMessageCustomC2CCallState extends TencentCloudChatMessage
   @override
   Widget defaultBuilder(BuildContext context) {
     final showTimeIndicators = widget.data.showMessageTimeIndicator;
+    final isMessageFromSelf = TencentCloudChatMessageDataTools.isMessageFromSelf(widget.data.message);
     return TencentCloudChatThemeWidget(build: (context, colorTheme, textStyle) {
       return Container(
         padding: EdgeInsets.symmetric(horizontal: getWidth(10), vertical: getHeight(8)),
         decoration: BoxDecoration(
             color: showHighlightStatus
                 ? colorTheme.info
-                : (sentFromSelf ? colorTheme.selfMessageBubbleColor : colorTheme.othersMessageBubbleColor),
+                : (isMessageFromSelf ? colorTheme.selfMessageBubbleColor : colorTheme.othersMessageBubbleColor),
             border: Border.all(
               color:
-              sentFromSelf ? colorTheme.selfMessageBubbleBorderColor : colorTheme.othersMessageBubbleBorderColor,
+              isMessageFromSelf ? colorTheme.selfMessageBubbleBorderColor : colorTheme.othersMessageBubbleBorderColor,
             ),
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(getSquareSize(!sentFromSelf && widget.data.showMessageSenderName ? 0 : 16)),
-              topRight: Radius.circular(getSquareSize(sentFromSelf && widget.data.showMessageSenderName ? 0 : 16)),
+              topLeft: Radius.circular(getSquareSize(!isMessageFromSelf && widget.data.showMessageSenderName ? 0 : 16)),
+              topRight: Radius.circular(getSquareSize(isMessageFromSelf && widget.data.showMessageSenderName ? 0 : 16)),
               bottomLeft:
-              Radius.circular(getSquareSize(!sentFromSelf && !widget.data.showMessageSenderName ? 0 : 16)),
+              Radius.circular(getSquareSize(!isMessageFromSelf && !widget.data.showMessageSenderName ? 0 : 16)),
               bottomRight:
-              Radius.circular(getSquareSize(sentFromSelf && !widget.data.showMessageSenderName ? 0 : 16)),
+              Radius.circular(getSquareSize(isMessageFromSelf && !widget.data.showMessageSenderName ? 0 : 16)),
             )),
         child: Column(
           mainAxisSize: MainAxisSize.min,

@@ -10,6 +10,8 @@ import 'package:tencent_cloud_chat_common/utils/tencent_cloud_chat_utils.dart';
 import 'package:tencent_cloud_chat_common/base/tencent_cloud_chat_theme_widget.dart';
 import 'package:tencent_cloud_chat_common/tencent_cloud_chat_common.dart';
 import 'package:tencent_cloud_chat_message/tencent_cloud_chat_message_widgets/tencent_cloud_chat_message_item_builders.dart';
+import 'package:tencent_cloud_chat_common/utils/tencent_cloud_chat_message_calling_message.dart';
+import 'package:tencent_cloud_chat_message/model/tencent_cloud_chat_message_data_tools.dart';
 
 class TencentCloudChatMessageRow extends StatefulWidget {
   final MessageRowBuilderData data;
@@ -62,6 +64,7 @@ class _TencentCloudChatMessageRowState
     final tipsItem = widget.data.message.elemType == 101 || widget.data.message.elemType == MessageElemType.V2TIM_ELEM_TYPE_GROUP_TIPS;
     final isRecalled = widget.data.message.status == MessageStatus.V2TIM_MSG_STATUS_LOCAL_REVOKED;
     final isDesktopScreen = TencentCloudChatScreenAdapter.deviceScreenType == DeviceScreenType.desktop;
+    final isMessageFromSelf = TencentCloudChatMessageDataTools.isMessageFromSelf(widget.data.message);
     return TencentCloudChatThemeWidget(
       build: (context, colorTheme, textStyle) => Container(
         margin: EdgeInsets.only(
@@ -90,9 +93,9 @@ class _TencentCloudChatMessageRowState
                       Expanded(
                           child: Row(
                         crossAxisAlignment: widget.data.showMessageSenderName ? CrossAxisAlignment.start : CrossAxisAlignment.end,
-                        mainAxisAlignment: (widget.data.message.isSelf ?? true) ? MainAxisAlignment.end : MainAxisAlignment.start,
+                        mainAxisAlignment: isMessageFromSelf ? MainAxisAlignment.end : MainAxisAlignment.start,
                         children: [
-                          if ((!(widget.data.message.isSelf ?? true)) &&
+                          if ((!isMessageFromSelf) &&
                               widget.data.showOthersAvatar)
                             GestureDetector(
                               onTap: TencentCloudChatUtils.checkString(widget.data.message.sender) != null
@@ -105,7 +108,7 @@ class _TencentCloudChatMessageRowState
                               ),
                             ),
                           Column(
-                            crossAxisAlignment: (widget.data.message.isSelf ?? true) ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                            crossAxisAlignment: isMessageFromSelf ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                             children: [
                               if (widget.data.showMessageSenderName) widget.widgets.messageRowMessageSenderName,
                               ConstrainedBox(
@@ -120,7 +123,7 @@ class _TencentCloudChatMessageRowState
                                   height: 4,
                                 ),
                                 ConstrainedBox(
-                                  constraints: BoxConstraints(maxWidth: min(widget.data.messageRowWidth * 0.8 * 0.9, widget.data.messageRowWidth * 0.8 - getSquareSize((_message.isSelf ?? false) ? 128 : 102))),
+                                  constraints: BoxConstraints(maxWidth: min(widget.data.messageRowWidth * 0.8 * 0.9, widget.data.messageRowWidth * 0.8 - getSquareSize(isMessageFromSelf ? 128 : 102))),
                                   child: widget.widgets.messageTextTranslateItem ?? Container(),
                                 )
                               ],
@@ -129,21 +132,19 @@ class _TencentCloudChatMessageRowState
                                   height: 4,
                                 ),
                                 ConstrainedBox(
-                                  constraints: BoxConstraints(maxWidth: min(widget.data.messageRowWidth * 0.8 * 0.9, widget.data.messageRowWidth * 0.8 - getSquareSize((_message.isSelf ?? false) ? 128 : 102))),
+                                  constraints: BoxConstraints(maxWidth: min(widget.data.messageRowWidth * 0.8 * 0.9, widget.data.messageRowWidth * 0.8 - getSquareSize(isMessageFromSelf ? 128 : 102))),
                                   child: widget.widgets.messageSoundToTextItem ?? Container(),
                                 )
                               ],
                             ],
                           ),
-                          if ((widget.data.message.isSelf ?? true) &&
-                              widget.data.showSelfAvatar)
+                          if (isMessageFromSelf && widget.data.showSelfAvatar)
                             Container(
                               margin: EdgeInsets.symmetric(
                                   horizontal: getSquareSize(10)),
                               child: widget.widgets.messageRowAvatar,
                             ),
-                          if ((widget.data.message.isSelf ?? true) &&
-                              !widget.data.showSelfAvatar)
+                          if (isMessageFromSelf && !widget.data.showSelfAvatar)
                             const SizedBox(
                               width: 10,
                             ),
@@ -200,6 +201,7 @@ class _TencentCloudChatMessageRowState
       margin: EdgeInsets.symmetric(horizontal: getSquareSize(10)),
       child: widget.widgets.messageRowAvatar,
     );
+    final isMessageFromSelf = TencentCloudChatMessageDataTools.isMessageFromSelf(widget.data.message);
 
     return TencentCloudChatThemeWidget(
       build: (context, colorTheme, textStyle) => Container(
@@ -246,16 +248,16 @@ class _TencentCloudChatMessageRowState
                       Expanded(
                           child: Row(
                             crossAxisAlignment: widget.data.showMessageSenderName ? CrossAxisAlignment.start : CrossAxisAlignment.end,
-                            mainAxisAlignment: (widget.data.message.isSelf ?? true) ? MainAxisAlignment.end : MainAxisAlignment.start,
+                            mainAxisAlignment: isMessageFromSelf ? MainAxisAlignment.end : MainAxisAlignment.start,
                             children: [
-                              if ((widget.data.message.isSelf ?? true) || (!(widget.data.message.isSelf ?? true)) && widget.data.showOthersAvatar)
+                              if (isMessageFromSelf || (!isMessageFromSelf) && widget.data.showOthersAvatar)
                                 Opacity(
-                                  opacity: ((!(widget.data.message.isSelf ?? true)) && widget.data.showOthersAvatar) ? 1 : 0,
+                                  opacity: ((!isMessageFromSelf) && widget.data.showOthersAvatar) ? 1 : 0,
                                   child: avatarWidget,
                                 ),
                               Expanded(
                                   child: Column(
-                                    crossAxisAlignment: (widget.data.message.isSelf ?? true) ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                                    crossAxisAlignment: isMessageFromSelf ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                                     children: [
                                       if (widget.data.showMessageSenderName) widget.widgets.messageRowMessageSenderName,
                                       widget.widgets.messageRowMessageItem ?? Container(),
@@ -273,15 +275,15 @@ class _TencentCloudChatMessageRowState
                                       ],
                                     ],
                                   )),
-                              if (!(widget.data.message.isSelf ?? true) || ((widget.data.message.isSelf ?? true) && widget.data.showSelfAvatar))
+                              if (!isMessageFromSelf || (isMessageFromSelf && widget.data.showSelfAvatar))
                                 Opacity(
-                                  opacity: ((widget.data.message.isSelf ?? true) &&
-                                          widget.data.showSelfAvatar)
+                                  opacity: (isMessageFromSelf &&
+                                      widget.data.showSelfAvatar)
                                       ? 1
                                       : 0,
                                   child: avatarWidget,
                                 ),
-                              if ((widget.data.message.isSelf ?? true) &&
+                              if (isMessageFromSelf &&
                                   !widget.data.showSelfAvatar)
                                 const SizedBox(
                                   width: 10,

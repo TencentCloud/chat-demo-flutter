@@ -4,8 +4,20 @@ import 'package:tencent_cloud_chat_common/components/component_config/tencent_cl
 import 'package:tencent_cloud_chat_common/components/component_event_handlers/tencent_cloud_chat_message_event_handlers.dart';
 import 'package:tencent_cloud_chat_common/tencent_cloud_chat.dart';
 import 'package:tencent_cloud_chat_common/utils/tencent_cloud_chat_utils.dart';
+import 'package:tencent_cloud_chat_common/utils/tencent_cloud_chat_message_calling_message.dart';
 
 class TencentCloudChatMessageDataTools {
+  static bool isMessageFromSelf(V2TimMessage message) {
+    final callingMessage = CallingMessage.getCallMessage(message);
+    if (callingMessage != null &&
+        callingMessage.isCallingSignal &&
+        callingMessage.participantType == CallParticipantType.c2c) {
+      return callingMessage.direction == CallMessageDirection.outcoming;
+    }
+
+    return message.isSelf ?? true;
+  }
+
   static V2TimMessage setAdditionalInfoForMessage({
     required V2TimMessage messageInfo,
     String? id,
