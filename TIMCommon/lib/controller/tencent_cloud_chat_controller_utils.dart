@@ -167,7 +167,7 @@ class TencentCloudChatControllerUtils {
   }
 
   static initCallService() {
-    if (TencentCloudChatPlatformAdapter().isMobile && !TencentCloudChatPlatformAdapter().isOhos) {
+    if (TencentCloudChatPlatformAdapter().isMobile) {
       TUICore.instance.getService(TUICALLKIT_SERVICE_NAME).then((value) {
         TencentCloudChat.instance.dataInstance.basic.useCallKit = value;
       });

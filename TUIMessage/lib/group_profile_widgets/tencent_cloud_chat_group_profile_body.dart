@@ -352,9 +352,7 @@ class TencentCloudChatGroupProfileChatButtonState
                         _navigateToChat();
                       }),
                 ),
-                if (!TencentCloudChatPlatformAdapter().isOhos)
                 const SizedBox(width: 18),
-                if (!TencentCloudChatPlatformAdapter().isOhos)
                 Expanded(
                   child: _buildClickableItem(
                       icon: Icons.call,
@@ -365,9 +363,7 @@ class TencentCloudChatGroupProfileChatButtonState
                         }
                       }),
                 ),
-                if (!TencentCloudChatPlatformAdapter().isOhos)
                 const SizedBox(width: 18),
-                if (!TencentCloudChatPlatformAdapter().isOhos)
                 Expanded(
                     child: _buildClickableItem(
                         icon: Icons.videocam_outlined,

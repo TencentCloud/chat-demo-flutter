@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:tencent_calls_uikit/tuicall_kit.dart';
+// import 'package:tencent_calls_uikit/tencent_calls_uikit.dart' as callkit;
 import 'package:tencent_cloud_chat_common/components/component_config/tencent_cloud_chat_message_config.dart';
 import 'package:tencent_cloud_chat_common/components/component_config/tencent_cloud_chat_user_config.dart';
 import 'package:tencent_cloud_chat_common/components/component_event_handlers/tencent_cloud_chat_contact_event_handlers.dart';
@@ -81,7 +81,7 @@ class MyApp extends StatelessWidget {
       title: 'Tencent Cloud Chat',
       builder: FToastBuilder(),
       debugShowCheckedModeBanner: false,
-      // navigatorObservers: [TUICallKit.navigatorObserver],
+      // navigatorObservers: [callkit.TUICallKit.navigatorObserver],
       home: const MyHomePage(),
     );
   }

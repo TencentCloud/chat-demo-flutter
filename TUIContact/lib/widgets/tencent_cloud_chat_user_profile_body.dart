@@ -340,9 +340,7 @@ class TencentCloudChatUserProfileChatButtonState extends TencentCloudChatState<T
                         onTap: () {
                           _navigateToChat();
                         })),
-                if (!TencentCloudChatPlatformAdapter().isOhos)
                 const SizedBox(width: 18),
-                if (!TencentCloudChatPlatformAdapter().isOhos)
                 Expanded(
                   child: _buildClickableItem(
                       icon: Icons.call,
@@ -355,9 +353,7 @@ class TencentCloudChatUserProfileChatButtonState extends TencentCloudChatState<T
                         }
                       }),
                 ),
-                if (!TencentCloudChatPlatformAdapter().isOhos)
                 const SizedBox(width: 18),
-                if (!TencentCloudChatPlatformAdapter().isOhos)
                 Expanded(
                     child: _buildClickableItem(
                         icon: Icons.videocam_outlined,

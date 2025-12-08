@@ -2,7 +2,9 @@ import 'package:desktop_drop_for_t/desktop_drop_for_t.dart';
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_common/components/components_definition/tencent_cloud_chat_component_builder_definitions.dart';
 import 'package:tencent_cloud_chat_common/base/tencent_cloud_chat_state_widget.dart';
+import 'package:tencent_cloud_chat_common/tencent_cloud_chat.dart';
 import 'package:tencent_cloud_chat_message/common/for_desktop/file_tools.dart';
+import 'package:tencent_cloud_uikit_core/tencent_cloud_uikit_core.dart';
 import 'package:tencent_cloud_chat_message/tencent_cloud_chat_message_input/desktop/tencent_cloud_chat_message_input_member_mention_panel.dart';
 import 'package:tencent_cloud_chat_message/tencent_cloud_chat_message_input/desktop/tencent_cloud_chat_message_input_sticker_panel.dart';
 import 'package:tencent_cloud_chat_message/tencent_cloud_chat_message_layout/special_case/tencent_cloud_chat_message_drop_target.dart';
@@ -25,23 +27,87 @@ class TencentCloudChatMessageLayout extends StatefulWidget {
 
 class _TencentCloudChatMessageLayoutState extends TencentCloudChatState<TencentCloudChatMessageLayout> {
   bool _dragging = false;
+  V2TimGroupListener? _groupListener;
+  Widget? _joinInGroupCallWidget;
+
+  @override
+  void initState() {
+    super.initState();
+    _updateJoinInGroupCallWidget();
+    _addGroupListener();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _removeGroupListener();
+  }
+
+  void _addGroupListener() {
+    _groupListener = V2TimGroupListener(
+        onGroupAttributeChanged: (
+            String groupID,
+            Map<String, String> groupAttributeMap,) {
+          if (groupID == widget.data.groupID) {
+            _updateJoinInGroupCallWidget();
+          }
+        }
+    );
+    TencentImSDKPlugin.v2TIMManager.addGroupListener(listener: _groupListener!);
+  }
+
+  void _removeGroupListener() {
+    if (_groupListener != null) {
+      TencentImSDKPlugin.v2TIMManager.removeGroupListener(listener: _groupListener!);
+      _groupListener = null;
+    }
+  }
+
+  _updateJoinInGroupCallWidget() async {
+    final w = await TUICore.instance.raiseExtension(TUIExtensionID.joinInGroup, {GROUP_ID: widget.data.groupID});
+    if (w != _joinInGroupCallWidget) {
+      setState(() {
+        _joinInGroupCallWidget = w;
+      });
+    }
+  }
 
   @override
   Widget defaultBuilder(BuildContext context) {
     return Scaffold(
       appBar: widget.widgets.header,
       // resizeToAvoidBottomInset: false,
-      body: Column(
+      body: Stack(
         children: [
-          Expanded(
-            child: GestureDetector(
-              onTap: () {
-                FocusScope.of(context).unfocus();
-              },
-              child: widget.widgets.messageListView,
+          Positioned(
+            left: 0,
+            top: 0,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height - (widget.widgets.header?.preferredSize.height ?? 0) - MediaQuery.of(context).padding.top,
+            child: Column(
+              children: [
+                _joinInGroupCallWidget ?? const SizedBox(),
+
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      FocusScope.of(context).unfocus();
+                    },
+                    child: widget.widgets.messageListView,
+                  ),
+                ),
+
+                widget.widgets.messageInput,
+              ],
             ),
           ),
-          widget.widgets.messageInput,
+
+          Positioned(
+            left: 0,
+            top: 0,
+            width: MediaQuery.of(context).size.width,
+            child: _joinInGroupCallWidget ?? const SizedBox(),
+          )
         ],
       ),
     );
